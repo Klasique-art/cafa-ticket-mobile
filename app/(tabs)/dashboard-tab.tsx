@@ -2,12 +2,12 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { Screen } from '@/components'
 
-const HomeScreen = () => {
+const DashboardTab = () => {
     return (
-        <Screen className=''>
-            <Text className=''>HomeScreen</Text>
+        <Screen>
+            <Text>DashboardTab</Text>
         </Screen>
     )
 }
 
-export default HomeScreen
+export default DashboardTab
