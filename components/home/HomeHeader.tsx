@@ -1,12 +1,12 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
 import { Link } from "expo-router";
-import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAuth } from "@/context/AuthContext";
 import colors from "@/config/colors";
+import { getFullImageUrl } from "@/utils/imageUrl";
 
 interface HomeHeaderProps {
   onProfilePress?: () => void;
@@ -20,7 +20,7 @@ export default function HomeHeader({ onProfilePress }: HomeHeaderProps) {
     if (onProfilePress) {
       onProfilePress();
     } else if (isAuthenticated) {
-      router.push("/dashboard/profile/index");
+      router.push("/dashboard/profile");
     } else {
       router.push("/(auth)/login");
     }
@@ -73,13 +73,12 @@ export default function HomeHeader({ onProfilePress }: HomeHeaderProps) {
           {isAuthenticated ? (
             user?.profile_image ? (
               <Image
-                source={{ uri: user.profile_image }}
-                className="h-10 w-10 rounded-full"
-                contentFit="cover"
+                source={{ uri: getFullImageUrl(user?.profile_image) || undefined }}
+                className="h-10 w-10 rounded-full bg-cover"
               />
             ) : (
               <View
-                className="h-10 w-10 items-center justify-center rounded-full"
+                className="h-10 w-10 items-center justify-center rounded-full bg-red-500"
                 style={{ backgroundColor: colors.accent }}
               >
                 <Text className="text-sm font-bold text-white">

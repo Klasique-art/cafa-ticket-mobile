@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 
-export const API_BASE_URL = "https://cafaticket.pythonanywhere.com/api/v1";
+export const API_BASE_URL = "https://api.cafatickets.com/api/v1";
 export const AUTH_TOKEN_KEY = "cafa_auth_token";
 export const REFRESH_TOKEN_KEY = "cafa_refresh_token";
 

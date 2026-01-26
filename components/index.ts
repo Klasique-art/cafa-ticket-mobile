@@ -18,3 +18,5 @@ export {default as AppFormField} from "./form/AppFormField";
 export {default as DateInput} from "./form/DateInput";
 export {default as AppInput} from "./form/AppInput";
 export {default as FormLoader} from "./form/FormLoader";
+// auth
+export {default as EmailVerificationPrompt} from "./auth/EmailVerificationPrompt";

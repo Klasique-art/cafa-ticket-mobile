@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const ProfileScreen = () => {
+const TermsScreen = () => {
   return (
     <View>
-      <Text>ProfileScreen</Text>
+      <Text>TermsScreen</Text>
     </View>
   )
 }
 
-export default ProfileScreen
+export default TermsScreen

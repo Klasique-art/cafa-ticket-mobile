@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik';
 import { View } from 'react-native';
+import type { KeyboardTypeOptions } from 'react-native';
 import { AppInput, AppErrorMessage, SelectInput, DateInput, SearchableSelect } from "@/components";
 
 type StringFieldFormValues = Record<string, string>;
@@ -20,6 +21,12 @@ type Props<Values extends StringFieldFormValues = StringFieldFormValues> = {
     isLoading?: boolean;
     icon?: string;
     iconClick?: () => void;
+    iconAria?: string;
+    autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+    autoCorrect?: boolean;
+    spellCheck?: boolean;
+    keyboardType?: KeyboardTypeOptions;
+    secureTextEntry?: boolean;
 };
 
 const AppFormField = <Values extends StringFieldFormValues = StringFieldFormValues>({
@@ -37,6 +44,12 @@ const AppFormField = <Values extends StringFieldFormValues = StringFieldFormValu
     isLoading = false,
     icon,
     iconClick,
+    iconAria,
+    autoCapitalize,
+    autoCorrect,
+    spellCheck,
+    keyboardType,
+    secureTextEntry,
 }: Props<Values>) => {
     const { errors, setFieldTouched, setFieldValue, touched, values } = useFormikContext<Values>();
 
@@ -102,6 +115,12 @@ const AppFormField = <Values extends StringFieldFormValues = StringFieldFormValu
                     placeholder={placeholder}
                     icon={icon}
                     iconClick={iconClick}
+                    iconAria={iconAria}
+                    autoCapitalize={autoCapitalize}
+                    autoCorrect={autoCorrect}
+                    spellCheck={spellCheck}
+                    keyboardType={keyboardType}
+                    secureTextEntry={secureTextEntry}
                 />
             )}
             <AppErrorMessage error={error} visible={isTouched} />

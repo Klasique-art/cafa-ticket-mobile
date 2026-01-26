@@ -14,7 +14,7 @@ const SubmitButton = ({ title, forceEnable = false }: Props) => {
     return (
         <AppButton
             title={isSubmitting ? 'Submitting...' : title}
-            variant="primary"
+            variant="danger"
             size="lg"
             fullWidth
             loading={isSubmitting}

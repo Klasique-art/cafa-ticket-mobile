@@ -35,7 +35,6 @@ const AppButton = ({
     href,
     title = "Button",
     onClick,
-    type = "button",
     className = "",
     variant = 'primary',
     size = 'md',
@@ -47,8 +46,8 @@ const AppButton = ({
 }: AppButtonProps) => {
     // Variant styles
     const variantClasses = {
-        primary: 'bg-secondary active:bg-secondary/90',
-        secondary: 'bg-slate-100 active:bg-slate-200',
+        primary: 'bg-primary active:bg-primary/90',
+        secondary: 'bg-secondary active:bg-secondary/90',
         outline: 'bg-transparent border-2 border-secondary active:bg-primary/20',
         ghost: 'bg-transparent active:bg-slate-100',
         danger: 'bg-red-600 active:bg-red-700',
@@ -57,7 +56,7 @@ const AppButton = ({
     // Text color based on variant
     const textColorClasses = {
         primary: 'text-white',
-        secondary: 'text-slate-900',
+        secondary: 'text-slate-200',
         outline: 'text-white',
         ghost: 'text-slate-700',
         danger: 'text-white',

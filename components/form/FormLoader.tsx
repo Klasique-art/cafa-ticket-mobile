@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 
-import {Animation} from "@/components";
+import Animation from "../ui/Animation";
 import { movingCar } from "@/assets";
 
 const FormLoader = ({ visible }: { visible: boolean }) => {

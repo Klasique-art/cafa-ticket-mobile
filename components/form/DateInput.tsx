@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from '@expo/vector-icons';
 
-import {AppText} from "@/components"
+import AppText from '../ui/AppText';
 
 type Props = {
     name: string;

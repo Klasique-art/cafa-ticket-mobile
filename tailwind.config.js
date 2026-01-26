@@ -6,8 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#1a2f56",
-        secondary: "#425d85",
+        primary: "#050E3C",
+        secondary: "#002455",
+        accent: "#DC0000",
+        accent50: "#FF5555",
       },
       fontFamily: {
         iblack: ["Inter-Black", "sans-serif"],
