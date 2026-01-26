@@ -1,12 +1,12 @@
 import { useEffect, useState, useCallback } from "react";
-import { ScrollView, RefreshControl, View, StatusBar } from "react-native";
+import { RefreshControl, View, StatusBar } from "react-native";
+import Animated from 'react-native-reanimated';
 
 import colors from "@/config/colors";
 import { Event, EventCategory, PublicStats } from "@/types";
 import { getEvents, getEventCategories } from "@/lib/events";
 import { getPublicStats } from "@/lib/general";
 import { isWithinDays } from "@/utils/format";
-
 import {
     HomeHeader,
     SearchBar,
@@ -16,6 +16,7 @@ import {
     StatsSection,
 } from "@/components/home";
 import { FeaturedEventCard } from "@/components/cards";
+import { useScrollTabBar } from "@/hooks";
 
 export default function HomeScreen() {
     const [isLoading, setIsLoading] = useState(true);
@@ -23,6 +24,8 @@ export default function HomeScreen() {
     const [events, setEvents] = useState<Event[]>([]);
     const [categories, setCategories] = useState<EventCategory[]>([]);
     const [stats, setStats] = useState<PublicStats | null>(null);
+
+    const scrollHandler = useScrollTabBar();
 
     const fetchData = useCallback(async () => {
         try {
@@ -67,9 +70,11 @@ export default function HomeScreen() {
         <View className="flex-1 px-2" style={{ backgroundColor: colors.primary }}>
             <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
 
-            <ScrollView
+            <Animated.ScrollView
                 className="flex-1"
                 showsVerticalScrollIndicator={false}
+                onScroll={scrollHandler}
+                scrollEventThrottle={16}
                 refreshControl={
                     <RefreshControl
                         refreshing={isRefreshing}
@@ -108,7 +113,7 @@ export default function HomeScreen() {
 
                 {/* Bottom spacing for tab bar */}
                 <View className="h-24" />
-            </ScrollView>
+            </Animated.ScrollView>
         </View>
     );
 }

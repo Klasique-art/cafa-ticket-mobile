@@ -20,3 +20,14 @@ export {default as AppInput} from "./form/AppInput";
 export {default as FormLoader} from "./form/FormLoader";
 // auth
 export {default as EmailVerificationPrompt} from "./auth/EmailVerificationPrompt";
+// events
+export { default as EventsHero } from "./events/EventsHero";
+export { default as EventsCategoryTabs } from "./events/EventsCategoryTabs";
+export { default as EventsFilter } from "./events/EventsFilter";
+export { default as EventsSortTab } from "./events/EventsSortTab";
+export { default as ActiveFiltersDisplay } from "./events/ActiveFiltersDisplay";
+export { default as EventsResultsHeader } from "./events/EventsResultsHeader";
+export { default as EventsGrid } from "./events/EventsGrid";
+export { default as EventsEmptyState } from "./events/EventsEmptyState";
+export { default as EventCard } from "./events/EventCard";
+export type { FilterOptions } from "./events/EventsFilter";
