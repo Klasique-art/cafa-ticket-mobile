@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "cafa-ticket-mobile",
-    "slug": "cafa-ticket-mobile",
+    "name": "cafa-tickets-mobile",
+    "slug": "cafa-tickets-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "cafaticketmobile",
+    "scheme": "cafaticketsmobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -38,7 +38,8 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,
