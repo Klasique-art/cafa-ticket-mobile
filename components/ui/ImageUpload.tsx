@@ -186,9 +186,9 @@ const ImageUpload = ({
                     <TouchableOpacity
                         onPress={showImageOptions}
                         disabled={disabled || isLoading}
-                        className="border-2 border-dashed rounded-xl p-8 items-center"
+                        className="border-2 border-dashed rounded-xl p-6 items-center"
                         style={{ 
-                            borderColor: error ? '#ef4444' : colors.accent + '4D',
+                            borderColor: error ? '#ef4444' : colors.white + '4D',
                             backgroundColor: error ? 'rgba(239, 68, 68, 0.05)' : colors.primary200,
                             opacity: disabled ? 0.6 : 1
                         }}

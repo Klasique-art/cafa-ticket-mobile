@@ -1,10 +1,10 @@
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
-import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
 import React, { forwardRef, ReactNode, useImperativeHandle, useMemo, useRef } from 'react';
 
 import colors from '@/config/colors';
 
-export interface AppBottomSheetRef {
+export interface AppBottomSheetRef { 
     open: () => void;
     close: () => void;
 }
@@ -12,13 +12,21 @@ export interface AppBottomSheetRef {
 interface AppBottomSheetProps {
     children: ReactNode;
     onClose?: () => void;
-    customSnapPoints?: (string | number)[];
+    snapPoints?: (string | number)[];
     showOverlay?: boolean;
-    [key: string]: any; // For other BottomSheet props
+    enablePanDownToClose?: boolean;
+    [key: string]: any;
 }
 
 const AppBottomSheet = forwardRef<AppBottomSheetRef, AppBottomSheetProps>(
-    ({ children, onClose, customSnapPoints = ['40%'], showOverlay = true, ...otherProps }, ref) => {
+    ({ 
+        children, 
+        onClose, 
+        snapPoints: customSnapPoints = ['40%'], 
+        showOverlay = true,
+        enablePanDownToClose = true,
+        ...otherProps 
+    }, ref) => {
         const snapPoints = useMemo(() => customSnapPoints, [customSnapPoints]);
         const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -38,7 +46,12 @@ const AppBottomSheet = forwardRef<AppBottomSheetRef, AppBottomSheetProps>(
             () =>
                 showOverlay
                     ? (props: BottomSheetBackdropProps) => (
-                        <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />
+                        <BottomSheetBackdrop 
+                            {...props} 
+                            disappearsOnIndex={-1} 
+                            appearsOnIndex={0}
+                            opacity={0.5}
+                        />
                     )
                     : undefined,
             [showOverlay]
@@ -49,9 +62,9 @@ const AppBottomSheet = forwardRef<AppBottomSheetRef, AppBottomSheetProps>(
                 snapPoints={snapPoints}
                 index={-1}
                 ref={bottomSheetRef}
-                enablePanDownToClose={true}
+                enablePanDownToClose={enablePanDownToClose}
                 backdropComponent={renderBackdrop}
-                enableHandlePanningGesture={true}
+                enableHandlePanningGesture={enablePanDownToClose}
                 handleIndicatorStyle={{
                     backgroundColor: colors.accent,
                     height: 4,
@@ -61,20 +74,19 @@ const AppBottomSheet = forwardRef<AppBottomSheetRef, AppBottomSheetProps>(
                 backgroundStyle={{ backgroundColor: colors.primary }}
                 onClose={onClose}
                 accessible={true}
-                // @ts-ignore - focusable exists but not in types
+                // @ts-ignore
                 focusable={true}
-                // @ts-ignore - onMagicTap exists but not in types
+                // @ts-ignore
                 onMagicTap={onClose}
-                style={[
-                    {
-                        flex: 1,
-                        zIndex: 1000,
-                        elevation: 1000,
-                    },
-                ]}
+                style={{
+                    zIndex: 1000,
+                    elevation: 1000,
+                }}
                 {...otherProps}
             >
-                {children}
+                <BottomSheetView style={{ flex: 1 }}> 
+                    {children}
+                </BottomSheetView> 
             </BottomSheet>
         );
     }

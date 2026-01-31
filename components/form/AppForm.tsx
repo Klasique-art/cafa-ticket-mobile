@@ -1,10 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Formik, FormikConfig, FormikValues } from 'formik';
+import { Formik, FormikConfig, FormikValues, FormikProps } from 'formik';
 
 type AppFormProps<Values extends FormikValues> = {
     formStyles?: string;
-    children: React.ReactNode;
+    children: React.ReactNode | ((props: FormikProps<Values>) => React.ReactNode);
 } & FormikConfig<Values>;
 
 const AppForm = <Values extends FormikValues>({
@@ -22,9 +22,9 @@ const AppForm = <Values extends FormikValues>({
             validationSchema={validationSchema}
             {...rest}
         >
-            {() => (
+            {(formikProps) => (
                 <View className={`flex flex-col gap-4 ${formStyles} w-full`}>
-                    {children}
+                    {typeof children === 'function' ? children(formikProps) : children}
                 </View>
             )}
         </Formik>

@@ -16,6 +16,8 @@ export { default as ImageUpload } from "./ui/ImageUpload";
 export { default as ListItem } from "./ui/ListItem";
 export { default as Nav } from "./ui/Nav";
 export { default as Screen } from "./ui/Screen";
+export { default as CategorySelect } from "./ui/CategorySelect";
+export { default as LocationSelector } from "./ui/LocationSelector";
 // form
 export { default as AppErrorMessage } from "./form/AppErrorMessage";
 export { default as AppForm } from "./form/AppForm";
@@ -65,3 +67,25 @@ export { default as MyEventsHeader } from "./dashboard/events/MyEventsHeader";
 // dashboard attended events
 export { default as AttendedEventCard } from "./dashboard/attended/AttendedEventCard";
 export { default as AttendedEventsList } from "./dashboard/attended/AttendedEventsList";
+// dashboard events details
+export { default as MyEventAnalyticsOverview } from "./dashboard/events/details/MyEventAnalyticsOverview";
+export { default as MyEventDetailsHeader } from "./dashboard/events/details/MyEventDetailsHeader";
+export { default as MyEventImageGallery } from "./dashboard/events/details/MyEventImageGallery";
+export { default as MyEventInfo } from "./dashboard/events/details/MyEventInfo";
+export { default as MyEventRecentSales } from "./dashboard/events/details/MyEventRecentSales";
+export { default as MyEventSalesByTicketType } from "./dashboard/events/details/MyEventSalesByTicketType";
+export { default as MyEventTicketTypes } from "./dashboard/events/details/MyEventTicketTypes";
+export { default as MyEventTrafficStats } from "./dashboard/events/details/MyEventTrafficStats";
+// dashboard events create
+export { default as CreateEventForm } from "./dashboard/events/create/CreateEventForm";
+export { default as AddTicketTypeModal } from "./dashboard/events/create/AddTicketTypeModal";
+export { default as EventCapacitySection } from "./dashboard/events/create/EventCapacitySection";
+export { default as EventDateTimeSection } from "./dashboard/events/create/EventDateTimeSection";
+export { default as EventImagesSection } from "./dashboard/events/create/EventImagesSection";
+export { default as EventPaymentProfileSection } from "./dashboard/events/create/EventPaymentProfileSection";
+export { default as EventPublishSection } from "./dashboard/events/create/EventPublishSection";
+export { default as EventTicketTypesSection } from "./dashboard/events/create/EventTicketTypesSection";
+export { default as EventVenueSection } from "./dashboard/events/create/EventVenueSection";
+export { default as TicketTypeCard } from "./dashboard/events/create/TicketTypeCard";
+export { default as EventBasicInfoSection } from "./dashboard/events/create/EventBasicInfoSection";
+export { default as EventTypeSection } from "./dashboard/events/create/EventTypeSection";

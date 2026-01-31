@@ -146,3 +146,44 @@ export async function getMyAttendedEvents(
     };
   }
 }
+
+/**
+ * Create a new event
+ * @param payload - Event data (from buildEventFormData)
+ * @returns Created event data
+ */
+export async function createEvent(payload: any) {
+  try {
+    const response = await client.post("/events/my-events/create/", payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.data) {
+      const errorData = error.response.data;
+      
+      // Extract first error message
+      if (errorData.detail) {
+        throw new Error(errorData.detail);
+      }
+      if (errorData.error) {
+        throw new Error(errorData.error);
+      }
+      if (errorData.message) {
+        throw new Error(errorData.message);
+      }
+      
+      // Field-specific errors
+      if (errorData.title) {
+        throw new Error(`Title: ${Array.isArray(errorData.title) ? errorData.title[0] : errorData.title}`);
+      }
+      if (errorData.ticket_types) {
+        throw new Error(`Ticket Types: ${Array.isArray(errorData.ticket_types) ? errorData.ticket_types[0] : errorData.ticket_types}`);
+      }
+    }
+    
+    throw new Error("Failed to create event. Please try again.");
+  }
+}

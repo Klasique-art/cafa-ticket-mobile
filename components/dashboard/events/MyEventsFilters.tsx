@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { BottomSheetScrollView, BottomSheetView } from "@gorhom/bottom-sheet";
+import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { useEffect, useState } from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
 
@@ -80,46 +80,41 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
     ];
 
     return (
-        <>
-            {/* Header */}
-            <BottomSheetView>
-                <View className="px-6 pt-6 pb-4 border-b" style={{ borderColor: colors.accent + "90", zIndex: 5 }}>
-                    <View className="flex-row items-center justify-between">
-                        <View className="flex-row items-center gap-3">
-                            <View
-                                className="w-12 h-12 rounded-xl items-center justify-center"
-                                style={{ backgroundColor: colors.accent + "33" }}
-                            >
-                                <Ionicons name="filter" size={24} color={colors.accent50} />
-                            </View>
-                            <AppText styles="text-xl text-white" font="font-ibold">
-                                Filters
-                            </AppText>
+        <BottomSheetScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+                paddingBottom: 40, // Extra padding at bottom
+            }}
+        >
+            {/* Header - INSIDE ScrollView */}
+            <View className="px-6 pt-6 pb-4 border-b" style={{ borderColor: colors.accent + "30" }}>
+                <View className="flex-row items-center justify-between">
+                    <View className="flex-row items-center gap-3">
+                        <View
+                            className="w-12 h-12 rounded-xl items-center justify-center"
+                            style={{ backgroundColor: colors.accent + "33" }}
+                        >
+                            <Ionicons name="filter" size={24} color={colors.accent50} />
                         </View>
-
-                        {hasActiveFilters && (
-                            <TouchableOpacity onPress={clearFilters} activeOpacity={0.8}>
-                                <AppText styles="text-sm text-accent-50" font="font-isemibold">
-                                    Clear All
-                                </AppText>
-                            </TouchableOpacity>
-                        )}
+                        <AppText styles="text-xl text-white" font="font-ibold">
+                            Filters
+                        </AppText>
                     </View>
-                </View>
-            </BottomSheetView>
 
-            {/* Scrollable Filters Content */}
-            <BottomSheetScrollView
-                style={{ flex: 1 }}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{
-                    paddingHorizontal: 20,
-                    paddingTop: 74,
-                    paddingBottom: 24,
-                }}
-            >
+                    {hasActiveFilters && (
+                        <TouchableOpacity onPress={clearFilters} activeOpacity={0.8}>
+                            <AppText styles="text-sm text-accent-50" font="font-isemibold">
+                                Clear All
+                            </AppText>
+                        </TouchableOpacity>
+                    )}
+                </View>
+            </View>
+
+            {/* Content */}
+            <View className="px-6 pt-6">
                 {/* Search */}
-                <View className="my-6">
+                <View className="mb-6">
                     <AppText styles="text-sm text-slate-300 mb-3" font="font-isemibold">
                         Search
                     </AppText>
@@ -128,8 +123,13 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                         onChangeText={setSearch}
                         placeholder="Search by title..."
                         placeholderTextColor="#64748b"
-                        className="h-12 px-4 bg-primary-100 border-2 border-accent text-white rounded-xl"
-                        style={{ fontFamily: "iregular", fontSize: 14 }}
+                        className="h-12 px-4 bg-primary-100 text-white rounded-xl"
+                        style={{ 
+                            fontFamily: "iregular", 
+                            fontSize: 14,
+                            borderWidth: 2,
+                            borderColor: colors.accent + "4D"
+                        }}
                     />
                 </View>
 
@@ -143,16 +143,17 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                             <TouchableOpacity
                                 key={option.value}
                                 onPress={() => setStatus(option.value)}
-                                className={`px-4 py-3 rounded-xl border-2 ${status === option.value
-                                    ? "bg-accent border-accent"
-                                    : "bg-primary-100 border-accent/30"
-                                    }`}
+                                className="px-4 py-3 rounded-xl border-2"
+                                style={{
+                                    backgroundColor: status === option.value ? colors.accent : colors.primary100,
+                                    borderColor: status === option.value ? colors.accent : colors.accent + "4D"
+                                }}
                                 activeOpacity={0.7}
                             >
                                 <AppText
-                                    styles={`text-sm ${status === option.value ? "text-white" : "text-slate-300"
-                                        }`}
+                                    styles="text-sm"
                                     font="font-isemibold"
+                                    color={status === option.value ? "text-white" : "text-slate-300"}
                                 >
                                     {option.label}
                                 </AppText>
@@ -171,16 +172,17 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                             <TouchableOpacity
                                 key={option.value}
                                 onPress={() => setIsPublished(option.value)}
-                                className={`px-4 py-3 rounded-xl border-2 ${isPublished === option.value
-                                    ? "bg-accent border-accent"
-                                    : "bg-primary-100 border-accent/30"
-                                    }`}
+                                className="px-4 py-3 rounded-xl border-2"
+                                style={{
+                                    backgroundColor: isPublished === option.value ? colors.accent : colors.primary100,
+                                    borderColor: isPublished === option.value ? colors.accent : colors.accent + "4D"
+                                }}
                                 activeOpacity={0.7}
                             >
                                 <AppText
-                                    styles={`text-sm ${isPublished === option.value ? "text-white" : "text-slate-300"
-                                        }`}
+                                    styles="text-sm"
                                     font="font-isemibold"
+                                    color={isPublished === option.value ? "text-white" : "text-slate-300"}
                                 >
                                     {option.label}
                                 </AppText>
@@ -199,16 +201,17 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                             <TouchableOpacity
                                 key={option.value}
                                 onPress={() => setSortBy(option.value)}
-                                className={`px-4 py-3 rounded-xl border-2 ${sortBy === option.value
-                                    ? "bg-accent border-accent"
-                                    : "bg-primary-100 border-accent/30"
-                                    }`}
+                                className="px-4 py-3 rounded-xl border-2"
+                                style={{
+                                    backgroundColor: sortBy === option.value ? colors.accent : colors.primary100,
+                                    borderColor: sortBy === option.value ? colors.accent : colors.accent + "4D"
+                                }}
                                 activeOpacity={0.7}
                             >
                                 <AppText
-                                    styles={`text-sm ${sortBy === option.value ? "text-white" : "text-slate-300"
-                                        }`}
+                                    styles="text-sm"
                                     font="font-isemibold"
+                                    color={sortBy === option.value ? "text-white" : "text-slate-300"}
                                 >
                                     {option.label}
                                 </AppText>
@@ -217,9 +220,9 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                     </View>
                 </View>
 
-                {/* Apply Button - INSIDE ScrollView */}
+                {/* Apply Button */}
                 <View
-                    className="py-4 mt-2"
+                    className="py-4 mt-2 mb-6"
                     style={{
                         borderTopWidth: 1,
                         borderColor: colors.accent + "30",
@@ -236,8 +239,8 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                         </AppText>
                     </TouchableOpacity>
                 </View>
-            </BottomSheetScrollView>
-        </>
+            </View>
+        </BottomSheetScrollView>
     );
 };
 

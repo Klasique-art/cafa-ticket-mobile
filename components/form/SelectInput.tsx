@@ -14,7 +14,7 @@ type Props = {
     label: string;
     value: string;
     onChange: (value: string) => void;
-    onBlur: () => void;
+    onBlur?: () => void; 
     options: Option[];
     required?: boolean;
     placeholder?: string;
@@ -35,15 +35,15 @@ const SelectInput = ({
                 {label}
                 {required && <AppText className="text-red-400 ml-1"> *</AppText>}
             </AppText>
-            <View className="border-2 border-secondary rounded-xl overflow-hidden bg-primary">
+            <View className="border-2 border-accent rounded-xl overflow-hidden bg-primary">
                 <Picker
                     selectedValue={value}
                     onValueChange={(itemValue) => {
                         onChange(itemValue);
-                        onBlur();
+                        onBlur?.(); // ✅ Safe optional call
                     }}
                     style={{
-                        height: 48,
+                        height: 50,
                         color: '#ffffff',
                     }}
                     dropdownIconColor="#cbd5e1"

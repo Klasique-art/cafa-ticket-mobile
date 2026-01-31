@@ -47,7 +47,7 @@ const DashboardList = () => {
                     />
                 )}
             />
-            <AppBottomSheet ref={bottomSheetRef} customSnapPoints={["35%"]}>
+            <AppBottomSheet ref={bottomSheetRef} customSnapPoints={["50%"]}>
                 <ConfirmAction
                     title="Logout"
                     desc="Are you sure you want to logout from your account?"

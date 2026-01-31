@@ -1,7 +1,7 @@
 import { View, ActivityIndicator } from "react-native";
 import { useState, useEffect, useCallback, useRef } from "react";
 
-import { Screen, MyEventsHeader, MyEventsFilters, MyEventsGrid, MyEventsEmptyState, AppBottomSheet, ConfirmAction, AppText, Nav } from "@/components";
+import { Screen, MyEventsHeader, MyEventsFilters, MyEventsGrid, MyEventsEmptyState, AppBottomSheet, ConfirmAction, AppText, Nav, RequireAuth } from "@/components";
 import type { AppBottomSheetRef } from "@/components";
 import type { MyEvent } from "@/types/dash-events.types";
 import { getMyEvents, deleteMyEvent } from "@/lib/events";
@@ -136,47 +136,49 @@ const DashboardEventsScreen = () => {
 
   return (
     <Screen>
-      <Nav title="My Events" />
-      <View className="flex-1">
-        <MyEventsHeader currentUser={user} onOpenFilters={() => filtersSheetRef.current?.open()} />
+      <RequireAuth>
+        <Nav title="My Events" />
+        <View className="flex-1">
+          <MyEventsHeader currentUser={user} onOpenFilters={() => filtersSheetRef.current?.open()} />
 
-        {error && (
-          <View className="mx-4 mb-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
-            <AppText styles="text-sm text-red-400" font="font-iregular">{error}</AppText>
-          </View>
-        )}
+          {error && (
+            <View className="mx-4 mb-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
+              <AppText styles="text-sm text-red-400" font="font-iregular">{error}</AppText>
+            </View>
+          )}
 
-        {events.length > 0 ? (
-          <MyEventsGrid
-            events={events}
-            isLoading={isLoading}
-            hasMore={currentPage < totalPages}
-            onLoadMore={handleLoadMore}
-            onDelete={handleDeleteClick}
-          />
-        ) : (
-          <MyEventsEmptyState />
-        )}
-      </View>
+          {events.length > 0 ? (
+            <MyEventsGrid
+              events={events}
+              isLoading={isLoading}
+              hasMore={currentPage < totalPages}
+              onLoadMore={handleLoadMore}
+              onDelete={handleDeleteClick}
+            />
+          ) : (
+            <MyEventsEmptyState />
+          )}
+        </View>
 
-      {/* Filters Bottom Sheet */}
-      <AppBottomSheet ref={filtersSheetRef} customSnapPoints={["90%"]}>
-        <MyEventsFilters onFilterChange={handleFilterChange} currentFilters={filters} />
-      </AppBottomSheet>
+        {/* Filters Bottom Sheet */}
+        <AppBottomSheet ref={filtersSheetRef} customSnapPoints={["95%"]}>
+          <MyEventsFilters onFilterChange={handleFilterChange} currentFilters={filters} />
+        </AppBottomSheet>
 
-      {/* Delete Confirmation */}
-      <AppBottomSheet ref={bottomSheetRef} customSnapPoints={["40%"]}>
-        {deleteConfirm && (
-          <ConfirmAction
-            title="Delete Event?"
-            desc={`Are you sure you want to delete "${deleteConfirm.title}"? This action cannot be undone.`}
-            onCancel={() => bottomSheetRef.current?.close()}
-            onConfirm={handleDeleteConfirm}
-            confirmBtnTitle={deleting ? "Deleting..." : "Yes, Delete"}
-            isDestructive={true}
-          />
-        )}
-      </AppBottomSheet>
+        {/* Delete Confirmation */}
+        <AppBottomSheet ref={bottomSheetRef} customSnapPoints={["40%"]}>
+          {deleteConfirm && (
+            <ConfirmAction
+              title="Delete Event?"
+              desc={`Are you sure you want to delete "${deleteConfirm.title}"? This action cannot be undone.`}
+              onCancel={() => bottomSheetRef.current?.close()}
+              onConfirm={handleDeleteConfirm}
+              confirmBtnTitle={deleting ? "Deleting..." : "Yes, Delete"}
+              isDestructive={true}
+            />
+          )}
+        </AppBottomSheet>
+      </RequireAuth>
     </Screen>
   );
 };

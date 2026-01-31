@@ -51,7 +51,7 @@ const DateInput = ({ label, value, onChange, onBlur, required = false, min, max 
             
             <TouchableOpacity
                 onPress={() => setShow(true)}
-                className="relative w-full h-12 px-2 bg-primary border-2 border-secondary rounded-xl flex-row items-center"
+                className="relative w-full h-12 px-2 bg-primary border-2 border-accent rounded-xl flex-row items-center"
             >
                 <Ionicons 
                     name="calendar" 
