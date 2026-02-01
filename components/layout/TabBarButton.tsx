@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     tabBarItem: {
         flex: 1,
         alignItems: "center",
-        paddingVertical: 10,
+        paddingVertical: 5,
         gap: 3,
     },
 })

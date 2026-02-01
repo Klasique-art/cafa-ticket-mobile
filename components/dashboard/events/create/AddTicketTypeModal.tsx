@@ -45,7 +45,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
         };
 
         return (
-            <AppBottomSheet ref={bottomSheetRef} snapPoints={["90%"]}>
+            <AppBottomSheet ref={bottomSheetRef} snapPoints={["90%"]} scrollable>
                 <View className="flex-1 px-4 pb-4">
                     {/* Header */}
                     <View className="flex-row items-center justify-between mb-4">

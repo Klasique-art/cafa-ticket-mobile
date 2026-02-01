@@ -34,7 +34,7 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                 { 
                     translateY: withTiming(
                         isVisible.value ? 0 : totalHeight,
-                        { duration: 300 }
+                        { duration: 250 }
                     )
                 }
             ],
@@ -46,7 +46,7 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
             <Animated.View style={[animatedTabStyle, {
                 position: "absolute",
                 width: buttonWidth - 20,
-                height: dimensions.height - 25,
+                height: dimensions.height - 20,
                 borderRadius: 60,
                 backgroundColor: colors.accent,
                 marginHorizontal: 10,

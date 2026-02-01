@@ -47,14 +47,13 @@ const DashboardList = () => {
                     />
                 )}
             />
-            <AppBottomSheet ref={bottomSheetRef} customSnapPoints={["50%"]}>
+            <AppBottomSheet ref={bottomSheetRef} customSnapPoints={["60%"]}>
                 <ConfirmAction
                     title="Logout"
                     desc="Are you sure you want to logout from your account?"
                     onCancel={() => bottomSheetRef.current?.close()}
                     onConfirm={handleConfirmLogout}
                     confirmBtnTitle="Logout"
-                    isDestructive={false}
                 />
             </AppBottomSheet>
         </>

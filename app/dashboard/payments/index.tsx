@@ -154,7 +154,7 @@ const PaymentsScreen = () => {
 
                                     {/* Payment History */}
                                     <TouchableOpacity
-                                        onPress={() => router.push("/dashboard/payments/history/index")}
+                                        onPress={() => router.push("/dashboard/payments/history")}
                                         className="p-6 rounded-xl border-2"
                                         style={{ backgroundColor: colors.primary100, borderColor: colors.accent + "4D" }}
                                         activeOpacity={0.8}

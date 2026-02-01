@@ -104,3 +104,7 @@ export { default as MyTicketsFilters } from "./dashboard/events/tickets/MyTicket
 export { default as PayoutStatusCard } from "./dashboard/payments/PayoutStatusCard";
 export { default as RevenueByEventTable } from "./dashboard/payments/RevenueByEventTable";
 export { default as RevenueByMonthChart } from "./dashboard/payments/RevenueByMonthChart";
+// dashboard settings security
+export { default as ChangeEmailForm } from "./dashboard/settings/security/ChangeEmailForm";
+export { default as ChangePasswordForm } from "./dashboard/settings/security/ChangePasswordForm";
+export { default as ChangeUsernameForm } from "./dashboard/settings/security/ChangeUsernameForm";

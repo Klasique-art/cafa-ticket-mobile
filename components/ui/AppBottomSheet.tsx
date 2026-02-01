@@ -15,6 +15,7 @@ interface AppBottomSheetProps {
     snapPoints?: (string | number)[];
     showOverlay?: boolean;
     enablePanDownToClose?: boolean;
+    scrollable?: boolean;
     [key: string]: any;
 }
 
@@ -25,6 +26,7 @@ const AppBottomSheet = forwardRef<AppBottomSheetRef, AppBottomSheetProps>(
         snapPoints: customSnapPoints = ['40%'], 
         showOverlay = true,
         enablePanDownToClose = true,
+        scrollable = false,
         ...otherProps 
     }, ref) => {
         const snapPoints = useMemo(() => customSnapPoints, [customSnapPoints]);
@@ -84,9 +86,11 @@ const AppBottomSheet = forwardRef<AppBottomSheetRef, AppBottomSheetProps>(
                 }}
                 {...otherProps}
             >
-                <BottomSheetView style={{ flex: 1 }}> 
-                    {children}
-                </BottomSheetView> 
+                {scrollable ? children : (
+                    <BottomSheetView style={{ flex: 1 }}>
+                        {children}
+                    </BottomSheetView>
+                )}
             </BottomSheet>
         );
     }

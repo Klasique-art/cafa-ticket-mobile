@@ -95,12 +95,9 @@ const PaymentProfilesScreen = () => {
                             showsVerticalScrollIndicator={false}
                             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                         >
-                            <View className="p-6 gap-6">
+                            <View className="p-2 gap-6">
                                 {/* Page Header */}
                                 <View>
-                                    <AppText styles="text-2xl text-white mb-2" font="font-ibold">
-                                        Payment Profiles
-                                    </AppText>
                                     <AppText styles="text-sm text-white" font="font-iregular" style={{ opacity: 0.7 }}>
                                         Manage your payout methods
                                     </AppText>

@@ -161,7 +161,7 @@ const DashboardEventsScreen = () => {
         </View>
 
         {/* Filters Bottom Sheet */}
-        <AppBottomSheet ref={filtersSheetRef} customSnapPoints={["95%"]}>
+        <AppBottomSheet ref={filtersSheetRef} customSnapPoints={["95%"]} scrollable>
           <MyEventsFilters onFilterChange={handleFilterChange} currentFilters={filters} />
         </AppBottomSheet>
 
