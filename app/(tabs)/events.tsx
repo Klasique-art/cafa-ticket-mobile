@@ -1,10 +1,10 @@
-import { View, ActivityIndicator, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { router } from "expo-router";
 import type { Href } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
-import { Screen, AppText } from "@/components";
+import { Screen, AppText, Animation } from "@/components";
 import {
   EventsHero,
   EventsCategoryTabs,
@@ -21,6 +21,7 @@ import { EventCategory } from "@/types/tickets.types";
 import { getEvents, getEventCategories } from "@/lib/events";
 import { useDebounce } from "@/hooks";
 import colors from "@/config/colors";
+import { movingCar } from "@/assets";
 
 const EventsScreen = () => {
   // State
@@ -267,7 +268,11 @@ const EventsScreen = () => {
       {/* Initial Loading State */}
       {isInitialLoad ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator size="large" color={colors.accent} />
+          <Animation
+            isVisible={true}
+            path={movingCar}
+            style={{ width: 200, height: 200 }}
+          />
           <AppText styles="text-sm text-slate-400 mt-4" font="font-iregular">
             Loading events...
           </AppText>

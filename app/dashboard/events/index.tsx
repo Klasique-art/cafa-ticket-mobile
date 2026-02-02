@@ -142,7 +142,7 @@ const DashboardEventsScreen = () => {
           <MyEventsHeader currentUser={user} onOpenFilters={() => filtersSheetRef.current?.open()} />
 
           {error && (
-            <View className="mx-4 mb-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
+            <View className="mb-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
               <AppText styles="text-sm text-red-400" font="font-iregular">{error}</AppText>
             </View>
           )}

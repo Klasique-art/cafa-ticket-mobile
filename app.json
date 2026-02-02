@@ -1,19 +1,27 @@
 {
   "expo": {
-    "name": "cafa-tickets-mobile",
-    "slug": "cafa-tickets-mobile",
+    "name": "cafa tickets",
+    "slug": "cafa-tickets",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "cafaticketsmobile",
+    "scheme": "cafatickets",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.shopwit.cafatickets",
       "infoPlist": {
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
-        }
+        },
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "cafatickets"
+            ]
+          }
+        ]
       },
       "config": {
         "googleMapsApiKey": "AIzaSyBgWS5BZ67Nzf2xJcRwZ4gxVIhw8hDZkCQ"
@@ -37,7 +45,22 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.shopwit.cafaticketsmobile"
+      "package": "com.shopwit.cafatickets",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "cafatickets"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "web": {
       "output": "static",
@@ -73,7 +96,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "b03bfc39-8ec9-4224-a980-fc067e5a9f13"
+        "projectId": "4f14cafa-7c26-4cad-b61b-a3218abae4a7"
       }
     }
   }

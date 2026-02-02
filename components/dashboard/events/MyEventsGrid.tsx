@@ -43,7 +43,7 @@ ListFooter.displayName = "ListFooter";
 
 const MyEventsGrid = ({ events, isLoading, hasMore, onLoadMore, onDelete }: MyEventsGridProps) => {
     const renderItem = ({ item }: { item: MyEvent }) => (
-        <View className="px-4">
+        <View>
             <MyEventCard event={item} onDelete={onDelete} />
         </View>
     );

@@ -197,11 +197,6 @@ export interface BasePaymentProfile {
     created_at: string;
 }
 
-export interface MobileMoneyAccountDetails {
-    mobile_number: string;
-    network: string;
-    account_name: string;
-}
 
 export interface BankTransferAccountDetails {
     account_number: string;
@@ -210,18 +205,12 @@ export interface BankTransferAccountDetails {
     bank_code: string;
 }
 
-export interface MobileMoneyPaymentProfile extends BasePaymentProfile {
-    method: "mobile_money";
-    account_details: MobileMoneyAccountDetails;
-}
-
 export interface BankTransferPaymentProfile extends BasePaymentProfile {
     method: "bank_transfer";
     account_details: BankTransferAccountDetails;
 }
 
 export type PaymentProfile =
-    | MobileMoneyPaymentProfile
     | BankTransferPaymentProfile;
 
 export interface PaymentProfilesResponse {

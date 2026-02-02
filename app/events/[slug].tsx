@@ -1,6 +1,6 @@
 import { ScrollView, ActivityIndicator, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import {
     EventDetailsHero,
@@ -13,6 +13,7 @@ import {
     SimilarEventsSection,
     EventNotFound,
 } from "@/components";
+import type { TicketPurchaseModalRef } from "@/components/events/details/TicketPurchaseModal"; 
 import { getEventBySlug } from "@/lib/events";
 import { EventDetails, TicketType } from "@/types";
 import { useAuth } from "@/context";
@@ -21,10 +22,10 @@ import colors from "@/config/colors";
 const EventDetailsScreen = () => {
     const { slug } = useLocalSearchParams<{ slug: string }>();
     const { user } = useAuth();
+    const modalRef = useRef<TicketPurchaseModalRef>(null);
 
     const [event, setEvent] = useState<EventDetails | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [modalVisible, setModalVisible] = useState(false);
     const [selectedTicket, setSelectedTicket] = useState<TicketType | null>(null);
     const [quantity, setQuantity] = useState(1);
 
@@ -44,7 +45,7 @@ const EventDetailsScreen = () => {
     const handleTicketPurchase = (ticket: TicketType, qty: number) => {
         setSelectedTicket(ticket);
         setQuantity(qty);
-        setModalVisible(true);
+        modalRef.current?.open();
     };
 
     if (isLoading) {
@@ -71,16 +72,13 @@ const EventDetailsScreen = () => {
                 <SimilarEventsSection event={event} />
             </ScrollView>
 
-            {selectedTicket && (
-                <TicketPurchaseModal
-                    visible={modalVisible}
-                    ticket={selectedTicket}
-                    quantity={quantity}
-                    event={event}
-                    currentUser={user}
-                    onClose={() => setModalVisible(false)}
-                />
-            )}
+            <TicketPurchaseModal
+                ref={modalRef}
+                ticket={selectedTicket}
+                quantity={quantity}
+                event={event}
+                currentUser={user}
+            />
         </>
     );
 };

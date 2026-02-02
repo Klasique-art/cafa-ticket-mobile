@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View } from "react-native";
 import { router } from "expo-router";
 
 import OnboardingScreen from "@/components/onboarding/OnboardingScreen";
+import { Animation } from "@/components";
 import { storage } from "@/lib/storage";
 import colors from "@/config/colors";
+import { movingCar } from "@/assets";
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +43,11 @@ export default function Index() {
         className="flex-1 items-center justify-center"
         style={{ backgroundColor: colors.primary }}
       >
-        <ActivityIndicator size="large" color={colors.accent} />
+        <Animation
+          isVisible={true}
+          path={movingCar}
+          style={{ width: 200, height: 200 }}
+        />
       </View>
     );
   }

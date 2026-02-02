@@ -90,7 +90,11 @@ export async function getMyRevenueSummary(
 export async function getMyPaymentHistory(
     page: number = 1,
     pageSize: number = 10,
-    status?: "completed" | "pending" | "failed"
+    filters?: {
+        status?: "completed" | "pending" | "failed" | "all";
+        date_from?: string;
+        date_to?: string;
+    }
 ) {
     try {
         const params = new URLSearchParams({
@@ -98,8 +102,16 @@ export async function getMyPaymentHistory(
             page_size: pageSize.toString(),
         });
 
-        if (status) {
-            params.append("status", status);
+        if (filters?.status && filters.status !== "all") {
+            params.append("status", filters.status);
+        }
+
+        if (filters?.date_from) {
+            params.append("date_from", filters.date_from);
+        }
+
+        if (filters?.date_to) {
+            params.append("date_to", filters.date_to);
         }
 
         const response = await client.get(`/payments/?${params.toString()}`);
@@ -278,6 +290,27 @@ export async function updatePaymentProfile(
         return response.data;
     } catch (error) {
         console.error("updatePaymentProfile error:", error);
+        throw error;
+    }
+}
+
+export async function createPaymentProfile(data: {
+    method: "bank_transfer";
+    name: string;
+    description?: string;
+    account_details: {
+        account_number: string;
+        account_name: string;
+        bank_name: string;
+        bank_code: string;
+        branch?: string;
+    };
+}) {
+    try {
+        const response = await client.post("/auth/payment-profile/", data);
+        return response.data;
+    } catch (error) {
+        console.error("createPaymentProfile error:", error);
         throw error;
     }
 }

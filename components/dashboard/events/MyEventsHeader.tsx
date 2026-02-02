@@ -16,7 +16,7 @@ const MyEventsHeader = ({ currentUser, onOpenFilters }: MyEventsHeaderProps) => 
     const isOrganizer = currentUser?.is_organizer;
 
     return (
-        <View className="px-4 pt-2 pb-2">
+        <View className=" pt-2 pb-2">
             {/* Title & Filter Button */}
             <View className="flex-row items-center justify-between mb-2">
                 <View className="flex-1">

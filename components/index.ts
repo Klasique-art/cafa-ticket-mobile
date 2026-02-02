@@ -139,3 +139,15 @@ export { default as CheckInStats } from "./dashboard/check-in/CheckInStats";
 export { default as EventSelector } from "./dashboard/check-in/EventSelector";
 export { default as ManualEntry } from "./dashboard/check-in/ManualEntry";
 export { default as QRScanner } from "./dashboard/check-in/QRScanner";
+// dashboard payments history
+export { default as PaymentHistoryCard } from "./dashboard/payments/history/PaymentHistoryCard";
+export { default as PaymentHistoryFilters } from "./dashboard/payments/history/PaymentHistoryFilters";
+export { default as PaymentHistoryList } from "./dashboard/payments/history/PaymentHistoryList";
+export { default as PaymentHistorySummary } from "./dashboard/payments/history/PaymentHistorySummary";
+// dashboard payments details
+export { default as PaymentBillingInfo } from "./dashboard/payments/details/PaymentBillingInfo";
+export { default as PaymentDetailsHeader } from "./dashboard/payments/details/PaymentDetailsHeader";
+export { default as PaymentMethodInfo } from "./dashboard/payments/details/PaymentMethodInfo";
+export { default as PaymentPriceBreakdown } from "./dashboard/payments/details/PaymentPriceBreakdown";
+export { default as PaymentTicketsList } from "./dashboard/payments/details/PaymentTicketsList";
+export { default as PaymentEventDetails } from "./dashboard/payments/details/PaymentEventDetails";
