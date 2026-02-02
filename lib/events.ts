@@ -23,6 +23,7 @@ export async function getEvents(
     if (filters.price_max) params.append("price_max", String(filters.price_max));
     if (filters.ordering) params.append("ordering", filters.ordering);
     if (filters.page) params.append("page", String(filters.page));
+    if (filters.page_size) params.append("page_size", String(filters.page_size));
 
     const response = await client.get(`/events/?${params.toString()}`);
     return response.data;
@@ -237,3 +238,29 @@ export async function updateEvent(slug: string, payload: any) {
     throw new Error("Failed to update event. Please try again.");
   }
 }
+
+export async function getPastEvents(params?: {
+    page?: number;
+    search?: string;
+    category?: string;
+    city?: string;
+    ordering?: string;
+}) {
+    try {
+        const searchParams = new URLSearchParams();
+
+        if (params?.page) searchParams.set("page", params.page.toString());
+        if (params?.search) searchParams.set("search", params.search);
+        if (params?.category) searchParams.set("category", params.category);
+        if (params?.city) searchParams.set("city", params.city);
+        if (params?.ordering) searchParams.set("ordering", params.ordering);
+
+        const response = await client.get(`/events/past/?${searchParams.toString()}`);
+        return response.data as PaginatedEventsResponse;
+    } catch (error) {
+        console.error("getPastEvents error:", error);
+        return null;
+    }
+}
+
+

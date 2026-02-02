@@ -1,6 +1,6 @@
 import { View, TouchableOpacity } from "react-native";
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import type { Href } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -24,6 +24,9 @@ import colors from "@/config/colors";
 import { movingCar } from "@/assets";
 
 const EventsScreen = () => {
+  // Get URL params for category and city
+  const params = useLocalSearchParams<{ category?: string; city?: string }>();
+
   // State
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -49,6 +52,16 @@ const EventsScreen = () => {
 
   // Debounce search query
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
+  // Set category and city from URL params on mount
+  useEffect(() => {
+    if (params.category) {
+      setSelectedCategory(params.category);
+    }
+    if (params.city) {
+      setFilters(prev => ({ ...prev, city: params.city as string }));
+    }
+  }, [params.category, params.city]);
 
   // Fetch categories
   useEffect(() => {

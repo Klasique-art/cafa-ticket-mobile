@@ -62,6 +62,7 @@ export interface EventFilters {
     price_max?: string;
     ordering?: string;
     page?: number;
+    page_size?: number;
 }
 
 export type CheckInPolicy = "single_entry" | "multi_entry" | "daily_entry";

@@ -54,3 +54,30 @@ export async function getStoredToken(): Promise<string | null> {
     return null;
   }
 }
+
+export async function forgotPassword(email: string) {
+    try {
+        // Djoser returns 204 No Content on success
+        const response = await client.post("/auth/password/reset/", { email });
+        return response.data;
+    } catch (error) {
+        console.error("forgotPassword error:", error);
+        throw error;
+    }
+}
+
+export async function resetPassword(data: {
+    uid: string;
+    token: string;
+    new_password: string;
+}) {
+    try {
+        // Djoser returns 204 No Content on success
+        const response = await client.post("/auth/password/reset/confirm/", data);
+        return response.data;
+    } catch (error) {
+        console.error("resetPassword error:", error);
+        throw error;
+    }
+}
+

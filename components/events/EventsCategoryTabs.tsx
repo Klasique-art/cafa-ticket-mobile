@@ -33,7 +33,7 @@ const EventsCategoryTabs = ({
     };
 
     return (
-        <View className="py-4 bg-primary-100 mb-2">
+        <View className="bg-primary-100 mb-2">
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}

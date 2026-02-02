@@ -1,7 +1,7 @@
 import { StyleSheet, LayoutChangeEvent } from 'react-native';
 import { useLinkBuilder } from '@react-navigation/native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring, withTiming } from 'react-native-reanimated';
 
 import TabBarButton from './TabBarButton';
@@ -20,6 +20,11 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     }
 
     const tabPositionX = useSharedValue(0);
+
+    // Sync tab position when state.index changes
+    useEffect(() => {
+        tabPositionX.value = withSpring(state.index * buttonWidth, { duration: 1500 });
+    }, [state.index, buttonWidth]);
 
     const animatedTabStyle = useAnimatedStyle(() => {
         return {
@@ -42,15 +47,26 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     });
 
     return (
-        <Animated.View style={[styles.tabBar, animatedBarStyle]} onLayout={onTabBarLayout}>
-            <Animated.View style={[animatedTabStyle, {
-                position: "absolute",
-                width: buttonWidth - 20,
-                height: dimensions.height - 20,
-                borderRadius: 60,
-                backgroundColor: colors.accent,
-                marginHorizontal: 10,
-                }]} />
+        <Animated.View 
+            style={[styles.tabBar, animatedBarStyle]} 
+            onLayout={onTabBarLayout}
+            accessible={true}
+            accessibilityRole="tablist"
+            accessibilityLabel="Main navigation tabs"
+        >
+            {/* Active Tab Indicator - Hidden from screen readers */}
+            <Animated.View 
+                style={[animatedTabStyle, {
+                    position: "absolute",
+                    width: buttonWidth - 20,
+                    height: dimensions.height - 20,
+                    borderRadius: 60,
+                    backgroundColor: colors.accent,
+                    marginHorizontal: 10,
+                }]}
+                importantForAccessibility="no-hide-descendants"
+                accessible={false}
+            />
                 {state.routes.map((route, index) => {
                     const { options } = descriptors[route.key];
                     const label =
@@ -63,8 +79,7 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                     const isFocused = state.index === index;
 
                     const onPress = () => {
-                        tabPositionX.value = withSpring(index * buttonWidth, { duration: 1500 });
-
+                        // Animation is now handled by useEffect
                         const event = navigation.emit({
                             type: 'tabPress',
                             target: route.key,
@@ -83,6 +98,10 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                         });
                     };
 
+                    // Generate accessible label with position info
+                    const accessibilityLabel = options.tabBarAccessibilityLabel ?? 
+                        `${typeof label === 'string' ? label : route.name} tab, ${index + 1} of ${state.routes.length}`;
+
                     return (
                         <TabBarButton
                             key={route.key}
@@ -92,6 +111,7 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                             isFocused={isFocused}
                             routeName={route.name}
                             label={label}
+                            accessibilityLabel={accessibilityLabel}
                         />
                     );
                 })}

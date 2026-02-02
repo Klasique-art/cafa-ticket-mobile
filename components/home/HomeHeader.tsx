@@ -47,17 +47,6 @@ export default function HomeHeader({ onProfilePress }: HomeHeaderProps) {
 
       {/* Right side - Profile or Login */}
       <View className="flex-row items-center gap-3">
-        {/* Notification bell */}
-        {/* {isAuthenticated && (
-          <Pressable
-            onPress={() => router.push("/dashboard/notifications")}
-            className="h-10 w-10 items-center justify-center rounded-full"
-            style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
-          >
-            <Ionicons name="notifications-outline" size={22} color={colors.white} />
-          </Pressable>
-        )} */}
-
         {/* Profile / Login Button */}
         <Pressable
           onPress={handleProfilePress}

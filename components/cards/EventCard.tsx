@@ -1,5 +1,4 @@
-import { View, Text, Pressable } from "react-native";
-import { Image } from "expo-image";
+import { View, Text, Pressable, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
@@ -25,7 +24,6 @@ export default function EventCard({ event, width = 180 }: EventCardProps) {
           <Image
             source={{ uri: event.featured_image }}
             className="h-full w-full"
-            contentFit="cover"
           />
           {/* Price Badge */}
           <View

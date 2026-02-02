@@ -27,7 +27,12 @@ interface CategoryCardProps {
 
 export default function CategoryCard({ category }: CategoryCardProps) {
   const handlePress = () => {
-    router.push(`/(tabs)/events?category=${category.slug}`);
+    // Use navigate() instead of push() to properly update tab state
+    // The key is to navigate to the route name, not the path
+    router.navigate({
+      pathname: "/(tabs)/events",
+      params: { category: category.slug }
+    });
   };
 
   const iconName = iconMap[category.icon] || "apps";

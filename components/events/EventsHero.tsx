@@ -6,6 +6,7 @@ import { BlurView } from "expo-blur";
 
 import { AppText } from "@/components";
 import colors from "@/config/colors";
+import { formatNumber } from "@/utils";
 
 interface EventsHeroProps {
     totalEvents: number;
@@ -54,7 +55,7 @@ const EventsHero = ({
 
                 {/* Modern Search Bar with Glass Effect */}
                 <View className="mb-6">
-                    <BlurView intensity={20} tint="dark" className="rounded-2xl overflow-hidden border-2 border-accent/30">
+                    <BlurView intensity={20} tint="dark" className="rounded-2xl overflow-hidden border-2 border-accent">
                         <View className="flex-row items-center px-4 py-4 bg-primary-100/50">
                             <Ionicons name="search-outline" size={22} color={colors.accent50} />
                             <TextInput
@@ -89,7 +90,7 @@ const EventsHero = ({
                             </View>
                             <View className="flex-1">
                                 <AppText styles="text-xl text-white" font="font-ibold">
-                                    {totalEvents}+
+                                    {formatNumber(totalEvents)}
                                 </AppText>
                                 <AppText styles="text-xs text-slate-400" font="font-iregular">
                                     Events
@@ -109,7 +110,7 @@ const EventsHero = ({
                             </View>
                             <View className="flex-1">
                                 <AppText styles="text-xl text-white" font="font-ibold">
-                                    12+
+                                    10
                                 </AppText>
                                 <AppText styles="text-xs text-slate-400" font="font-iregular">
                                     Categories

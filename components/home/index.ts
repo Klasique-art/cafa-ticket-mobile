@@ -5,3 +5,8 @@ export { default as CategoriesSection } from "./CategoriesSection";
 export { default as SoonEventsSection } from "./SoonEventsSection";
 export { default as UpcomingEventsSection } from "./UpcomingEventsSection";
 export { default as StatsSection } from "./StatsSection";
+export { default as EmptyStateCard } from "./EmptyStateCard";
+export { default as QuickActionsSection } from "./QuickActionsSection";
+export { default as PastEventsSection } from "./PastEventsSection";
+export { default as PopularEventsSection } from "./PopularEventsSection";
+export { default as ExploreByLocationSection } from "./ExploreByLocationSection";

@@ -32,14 +32,40 @@ export function formatPrice(price: string | number): string {
   return `GHS ${numPrice.toFixed(2)}`;
 }
 
-export function formatNumber(num: number): string {
-  if (num >= 1000000) {
-    return (num / 1000000).toFixed(1) + "M";
-  }
-  if (num >= 1000) {
-    return (num / 1000).toFixed(1) + "K";
-  }
-  return num.toString();
+/**
+ * Format a number to a compact string representation (1k, 2m, 3b, etc.)
+ * @param num - The number to format
+ * @param decimals - Number of decimal places (default: 1)
+ * @returns Formatted string (e.g., "1.2k", "3.5m", "1b")
+ * 
+ * @example
+ * formatNumber(1234) // "1.2k"
+ * formatNumber(1234567) // "1.2m"
+ * formatNumber(1234567890) // "1.2b"
+ * formatNumber(999) // "999"
+ * formatNumber(1500, 0) // "2k"
+ */
+export function formatNumber(num: number, decimals: number = 1): string {
+    if (num < 1000) {
+        return num.toString();
+    }
+
+    const lookup = [
+        { value: 1e9, symbol: "b" },  // billion
+        { value: 1e6, symbol: "m" },  // million
+        { value: 1e3, symbol: "k" },  // thousand
+    ];
+
+    const item = lookup.find((item) => num >= item.value);
+
+    if (!item) {
+        return num.toString();
+    }
+
+    const formatted = (num / item.value).toFixed(decimals);
+    
+    // Remove trailing zeros and decimal point if not needed
+    return formatted.replace(/\.0+$/, "") + item.symbol;
 }
 
 export function getRelativeTime(dateString: string): string {

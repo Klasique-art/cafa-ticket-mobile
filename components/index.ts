@@ -151,3 +151,6 @@ export { default as PaymentMethodInfo } from "./dashboard/payments/details/Payme
 export { default as PaymentPriceBreakdown } from "./dashboard/payments/details/PaymentPriceBreakdown";
 export { default as PaymentTicketsList } from "./dashboard/payments/details/PaymentTicketsList";
 export { default as PaymentEventDetails } from "./dashboard/payments/details/PaymentEventDetails";
+// events past
+export { default as PastEventActiveFiltersDisplay } from "./events/past/PastEventActiveFiltersDisplay";
+export { default as PastEventsSortModal } from "./events/past/PastEventsSortModal";
