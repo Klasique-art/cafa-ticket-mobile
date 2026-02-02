@@ -1,6 +1,6 @@
 import { View, ScrollView, ActivityIndicator } from "react-native";
 
-import { EventCategory } from "@/types";
+import { EventCategory } from "@/types/tickets.types";
 import { CategoryCard } from "@/components/cards";
 import SectionHeader from "./SectionHeader";
 import colors from "@/config/colors";

@@ -2,7 +2,7 @@ import { View, ScrollView, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { AppText } from "@/components";
-import { EventCategory } from "@/types";
+import { EventCategory } from "@/types/tickets.types";
 import colors from "@/config/colors";
 
 interface EventsCategoryTabsProps {

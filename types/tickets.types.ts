@@ -74,6 +74,9 @@ export interface EventCategory {
     id: number;
     name: string;
     slug: string;
+    description: string;
+    icon: string;
+    event_count: number;
 } 
 
 export interface VenueLocation {

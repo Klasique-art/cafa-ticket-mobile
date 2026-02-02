@@ -2,7 +2,7 @@ import { View, Text, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
-import { EventCategory } from "@/types";
+import { EventCategory } from "@/types/tickets.types";
 import colors from "@/config/colors";
 
 // Map category icons to Ionicons

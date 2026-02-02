@@ -16,7 +16,8 @@ import {
   EventsEmptyState,
   FilterOptions,
 } from "@/components";
-import { Event, EventCategory, EventFilters } from "@/types";
+import { Event, EventFilters } from "@/types";
+import { EventCategory } from "@/types/tickets.types";
 import { getEvents, getEventCategories } from "@/lib/events";
 import { useDebounce } from "@/hooks";
 import colors from "@/config/colors";
@@ -79,8 +80,8 @@ const EventsScreen = () => {
         if (filters.status !== "all") filterParams.status = filters.status;
         if (filters.date_from) filterParams.date_from = filters.date_from;
         if (filters.date_to) filterParams.date_to = filters.date_to;
-        if (filters.price_min) filterParams.price_min = Number(filters.price_min);
-        if (filters.price_max) filterParams.price_max = Number(filters.price_max);
+        if (filters.price_min) filterParams.price_min = filters.price_min;
+        if (filters.price_max) filterParams.price_max = filters.price_max;
 
         const data = await getEvents(filterParams);
 
