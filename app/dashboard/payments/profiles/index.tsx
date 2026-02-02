@@ -34,7 +34,7 @@ const PaymentProfilesScreen = () => {
     }, []);
 
     useEffect(() => {
-        fetchProfiles();
+        fetchProfiles(); 
     }, [fetchProfiles]);
 
     const onRefresh = useCallback(() => {
@@ -47,7 +47,7 @@ const PaymentProfilesScreen = () => {
     };
 
     const handleEditProfile = (profileId: string) => {
-        router.push(`/dashboard/payments/profiles/${profileId}/edit`);
+        router.push(`/dashboard/payments/profiles/${profileId}/edit` as any);
     };
 
     const handleDeleteProfile = (profileId: string, profileName: string) => {

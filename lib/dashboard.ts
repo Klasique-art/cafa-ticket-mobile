@@ -268,3 +268,16 @@ export async function getMyEventAttendees(
         return null;
     }
 }
+
+export async function updatePaymentProfile(
+    profileId: string,
+    data: { name: string; description?: string }
+) {
+    try {
+        const response = await client.patch(`/auth/payment-profile/${profileId}/`, data);
+        return response.data;
+    } catch (error) {
+        console.error("updatePaymentProfile error:", error);
+        throw error;
+    }
+}
