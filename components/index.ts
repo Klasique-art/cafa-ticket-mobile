@@ -18,6 +18,7 @@ export { default as Nav } from "./ui/Nav";
 export { default as Screen } from "./ui/Screen";
 export { default as CategorySelect } from "./ui/CategorySelect";
 export { default as LocationSelector } from "./ui/LocationSelector";
+export { default as TimeInput } from "./ui/TimeInput";
 // form
 export { default as AppErrorMessage } from "./form/AppErrorMessage";
 export { default as AppForm } from "./form/AppForm";
@@ -105,6 +106,8 @@ export { default as PayoutStatusCard } from "./dashboard/payments/PayoutStatusCa
 export { default as RevenueByEventTable } from "./dashboard/payments/RevenueByEventTable";
 export { default as RevenueByMonthChart } from "./dashboard/payments/RevenueByMonthChart";
 export { default as EditPaymentProfileForm } from "./dashboard/payments/EditPaymentProfileForm";
+export { default as RequestPayoutModal } from "./dashboard/payments/RequestPayoutModal";
+export { default as FaceVerificationModal } from "./dashboard/payments/FaceVerificationModal";
 // dashboard settings security
 export { default as ChangeEmailForm } from "./dashboard/settings/security/ChangeEmailForm";
 export { default as ChangePasswordForm } from "./dashboard/settings/security/ChangePasswordForm";

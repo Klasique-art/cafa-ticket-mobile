@@ -1,6 +1,7 @@
 import { View, FlatList, Alert, RefreshControl } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
+import type { MutableRefObject } from "react";
 import { router } from "expo-router";
 
 import {
@@ -17,19 +18,31 @@ import {
     EventImagesSection,
     EventTicketTypesSection,
     EventPublishSection,
-    AddTicketTypeModal,
 } from "@/components";
-import type { AddTicketTypeModalRef } from "./AddTicketTypeModal";
 import { eventCreationSchema, type EventFormValues, type TicketTypeFormValues } from "@/data/eventCreationSchema";
 import { buildEventFormData } from "@/utils/buildEventFormData";
 import { createEvent } from "@/lib/events";
 import colors from "@/config/colors";
 
-const CreateEventForm = () => {
+// ---------------------------------------------------------------------------
+// Props
+// ---------------------------------------------------------------------------
+interface CreateEventFormProps {
+    /** Called when the user taps Add (null) or Edit (index) ticket type. */
+    onOpenModal: (index: number | null) => void;
+    /** Screen writes here so the lifted AddTicketTypeModal can call setFieldValue. */
+    formContextRef: MutableRefObject<{
+        setFieldValue: (field: string, value: any) => void;
+        ticketTypes: TicketTypeFormValues[];
+    } | null>;
+}
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
+const CreateEventForm = ({ onOpenModal, formContextRef }: CreateEventFormProps) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
-    const modalRef = useRef<AddTicketTypeModalRef>(null);
-    const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
     const initialValues: EventFormValues = {
         // Basic Info
@@ -77,9 +90,7 @@ const CreateEventForm = () => {
     // Helper to format time HH:MM to HH:MM:SS
     const formatTime = (time: string): string => {
         if (!time) return "";
-        // If already HH:MM:SS, return as is
         if (time.includes(":") && time.split(":").length === 3) return time;
-        // If HH:MM, append :00
         return `${time}:00`;
     };
 
@@ -121,7 +132,6 @@ const CreateEventForm = () => {
         try {
             setIsSubmitting(true);
 
-            // Format times to HH:MM:SS
             const formattedValues = {
                 ...values,
                 start_time: formatTime(values.start_time),
@@ -131,17 +141,14 @@ const CreateEventForm = () => {
             const payload = buildEventFormData({
                 ...formattedValues,
                 max_attendees: parseInt(formattedValues.max_attendees),
-                // Convert null to undefined for optional coordinates
                 venue_latitude: formattedValues.venue_latitude || undefined,
                 venue_longitude: formattedValues.venue_longitude || undefined,
-                // Filter out undefined/null values from additional_images
                 additional_images: (formattedValues.additional_images || []).filter((img): img is string => !!img),
                 ticket_types: formattedValues.ticket_types.map((t) => ({
                     ...t,
                     quantity: parseInt(t.quantity),
                     min_purchase: parseInt(t.min_purchase),
                     max_purchase: t.max_purchase ? parseInt(t.max_purchase) : undefined,
-                    // Convert null to undefined for optional date fields
                     available_from: t.available_from || undefined,
                     available_until: t.available_until || undefined,
                 })),
@@ -163,23 +170,6 @@ const CreateEventForm = () => {
         }
     };
 
-    const handleOpenModal = useCallback((index: number | null) => {
-        setEditingIndex(index);
-        modalRef.current?.open();
-    }, []);
-
-    const handleSubmitTicket = useCallback((ticketValues: TicketTypeFormValues, setFieldValue: (field: string, value: any) => void, ticketTypes: TicketTypeFormValues[]) => {
-        if (editingIndex !== null) {
-            // Edit existing
-            const newTickets = [...ticketTypes];
-            newTickets[editingIndex] = ticketValues;
-            setFieldValue("ticket_types", newTickets);
-        } else {
-            // Add new
-            setFieldValue("ticket_types", [...ticketTypes, ticketValues]);
-        }
-    }, [editingIndex]);
-
     return (
         <AppForm
             initialValues={initialValues}
@@ -187,6 +177,13 @@ const CreateEventForm = () => {
             onSubmit={handleSubmit}
         >
             {({ values, isValid, setFieldValue }) => {
+                // Keep the screen's ref in sync so the lifted modal can reach
+                // setFieldValue without prop-drilling through the FlatList.
+                formContextRef.current = {
+                    setFieldValue,
+                    ticketTypes: values.ticket_types,
+                };
+
                 const missingFields = getMissingFields(values);
                 const canSubmit = isValid && missingFields.length === 0;
 
@@ -199,8 +196,8 @@ const CreateEventForm = () => {
                             keyExtractor={(item) => item.key}
                             showsVerticalScrollIndicator={false}
                             refreshControl={
-                                <RefreshControl 
-                                    refreshing={refreshing} 
+                                <RefreshControl
+                                    refreshing={refreshing}
                                     onRefresh={onRefresh}
                                     tintColor={colors.accent}
                                 />
@@ -211,53 +208,45 @@ const CreateEventForm = () => {
                                     {/* Basic Info */}
                                     <EventBasicInfoSection />
 
-                                    {/* Divider */}
                                     <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
                                     {/* Venue */}
                                     <EventVenueSection />
 
-                                    {/* Divider */}
                                     <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
                                     {/* Date & Time */}
                                     <EventDateTimeSection />
 
-                                    {/* Divider */}
                                     <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
                                     {/* Event Type */}
                                     <EventTypeSection />
 
-                                    {/* Divider */}
                                     <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
                                     {/* Images */}
                                     <EventImagesSection />
 
-                                    {/* Divider */}
                                     <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
-                                    {/* Tickets */}
-                                    <EventTicketTypesSection 
-                                        onOpenModal={handleOpenModal}
+                                    {/* Tickets — button calls up to screen via prop */}
+                                    <EventTicketTypesSection
+                                        onOpenModal={onOpenModal}
                                         ticketTypes={values.ticket_types}
                                         setFieldValue={setFieldValue}
                                     />
 
-                                    {/* Divider */}
                                     <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
                                     {/* Capacity */}
                                     <EventCapacitySection />
 
-                                    {/* Divider */}
                                     <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
                                     {/* Payment Profile */}
                                     <EventPaymentProfileSection />
 
-                                    {/* Divider */}
                                     <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
                                     {/* Publishing */}
@@ -323,14 +312,6 @@ const CreateEventForm = () => {
                                     </AppText>
                                 </View>
                             )}
-                        />
-
-                        {/* Modal at root level */}
-                        <AddTicketTypeModal
-                            ref={modalRef}
-                            onSubmit={(ticketValues) => handleSubmitTicket(ticketValues, setFieldValue, values.ticket_types)}
-                            initialValues={editingIndex !== null ? values.ticket_types[editingIndex] : undefined}
-                            isEditing={editingIndex !== null}
                         />
                     </>
                 );

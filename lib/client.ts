@@ -1,10 +1,12 @@
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 
-// http://192.168.1.192:8000/api/v1 - https://api.cafatickets.com/api/v1
-export const API_BASE_URL = "http://10.193.54.23:8000/api/v1";
+import { API_BASE_URL } from "@/config/settings";
+
 export const AUTH_TOKEN_KEY = "cafa_auth_token";
 export const REFRESH_TOKEN_KEY = "cafa_refresh_token";
+
+console.log("api url", API_BASE_URL);
 
 const client = axios.create({
   baseURL: API_BASE_URL,

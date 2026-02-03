@@ -12,7 +12,12 @@ import { useAuth } from "@/context";
 
 const DashboardList = () => {
     const bottomSheetRef = useRef<AppBottomSheetRef>(null);
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
+
+    // Filter out logout item if user is not logged in
+    const filteredItems = user 
+        ? dashboardListItems 
+        : dashboardListItems.filter(item => item.icon !== "log-out-outline");
 
     const openBottomSheet = () => {
         bottomSheetRef.current?.open();
@@ -35,7 +40,7 @@ const DashboardList = () => {
     return (
         <>
             <FlashList
-                data={dashboardListItems}
+                data={filteredItems}
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={{ padding: 10 }}
                 ItemSeparatorComponent={() => <View style={{ height: 12 }} />}

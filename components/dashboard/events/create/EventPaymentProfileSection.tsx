@@ -151,7 +151,6 @@ const EventPaymentProfileSection = () => {
 
                     <View className="gap-3">
                         {profiles.map((profile) => {
-                            const isMobileMoney = profile.method === "mobile_money";
                             const accountDetails = profile.account_details as any;
                             const isSelected = values.payment_profile_id === profile.id;
 
@@ -186,13 +185,11 @@ const EventPaymentProfileSection = () => {
                                                 <View
                                                     className="w-8 h-8 rounded-lg items-center justify-center"
                                                     style={{
-                                                        backgroundColor: isMobileMoney
-                                                            ? colors.primary200 + "80"
-                                                            : colors.accent + "33",
+                                                        backgroundColor: colors.accent + "33",
                                                     }}
                                                 >
                                                     <Ionicons
-                                                        name={isMobileMoney ? "phone-portrait-outline" : "business-outline"}
+                                                        name={"business-outline"}
                                                         size={16}
                                                         color={colors.accent50}
                                                     />
@@ -216,53 +213,26 @@ const EventPaymentProfileSection = () => {
 
                                             {/* Account Details */}
                                             <View className="gap-1">
-                                                {isMobileMoney ? (
-                                                    <>
-                                                        <AppText
-                                                            styles="text-xs text-white"
-                                                            font="font-iregular"
-                                                            style={{ opacity: 0.6 }}
-                                                        >
-                                                            Network:{" "}
-                                                            <AppText styles="text-xs text-white" font="font-isemibold">
-                                                                {accountDetails?.network}
-                                                            </AppText>
-                                                        </AppText>
-                                                        <AppText
-                                                            styles="text-xs text-white"
-                                                            font="font-iregular"
-                                                            style={{ opacity: 0.6 }}
-                                                        >
-                                                            Number:{" "}
-                                                            <AppText styles="text-xs text-white" font="font-imedium">
-                                                                {accountDetails?.mobile_number}
-                                                            </AppText>
-                                                        </AppText>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <AppText
-                                                            styles="text-xs text-white"
-                                                            font="font-iregular"
-                                                            style={{ opacity: 0.6 }}
-                                                        >
-                                                            Bank:{" "}
-                                                            <AppText styles="text-xs text-white" font="font-isemibold">
-                                                                {accountDetails?.bank_name}
-                                                            </AppText>
-                                                        </AppText>
-                                                        <AppText
-                                                            styles="text-xs text-white"
-                                                            font="font-iregular"
-                                                            style={{ opacity: 0.6 }}
-                                                        >
-                                                            Account:{" "}
-                                                            <AppText styles="text-xs text-white" font="font-imedium">
-                                                                {accountDetails?.account_number}
-                                                            </AppText>
-                                                        </AppText>
-                                                    </>
-                                                )}
+                                                <AppText
+                                                    styles="text-xs text-white"
+                                                    font="font-iregular"
+                                                    style={{ opacity: 0.6 }}
+                                                >
+                                                    Bank:{" "}
+                                                    <AppText styles="text-xs text-white" font="font-isemibold">
+                                                        {accountDetails?.bank_name}
+                                                    </AppText>
+                                                </AppText>
+                                                <AppText
+                                                    styles="text-xs text-white"
+                                                    font="font-iregular"
+                                                    style={{ opacity: 0.6 }}
+                                                >
+                                                    Account:{" "}
+                                                    <AppText styles="text-xs text-white" font="font-imedium">
+                                                        {accountDetails?.account_number}
+                                                    </AppText>
+                                                </AppText>
                                             </View>
                                         </View>
                                     </View>

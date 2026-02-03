@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
 import { View } from 'react-native';
 import type { KeyboardTypeOptions } from 'react-native';
-import { AppInput, AppErrorMessage, SelectInput, DateInput, SearchableSelect } from "@/components";
+import { AppInput, AppErrorMessage, SelectInput, DateInput, SearchableSelect, TimeInput } from "@/components";
 
 type StringFieldFormValues = Record<string, string>;
 type Option = { value: string; label: string };
@@ -13,7 +13,7 @@ type Props<Values extends StringFieldFormValues = StringFieldFormValues> = {
     rows?: number;
     styles?: string;
     options?: Option[];
-    type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'select' | 'searchable-select' | 'date';
+    type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'select' | 'searchable-select' | 'date' | 'time';
     required?: boolean;
     placeholder?: string;
     min?: string;
@@ -100,6 +100,16 @@ const AppFormField = <Values extends StringFieldFormValues = StringFieldFormValu
                     required={required}
                     min={min}
                     max={max}
+                />
+            ) : type === 'time' ? (
+                <TimeInput
+                    name={name}
+                    label={label}
+                    value={value}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required={required}
+                    placeholder={placeholder}
                 />
             ) : (
                 <AppInput

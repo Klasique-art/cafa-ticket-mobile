@@ -11,18 +11,26 @@ import {
     PayoutStatusCard,
     RevenueByEventTable,
     RevenueByMonthChart,
+    FaceVerificationModal,
+    RequestPayoutModal
 } from "@/components";
 import { getMyRevenueSummary, getMyPaymentProfiles } from "@/lib/dashboard";
 import type { RevenueSummary } from "@/types/payments.types";
 import colors from "@/config/colors";
 
 const PaymentsScreen = () => {
+    // ---- data ----
     const [revenueSummary, setRevenueSummary] = useState<RevenueSummary | null>(null);
     const [hasVerifiedProfile, setHasVerifiedProfile] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    // ---- payout modal orchestration ----
+    const [isFaceVerificationOpen, setIsFaceVerificationOpen] = useState(false);
+    const [isPayoutModalOpen, setIsPayoutModalOpen] = useState(false);
+
+    // ---- fetch ----
     const fetchData = useCallback(async (showLoader = true) => {
         try {
             if (showLoader) setIsLoading(true);
@@ -40,9 +48,8 @@ const PaymentsScreen = () => {
 
             setRevenueSummary(revenueData);
 
-            // Check if user has verified payment profile
             const hasVerified =
-                profilesData?.results?.some((profile) => profile.is_default && profile.is_verified) ?? false;
+                profilesData?.results?.some((profile) => profile.is_verified) ?? false;
             setHasVerifiedProfile(hasVerified);
         } catch (err: any) {
             console.error("Error fetching revenue data:", err);
@@ -62,22 +69,46 @@ const PaymentsScreen = () => {
         fetchData(false);
     }, [fetchData]);
 
+    // ---- payout button press ----
     const handleRequestPayout = () => {
         if (!hasVerifiedProfile) {
+            // no verified profile → take them to profiles screen
             router.push("/dashboard/payments/profiles");
         } else {
-            // TODO: Implement payout request
-            alert("Payout request functionality coming soon");
+            setIsFaceVerificationOpen(true);
         }
     };
 
+    // ---- face verification callbacks ----
+    const handleFaceVerificationSuccess = () => {
+        setIsFaceVerificationOpen(false);
+        setIsPayoutModalOpen(true);
+    };
+
+    const handleFaceVerificationClose = () => {
+        setIsFaceVerificationOpen(false);
+    };
+
+    // ---- payout modal callbacks ----
+    const handlePayoutModalClose = () => {
+        setIsPayoutModalOpen(false);
+    };
+
+    /** called after a successful payout request — re-fetch so balances update */
+    const handlePayoutSuccess = () => {
+        fetchData(false);
+    };
+
+    // ==================================================================
+    // Render
+    // ==================================================================
     return (
         <Screen>
             <RequireAuth>
                 <Nav title="Revenue Dashboard" />
 
                 <View className="flex-1" style={{ backgroundColor: colors.primary }}>
-                    {/* Loading State */}
+                    {/* ---- Loading ---- */}
                     {isLoading ? (
                         <View className="flex-1 items-center justify-center">
                             <ActivityIndicator size="large" color={colors.accent} />
@@ -85,12 +116,14 @@ const PaymentsScreen = () => {
                                 Loading revenue data...
                             </AppText>
                         </View>
+
                     ) : error ? (
+                        /* ---- Error ---- */
                         <ScrollView className="flex-1">
                             <View className="p-6">
                                 <View
                                     className="p-12 rounded-xl border-2"
-                                    style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
+                                    style={{ backgroundColor: colors.accent, borderColor: colors.accent }}
                                 >
                                     <AppText styles="text-lg text-white text-center" font="font-ibold">
                                         {error}
@@ -98,7 +131,9 @@ const PaymentsScreen = () => {
                                 </View>
                             </View>
                         </ScrollView>
+
                     ) : revenueSummary ? (
+                        /* ---- Main content ---- */
                         <ScrollView
                             className="flex-1"
                             showsVerticalScrollIndicator={false}
@@ -120,9 +155,9 @@ const PaymentsScreen = () => {
                                         className="p-6 rounded-xl border-2"
                                         style={{
                                             backgroundColor: hasVerifiedProfile
-                                                ? colors.accent + "1A"
+                                                ? colors.success + "33"
                                                 : colors.primary100,
-                                            borderColor: hasVerifiedProfile ? colors.accent : colors.accent + "4D",
+                                            borderColor: hasVerifiedProfile ? colors.success : colors.accent
                                         }}
                                         activeOpacity={0.8}
                                     >
@@ -156,7 +191,7 @@ const PaymentsScreen = () => {
                                     <TouchableOpacity
                                         onPress={() => router.push("/dashboard/payments/history")}
                                         className="p-6 rounded-xl border-2"
-                                        style={{ backgroundColor: colors.primary100, borderColor: colors.accent + "4D" }}
+                                        style={{ backgroundColor: colors.primary100, borderColor: colors.accent }}
                                         activeOpacity={0.8}
                                     >
                                         <View className="flex-row items-center gap-4">
@@ -186,7 +221,7 @@ const PaymentsScreen = () => {
                                     <TouchableOpacity
                                         onPress={() => router.push("/dashboard/payments/profiles")}
                                         className="p-6 rounded-xl border-2"
-                                        style={{ backgroundColor: colors.primary100, borderColor: colors.accent + "4D" }}
+                                        style={{ backgroundColor: colors.primary100, borderColor: colors.accent }}
                                         activeOpacity={0.8}
                                     >
                                         <View className="flex-row items-center gap-4">
@@ -229,6 +264,25 @@ const PaymentsScreen = () => {
                         </ScrollView>
                     ) : null}
                 </View>
+
+                {/* Step 1 — Face verification */}
+                <FaceVerificationModal
+                    isOpen={isFaceVerificationOpen}
+                    onClose={handleFaceVerificationClose}
+                    onSuccess={handleFaceVerificationSuccess}
+                    title="Verify Identity for Withdrawal"
+                    description="For your security, please verify your identity before requesting a payout."
+                />
+
+                {/* Step 2 — Amount entry & confirmation */}
+                {revenueSummary && (
+                    <RequestPayoutModal
+                        isOpen={isPayoutModalOpen}
+                        onClose={handlePayoutModalClose}
+                        onPayoutSuccess={handlePayoutSuccess}
+                        availableBalance={revenueSummary.payout_status.available_balance}
+                    />
+                )}
             </RequireAuth>
         </Screen>
     );

@@ -14,10 +14,10 @@ const EventsEmptyState = ({
     onClearFilters,
 }: EventsEmptyStateProps) => {
     return (
-        <View className="py-16 px-4">
+        <View className="pb-16 px-4">
             {/* Icon */}
             <View
-                className="w-24 h-24 rounded-full items-center justify-center mb-6 border-2 border-accent"
+                className="w-24 h-24 rounded-full items-center justify-center  mx-auto mb-6 border-2 border-accent"
                 style={{ backgroundColor: "rgba(220, 0, 0, 0.2)" }}
             >
                 <Ionicons name="search" size={48} color={colors.accent50} />

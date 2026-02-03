@@ -49,7 +49,8 @@ const EventDateTimeSection = () => {
                     <AppFormField
                         name="start_time"
                         label="Start Time"
-                        placeholder="HH:MM"
+                        type="time"
+                        placeholder="Select start time"
                         required
                     />
                 </View>
@@ -72,7 +73,8 @@ const EventDateTimeSection = () => {
                     <AppFormField
                         name="end_time"
                         label="End Time"
-                        placeholder="HH:MM"
+                        type="time"
+                        placeholder="Select end time"
                         required
                     />
                 </View>

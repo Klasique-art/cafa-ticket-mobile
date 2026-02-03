@@ -1,10 +1,9 @@
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, ScrollView } from "react-native";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import type { Href } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
-import { Screen, AppText, Animation } from "@/components";
 import {
   EventsHero,
   EventsCategoryTabs,
@@ -16,12 +15,13 @@ import {
   EventsEmptyState,
   FilterOptions,
 } from "@/components";
-import { Event, EventFilters } from "@/types";
-import { EventCategory } from "@/types/tickets.types";
-import { getEvents, getEventCategories } from "@/lib/events";
-import { useDebounce } from "@/hooks";
 import colors from "@/config/colors";
 import { movingCar } from "@/assets";
+import { useDebounce } from "@/hooks";
+import { Event, EventFilters } from "@/types";
+import { EventCategory } from "@/types/tickets.types";
+import { Screen, AppText, Animation } from "@/components";
+import { getEvents, getEventCategories } from "@/lib/events";
 
 const EventsScreen = () => {
   // Get URL params for category and city
@@ -236,7 +236,7 @@ const EventsScreen = () => {
         {/* Link to Past Events */}
         <TouchableOpacity
           onPress={() => router.push("/events/past" as Href)}
-          className="flex-row items-center gap-2 p-4 bg-primary-100 rounded-xl border border-accent/30 mb-6"
+          className="flex-row items-center gap-2 p-4 bg-primary-100 rounded-xl border border-accent mb-6"
           activeOpacity={0.7}
         >
           <Ionicons name="time" size={20} color={colors.accent50} />
@@ -301,7 +301,7 @@ const EventsScreen = () => {
         />
       ) : (
         /* Empty State with Header */
-        <View className="flex-1">
+        <ScrollView className="flex-1" showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 50 }}>
           {renderHeader()}
           <View className="px-4">
             <EventsEmptyState
@@ -309,7 +309,7 @@ const EventsScreen = () => {
               onClearFilters={handleClearAllFilters}
             />
           </View>
-        </View>
+        </ScrollView>
       )}
     </Screen>
   );

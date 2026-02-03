@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
-import client, { API_BASE_URL, AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY } from "./client";
+import client, { AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY } from "./client";
+import { API_BASE_URL } from "@/config/settings";
 import { CurrentUser, LoginCredentials, SignupData, LoginResponse } from "@/types";
 
 export async function login(credentials: LoginCredentials): Promise<LoginResponse> {

@@ -1,7 +1,8 @@
-import { View, TouchableOpacity, ScrollView } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRef, forwardRef, useImperativeHandle } from "react";
 import { Formik } from "formik";
+import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 import { AppText, AppFormField, AppBottomSheet } from "@/components";
 import type { AppBottomSheetRef } from "@/components";
@@ -45,10 +46,16 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
         };
 
         return (
-            <AppBottomSheet ref={bottomSheetRef} snapPoints={["90%"]} scrollable>
-                <View className="flex-1 px-4 pb-4">
-                    {/* Header */}
-                    <View className="flex-row items-center justify-between mb-4">
+            <AppBottomSheet
+                ref={bottomSheetRef}
+                snapPoints={["90%"]}
+                scrollable // ← tells AppBottomSheet to skip BottomSheetView wrapper
+            >
+                {/* Outer flex container — fills the sheet */}
+                <View className="flex-1 px-4">
+
+                    {/* ── Header — pinned, never scrolls ── */}
+                    <View className="flex-row items-center justify-between py-4">
                         <View className="flex-row items-center gap-3">
                             <View
                                 className="w-10 h-10 rounded-lg items-center justify-center"
@@ -74,7 +81,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                         </TouchableOpacity>
                     </View>
 
-                    {/* Form */}
+                    {/* ── Formik wraps both the scrolling body AND the pinned buttons ── */}
                     <Formik
                         initialValues={initialValues || defaultValues}
                         validationSchema={ticketTypeSchema}
@@ -82,160 +89,153 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                         enableReinitialize
                     >
                         {({ handleSubmit: formikHandleSubmit, isSubmitting }) => (
-                            <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
-                                <View className="gap-4 pb-6">
-                                    {/* Basic Info */}
-                                    <View>
-                                        <AppText styles="text-sm text-white mb-3" font="font-ibold">
-                                            Basic Information
-                                        </AppText>
-
-                                        <View className="gap-3">
-                                            <AppFormField
-                                                name="name"
-                                                label="Ticket Name"
-                                                placeholder="e.g., Early Bird, VIP, Regular"
-                                                required
-                                            />
-
-                                            <AppFormField
-                                                name="description"
-                                                label="Description"
-                                                placeholder="Describe what this ticket includes..."
-                                                multiline
-                                                rows={3}
-                                                required
-                                            />
-                                        </View>
-                                    </View>
-
-                                    {/* Pricing & Quantity */}
-                                    <View>
-                                        <AppText styles="text-sm text-white mb-3" font="font-ibold">
-                                            Pricing & Quantity
-                                        </AppText>
-
-                                        <View className="gap-3">
-                                            <View className="flex-row gap-3">
-                                                <View className="flex-1">
-                                                    <AppFormField
-                                                        name="price"
-                                                        label="Price (GH₵)"
-                                                        placeholder="50.00"
-                                                        keyboardType="decimal-pad"
-                                                        required
-                                                    />
-                                                </View>
-
-                                                <View className="flex-1">
-                                                    <AppFormField
-                                                        name="quantity"
-                                                        label="Quantity"
-                                                        placeholder="100"
-                                                        keyboardType="number-pad"
-                                                        required
-                                                    />
-                                                </View>
+                            <>
+                                {/* ── Scrollable form fields — only this part scrolls ── */}
+                                <BottomSheetScrollView
+                                    className="flex-1"
+                                    showsVerticalScrollIndicator={false}
+                                >
+                                    <View className="gap-4 pb-4">
+                                        {/* Basic Info */}
+                                        <View>
+                                            <AppText styles="text-sm text-white mb-3" font="font-ibold">
+                                                Basic Information
+                                            </AppText>
+                                            <View className="gap-3">
+                                                <AppFormField
+                                                    name="name"
+                                                    label="Ticket Name"
+                                                    placeholder="e.g., Early Bird, VIP, Regular"
+                                                    required
+                                                />
+                                                <AppFormField
+                                                    name="description"
+                                                    label="Description"
+                                                    placeholder="Describe what this ticket includes..."
+                                                    multiline
+                                                    required
+                                                />
                                             </View>
-
-                                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
-                                                Min price: GH₵10 • Max quantity: 1,000,000
-                                            </AppText>
                                         </View>
-                                    </View>
 
-                                    {/* Purchase Limits */}
-                                    <View>
-                                        <AppText styles="text-sm text-white mb-3" font="font-ibold">
-                                            Purchase Limits
-                                        </AppText>
-
-                                        <View className="gap-3">
-                                            <View className="flex-row gap-3">
-                                                <View className="flex-1">
-                                                    <AppFormField
-                                                        name="min_purchase"
-                                                        label="Minimum"
-                                                        placeholder="1"
-                                                        keyboardType="number-pad"
-                                                        required
-                                                    />
+                                        {/* Pricing & Quantity */}
+                                        <View>
+                                            <AppText styles="text-sm text-white mb-3" font="font-ibold">
+                                                Pricing & Quantity
+                                            </AppText>
+                                            <View className="gap-3">
+                                                <View className="flex-row gap-3">
+                                                    <View className="flex-1">
+                                                        <AppFormField
+                                                            name="price"
+                                                            label="Price (GH₵)"
+                                                            placeholder="50.00"
+                                                            keyboardType="decimal-pad"
+                                                            required
+                                                        />
+                                                    </View>
+                                                    <View className="flex-1">
+                                                        <AppFormField
+                                                            name="quantity"
+                                                            label="Quantity"
+                                                            placeholder="100"
+                                                            keyboardType="number-pad"
+                                                            required
+                                                        />
+                                                    </View>
                                                 </View>
-
-                                                <View className="flex-1">
-                                                    <AppFormField
-                                                        name="max_purchase"
-                                                        label="Maximum (Optional)"
-                                                        placeholder="10"
-                                                        keyboardType="number-pad"
-                                                    />
-                                                </View>
-                                            </View>
-
-                                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
-                                                Per transaction limits • Max: 100
-                                            </AppText>
-                                        </View>
-                                    </View>
-
-                                    {/* Availability Period */}
-                                    <View>
-                                        <AppText styles="text-sm text-white mb-1" font="font-ibold">
-                                            Availability Period (Optional)
-                                        </AppText>
-                                        <AppText styles="text-xs text-white mb-3" font="font-iregular" style={{ opacity: 0.6 }}>
-                                            Set time window for this ticket type
-                                        </AppText>
-
-                                        <View className="gap-3">
-                                            <AppFormField
-                                                name="available_from"
-                                                label="Available From"
-                                                type="date"
-                                            />
-
-                                            <AppFormField
-                                                name="available_until"
-                                                label="Available Until"
-                                                type="date"
-                                            />
-                                        </View>
-                                    </View>
-
-                                    {/* Action Buttons */}
-                                    <View className="flex-row gap-3 pt-4">
-                                        <TouchableOpacity
-                                            onPress={() => bottomSheetRef.current?.close()}
-                                            className="flex-1 px-6 py-3 rounded-xl border-2"
-                                            style={{
-                                                backgroundColor: colors.primary200,
-                                                borderColor: colors.accent + "4D",
-                                            }}
-                                            activeOpacity={0.7}
-                                        >
-                                            <AppText styles="text-sm text-white text-center" font="font-ibold">
-                                                Cancel
-                                            </AppText>
-                                        </TouchableOpacity>
-                                        <View className="flex-1">
-                                            <TouchableOpacity
-                                                onPress={() => formikHandleSubmit()}
-                                                disabled={isSubmitting}
-                                                className="px-6 py-3 rounded-xl"
-                                                style={{
-                                                    backgroundColor: colors.accent,
-                                                    opacity: isSubmitting ? 0.6 : 1,
-                                                }}
-                                                activeOpacity={0.8}
-                                            >
-                                                <AppText styles="text-sm text-white text-center" font="font-ibold">
-                                                    {isEditing ? "Update Ticket" : "Add Ticket"}
+                                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                                                    Min price: GH₵10 • Max quantity: 1,000,000
                                                 </AppText>
-                                            </TouchableOpacity>
+                                            </View>
+                                        </View>
+
+                                        {/* Purchase Limits */}
+                                        <View>
+                                            <AppText styles="text-sm text-white mb-3" font="font-ibold">
+                                                Purchase Limits
+                                            </AppText>
+                                            <View className="gap-3">
+                                                <View className="flex-row gap-3">
+                                                    <View className="flex-1">
+                                                        <AppFormField
+                                                            name="min_purchase"
+                                                            label="Minimum"
+                                                            placeholder="1"
+                                                            keyboardType="number-pad"
+                                                            required
+                                                        />
+                                                    </View>
+                                                    <View className="flex-1">
+                                                        <AppFormField
+                                                            name="max_purchase"
+                                                            label="Maximum (Optional)"
+                                                            placeholder="10"
+                                                            keyboardType="number-pad"
+                                                        />
+                                                    </View>
+                                                </View>
+                                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                                                    Per transaction limits • Max: 100
+                                                </AppText>
+                                            </View>
+                                        </View>
+
+                                        {/* Availability Period */}
+                                        <View>
+                                            <AppText styles="text-sm text-white mb-1" font="font-ibold">
+                                                Availability Period (Optional)
+                                            </AppText>
+                                            <AppText styles="text-xs text-white mb-3" font="font-iregular" style={{ opacity: 0.6 }}>
+                                                Set time window for this ticket type
+                                            </AppText>
+                                            <View className="gap-3">
+                                                <AppFormField
+                                                    name="available_from"
+                                                    label="Available From"
+                                                    type="date"
+                                                />
+                                                <AppFormField
+                                                    name="available_until"
+                                                    label="Available Until"
+                                                    type="date"
+                                                />
+                                            </View>
                                         </View>
                                     </View>
+                                </BottomSheetScrollView>
+
+                                {/* ── Action Buttons — pinned at bottom, never scrolls ── */}
+                                <View className="flex-row gap-3 pb-6 pt-2">
+                                    <TouchableOpacity
+                                        onPress={() => bottomSheetRef.current?.close()}
+                                        className="flex-1 px-6 py-3 rounded-xl border-2"
+                                        style={{
+                                            backgroundColor: colors.primary200,
+                                            borderColor: colors.accent + "4D",
+                                        }}
+                                        activeOpacity={0.7}
+                                    >
+                                        <AppText styles="text-sm text-white text-center" font="font-ibold">
+                                            Cancel
+                                        </AppText>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => formikHandleSubmit()}
+                                        disabled={isSubmitting}
+                                        className="flex-1 px-6 py-3 rounded-xl"
+                                        style={{
+                                            backgroundColor: colors.accent,
+                                            opacity: isSubmitting ? 0.6 : 1,
+                                        }}
+                                        activeOpacity={0.8}
+                                    >
+                                        <AppText styles="text-sm text-white text-center" font="font-ibold">
+                                            {isEditing ? "Update Ticket" : "Add Ticket"}
+                                        </AppText>
+                                    </TouchableOpacity>
                                 </View>
-                            </ScrollView>
+                            </>
                         )}
                     </Formik>
                 </View>
