@@ -6,8 +6,10 @@ import { useRef, memo } from "react";
 
 import { dashboardListItems } from "@/data/item_constants";
 import type { DashboardListItem } from "@/data/item_constants";
-import { ListItem, AppBottomSheet, ConfirmAction } from "@/components";
-import type { AppBottomSheetRef } from "@/components";
+import ListItem from "../ui/ListItem";
+import AppBottomSheet from "../ui/AppBottomSheet";
+import ConfirmAction from "../ui/ConfirmAction";
+import type { AppBottomSheetRef } from "../ui/AppBottomSheet";
 import { useAuth } from "@/context";
 
 const DashboardList = () => {

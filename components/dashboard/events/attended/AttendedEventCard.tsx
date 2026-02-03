@@ -3,7 +3,7 @@ import { Image } from "expo-image";
 import { memo } from "react";
 import { View } from "react-native";
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import colors from "@/config/colors";
 import type { AttendedEvent } from "@/types/dash-events.types";
 

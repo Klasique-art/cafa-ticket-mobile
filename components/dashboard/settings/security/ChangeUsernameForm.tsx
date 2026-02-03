@@ -3,7 +3,11 @@ import { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import * as Yup from "yup";
 
-import { AppText, AppForm, AppFormField, SubmitButton, FormLoader } from "@/components";
+import AppText from "../../../ui/AppText";
+import AppForm from "../../../form/AppForm";
+import AppFormField from "../../../form/AppFormField";
+import SubmitButton from "../../../form/SubmitButton";
+import FormLoader from "../../../form/FormLoader";
 import { getCurrentUser } from "@/lib/auth";
 import { changeUsername } from "@/lib/settings";
 import type { CurrentUser } from "@/types/general.types";

@@ -3,7 +3,7 @@ import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { useEffect, useState } from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import colors from "@/config/colors";
 
 interface Filters {

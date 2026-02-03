@@ -4,7 +4,7 @@ import type { Href } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { memo, useCallback } from "react";
 
-import { AppText } from "@/components";
+import AppText from "../ui/AppText";
 import { Event } from "@/types";
 import { getFullImageUrl } from "@/utils/imageUrl";
 import colors from "@/config/colors";

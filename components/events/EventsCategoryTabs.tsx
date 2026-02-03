@@ -1,7 +1,7 @@
 import { View, ScrollView, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { AppText } from "@/components";
+import AppText from "../ui/AppText";
 import { EventCategory } from "@/types/tickets.types";
 import colors from "@/config/colors";
 

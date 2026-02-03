@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-import { AppText, AppErrorMessage } from "@/components";
+import AppText from "./AppText";
+import AppErrorMessage from "../form/AppErrorMessage";
 import colors from "@/config/colors";
 
 export type LocationData = {

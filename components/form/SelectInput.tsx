@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-import {AppText} from "@/components"
+import AppText from "../ui/AppText";
 
 type Option = {
     value: string;

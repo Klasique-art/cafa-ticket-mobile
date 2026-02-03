@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Markdown from "react-native-markdown-display";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import { EventDetails } from "@/types";
 import colors from "@/config/colors";
 import { markdownStyles } from "@/config/styles";

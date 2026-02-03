@@ -4,8 +4,10 @@ import { useRef, forwardRef, useImperativeHandle } from "react";
 import { Formik } from "formik";
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
-import { AppText, AppFormField, AppBottomSheet } from "@/components";
-import type { AppBottomSheetRef } from "@/components";
+import AppText from "../../../ui/AppText";
+import AppFormField from "../../../form/AppFormField";
+import AppBottomSheet from "../../../ui/AppBottomSheet";
+import type { AppBottomSheetRef } from "../../../ui/AppBottomSheet";
 import { ticketTypeSchema, type TicketTypeFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
 

@@ -4,7 +4,7 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import * as Clipboard from "expo-clipboard";
 import { useState } from "react";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import { EventDetails } from "@/types";
 import colors from "@/config/colors";
 

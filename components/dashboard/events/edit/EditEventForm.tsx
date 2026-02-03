@@ -3,20 +3,18 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState, useCallback } from "react";
 import { router } from "expo-router";
 
-import {
-    AppText,
-    AppForm,
-    SubmitButton,
-    FormLoader,
-    EventBasicInfoSection,
-    EventVenueSection,
-    EventDateTimeSection,
-    EventTypeSection,
-    EventCapacitySection,
-    EventPaymentProfileSection,
-    EventImagesSection,
-    EventPublishSection,
-} from "@/components";
+import AppText from "../../../ui/AppText";
+import AppForm from "../../../form/AppForm";
+import SubmitButton from "../../../form/SubmitButton";
+import FormLoader from "../../../form/FormLoader";
+import EventBasicInfoSection from "../create/EventBasicInfoSection";
+import EventVenueSection from "../create/EventVenueSection";
+import EventDateTimeSection from "../create/EventDateTimeSection";
+import EventTypeSection from "../create/EventTypeSection";
+import EventCapacitySection from "../create/EventCapacitySection";
+import EventPaymentProfileSection from "../create/EventPaymentProfileSection";
+import EventImagesSection from "../create/EventImagesSection";
+import EventPublishSection from "../create/EventPublishSection";
 import { eventCreationSchema, type EventFormValues } from "@/data/eventCreationSchema";
 import { buildEventFormData } from "@/utils/buildEventFormData";
 import { updateEvent } from "@/lib/events";

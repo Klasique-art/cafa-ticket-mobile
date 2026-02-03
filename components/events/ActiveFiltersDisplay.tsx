@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { AppText } from "@/components";
+import AppText from "../ui/AppText";
 import colors from "@/config/colors";
 
 interface ActiveFilter {

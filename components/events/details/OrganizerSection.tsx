@@ -3,7 +3,7 @@ import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import { EventDetails, RecurringEventDetails } from "@/types";
 import { getFullImageUrl } from "@/utils/imageUrl";
 import colors from "@/config/colors";

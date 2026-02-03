@@ -4,7 +4,7 @@ import { useFormikContext } from "formik";
 import { useEffect, useState } from "react";
 import { router } from "expo-router";
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import type { EventFormValues } from "@/data/eventCreationSchema";
 import type { PaymentProfile } from "@/types/payments.types";
 import { getMyPaymentProfiles } from "@/lib/dashboard";

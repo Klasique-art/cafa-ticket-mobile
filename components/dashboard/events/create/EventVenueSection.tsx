@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useFormikContext } from "formik";
 
-import { AppText, LocationSelector } from "@/components";
+import AppText from "../../../ui/AppText";
+import LocationSelector from "../../../ui/LocationSelector";
 import type { LocationData } from "@/components/ui/LocationSelector";
 import type { EventFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";

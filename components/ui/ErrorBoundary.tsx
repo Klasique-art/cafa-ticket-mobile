@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '@/config/colors';
 
-import { AppText } from '@/components';
+import AppText from "./AppText";
 
 interface ErrorBoundaryState {
     hasError: boolean;

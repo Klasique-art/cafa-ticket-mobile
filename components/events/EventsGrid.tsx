@@ -3,7 +3,7 @@ import { FlashList } from "@shopify/flash-list";
 import { memo, ReactElement } from "react";
 import Animated from 'react-native-reanimated';
 
-import { AppText } from "@/components";
+import AppText from "../ui/AppText";
 import { Event } from "@/types";
 import EventCard from "./EventCard";
 import colors from "@/config/colors";

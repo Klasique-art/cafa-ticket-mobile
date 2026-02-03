@@ -3,7 +3,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import type { Href } from "expo-router";
 
-import { AppText, Screen } from "@/components";
+import AppText from "../../ui/AppText";
+import Screen from "../../ui/Screen";
 import colors from "@/config/colors";
 
 const EventNotFound = () => {

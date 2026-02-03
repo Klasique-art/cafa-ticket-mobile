@@ -2,13 +2,11 @@ import { View, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-import {
-    AppText,
-    CheckInStats,
-    QRScanner,
-    ManualEntry,
-    CheckInResult,
-} from "@/components";
+import AppText from "../../ui/AppText";
+import CheckInStats from "./CheckInStats";
+import QRScanner from "./QRScanner";
+import ManualEntry from "./ManualEntry";
+import CheckInResult from "./CheckInResult";
 import colors from "@/config/colors";
 import type { MyEvent } from "@/types/dash-events.types";
 import type { CheckInSuccessResponse, CheckInResponse } from "@/types/dashboard.types";

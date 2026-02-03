@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import type { EventAttendee } from "@/types/dash-events.types";
 import colors from "@/config/colors";
 

@@ -2,7 +2,8 @@ import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useFormikContext } from "formik";
 
-import { AppText, AppFormField } from "@/components";
+import AppText from "../../../ui/AppText";
+import AppFormField from "../../../form/AppFormField";
 import type { EventFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
 

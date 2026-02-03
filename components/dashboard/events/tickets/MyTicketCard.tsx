@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import type { MyTicket } from "@/types/tickets.types";
 import colors from "@/config/colors";
 

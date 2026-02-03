@@ -3,7 +3,7 @@ import { useState, useCallback, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { CameraView, useCameraPermissions } from "expo-camera";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import colors from "@/config/colors";
 
 type Props = {

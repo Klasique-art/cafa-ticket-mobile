@@ -3,7 +3,7 @@ import { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Ionicons } from "@expo/vector-icons";
 
-import { AppText } from "@/components";
+import AppText from "./AppText";
 import colors from "@/config/colors";
 
 interface TimeInputProps {

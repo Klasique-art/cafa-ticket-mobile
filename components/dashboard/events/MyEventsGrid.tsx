@@ -2,7 +2,8 @@ import { View, ActivityIndicator } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { memo } from "react";
 
-import { MyEventCard, AppText } from "@/components";
+import MyEventCard from "./MyEventCard";
+import AppText from "../../ui/AppText";
 import type { MyEvent } from "@/types/dash-events.types";
 import colors from "@/config/colors";
 

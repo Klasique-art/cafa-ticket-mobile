@@ -1,28 +1,27 @@
-import { View, FlatList, Alert, RefreshControl } from "react-native";
+import { View, ScrollView, Alert, RefreshControl } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useCallback } from "react";
 import type { MutableRefObject } from "react";
 import { router } from "expo-router";
 
-import {
-    AppText,
-    AppForm,
-    SubmitButton,
-    FormLoader,
-    EventBasicInfoSection,
-    EventVenueSection,
-    EventDateTimeSection,
-    EventTypeSection,
-    EventCapacitySection,
-    EventPaymentProfileSection,
-    EventImagesSection,
-    EventTicketTypesSection,
-    EventPublishSection,
-} from "@/components";
+import AppText from "../../../ui/AppText";
+import AppForm from "../../../form/AppForm";
+import SubmitButton from "../../../form/SubmitButton";
+import FormLoader from "../../../form/FormLoader";
+import EventBasicInfoSection from "./EventBasicInfoSection";
+import EventVenueSection from "./EventVenueSection";
+import EventDateTimeSection from "./EventDateTimeSection";
+import EventTypeSection from "./EventTypeSection";
+import EventCapacitySection from "./EventCapacitySection";
+import EventPaymentProfileSection from "./EventPaymentProfileSection";
+import EventImagesSection from "./EventImagesSection";
+import EventTicketTypesSection from "./EventTicketTypesSection";
+import EventPublishSection from "./EventPublishSection";
 import { eventCreationSchema, type EventFormValues, type TicketTypeFormValues } from "@/data/eventCreationSchema";
 import { buildEventFormData } from "@/utils/buildEventFormData";
 import { createEvent } from "@/lib/events";
 import colors from "@/config/colors";
+
 
 interface CreateEventFormProps {
     /** Called when the user taps Add (null) or Edit (index) ticket type. */
@@ -171,8 +170,6 @@ const CreateEventForm = ({ onOpenModal, formContextRef }: CreateEventFormProps) 
             onSubmit={handleSubmit}
         >
             {({ values, isValid, setFieldValue }) => {
-                // Keep the screen's ref in sync so the lifted modal can reach
-                // setFieldValue without prop-drilling through the FlatList.
                 formContextRef.current = {
                     setFieldValue,
                     ticketTypes: values.ticket_types,
@@ -184,10 +181,7 @@ const CreateEventForm = ({ onOpenModal, formContextRef }: CreateEventFormProps) 
                 return (
                     <>
                         <FormLoader visible={isSubmitting} />
-
-                        <FlatList
-                            data={[{ key: 'form-content' }]}
-                            keyExtractor={(item) => item.key}
+                        <ScrollView
                             showsVerticalScrollIndicator={false}
                             refreshControl={
                                 <RefreshControl
@@ -196,117 +190,116 @@ const CreateEventForm = ({ onOpenModal, formContextRef }: CreateEventFormProps) 
                                     tintColor={colors.accent}
                                 />
                             }
-                            keyboardShouldPersistTaps="handled"
-                            renderItem={() => (
-                                <View className="gap-6 pb-10">
-                                    {/* Basic Info */}
-                                    <EventBasicInfoSection />
+                            keyboardShouldPersistTaps="always"
+                        >
+                            <View className="gap-6 pb-10">
+                                {/* Basic Info */}
+                                <EventBasicInfoSection />
 
-                                    <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
+                                <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
-                                    {/* Venue */}
-                                    <EventVenueSection />
+                                {/* Venue */}
+                                <EventVenueSection />
 
-                                    <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
+                                <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
-                                    {/* Date & Time */}
-                                    <EventDateTimeSection />
+                                {/* Date & Time */}
+                                <EventDateTimeSection />
 
-                                    <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
+                                <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
-                                    {/* Event Type */}
-                                    <EventTypeSection />
+                                {/* Event Type */}
+                                <EventTypeSection />
 
-                                    <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
+                                <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
-                                    {/* Images */}
-                                    <EventImagesSection />
+                                {/* Images */}
+                                <EventImagesSection />
 
-                                    <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
+                                <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
-                                    {/* Tickets — button calls up to screen via prop */}
-                                    <EventTicketTypesSection
-                                        onOpenModal={onOpenModal}
-                                        ticketTypes={values.ticket_types}
-                                        setFieldValue={setFieldValue}
-                                    />
+                                {/* Tickets — button calls up to screen via prop */}
+                                <EventTicketTypesSection
+                                    onOpenModal={onOpenModal}
+                                    ticketTypes={values.ticket_types}
+                                    setFieldValue={setFieldValue}
+                                />
 
-                                    <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
+                                <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
-                                    {/* Capacity */}
-                                    <EventCapacitySection />
+                                {/* Capacity */}
+                                <EventCapacitySection />
 
-                                    <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
+                                <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
-                                    {/* Payment Profile */}
-                                    <EventPaymentProfileSection />
+                                {/* Payment Profile */}
+                                <EventPaymentProfileSection />
 
-                                    <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
+                                <View className="border-t" style={{ borderColor: colors.accent + "4D" }} />
 
-                                    {/* Publishing */}
-                                    <EventPublishSection />
+                                {/* Publishing */}
+                                <EventPublishSection />
 
-                                    {/* Form Status */}
-                                    {!canSubmit && !isSubmitting && (
-                                        <View
-                                            className="p-4 rounded-lg border-2"
-                                            style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
-                                        >
-                                            <View className="flex-row items-start gap-3">
-                                                <Ionicons name="alert-circle" size={18} color={colors.accent} style={{ marginTop: 2 }} />
-                                                <View className="flex-1">
-                                                    <AppText styles="text-sm text-white mb-2" font="font-ibold">
-                                                        Complete Required Fields
-                                                    </AppText>
-                                                    <AppText styles="text-xs text-white mb-2" font="font-iregular" style={{ opacity: 0.8 }}>
-                                                        Please fill in the following:
-                                                    </AppText>
-                                                    <View className="gap-1">
-                                                        {missingFields.slice(0, 5).map((field, index) => (
-                                                            <AppText key={index} styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.8 }}>
-                                                                • {field}
-                                                            </AppText>
-                                                        ))}
-                                                        {missingFields.length > 5 && (
-                                                            <AppText styles="text-xs text-white" font="font-isemibold" style={{ opacity: 0.9 }}>
-                                                                ...and {missingFields.length - 5} more
-                                                            </AppText>
-                                                        )}
-                                                    </View>
+                                {/* Form Status */}
+                                {!canSubmit && !isSubmitting && (
+                                    <View
+                                        className="p-4 rounded-lg border-2"
+                                        style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
+                                    >
+                                        <View className="flex-row items-start gap-3">
+                                            <Ionicons name="alert-circle" size={18} color={colors.accent} style={{ marginTop: 2 }} />
+                                            <View className="flex-1">
+                                                <AppText styles="text-sm text-white mb-2" font="font-ibold">
+                                                    Complete Required Fields
+                                                </AppText>
+                                                <AppText styles="text-xs text-white mb-2" font="font-iregular" style={{ opacity: 0.8 }}>
+                                                    Please fill in the following:
+                                                </AppText>
+                                                <View className="gap-1">
+                                                    {missingFields.slice(0, 5).map((field, index) => (
+                                                        <AppText key={index} styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.8 }}>
+                                                            • {field}
+                                                        </AppText>
+                                                    ))}
+                                                    {missingFields.length > 5 && (
+                                                        <AppText styles="text-xs text-white" font="font-isemibold" style={{ opacity: 0.9 }}>
+                                                            ...and {missingFields.length - 5} more
+                                                        </AppText>
+                                                    )}
                                                 </View>
                                             </View>
                                         </View>
-                                    )}
-
-                                    {/* All Set Message */}
-                                    {canSubmit && !isSubmitting && (
-                                        <View
-                                            className="p-4 rounded-lg border-2"
-                                            style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
-                                        >
-                                            <View className="flex-row items-center gap-3">
-                                                <Ionicons name="checkmark-circle" size={18} color={colors.accent50} />
-                                                <AppText styles="text-sm text-white" font="font-ibold">
-                                                    All set! Ready to create your event.
-                                                </AppText>
-                                            </View>
-                                        </View>
-                                    )}
-
-                                    {/* Submit Button */}
-                                    <View className="pt-4 border-t" style={{ borderColor: colors.accent + "4D" }}>
-                                        <SubmitButton
-                                            title={values.is_published ? "Create & Publish Event" : "Create Draft Event"}
-                                        />
                                     </View>
+                                )}
 
-                                    {/* Helper Text */}
-                                    <AppText styles="text-xs text-white text-center" font="font-iregular" style={{ opacity: 0.6 }}>
-                                        By creating this event, you agree to our Terms of Service
-                                    </AppText>
+                                {/* All Set Message */}
+                                {canSubmit && !isSubmitting && (
+                                    <View
+                                        className="p-4 rounded-lg border-2"
+                                        style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
+                                    >
+                                        <View className="flex-row items-center gap-3">
+                                            <Ionicons name="checkmark-circle" size={18} color={colors.accent50} />
+                                            <AppText styles="text-sm text-white" font="font-ibold">
+                                                All set! Ready to create your event.
+                                            </AppText>
+                                        </View>
+                                    </View>
+                                )}
+
+                                {/* Submit Button */}
+                                <View className="pt-4 border-t" style={{ borderColor: colors.accent + "4D" }}>
+                                    <SubmitButton
+                                        title={values.is_published ? "Create & Publish Event" : "Create Draft Event"}
+                                    />
                                 </View>
-                            )}
-                        />
+
+                                {/* Helper Text */}
+                                <AppText styles="text-xs text-white text-center" font="font-iregular" style={{ opacity: 0.6 }}>
+                                    By creating this event, you agree to our Terms of Service
+                                </AppText>
+                            </View>
+                        </ScrollView>
                     </>
                 );
             }}

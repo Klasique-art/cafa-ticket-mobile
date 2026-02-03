@@ -2,7 +2,8 @@ import { View, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { AppText, Screen } from "@/components";
+import AppText from "@/components/ui/AppText";
+import Screen from "../ui/Screen";
 import colors from "@/config/colors";
 
 interface EmailVerificationPromptProps {

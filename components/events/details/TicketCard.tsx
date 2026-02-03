@@ -4,7 +4,7 @@ import { useState, memo } from "react";
 import Animated, { FadeIn } from "react-native-reanimated";
 import Svg, { Polygon } from "react-native-svg";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import { TicketType, EventDetails } from "@/types";
 import { CurrentUser } from "@/types/general.types";
 import colors from "@/config/colors";

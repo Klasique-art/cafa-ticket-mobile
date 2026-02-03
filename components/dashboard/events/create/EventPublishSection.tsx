@@ -2,7 +2,7 @@ import { View, Switch } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useFormikContext } from "formik";
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import type { EventFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
 

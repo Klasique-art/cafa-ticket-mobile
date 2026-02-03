@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import colors from "@/config/colors";
 
 const privacyRights = [

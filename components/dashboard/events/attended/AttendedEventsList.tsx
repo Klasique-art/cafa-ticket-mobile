@@ -2,7 +2,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { View } from "react-native";
 
-import { AppButton, AppText } from "@/components";
+import AppButton from "../../../ui/AppButton";
+import AppText from "../../../ui/AppText";
 import colors from "@/config/colors";
 import type { AttendedEvent } from "@/types/dash-events.types";
 import AttendedEventCard from "./AttendedEventCard";

@@ -10,7 +10,7 @@ import { useState, useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import { API_BASE_URL } from "@/config/settings";
 import colors from "@/config/colors";
 

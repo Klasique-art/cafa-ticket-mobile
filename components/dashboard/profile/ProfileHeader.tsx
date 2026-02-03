@@ -2,7 +2,7 @@ import { View, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import { CurrentUser } from "@/types/general.types";
 import colors from "@/config/colors";
 

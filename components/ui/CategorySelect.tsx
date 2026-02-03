@@ -1,7 +1,8 @@
 import { View, ActivityIndicator } from "react-native";
 import { useEffect, useState } from "react";
 
-import { AppText, SelectInput } from "@/components";
+import AppText from "./AppText";
+import SelectInput from "../form/SelectInput";
 import type { EventCategory } from "@/types/dash-events.types";
 import { getEventCategories } from "@/lib/events";
 import colors from "@/config/colors";

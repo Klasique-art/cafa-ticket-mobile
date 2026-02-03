@@ -2,7 +2,12 @@ import { View, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-import { AppText, AppForm, AppFormField, SubmitButton, AppErrorMessage, FormLoader } from "@/components";
+import AppFormField from "../form/AppFormField";
+import SubmitButton from "../form/SubmitButton";
+import AppErrorMessage from "../form/AppErrorMessage";
+import FormLoader from "../form/FormLoader";
+import AppText from "@/components/ui/AppText";
+import AppForm from "@/components/form/AppForm";
 import { useAuth } from "@/context";
 import {
     ContactFormLoggedInValidationSchema,

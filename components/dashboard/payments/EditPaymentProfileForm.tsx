@@ -4,7 +4,11 @@ import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import * as Yup from "yup";
 
-import { AppForm, AppFormField, SubmitButton, FormLoader, AppText } from "@/components";
+import AppForm from "../../form/AppForm";
+import AppFormField from "../../form/AppFormField";
+import SubmitButton from "../../form/SubmitButton";
+import FormLoader from "../../form/FormLoader";
+import AppText from "../../ui/AppText";
 import { updatePaymentProfile } from "@/lib/dashboard";
 import type { BankTransferPaymentProfile } from "@/types/payments.types";
 import colors from "@/config/colors";

@@ -1,7 +1,7 @@
 import { View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import type { TicketTypeFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
 

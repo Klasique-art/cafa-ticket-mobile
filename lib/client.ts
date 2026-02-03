@@ -18,10 +18,10 @@ function decodeJwtPayload(token: string): { exp?: number } | null {
 
 /**
  * Returns true when the token is already expired OR will expire within
- * `bufferSeconds` (default 60 s).  The buffer keeps us safely ahead of the
+ * `bufferSeconds` (default 120 s / 2 mins).  The buffer keeps us safely ahead of the
  * clock-skew window so the server never sees an expired token.
  */
-function isTokenExpiredOrExpiring(token: string, bufferSeconds = 60): boolean {
+function isTokenExpiredOrExpiring(token: string, bufferSeconds = 120): boolean {
     const payload = decodeJwtPayload(token);
     if (!payload?.exp) return true; // can't read exp → treat as expired
     return Math.floor(Date.now() / 1000) >= payload.exp - bufferSeconds;
@@ -30,37 +30,39 @@ function isTokenExpiredOrExpiring(token: string, bufferSeconds = 60): boolean {
 // ---------------------------------------------------------------------------
 // Refresh mutex
 // ---------------------------------------------------------------------------
-// Only one refresh call lives at a time.  Every caller that needs a fresh
-// token while a refresh is already in-flight will await the *same* promise
-// instead of firing its own request (which would burn the single-use refresh
-// token and leave the other callers with a dead one).
 let refreshPromise: Promise<string> | null = null;
 
 async function getRefreshedAccessToken(): Promise<string> {
-    if (refreshPromise) return refreshPromise; // piggyback on the in-flight refresh
+    if (refreshPromise) return refreshPromise;
 
     refreshPromise = (async () => {
         try {
             const refreshToken = await SecureStore.getItemAsync(REFRESH_TOKEN_KEY);
             if (!refreshToken) throw new Error("no refresh token stored");
 
-            const res = await axios.post(`${API_BASE_URL}/auth/token/refresh/`, {
+            // Web version uses /auth/jwt/refresh/
+            const res = await axios.post(`${API_BASE_URL}/auth/jwt/refresh/`, {
                 refresh: refreshToken,
             });
 
-            const { access, refresh } = res.data;
+            // Handle nested or root-level token extraction
+            const access = res.data.tokens?.access || res.data.access;
+            const refresh = res.data.tokens?.refresh || res.data.refresh;
+
+            if (!access) {
+                console.error("Refresh response missing access token:", res.data);
+                throw new Error("no access token in refresh response");
+            }
 
             await SecureStore.setItemAsync(AUTH_TOKEN_KEY, access);
 
-            // Simple JWT only returns a new refresh token when
-            // ROTATE_REFRESH_TOKENS is enabled — store it if present.
             if (refresh) {
                 await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, refresh);
             }
 
             return access as string;
         } finally {
-            refreshPromise = null; // release the lock regardless of outcome
+            refreshPromise = null;
         }
     })();
 
@@ -77,10 +79,6 @@ const client = axios.create({
 });
 
 // ── Request interceptor ─────────────────────────────────────────────────────
-// Proactively refresh the access token *before* the request leaves the device.
-// This eliminates the 401 → retry round-trip for the common case and, more
-// importantly, ensures every concurrent request waits on the same single
-// refresh instead of each one triggering its own.
 client.interceptors.request.use(
     async (config) => {
         try {
@@ -93,12 +91,15 @@ client.interceptors.request.use(
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             }
-        } catch {
-            // Refresh failed (refresh token expired / revoked / network error).
-            // Clear everything — the app's auth context will pick up the empty
-            // tokens on its next check and route to login.
-            await SecureStore.deleteItemAsync(AUTH_TOKEN_KEY).catch(() => {});
-            await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY).catch(() => {});
+        } catch (error: any) {
+            // Only clear tokens if the refresh token is explicitly invalid/expired (401/403)
+            // If it's a network error (no status), we don't want to log the user out.
+            const status = error.response?.status;
+            if (status === 401 || status === 403) {
+                await SecureStore.deleteItemAsync(AUTH_TOKEN_KEY).catch(() => { });
+                await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY).catch(() => { });
+            }
+            // Re-throw if we want specific requests to handle the absence of a token
         }
         return config;
     },
@@ -106,15 +107,12 @@ client.interceptors.request.use(
 );
 
 // ── Response interceptor ────────────────────────────────────────────────────
-// Safety net for anything the request interceptor couldn't catch (e.g. the
-// server's clock is ahead of the device and rejects a token we thought was
-// still valid).  Uses the same mutex, so it will never conflict with a
-// proactive refresh that's already running.
 client.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
 
+        // Handle expired token that wasn't caught by the request interceptor
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
 
@@ -125,9 +123,12 @@ client.interceptors.response.use(
                     Authorization: `Bearer ${newAccess}`,
                 };
                 return client(originalRequest);
-            } catch {
-                await SecureStore.deleteItemAsync(AUTH_TOKEN_KEY).catch(() => {});
-                await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY).catch(() => {});
+            } catch (refreshError: any) {
+                const status = refreshError.response?.status;
+                if (status === 401 || status === 403) {
+                    await SecureStore.deleteItemAsync(AUTH_TOKEN_KEY).catch(() => { });
+                    await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY).catch(() => { });
+                }
             }
         }
 

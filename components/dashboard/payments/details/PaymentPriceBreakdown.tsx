@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import { PaymentDetails } from "@/types/payments.types";
 
 type Props = {

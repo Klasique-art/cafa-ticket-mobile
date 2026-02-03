@@ -2,7 +2,8 @@ import { View, Modal, TouchableOpacity, ScrollView } from "react-native";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-import { AppText, AppButton } from "@/components";
+import AppText from "../ui/AppText";
+import AppButton from "../ui/AppButton";
 import colors from "@/config/colors";
 
 export interface FilterOptions {

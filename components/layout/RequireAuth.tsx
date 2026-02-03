@@ -3,7 +3,9 @@ import { router, usePathname } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { ReactNode } from "react";
 
-import { Screen, AppText, Nav } from "@/components";
+import Screen from "../ui/Screen";
+import AppText from "../ui/AppText";
+import Nav from "../ui/Nav";
 import { useAuth } from "@/context";
 import colors from "@/config/colors";
 

@@ -3,7 +3,7 @@ import { memo } from "react";
 import type { FC } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-import { AppText } from "@/components";
+import AppText from "./AppText";
 import colors from "@/config/colors";
 
 interface ListItemProps {

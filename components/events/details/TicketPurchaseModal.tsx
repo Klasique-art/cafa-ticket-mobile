@@ -5,8 +5,9 @@ import { router } from "expo-router";
 import { Linking } from "react-native";
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
-import { AppText, AppBottomSheet } from "@/components";
-import type { AppBottomSheetRef } from "@/components";
+import AppText from "../../ui/AppText";
+import AppBottomSheet from "../../ui/AppBottomSheet";
+import type { AppBottomSheetRef } from "../../ui/AppBottomSheet";
 import { TicketType, EventDetails } from "@/types";
 import { CurrentUser } from "@/types/general.types";
 import colors from "@/config/colors";

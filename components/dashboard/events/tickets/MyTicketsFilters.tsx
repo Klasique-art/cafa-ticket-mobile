@@ -2,7 +2,9 @@ import { View, TouchableOpacity, Modal } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
-import { AppText, AppInput, SelectInput } from "@/components";
+import AppText from "../../../ui/AppText";
+import AppInput from "../../../form/AppInput";
+import SelectInput from "../../../form/SelectInput";
 import type { EventCategory } from "@/types/tickets.types";
 import colors from "@/config/colors";
 

@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import { EventDetails } from "@/types";
 import colors from "@/config/colors";
 

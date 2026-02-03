@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import * as Clipboard from 'expo-clipboard';
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import type { MyEventDetailsResponse } from "@/types/dash-events.types";
 import colors from "@/config/colors";
 import { APP_DOMAIN_NAME } from "@/data/constants";

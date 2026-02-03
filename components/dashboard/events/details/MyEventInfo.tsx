@@ -2,7 +2,7 @@ import { View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import type { EventInfo } from "@/types/dash-events.types";
 import colors from "@/config/colors";
 

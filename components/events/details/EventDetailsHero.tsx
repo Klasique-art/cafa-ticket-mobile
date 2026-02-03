@@ -6,7 +6,7 @@ import { useState, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import { EventDetails } from "@/types";
 import { getFullImageUrl } from "@/utils/imageUrl";
 import colors from "@/config/colors";

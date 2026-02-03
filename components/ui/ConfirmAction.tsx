@@ -1,7 +1,8 @@
 import { View } from "react-native";
 import type { FC } from "react";
 
-import { AppText, AppButton } from "@/components";
+import AppText from "./AppText";
+import AppButton from "./AppButton";
 
 interface ConfirmActionProps {
     onConfirm: () => void;

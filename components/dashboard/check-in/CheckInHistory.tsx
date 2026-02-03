@@ -2,7 +2,7 @@ import { View, ScrollView, TouchableOpacity, ActivityIndicator } from "react-nat
 import { useState, useEffect, useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import colors from "@/config/colors";
 import type { CheckInHistoryItem } from "@/types/dashboard.types";
 

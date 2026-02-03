@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, ActivityIndicator, View } from 'react-native';
 import { Link, Href } from 'expo-router';
-import {AppText} from '@/components';
+import AppText from "./AppText";
 
 // Base props common to both button and link variants
 interface BaseProps {

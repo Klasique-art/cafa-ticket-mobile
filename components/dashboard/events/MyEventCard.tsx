@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import type { Href } from "expo-router";
 import { memo } from "react";
 
-import { AppText } from "@/components";
+import AppText from "../../ui/AppText";
 import type { MyEvent } from "@/types/dash-events.types";
 import colors from "@/config/colors";
 

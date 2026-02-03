@@ -1,7 +1,7 @@
 import { View, ActivityIndicator } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 
-import { AppText } from "@/components";
+import AppText from "../../../ui/AppText";
 import PaymentHistoryCard from "./PaymentHistoryCard";
 import { PaymentTransaction } from "@/types/payments.types";
 import colors from "@/config/colors";

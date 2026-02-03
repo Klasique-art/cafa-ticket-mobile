@@ -2,7 +2,8 @@ import { View, TouchableOpacity, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useMemo } from "react";
 
-import { AppText, TicketTypeCard } from "@/components";
+import AppText from "../../../ui/AppText";
+import TicketTypeCard from "./TicketTypeCard";
 import type { TicketTypeFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
 

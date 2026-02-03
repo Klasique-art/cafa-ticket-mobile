@@ -3,13 +3,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { router } from "expo-router";
 
-import {
-    AppText,
-    AppForm,
-    AppFormField,
-    SubmitButton,
-    FormLoader,
-} from "@/components";
+import AppText from "../../../ui/AppText";
+import AppForm from "../../../form/AppForm";
+import AppFormField from "../../../form/AppFormField";
+import SubmitButton from "../../../form/SubmitButton";
+import FormLoader from "../../../form/FormLoader";
 import { ticketTypeSchema, type TicketTypeFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
 

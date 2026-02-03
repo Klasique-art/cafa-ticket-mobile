@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 
-import { AppText } from "@/components";
+import AppText from "../ui/AppText";
 import colors from "@/config/colors";
 import { formatNumber } from "@/utils";
 

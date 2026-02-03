@@ -3,7 +3,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
-import { AppText, TicketCard } from "@/components";
+import AppText from "../../ui/AppText";
+import TicketCard from "./TicketCard";
 import { EventDetails, RecurringEventDetails, TicketType } from "@/types";
 import { CurrentUser } from "@/types/general.types";
 import colors from "@/config/colors";
