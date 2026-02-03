@@ -3,13 +3,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
 import AppText from "../../../ui/AppText";
+import { getFullImageUrl } from "@/utils/imageUrl";
 
 interface MyEventImageGalleryProps {
     images: string[];
     eventTitle: string;
 }
 
-const MyEventImageGallery = ({ images, eventTitle }: MyEventImageGalleryProps) => {
+const MyEventImageGallery = ({ images }: MyEventImageGalleryProps) => {
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
     if (!images || images.length === 0) {
@@ -51,7 +52,7 @@ const MyEventImageGallery = ({ images, eventTitle }: MyEventImageGalleryProps) =
                             className="relative"
                         >
                             <Image
-                                source={{ uri: image }}
+                                source={{ uri: getFullImageUrl(image) }}
                                 className="w-64 h-40 rounded-xl"
                                 resizeMode="cover"
                             />
@@ -94,7 +95,7 @@ const MyEventImageGallery = ({ images, eventTitle }: MyEventImageGalleryProps) =
                         {/* Image */}
                         <View className="flex-1 items-center justify-center">
                             <Image
-                                source={{ uri: images[selectedIndex] }}
+                                source={{ uri: getFullImageUrl(images[selectedIndex]) }}
                                 className="w-full h-full"
                                 resizeMode="contain"
                             />

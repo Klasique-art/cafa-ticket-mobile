@@ -148,6 +148,7 @@ const CreateEventForm = ({ onOpenModal, formContextRef }: CreateEventFormProps) 
             });
 
             const result = await createEvent(payload);
+            console.log("Event created:", result);
 
             Alert.alert("Success!", "Event created successfully", [
                 {

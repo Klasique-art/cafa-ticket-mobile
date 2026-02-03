@@ -19,6 +19,7 @@ export { default as Screen } from "./ui/Screen";
 export { default as CategorySelect } from "./ui/CategorySelect";
 export { default as LocationSelector } from "./ui/LocationSelector";
 export { default as TimeInput } from "./ui/TimeInput";
+export { default as PhotoCapture } from "./ui/PhotoCapture";
 // form
 export { default as AppErrorMessage } from "./form/AppErrorMessage";
 export { default as AppForm } from "./form/AppForm";
@@ -157,3 +158,5 @@ export { default as PaymentEventDetails } from "./dashboard/payments/details/Pay
 // events past
 export { default as PastEventActiveFiltersDisplay } from "./events/past/PastEventActiveFiltersDisplay";
 export { default as PastEventsSortModal } from "./events/past/PastEventsSortModal";
+// dashboard profile verify
+export { default as VerificationHeader } from "./dashboard/profile/verify/VerificationHeader";

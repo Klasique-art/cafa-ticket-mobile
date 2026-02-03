@@ -42,7 +42,7 @@ const AttendedEventsScreen = () => {
     return (
         <Screen>
             <RequireAuth>
-                <Nav title="Attended Events" onPress={() => router.push("/dashboard/events")} />
+                <Nav title="Attended Events" />
 
                 <ScrollView
                     className="flex-1"

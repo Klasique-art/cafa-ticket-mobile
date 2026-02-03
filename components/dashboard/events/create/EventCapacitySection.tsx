@@ -60,15 +60,15 @@ const EventCapacitySection = () => {
                 <View
                     className="p-4 rounded-xl border-2"
                     style={{
-                        backgroundColor: isCapacityValid ? colors.accent + "1A" : colors.accent + "33",
-                        borderColor: isCapacityValid ? colors.accent + "4D" : colors.accent,
+                        backgroundColor: isCapacityValid ? colors.success + "1A" : colors.accent + "33",
+                        borderColor: isCapacityValid ? colors.success : colors.accent,
                     }}
                 >
                     <View className="flex-row items-start gap-3 mb-4">
                         <Ionicons
                             name={isCapacityValid ? "checkmark-circle" : "alert-circle"}
                             size={20}
-                            color={isCapacityValid ? colors.accent50 : colors.accent}
+                            color={isCapacityValid ? colors.success : colors.accent}
                         />
                         <View className="flex-1">
                             <AppText

@@ -1,5 +1,4 @@
-import { View, Text, Pressable, Dimensions } from "react-native";
-import { Image } from "expo-image";
+import { View, Text, Pressable, Dimensions, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
@@ -9,7 +8,7 @@ import colors from "@/config/colors";
 import { formatEventDate, formatPrice } from "@/utils/format";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const CARD_WIDTH = SCREEN_WIDTH - 40;
+const CARD_WIDTH = SCREEN_WIDTH - 50;
 
 interface FeaturedEventCardProps {
   event: Event;
@@ -23,15 +22,14 @@ export default function FeaturedEventCard({ event }: FeaturedEventCardProps) {
   const isLive = event.status === "ongoing";
 
   return (
-    <Pressable onPress={handlePress} className="mx-5">
+    <Pressable onPress={handlePress} className="mx-auto">
       <View
         className="overflow-hidden rounded-3xl"
         style={{ width: CARD_WIDTH, height: 220 }}
       >
         <Image
           source={{ uri: event.featured_image }}
-          className="absolute h-full w-full"
-          contentFit="cover"
+          className="absolute h-full w-full object-cover"
         />
 
         {/* Gradient Overlay */}

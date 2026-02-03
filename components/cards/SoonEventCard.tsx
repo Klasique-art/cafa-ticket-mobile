@@ -1,5 +1,4 @@
-import { View, Text, Pressable, Dimensions } from "react-native";
-import { Image } from "expo-image";
+import { View, Text, Pressable, Dimensions, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
@@ -22,11 +21,11 @@ export default function SoonEventCard({ event }: SoonEventCardProps) {
     <Pressable onPress={handlePress} style={{ width: CARD_WIDTH }}>
       <View className="flex-row overflow-hidden rounded-2xl bg-white/5">
         {/* Image */}
-        <View className="h-28 w-28">
+        <View className="h-28 w-28 bg-green-500">
           <Image
             source={{ uri: event.featured_image }}
-            className="h-full w-full"
-            contentFit="cover"
+            className="h-full w-full object-cover"
+            style={{objectFit: "cover"}}
           />
         </View>
 

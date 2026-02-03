@@ -76,7 +76,7 @@ const EventVenueSection = () => {
             {locationSelected && (
                 <View
                     className="p-4 rounded-xl border-2"
-                    style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
+                    style={{ backgroundColor: colors.success + "33", borderColor: colors.success }}
                 >
                     <View className="flex-row items-start gap-3">
                         <Ionicons name="checkmark-circle" size={20} color={colors.accent50} />
@@ -96,7 +96,7 @@ const EventVenueSection = () => {
             {values.venue_name && (
                 <View
                     className="p-4 rounded-xl border-2"
-                    style={{ backgroundColor: colors.primary200 + "80", borderColor: colors.accent + "4D" }}
+                    style={{ backgroundColor: colors.success + "33", borderColor: colors.success }}
                 >
                     <AppText styles="text-sm text-white mb-3" font="font-ibold">
                         Selected Venue Details

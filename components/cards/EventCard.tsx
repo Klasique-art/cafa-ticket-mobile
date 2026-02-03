@@ -20,7 +20,7 @@ export default function EventCard({ event, width = 180 }: EventCardProps) {
     <Pressable onPress={handlePress} style={{ width }}>
       <View className="overflow-hidden rounded-2xl bg-white/5">
         {/* Image */}
-        <View style={{ height: width * 0.65 }}>
+        <View style={{ height: width * 0.85 }}>
           <Image
             source={{ uri: event.featured_image }}
             className="h-full w-full"

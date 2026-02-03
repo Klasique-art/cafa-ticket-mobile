@@ -9,7 +9,7 @@ import type { EventFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
 
 const EventBasicInfoSection = () => {
-    const { values, setFieldValue } = useFormikContext<EventFormValues>();
+    const { values, setFieldValue, errors, touched } = useFormikContext<EventFormValues>();
 
     return (
         <View className="gap-4">
@@ -39,12 +39,14 @@ const EventBasicInfoSection = () => {
                 required
             />
 
-            {/* Category */}
+            {/* Category - ✅ SAFE VERSION */}
             <CategorySelect
                 value={values.category_slug || ""}
                 onChange={(value) => setFieldValue("category_slug", value)}
+                onBlur={() => {}}
                 label="Event Category"
                 required
+                error={touched.category_slug && errors.category_slug ? errors.category_slug : undefined}
             />
 
             {/* Short Description */}

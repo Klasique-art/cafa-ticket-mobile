@@ -314,3 +314,67 @@ export async function createPaymentProfile(data: {
         throw error;
     }
 }
+
+export async function getVerificationStatus() {
+    try {
+        const response = await client.get("/auth/verification/status/");
+        return response.data;
+    } catch (error) {
+        console.error("getVerificationStatus error:", error);
+        return null;
+    }
+}
+
+export async function uploadIDDocument(idDocumentUri: string) {
+    try {
+        const formData = new FormData();
+        formData.append('id_document', {
+            uri: idDocumentUri,
+            type: 'image/jpeg',
+            name: 'id_document.jpg',
+        } as any);
+
+        const response = await client.post("/auth/verification/upload-id/", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        
+        return response.data;
+    } catch (error) {
+        console.error("uploadIDDocument error:", error);
+        throw error;
+    }
+}
+
+export async function uploadSelfieImage(selfieUri: string) {
+    try {
+        const formData = new FormData();
+        formData.append('selfie_image', {
+            uri: selfieUri,
+            type: 'image/jpeg',
+            name: 'selfie.jpg',
+        } as any);
+
+        const response = await client.post("/auth/verification/upload-selfie/", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        
+        return response.data;
+    } catch (error) {
+        console.error("uploadSelfieImage error:", error);
+        throw error;
+    }
+}
+
+export async function retryVerification() {
+    try {
+        const response = await client.post("/auth/verification/retry/");
+        return response.data;
+    } catch (error) {
+        console.error("retryVerification error:", error);
+        throw error;
+    }
+}

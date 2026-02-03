@@ -15,12 +15,12 @@ const EventPublishSection = () => {
             <View className="flex-row items-center gap-3">
                 <View
                     className="w-10 h-10 rounded-lg items-center justify-center"
-                    style={{ backgroundColor: values.is_published ? colors.accent + "33" : colors.primary200 + "80" }}
+                    style={{ backgroundColor: values.is_published ? colors.success + "33" : colors.primary200 + "80" }}
                 >
                     <Ionicons
                         name={values.is_published ? "eye-outline" : "eye-off-outline"}
                         size={20}
-                        color={values.is_published ? colors.accent50 : colors.white}
+                        color={values.is_published ? colors.success : colors.white}
                     />
                 </View>
                 <View className="flex-1">
@@ -37,8 +37,8 @@ const EventPublishSection = () => {
             <View
                 className="p-4 rounded-xl border-2"
                 style={{
-                    backgroundColor: values.is_published ? colors.accent + "1A" : colors.primary100,
-                    borderColor: values.is_published ? colors.accent : colors.accent + "4D",
+                    backgroundColor: values.is_published ? colors.success + "1A" : colors.primary100,
+                    borderColor: values.is_published ? colors.success : colors.accent + "4D",
                 }}
             >
                 <View className="flex-row items-start gap-3">
@@ -47,7 +47,7 @@ const EventPublishSection = () => {
                         onValueChange={(value) => {
                             setFieldValue("is_published", value);
                         }}
-                        trackColor={{ false: colors.primary200, true: colors.accent }}
+                        trackColor={{ false: colors.primary200, true: colors.success }}
                         thumbColor={colors.white}
                     />
                     <View className="flex-1">
@@ -58,13 +58,13 @@ const EventPublishSection = () => {
                             <View
                                 className="px-2 py-0.5 rounded"
                                 style={{
-                                    backgroundColor: values.is_published ? colors.accent + "33" : colors.primary200,
+                                    backgroundColor: values.is_published ? colors.success + "33" : colors.primary200,
                                 }}
                             >
                                 <AppText
                                     styles="text-xs"
                                     font="font-isemibold"
-                                    style={{ color: values.is_published ? colors.accent : colors.white }}
+                                    style={{ color: values.is_published ? colors.success : colors.white }}
                                 >
                                     {values.is_published ? "Public" : "Private"}
                                 </AppText>
@@ -82,7 +82,7 @@ const EventPublishSection = () => {
                                 <View
                                     className="w-2 h-2 rounded-full"
                                     style={{
-                                        backgroundColor: values.is_published ? colors.accent : colors.white + "80",
+                                        backgroundColor: values.is_published ? colors.success : colors.white + "80",
                                     }}
                                 />
                                 <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
@@ -93,7 +93,7 @@ const EventPublishSection = () => {
                                 <View
                                     className="w-2 h-2 rounded-full"
                                     style={{
-                                        backgroundColor: values.is_published ? colors.accent : colors.white + "80",
+                                        backgroundColor: values.is_published ? colors.success : colors.white + "80",
                                     }}
                                 />
                                 <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
@@ -104,7 +104,7 @@ const EventPublishSection = () => {
                                 <View
                                     className="w-2 h-2 rounded-full"
                                     style={{
-                                        backgroundColor: values.is_published ? colors.accent : colors.white + "80",
+                                        backgroundColor: values.is_published ? colors.success : colors.white + "80",
                                     }}
                                 />
                                 <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>

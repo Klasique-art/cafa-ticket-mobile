@@ -1,5 +1,6 @@
 import { View } from "react-native";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
+import { router } from "expo-router";
 
 import {
     Screen,
@@ -11,26 +12,31 @@ import {
 } from "@/components";
 import type { AddTicketTypeModalRef } from "@/components/dashboard/events/create/AddTicketTypeModal";
 import type { TicketTypeFormValues } from "@/data/eventCreationSchema";
+import { useAuth } from "@/context";
 
 const CreateEventScreen = () => {
-    // ---- modal ----
     const modalRef = useRef<AddTicketTypeModalRef>(null);
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
+    const { user } = useAuth();
 
-    // Live Formik context — written by CreateEventForm on every render inside
-    // the AppForm render-prop, so it is always current when we read it here.
+    const isOrganizer = user?.is_organizer;
+
+    useEffect(() => {
+        if (user && !isOrganizer) {
+            router.replace('/dashboard/profile/verify');
+        }
+    }, [user, isOrganizer]);
+
     const formContextRef = useRef<{
         setFieldValue: (field: string, value: any) => void;
         ticketTypes: TicketTypeFormValues[];
     } | null>(null);
 
-    // ---- passed down to CreateEventForm → EventTicketTypesSection ----
     const handleOpenModal = useCallback((index: number | null) => {
         setEditingIndex(index);
         modalRef.current?.open();
     }, []);
 
-    // ---- passed to AddTicketTypeModal.onSubmit ----
     const handleSubmitTicket = useCallback(
         (ticketValues: TicketTypeFormValues) => {
             const ctx = formContextRef.current;

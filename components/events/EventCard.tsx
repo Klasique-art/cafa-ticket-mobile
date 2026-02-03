@@ -161,7 +161,7 @@ const EventCard = ({ event }: EventCardProps) => {
 
                 {/* Organizer Info */}
                 <View 
-                    className="flex-row items-center gap-3 py-2"
+                    className="flex-row items-center gap-3 py-1"
                     style={{ borderTopWidth: 1, borderTopColor: colors.accent }}
                 >
                     <View 
@@ -190,7 +190,7 @@ const EventCard = ({ event }: EventCardProps) => {
 
                 {/* Price & Tickets */}
                 <View 
-                    className="flex-row justify-between items-center py-3 mb-1"
+                    className="flex-row justify-between items-center py-1 mb-1"
                     style={{ borderTopWidth: 1, borderTopColor: colors.accent }}
                 >
                     {/* Price */}

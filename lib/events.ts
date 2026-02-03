@@ -115,16 +115,16 @@ export async function getMyEvents(filters: MyEventsFilters = {}): Promise<MyEven
 export async function deleteMyEvent(slug: string): Promise<{ success: boolean; message?: string; suggestion?: string }> {
   try {
     const response = await client.delete(`/events/${slug}/delete/`);
-    
+
     return {
       success: true,
       message: response.data?.message || 'Event deleted successfully'
     };
   } catch (error: any) {
     console.error("Error deleting event:", error);
-    
+
     const errorData = error.response?.data;
-    
+
     return {
       success: false,
       message: errorData?.message || errorData?.error || "Failed to delete event",
@@ -162,17 +162,68 @@ export async function getMyAttendedEvents(
  * @returns Created event data
  */
 export async function createEvent(payload: any) {
+
   try {
-    const response = await client.post("/events/my-events/create/", payload, {
+    // ✅ Convert to FormData for image uploads
+    const formData = new FormData();
+
+    // ✅ Handle featured_image (single file)
+    if (payload.featured_image) {
+      formData.append('featured_image', {
+        uri: payload.featured_image,
+        type: 'image/jpeg',
+        name: 'featured_image.jpg',
+      } as any);
+    }
+
+    // ✅ Handle additional_images (multiple files)
+    if (payload.additional_images && Array.isArray(payload.additional_images)) {
+      payload.additional_images.forEach((imageUri: string, index: number) => {
+        formData.append('additional_images', {
+          uri: imageUri,
+          type: imageUri.endsWith('.png') ? 'image/png' : 'image/jpeg',
+          name: `additional_image_${index}.${imageUri.endsWith('.png') ? 'png' : 'jpg'}`,
+        } as any);
+      });
+    }
+
+    // ✅ Handle ticket_types (needs to be JSON string in FormData)
+    if (payload.ticket_types) {
+      formData.append('ticket_types', JSON.stringify(payload.ticket_types));
+    }
+
+    // ✅ Append all other fields (except images and ticket_types)
+    Object.keys(payload).forEach((key) => {
+      if (
+        key !== 'featured_image' &&
+        key !== 'additional_images' &&
+        key !== 'ticket_types'
+      ) {
+        const value = payload[key];
+
+        // Skip undefined values
+        if (value !== undefined && value !== null) {
+          formData.append(key, String(value));
+        }
+      }
+    });
+
+    // ✅ Send as multipart/form-data (let axios set the Content-Type with boundary)
+    const response = await client.post("/events/create/", formData, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'multipart/form-data',
       },
     });
+
+    console.log("Event created successfully:", response.data);
     return response.data;
+
   } catch (error: any) {
+    console.error("Create event error:", error);
+
     if (error.response?.data) {
       const errorData = error.response.data;
-      
+
       // Extract first error message
       if (errorData.detail) {
         throw new Error(errorData.detail);
@@ -183,7 +234,7 @@ export async function createEvent(payload: any) {
       if (errorData.message) {
         throw new Error(errorData.message);
       }
-      
+
       // Field-specific errors
       if (errorData.title) {
         throw new Error(`Title: ${Array.isArray(errorData.title) ? errorData.title[0] : errorData.title}`);
@@ -191,8 +242,11 @@ export async function createEvent(payload: any) {
       if (errorData.ticket_types) {
         throw new Error(`Ticket Types: ${Array.isArray(errorData.ticket_types) ? errorData.ticket_types[0] : errorData.ticket_types}`);
       }
+      if (errorData.featured_image) {
+        throw new Error(`Featured Image: ${Array.isArray(errorData.featured_image) ? errorData.featured_image[0] : errorData.featured_image}`);
+      }
     }
-    
+
     throw new Error("Failed to create event. Please try again.");
   }
 }
@@ -214,7 +268,7 @@ export async function updateEvent(slug: string, payload: any) {
   } catch (error: any) {
     if (error.response?.data) {
       const errorData = error.response.data;
-      
+
       // Extract first error message
       if (errorData.detail) {
         throw new Error(errorData.detail);
@@ -225,7 +279,7 @@ export async function updateEvent(slug: string, payload: any) {
       if (errorData.message) {
         throw new Error(errorData.message);
       }
-      
+
       // Field-specific errors
       if (errorData.title) {
         throw new Error(`Title: ${Array.isArray(errorData.title) ? errorData.title[0] : errorData.title}`);
@@ -234,33 +288,33 @@ export async function updateEvent(slug: string, payload: any) {
         throw new Error(`Ticket Types: ${Array.isArray(errorData.ticket_types) ? errorData.ticket_types[0] : errorData.ticket_types}`);
       }
     }
-    
+
     throw new Error("Failed to update event. Please try again.");
   }
 }
 
 export async function getPastEvents(params?: {
-    page?: number;
-    search?: string;
-    category?: string;
-    city?: string;
-    ordering?: string;
+  page?: number;
+  search?: string;
+  category?: string;
+  city?: string;
+  ordering?: string;
 }) {
-    try {
-        const searchParams = new URLSearchParams();
+  try {
+    const searchParams = new URLSearchParams();
 
-        if (params?.page) searchParams.set("page", params.page.toString());
-        if (params?.search) searchParams.set("search", params.search);
-        if (params?.category) searchParams.set("category", params.category);
-        if (params?.city) searchParams.set("city", params.city);
-        if (params?.ordering) searchParams.set("ordering", params.ordering);
+    if (params?.page) searchParams.set("page", params.page.toString());
+    if (params?.search) searchParams.set("search", params.search);
+    if (params?.category) searchParams.set("category", params.category);
+    if (params?.city) searchParams.set("city", params.city);
+    if (params?.ordering) searchParams.set("ordering", params.ordering);
 
-        const response = await client.get(`/events/past/?${searchParams.toString()}`);
-        return response.data as PaginatedEventsResponse;
-    } catch (error) {
-        console.error("getPastEvents error:", error);
-        return null;
-    }
+    const response = await client.get(`/events/past/?${searchParams.toString()}`);
+    return response.data as PaginatedEventsResponse;
+  } catch (error) {
+    console.error("getPastEvents error:", error);
+    return null;
+  }
 }
 
 

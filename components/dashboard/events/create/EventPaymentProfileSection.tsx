@@ -160,8 +160,8 @@ const EventPaymentProfileSection = () => {
                                     onPress={() => setFieldValue("payment_profile_id", profile.id)}
                                     className="p-4 rounded-xl border-2"
                                     style={{
-                                        backgroundColor: isSelected ? colors.accent + "33" : colors.primary100,
-                                        borderColor: isSelected ? colors.accent : colors.accent + "4D",
+                                        backgroundColor: isSelected ? colors.success + "33" : colors.primary100,
+                                        borderColor: isSelected ? colors.success : colors.accent + "4D",
                                     }}
                                     activeOpacity={0.7}
                                 >
