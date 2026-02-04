@@ -107,6 +107,14 @@
         {
           "photosPermission": "Allow $(PRODUCT_NAME) to access your photos for identity verification."
         }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "cafa-tickets",
+          "organization": "nivee-llc"
+        }
       ]
     ],
     "experiments": {

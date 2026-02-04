@@ -1,7 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
-import { RefreshControl, View, StatusBar } from "react-native";
+import { RefreshControl, View, StatusBar, Button } from "react-native";
 import Animated from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
+import * as Sentry from '@sentry/react-native';
 
 import colors from "@/config/colors";
 import { Event, PublicStats } from "@/types";
@@ -108,6 +109,8 @@ export default function HomeScreen() {
                 <View className="mb-6">
                     <SearchBar />
                 </View>
+
+                <Button title='Try!' onPress={ () => { Sentry.captureException(new Error('First error')) }}/>
 
                 {/* Featured Event */}
                 {featuredEvent && (
