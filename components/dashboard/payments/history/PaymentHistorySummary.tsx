@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../../ui/AppText";
 import { PaymentSummary } from "@/types/payments.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     summary: PaymentSummary;
@@ -19,12 +20,11 @@ type CardData = {
 };
 
 const PaymentHistorySummary = ({ summary }: Props) => {
+    const formatMoney = useFormatMoney();
     const cards: CardData[] = [
         {
             title: "Total Spent",
-            value: `GH₵ ${parseFloat(summary.total_spent).toLocaleString("en-GH", {
-                minimumFractionDigits: 2,
-            })}`,
+            value: formatMoney(summary.total_spent),
             icon: "cash",
             iconBg: "bg-accent/20",
             iconColor: colors.accent50,

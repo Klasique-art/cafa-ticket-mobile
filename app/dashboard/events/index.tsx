@@ -1,12 +1,13 @@
 import { View, ActivityIndicator } from "react-native";
 import { useState, useEffect, useCallback, useRef } from "react";
 
-import { Screen, MyEventsHeader, MyEventsFilters, MyEventsGrid, MyEventsEmptyState, AppBottomSheet, ConfirmAction, AppText, Nav, RequireAuth } from "@/components";
+import { Screen, MyEventsHeader, MyEventsFilters, MyEventsGrid, MyEventsEmptyState, AppBottomSheet, ConfirmAction, AppText, Nav, RequireAuth, Animation } from "@/components";
 import type { AppBottomSheetRef } from "@/components";
 import type { MyEvent } from "@/types/dash-events.types";
 import { getMyEvents, deleteMyEvent } from "@/lib/events";
 import { useAuth } from "@/context";
 import colors from "@/config/colors";
+import { tickets } from "@/assets";
 
 interface Filters {
   status: string;
@@ -125,7 +126,11 @@ const DashboardEventsScreen = () => {
     return (
       <Screen>
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator size="large" color={colors.accent} />
+          <Animation
+            isVisible={true}
+            path={tickets}
+            style={{ width: 200, height: 200 }}
+          />
           <AppText styles="text-sm text-slate-400 mt-4" font="font-iregular">
             Loading your events...
           </AppText>

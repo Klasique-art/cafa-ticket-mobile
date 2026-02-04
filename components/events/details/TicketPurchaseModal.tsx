@@ -12,6 +12,7 @@ import { TicketType, EventDetails } from "@/types";
 import { CurrentUser } from "@/types/general.types";
 import colors from "@/config/colors";
 import { buyTicket } from "@/lib/tickets";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface TicketPurchaseModalProps {
     ticket: TicketType | null;
@@ -30,6 +31,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
         const bottomSheetRef = useRef<AppBottomSheetRef>(null);
         const [isProcessing, setIsProcessing] = useState(false);
         const [error, setError] = useState<string | null>(null);
+        const formatMoney = useFormatMoney();
 
         useImperativeHandle(ref, () => ({
             open: () => {
@@ -244,7 +246,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                         Price per ticket
                                     </AppText>
                                     <AppText styles="text-sm text-white" font="font-isemibold">
-                                        GH₵ {parseFloat(ticket.price).toFixed(2)}
+                                        {formatMoney(ticket.price)}
                                     </AppText>
                                 </View>
                             </View>
@@ -310,7 +312,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                         Subtotal
                                     </AppText>
                                     <AppText styles="text-sm text-white" font="font-iregular">
-                                        GH₵ {subtotal.toFixed(2)}
+                                        {formatMoney(subtotal)}
                                     </AppText>
                                 </View>
                                 <View className="flex-row justify-between">
@@ -318,7 +320,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                         Service Fee (1%)
                                     </AppText>
                                     <AppText styles="text-sm text-white" font="font-iregular">
-                                        GH₵ {serviceFee.toFixed(2)}
+                                        {formatMoney(serviceFee)}
                                     </AppText>
                                 </View>
                                 <View style={{ height: 1, backgroundColor: colors.accent + "4D" }} />
@@ -327,7 +329,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                         Total
                                     </AppText>
                                     <AppText styles="text-xl text-accent-50" font="font-ibold">
-                                        GH₵ {total.toFixed(2)}
+                                        {formatMoney(total)}
                                     </AppText>
                                 </View>
                             </View>

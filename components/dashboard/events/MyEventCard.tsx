@@ -8,6 +8,7 @@ import { memo } from "react";
 import AppText from "../../ui/AppText";
 import type { MyEvent } from "@/types/dash-events.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface MyEventCardProps {
     event: MyEvent;
@@ -15,6 +16,8 @@ interface MyEventCardProps {
 }
 
 const MyEventCard = ({ event, onDelete }: MyEventCardProps) => {
+    const formatMoney = useFormatMoney();
+
     const getStatusBadge = (status: string) => {
         switch (status) {
             case "upcoming":
@@ -30,7 +33,7 @@ const MyEventCard = ({ event, onDelete }: MyEventCardProps) => {
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString("en-US", {
+        return date.toLocaleDateString("en-GH", {
             year: "numeric",
             month: "short",
             day: "numeric",
@@ -106,7 +109,7 @@ const MyEventCard = ({ event, onDelete }: MyEventCardProps) => {
                             <Ionicons name="cash-outline" size={14} color="#34d399" />
                             <AppText styles="text-xs text-slate-400" font="font-iregular">Revenue</AppText>
                         </View>
-                        <AppText styles="text-sm" font="font-ibold" style={{ color: "#34d399" }}>GH₵ {parseFloat(event.analytics.gross_revenue).toLocaleString()}</AppText>
+                        <AppText styles="text-sm" font="font-ibold" style={{ color: "#34d399" }}>{formatMoney(event.analytics.gross_revenue)}</AppText>
                     </View>
                 </View>
 

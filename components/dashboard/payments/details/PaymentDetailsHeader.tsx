@@ -4,12 +4,14 @@ import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../../ui/AppText";
 import { PaymentDetails } from "@/types/payments.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     payment: PaymentDetails;
 };
 
 const PaymentDetailsHeader = ({ payment }: Props) => {
+    const formatMoney = useFormatMoney();
     const getStatusConfig = () => {
         switch (payment.status) {
             case "completed":
@@ -79,10 +81,7 @@ const PaymentDetailsHeader = ({ payment }: Props) => {
                     Total Amount Paid
                 </AppText>
                 <AppText styles="text-3xl text-white" font="font-ibold">
-                    GH₵{" "}
-                    {parseFloat(payment.amount).toLocaleString("en-GH", {
-                        minimumFractionDigits: 2,
-                    })}
+                    {formatMoney(payment.amount)}
                 </AppText>
             </View>
         </View>

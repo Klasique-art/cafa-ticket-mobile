@@ -3,6 +3,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 import AppText from "../../ui/AppText";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
+import { useCurrency } from "@/context/CurrencyContext";
 
 type RevenueMonth = {
     month: string;
@@ -22,15 +24,21 @@ const formatMonth = (monthString: string) => {
     return date.toLocaleDateString("en-US", { month: "short" });
 };
 
-const formatYLabel = (value: number) => {
-    if (value >= 1000) return `₵${(value / 1000).toFixed(0)}k`;
-    return `₵${value}`;
-};
+
 
 const AnalyticsRevenueChart = ({ revenueData, totalRevenue }: Props) => {
     const totalRevenueNum = parseFloat(totalRevenue);
     const totalTickets = revenueData.reduce((sum, item) => sum + item.tickets_sold, 0);
     const avgMonthlyRevenue = revenueData.length > 0 ? totalRevenueNum / revenueData.length : 0;
+
+    const formatMoney = useFormatMoney();
+    const { displayCurrency, getCurrencySymbol } = useCurrency();
+    const symbol = getCurrencySymbol(displayCurrency);
+
+    const formatYLabel = (value: number) => {
+        if (value >= 1000) return `${symbol}${(value / 1000).toFixed(0)}k`;
+        return `${symbol}${value}`;
+    };
 
     if (!revenueData || revenueData.length === 0) {
         return (
@@ -78,7 +86,7 @@ const AnalyticsRevenueChart = ({ revenueData, totalRevenue }: Props) => {
             <AppText styles="text-xs text-white mb-4" font="font-iregular" style={{ opacity: 0.6 }}>
                 Total:{" "}
                 <AppText styles="text-xs" font="font-ibold" style={{ color: "#34d399" }}>
-                    GH₵ {totalRevenueNum.toLocaleString("en-GH", { minimumFractionDigits: 2 })}
+                    {formatMoney(totalRevenueNum)}
                 </AppText>
             </AppText>
 
@@ -130,7 +138,7 @@ const AnalyticsRevenueChart = ({ revenueData, totalRevenue }: Props) => {
                                             key={index}
                                             className="items-center gap-2"
                                             style={{ flex: 1, maxWidth: 48 }}
-                                            accessibilityLabel={`${formatMonth(item.month)}: GH₵ ${item.revenue}, ${item.tickets_sold} tickets sold`}
+                                            accessibilityLabel={`${formatMonth(item.month)}: ${formatMoney(item.revenue)}, ${item.tickets_sold} tickets sold`}
                                         >
                                             {/* Bar */}
                                             <View className="justify-end" style={{ height: CHART_HEIGHT - 18 }}>
@@ -161,20 +169,20 @@ const AnalyticsRevenueChart = ({ revenueData, totalRevenue }: Props) => {
                 <View
                     className="flex-1 p-3 rounded-lg"
                     style={{ backgroundColor: colors.primary200 }}
-                    
-                    accessibilityLabel={`Average monthly revenue: GH₵ ${avgMonthlyRevenue.toLocaleString("en-GH", { minimumFractionDigits: 2 })}`}
+
+                    accessibilityLabel={`Average monthly revenue: ${formatMoney(avgMonthlyRevenue)}`}
                 >
                     <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
                         Avg. Monthly
                     </AppText>
                     <AppText styles="text-sm text-white" font="font-ibold">
-                        GH₵ {avgMonthlyRevenue.toLocaleString("en-GH", { minimumFractionDigits: 0 })}
+                        {formatMoney(avgMonthlyRevenue)}
                     </AppText>
                 </View>
                 <View
                     className="flex-1 p-3 rounded-lg"
                     style={{ backgroundColor: colors.primary200 }}
-                    
+
                     accessibilityLabel={`Total tickets sold: ${totalTickets}`}
                 >
                     <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>

@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../../ui/AppText";
 import type { TicketTypeFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface TicketTypeCardProps {
     ticket: TicketTypeFormValues;
@@ -14,6 +15,7 @@ interface TicketTypeCardProps {
 
 const TicketTypeCard = ({ ticket, index, onEdit, onDelete }: TicketTypeCardProps) => {
     const hasAvailability = ticket.available_from || ticket.available_until;
+    const formatMoney = useFormatMoney();
 
     const formatDate = (dateString?: string) => {
         if (!dateString) return "";
@@ -85,7 +87,7 @@ const TicketTypeCard = ({ ticket, index, onEdit, onDelete }: TicketTypeCardProps
                         Price
                     </AppText>
                     <AppText styles="text-sm text-accent-50" font="font-ibold">
-                        GH₵ {parseFloat(ticket.price).toLocaleString()}
+                        {formatMoney(ticket.price)}
                     </AppText>
                 </View>
 

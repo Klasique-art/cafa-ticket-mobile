@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../ui/AppText";
 import type { RevenueSummary } from "@/types/payments.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     payoutStatus: RevenueSummary["payout_status"];
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const PayoutStatusCard = ({ payoutStatus, summary, revenueByMonth }: Props) => {
+    const formatMoney = useFormatMoney();
     // Calculate actual monthly growth
     const calculateMonthlyGrowth = () => {
         if (!revenueByMonth || revenueByMonth.length < 2) {
@@ -68,7 +70,7 @@ const PayoutStatusCard = ({ payoutStatus, summary, revenueByMonth }: Props) => {
                             </AppText>
                         </View>
                         <AppText styles="text-lg text-white" font="font-ibold" style={{ color: colors.success }}>
-                            GH₵ {totalRevenue.toLocaleString("en-GH", { minimumFractionDigits: 2 })}
+                            {formatMoney(totalRevenue)}
                         </AppText>
                         <AppText styles="text-xs text-white mt-1" font="font-iregular" style={{ opacity: 0.5 }}>
                             All time earnings
@@ -84,7 +86,7 @@ const PayoutStatusCard = ({ payoutStatus, summary, revenueByMonth }: Props) => {
                             </AppText>
                         </View>
                         <AppText styles="text-lg text-white" font="font-ibold" style={{ color: Number(currentBalance) > 0 ? colors.success : colors.accent }}>
-                            GH₵ {currentBalance.toLocaleString("en-GH", { minimumFractionDigits: 2 })}
+                            {formatMoney(currentBalance)}
                         </AppText>
                         {revenueByMonth && revenueByMonth.length >= 2 ? (
                             <View className="flex-row items-center gap-1 mt-1">
@@ -122,7 +124,7 @@ const PayoutStatusCard = ({ payoutStatus, summary, revenueByMonth }: Props) => {
                             </AppText>
                         </View>
                         <AppText styles="text-lg text-white" font="font-ibold" style={{ color: colors.accent50 }}>
-                            GH₵ {averageTicketPrice.toLocaleString("en-GH", { minimumFractionDigits: 2 })}
+                            {formatMoney(averageTicketPrice)}
                         </AppText>
                         <AppText styles="text-xs text-white mt-1" font="font-iregular" style={{ opacity: 0.5 }}>
                             Per ticket
@@ -157,7 +159,7 @@ const PayoutStatusCard = ({ payoutStatus, summary, revenueByMonth }: Props) => {
                         </AppText>
                     </View>
                     <AppText styles="text-sm text-white" font="font-ibold" style={{ color: Number(currentBalance) > 0 ? colors.success : colors.accent }}>
-                        GH₵ {currentBalance.toLocaleString("en-GH", { minimumFractionDigits: 2 })}
+                        {formatMoney(currentBalance)}
                     </AppText>
                 </View>
 

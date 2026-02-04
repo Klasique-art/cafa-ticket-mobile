@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import AppText from "../../../ui/AppText";
 import type { MyEventAnalytics } from "@/types/dash-events.types";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface MyEventSalesByTicketTypeProps {
     salesByTicketType: MyEventAnalytics["sales_by_ticket_type"];
@@ -11,6 +12,7 @@ interface MyEventSalesByTicketTypeProps {
 const MyEventSalesByTicketType = ({
     salesByTicketType,
 }: MyEventSalesByTicketTypeProps) => {
+    const formatMoney = useFormatMoney();
     return (
         <View className="p-4 bg-primary rounded-xl border border-accent">
             {/* Header */}
@@ -37,7 +39,7 @@ const MyEventSalesByTicketType = ({
                                     {ticketType.ticket_type}
                                 </AppText>
                                 <AppText styles="text-xs text-slate-400" font="font-iregular">
-                                    GH₵{parseFloat(ticketType.price).toLocaleString()} per ticket
+                                    {formatMoney(ticketType.price)} per ticket
                                 </AppText>
                             </View>
                             <View>
@@ -78,7 +80,7 @@ const MyEventSalesByTicketType = ({
                                     Revenue
                                 </AppText>
                                 <AppText styles="text-sm text-emerald-400" font="font-ibold">
-                                    GH₵{parseFloat(ticketType.revenue).toLocaleString()}
+                                    {formatMoney(ticketType.revenue)}
                                 </AppText>
                             </View>
 

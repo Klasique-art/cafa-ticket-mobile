@@ -5,7 +5,8 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { Event } from "@/types";
 import colors from "@/config/colors";
-import { formatEventDate, formatPrice } from "@/utils/format";
+import { formatEventDate } from "@/utils/format";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = SCREEN_WIDTH - 50;
@@ -15,6 +16,7 @@ interface FeaturedEventCardProps {
 }
 
 export default function FeaturedEventCard({ event }: FeaturedEventCardProps) {
+  const formatMoney = useFormatMoney();
   const handlePress = () => {
     router.push(`/events/${event.slug}`);
   };
@@ -84,7 +86,7 @@ export default function FeaturedEventCard({ event }: FeaturedEventCardProps) {
           <View className="mt-3 flex-row items-center justify-between">
             <View className="flex-row items-center gap-1">
               <Text className="text-lg font-bold text-white">
-                {formatPrice(event.lowest_price)}
+                {formatMoney(event.lowest_price)}
               </Text>
               {event.lowest_price !== event.highest_price && (
                 <Text className="text-sm text-white/60">+</Text>

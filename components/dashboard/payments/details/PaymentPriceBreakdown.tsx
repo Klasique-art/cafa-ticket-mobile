@@ -2,12 +2,14 @@ import { View } from "react-native";
 
 import AppText from "../../../ui/AppText";
 import { PaymentDetails } from "@/types/payments.types";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     breakdown: PaymentDetails["breakdown"];
 };
 
 const PaymentPriceBreakdown = ({ breakdown }: Props) => {
+    const formatMoney = useFormatMoney();
     return (
         <View className="bg-primary-100 rounded-xl p-4 border-2 border-accent/30 mb-4">
             <AppText styles="text-lg text-white mb-4" font="font-ibold">
@@ -21,10 +23,7 @@ const PaymentPriceBreakdown = ({ breakdown }: Props) => {
                         Subtotal
                     </AppText>
                     <AppText styles="text-base text-white" font="font-isemibold">
-                        GH₵{" "}
-                        {parseFloat(breakdown.subtotal).toLocaleString("en-GH", {
-                            minimumFractionDigits: 2,
-                        })}
+                        {formatMoney(breakdown.subtotal)}
                     </AppText>
                 </View>
 
@@ -34,10 +33,7 @@ const PaymentPriceBreakdown = ({ breakdown }: Props) => {
                         Service Fee
                     </AppText>
                     <AppText styles="text-base text-slate-300" font="font-isemibold">
-                        GH₵{" "}
-                        {parseFloat(breakdown.service_fee).toLocaleString("en-GH", {
-                            minimumFractionDigits: 2,
-                        })}
+                        {formatMoney(breakdown.service_fee)}
                     </AppText>
                 </View>
 
@@ -47,10 +43,7 @@ const PaymentPriceBreakdown = ({ breakdown }: Props) => {
                         Total
                     </AppText>
                     <AppText styles="text-2xl text-accent-50" font="font-ibold">
-                        GH₵{" "}
-                        {parseFloat(breakdown.total).toLocaleString("en-GH", {
-                            minimumFractionDigits: 2,
-                        })}
+                        {formatMoney(breakdown.total)}
                     </AppText>
                 </View>
             </View>

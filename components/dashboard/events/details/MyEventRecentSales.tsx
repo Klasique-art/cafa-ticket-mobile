@@ -3,12 +3,14 @@ import { Ionicons } from "@expo/vector-icons";
 
 import AppText from "../../../ui/AppText";
 import type { MyEventAnalytics } from "@/types/dash-events.types";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface MyEventRecentSalesProps {
     recentSales: MyEventAnalytics["recent_sales"];
 }
 
 const MyEventRecentSales = ({ recentSales }: MyEventRecentSalesProps) => {
+    const formatMoney = useFormatMoney();
     const formatDateTime = (dateString: string) => {
         const date = new Date(dateString);
         const now = new Date();
@@ -88,7 +90,7 @@ const MyEventRecentSales = ({ recentSales }: MyEventRecentSalesProps) => {
                             </View>
                             <View>
                                 <AppText styles="text-sm text-emerald-400 text-right" font="font-ibold">
-                                    GH₵{parseFloat(sale.amount).toLocaleString()}
+                                    {formatMoney(sale.amount)}
                                 </AppText>
                                 <AppText styles="text-xs text-slate-400 text-right" font="font-iregular">
                                     {formatDateTime(sale.purchase_date)}

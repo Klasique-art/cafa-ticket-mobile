@@ -6,6 +6,7 @@ import { useState } from "react";
 import AppText from "../../../ui/AppText";
 import type { MyTicket } from "@/types/tickets.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface MyTicketCardProps {
     ticket: MyTicket;
@@ -13,6 +14,7 @@ interface MyTicketCardProps {
 
 const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
     const [isDownloading, setIsDownloading] = useState(false);
+    const formatMoney = useFormatMoney();
 
     const formatDate = (date: string) => {
         return new Date(date).toLocaleDateString("en-GH", {
@@ -180,7 +182,7 @@ const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
                             Amount Paid
                         </AppText>
                         <AppText styles="text-sm text-white" font="font-ibold" style={{ color: colors.accent50 }}>
-                            GH₵ {parseFloat(ticket.amount_paid).toLocaleString("en-GH")}
+                            {formatMoney(ticket.amount_paid)}
                         </AppText>
                     </View>
                 </View>

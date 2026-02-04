@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Screen, AppText } from "@/components";
 import colors from "@/config/colors";
 import { verifyPayment } from "@/lib/tickets";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type PaymentStatus = "verifying" | "success" | "failed" | "error";
 
@@ -25,6 +26,7 @@ interface PurchaseDetails {
 }
 
 const PaymentResultScreen = () => {
+    const formatMoney = useFormatMoney();
     const { reference } = useLocalSearchParams<{ reference: string }>();
     const [status, setStatus] = useState<PaymentStatus>("verifying");
     const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -142,7 +144,7 @@ const PaymentResultScreen = () => {
                                     Total Paid
                                 </AppText>
                                 <AppText styles="text-xl text-accent-50" font="font-ibold">
-                                    GH₵ {purchaseDetails?.amount?.toFixed(2)}
+                                    {formatMoney(purchaseDetails?.amount || 0)}
                                 </AppText>
                             </View>
                             <View className="flex-1">

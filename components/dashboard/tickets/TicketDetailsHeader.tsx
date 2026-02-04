@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../ui/AppText";
 import colors from "@/config/colors";
 import type { TicketDetails } from "@/types/tickets.types";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     ticket: TicketDetails;
@@ -22,6 +23,7 @@ const getStatusConfig = (status: string, isCheckedIn: boolean) => {
 
 const TicketDetailsHeader = ({ ticket }: Props) => {
     const config = getStatusConfig(ticket.status, ticket.is_checked_in);
+    const formatMoney = useFormatMoney();
 
     return (
         <View
@@ -52,7 +54,7 @@ const TicketDetailsHeader = ({ ticket }: Props) => {
                         Paid
                     </AppText>
                     <AppText styles="text-lg" font="font-ibold" style={{ color: "#34d399" }}>
-                        GH₵ {parseFloat(ticket.purchase_info.amount_paid).toLocaleString("en-GH")}
+                        {formatMoney(ticket.purchase_info.amount_paid)}
                     </AppText>
                 </View>
             </View>

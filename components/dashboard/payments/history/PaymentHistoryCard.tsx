@@ -6,12 +6,14 @@ import AppText from "../../../ui/AppText";
 import { PaymentTransaction } from "@/types/payments.types";
 import colors from "@/config/colors";
 import { getFullImageUrl } from "@/utils/imageUrl";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     payment: PaymentTransaction;
 };
 
 const PaymentHistoryCard = ({ payment }: Props) => {
+    const formatMoney = useFormatMoney();
     const getPaymentMethodIcon = (): keyof typeof Ionicons.glyphMap => {
         if (payment.payment_method === "card") return "card";
         if (payment.payment_method === "mobile_money") return "phone-portrait";
@@ -111,7 +113,7 @@ const PaymentHistoryCard = ({ payment }: Props) => {
                         Amount
                     </AppText>
                     <AppText styles="text-base text-white" font="font-ibold">
-                        GH₵ {parseFloat(payment.amount).toLocaleString("en-GH")}
+                        {formatMoney(payment.amount)}
                     </AppText>
                 </View>
 

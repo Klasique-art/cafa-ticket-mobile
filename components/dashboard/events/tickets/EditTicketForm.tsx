@@ -11,6 +11,7 @@ import FormLoader from "../../../form/FormLoader";
 import { ticketTypeSchema, type TicketTypeFormValues } from "@/data/eventCreationSchema";
 import type { EventTicketType } from "@/types/dash-events.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface EditTicketFormProps {
     ticket: EventTicketType;
@@ -19,6 +20,7 @@ interface EditTicketFormProps {
 
 const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const formatMoney = useFormatMoney();
 
     const hasSales = ticket.tickets_sold > 0;
 
@@ -134,7 +136,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                         Price
                     </AppText>
                     <AppText styles="text-base text-white" font="font-ibold" style={{ color: colors.accent50 }}>
-                        GH₵ {parseFloat(ticket.price).toLocaleString("en-GH")}
+                        {formatMoney(ticket.price)}
                     </AppText>
                 </View>
 
@@ -170,7 +172,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                         Revenue
                     </AppText>
                     <AppText styles="text-base text-white" font="font-ibold" style={{ color: colors.accent50 }}>
-                        GH₵ {parseFloat(ticket.revenue).toLocaleString("en-GH")}
+                        {formatMoney(ticket.revenue)}
                     </AppText>
                 </View>
             </View>
@@ -265,7 +267,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                                     >
                                         {hasSales
                                             ? `Minimum quantity: ${ticket.tickets_sold} (already sold) • Maximum: 1,000,000`
-                                            : "Minimum price: GH₵ 10.00 • Maximum quantity: 1,000,000"}
+                                            : `Minimum price: ${formatMoney(10)} • Maximum quantity: 1,000,000`}
                                     </AppText>
                                 </View>
 

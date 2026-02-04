@@ -4,12 +4,14 @@ import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../ui/AppText";
 import type { RevenueSummary } from "@/types/payments.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     revenueByMonth: RevenueSummary["revenue_by_month"];
 };
 
 const RevenueByMonthChart = ({ revenueByMonth }: Props) => {
+    const formatMoney = useFormatMoney();
     if (!revenueByMonth || revenueByMonth.length === 0) {
         return (
             <View className="rounded-xl p-6 border-2" style={{ backgroundColor: colors.primary100, borderColor: colors.accent }}>
@@ -77,10 +79,10 @@ const RevenueByMonthChart = ({ revenueByMonth }: Props) => {
                                 </View>
                                 <View>
                                     <AppText styles="text-base text-white" font="font-ibold" style={{ color: colors.accent50 }}>
-                                        GH₵ {parseFloat(month.gross_revenue).toLocaleString("en-GH")}
+                                        {formatMoney(month.gross_revenue)}
                                     </AppText>
                                     <AppText styles="text-xs text-white text-right" font="font-iregular" style={{ opacity: 0.6 }}>
-                                        Net: GH₵ {parseFloat(month.net_revenue).toLocaleString("en-GH")}
+                                        Net: {formatMoney(month.net_revenue)}
                                     </AppText>
                                 </View>
                             </View>
@@ -133,7 +135,7 @@ const RevenueByMonthChart = ({ revenueByMonth }: Props) => {
                                     Platform Fee (5%)
                                 </AppText>
                                 <AppText styles="text-xs" font="font-isemibold" style={{ color: colors.accent }}>
-                                    -GH₵ {parseFloat(month.platform_fee).toLocaleString("en-GH")}
+                                    -{formatMoney(month.platform_fee)}
                                 </AppText>
                             </View>
 

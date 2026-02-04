@@ -9,6 +9,8 @@ import { Event } from "@/types";
 import { getFullImageUrl } from "@/utils/imageUrl";
 import colors from "@/config/colors";
 
+import { useFormatMoney } from "@/hooks/useFormatMoney";
+
 interface EventCardProps {
     event: Event;
 }
@@ -17,6 +19,7 @@ const EventCard = ({ event }: EventCardProps) => {
     const isOngoing = event.status === "ongoing";
     const ticketPercentage = Math.round((event.tickets_sold / event.total_tickets) * 100);
     const isTrending = ticketPercentage >= 60;
+    const formatMoney = useFormatMoney();
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -37,11 +40,6 @@ const EventCard = ({ event }: EventCardProps) => {
         });
     };
 
-    const formatPrice = (price: string) => {
-        const numPrice = parseFloat(price);
-        return numPrice.toFixed(0);
-    };
-
     const showPriceRange = event.lowest_price !== event.highest_price;
 
     const handlePress = useCallback(() => {
@@ -51,20 +49,20 @@ const EventCard = ({ event }: EventCardProps) => {
     return (
         <View className="bg-primary rounded-2xl overflow-hidden border-2 border-accent">
             {/* Image Section */}
-            <TouchableOpacity 
+            <TouchableOpacity
                 onPress={handlePress}
                 activeOpacity={0.9}
                 className="relative"
-                style={{ aspectRatio: 4/3 }}
+                style={{ aspectRatio: 4 / 3 }}
             >
                 <Image
                     source={{ uri: getFullImageUrl(event.featured_image) || undefined }}
                     className="w-full h-full"
                     resizeMode="cover"
                 />
-                
+
                 {/* Gradient Overlay */}
-                <View 
+                <View
                     className="absolute inset-0"
                     style={{
                         backgroundColor: 'transparent',
@@ -104,7 +102,7 @@ const EventCard = ({ event }: EventCardProps) => {
 
                 {/* Date Badge */}
                 <View className="absolute bottom-4 left-4">
-                    <View 
+                    <View
                         className="w-12 h-12 rounded-xl bg-accent/95 items-center justify-center border-2 border-accent"
                         style={{
                             shadowColor: '#000',
@@ -160,11 +158,11 @@ const EventCard = ({ event }: EventCardProps) => {
                 </View>
 
                 {/* Organizer Info */}
-                <View 
+                <View
                     className="flex-row items-center gap-3 py-1"
                     style={{ borderTopWidth: 1, borderTopColor: colors.accent }}
                 >
-                    <View 
+                    <View
                         className="w-8 h-8 rounded-full overflow-hidden"
                         style={{ borderWidth: 2, borderColor: colors.accent }}
                     >
@@ -178,8 +176,8 @@ const EventCard = ({ event }: EventCardProps) => {
                         <AppText styles="text-xs text-slate-300" font="font-iregular">
                             Organized by
                         </AppText>
-                        <AppText 
-                            styles="text-sm text-white" 
+                        <AppText
+                            styles="text-sm text-white"
                             font="font-isemibold"
                             numberOfLines={1}
                         >
@@ -189,7 +187,7 @@ const EventCard = ({ event }: EventCardProps) => {
                 </View>
 
                 {/* Price & Tickets */}
-                <View 
+                <View
                     className="flex-row justify-between items-center py-1 mb-1"
                     style={{ borderTopWidth: 1, borderTopColor: colors.accent }}
                 >
@@ -200,11 +198,11 @@ const EventCard = ({ event }: EventCardProps) => {
                         </AppText>
                         <View className="flex-row items-baseline">
                             <AppText styles="text-lg text-white" font="font-ibold">
-                                GHS {formatPrice(event.lowest_price)}
+                                {formatMoney(event.lowest_price)}
                             </AppText>
                             {showPriceRange && (
                                 <AppText styles="text-sm text-slate-300 ml-1" font="font-iregular">
-                                    - {formatPrice(event.highest_price)}
+                                    - {formatMoney(event.highest_price)}
                                 </AppText>
                             )}
                         </View>

@@ -12,12 +12,14 @@ import {
     ShareSection,
     SimilarEventsSection,
     EventNotFound,
+    AppText,
+    Animation,
 } from "@/components";
-import type { TicketPurchaseModalRef } from "@/components/events/details/TicketPurchaseModal"; 
+import { tickets } from "@/assets";
+import type { TicketPurchaseModalRef } from "@/components/events/details/TicketPurchaseModal";
 import { getEventBySlug } from "@/lib/events";
 import { EventDetails, TicketType } from "@/types";
 import { useAuth } from "@/context";
-import colors from "@/config/colors";
 
 const EventDetailsScreen = () => {
     const { slug } = useLocalSearchParams<{ slug: string }>();
@@ -51,7 +53,14 @@ const EventDetailsScreen = () => {
     if (isLoading) {
         return (
             <View className="flex-1 bg-primary justify-center items-center">
-                <ActivityIndicator size="large" color={colors.accent} />
+                <Animation
+                    isVisible={true}
+                    path={tickets}
+                    style={{ width: 200, height: 200 }}
+                />
+                <AppText styles="text-sm text-slate-400 mt-4" font="font-iregular">
+                    Loading event details...
+                </AppText>
             </View>
         );
     }
@@ -67,7 +76,7 @@ const EventDetailsScreen = () => {
                 <EventDescription event={event} />
                 <TicketsSection event={event} currentUser={user} onTicketSelect={handleTicketPurchase} />
                 <OrganizerSection event={event} />
-                {/* <VenueSection event={event} /> */}
+                <VenueSection event={event} />
                 <ShareSection event={event} />
                 <SimilarEventsSection event={event} />
             </ScrollView>

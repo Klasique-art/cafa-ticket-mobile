@@ -4,7 +4,8 @@ import { router } from "expo-router";
 
 import { Event } from "@/types";
 import colors from "@/config/colors";
-import { getRelativeTime, formatEventTime, formatPrice } from "@/utils/format";
+import { getRelativeTime, formatEventTime } from "@/utils/format";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 const CARD_WIDTH = Dimensions.get("window").width * 0.75;
 
@@ -13,6 +14,7 @@ interface SoonEventCardProps {
 }
 
 export default function SoonEventCard({ event }: SoonEventCardProps) {
+  const formatMoney = useFormatMoney();
   const handlePress = () => {
     router.push(`/events/${event.slug}`);
   };
@@ -25,7 +27,7 @@ export default function SoonEventCard({ event }: SoonEventCardProps) {
           <Image
             source={{ uri: event.featured_image }}
             className="h-full w-full object-cover"
-            style={{objectFit: "cover"}}
+            style={{ objectFit: "cover" }}
           />
         </View>
 
@@ -62,7 +64,7 @@ export default function SoonEventCard({ event }: SoonEventCardProps) {
           </View>
 
           <Text className="mt-2 text-sm font-bold text-white">
-            {formatPrice(event.lowest_price)}
+            {formatMoney(event.lowest_price)}
           </Text>
         </View>
       </View>

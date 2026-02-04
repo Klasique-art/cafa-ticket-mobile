@@ -3,12 +3,15 @@ import { Ionicons } from "@expo/vector-icons";
 
 import AppText from "../../../ui/AppText";
 import type { MyEventAnalytics } from "@/types/dash-events.types";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface MyEventAnalyticsOverviewProps {
     analytics: MyEventAnalytics["overview"];
 }
 
 const MyEventAnalyticsOverview = ({ analytics }: MyEventAnalyticsOverviewProps) => {
+    const formatMoney = useFormatMoney();
+
     const cards = [
         {
             title: "Tickets Sold",
@@ -22,16 +25,16 @@ const MyEventAnalyticsOverview = ({ analytics }: MyEventAnalyticsOverviewProps) 
         },
         {
             title: "Gross Revenue",
-            value: `GH₵${parseFloat(analytics.gross_revenue).toLocaleString()}`,
+            value: `${formatMoney(analytics.gross_revenue)}`,
             icon: "cash-outline" as const,
             iconBg: "#10b981" + "33",
             iconColor: "#10b981",
-            subtitle: `Net: GH₵${parseFloat(analytics.net_revenue).toLocaleString()}`,
+            subtitle: `Net: ${formatMoney(analytics.net_revenue)}`,
             progress: null,
         },
         {
             title: "Avg. Ticket Price",
-            value: `GH₵${parseFloat(analytics.average_ticket_price).toLocaleString()}`,
+            value: `${formatMoney(analytics.average_ticket_price)}`,
             icon: "trending-up-outline" as const,
             iconBg: "#a855f7" + "33",
             iconColor: "#a855f7",
@@ -59,7 +62,7 @@ const MyEventAnalyticsOverview = ({ analytics }: MyEventAnalyticsOverviewProps) 
         },
         {
             title: "Projected Revenue",
-            value: `GH₵${parseFloat(analytics.projected_revenue).toLocaleString()}`,
+            value: `${formatMoney(analytics.projected_revenue)}`,
             icon: "eye-outline" as const,
             iconBg: "#ec4899" + "33",
             iconColor: "#ec4899",

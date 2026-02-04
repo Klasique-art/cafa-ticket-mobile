@@ -4,12 +4,14 @@ import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../../ui/AppText";
 import { PaymentDetails } from "@/types/payments.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     tickets: PaymentDetails["tickets"];
 };
 
 const PaymentTicketsList = ({ tickets }: Props) => {
+    const formatMoney = useFormatMoney();
     const handleDownloadAll = () => {
         // TODO: Implement download all tickets functionality
         console.log("Download all tickets");
@@ -66,22 +68,22 @@ const PaymentTicketsList = ({ tickets }: Props) => {
                         {/* Price and Status */}
                         <View className="items-end">
                             <AppText styles="text-base text-accent-50 mb-2" font="font-ibold">
-                                GH₵ {parseFloat(ticket.ticket_type.price).toLocaleString("en-GH")}
+                                {formatMoney(ticket.ticket_type.price)}
                             </AppText>
                             <View
                                 className={`px-2 py-1 rounded-md ${ticket.status === "active"
-                                        ? "bg-emerald-500/20 border border-emerald-500/30"
-                                        : ticket.status === "used"
-                                            ? "bg-blue-500/20 border border-blue-500/30"
-                                            : "bg-slate-500/20 border border-slate-500/30"
+                                    ? "bg-emerald-500/20 border border-emerald-500/30"
+                                    : ticket.status === "used"
+                                        ? "bg-blue-500/20 border border-blue-500/30"
+                                        : "bg-slate-500/20 border border-slate-500/30"
                                     }`}
                             >
                                 <AppText
                                     styles={`text-xs ${ticket.status === "active"
-                                            ? "text-emerald-400"
-                                            : ticket.status === "used"
-                                                ? "text-blue-400"
-                                                : "text-slate-400"
+                                        ? "text-emerald-400"
+                                        : ticket.status === "used"
+                                            ? "text-blue-400"
+                                            : "text-slate-400"
                                         } capitalize`}
                                     font="font-isemibold"
                                 >

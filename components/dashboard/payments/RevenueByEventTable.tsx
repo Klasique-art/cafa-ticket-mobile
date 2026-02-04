@@ -5,12 +5,14 @@ import { router } from "expo-router";
 import AppText from "../../ui/AppText";
 import type { RevenueSummary } from "@/types/payments.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     revenueByEvent: RevenueSummary["revenue_by_event"];
 };
 
 const RevenueByEventTable = ({ revenueByEvent }: Props) => {
+    const formatMoney = useFormatMoney();
     return (
         <View className="rounded-xl p-2 border-2" style={{ backgroundColor: colors.primary100, borderColor: colors.accent }}>
             {/* Header */}
@@ -76,7 +78,7 @@ const RevenueByEventTable = ({ revenueByEvent }: Props) => {
                                         Gross Revenue
                                     </AppText>
                                     <AppText styles="text-sm text-white" font="font-isemibold">
-                                        GH₵ {parseFloat(event.gross_revenue).toLocaleString("en-GH")}
+                                        {formatMoney(event.gross_revenue)}
                                     </AppText>
                                 </View>
 
@@ -86,7 +88,7 @@ const RevenueByEventTable = ({ revenueByEvent }: Props) => {
                                         Platform Fee
                                     </AppText>
                                     <AppText styles="text-sm" font="font-isemibold" style={{ color: colors.accent50 }}>
-                                        -GH₵ {parseFloat(event.platform_fee).toLocaleString("en-GH")}
+                                        -{formatMoney(event.platform_fee)}
                                     </AppText>
                                 </View>
 
@@ -96,7 +98,7 @@ const RevenueByEventTable = ({ revenueByEvent }: Props) => {
                                         Net Revenue
                                     </AppText>
                                     <AppText styles="text-sm" font="font-ibold" style={{ color: colors.accent50 }}>
-                                        GH₵ {parseFloat(event.net_revenue).toLocaleString("en-GH")}
+                                        {formatMoney(event.net_revenue)}
                                     </AppText>
                                 </View>
                             </View>

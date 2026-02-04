@@ -6,7 +6,7 @@ import OnboardingScreen from "@/components/onboarding/OnboardingScreen";
 import { Animation } from "@/components";
 import { storage } from "@/lib/storage";
 import colors from "@/config/colors";
-import { movingCar } from "@/assets";
+import { tickets } from "@/assets";
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,7 +45,7 @@ export default function Index() {
       >
         <Animation
           isVisible={true}
-          path={movingCar}
+          path={tickets}
           style={{ width: 200, height: 200 }}
         />
       </View>

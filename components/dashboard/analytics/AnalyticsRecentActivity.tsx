@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import AppText from "../../ui/AppText";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Activity = {
     type: string;
@@ -41,6 +42,8 @@ const formatDate = (dateString: string) => {
 };
 
 const AnalyticsRecentActivity = ({ activities }: Props) => {
+    const formatMoney = useFormatMoney();
+
     return (
         <View
             className="rounded-xl p-4 border-2"
@@ -75,7 +78,7 @@ const AnalyticsRecentActivity = ({ activities }: Props) => {
                                 key={index}
                                 className="flex-row items-start gap-3 p-3 rounded-lg"
                                 style={{ backgroundColor: colors.primary200 }}
-                                accessibilityLabel={`${config.label}: ${activity.event_title}${activity.amount ? `. GH₵ ${activity.amount}` : ""}. ${formatDate(activity.date)}`}
+                                accessibilityLabel={`${config.label}: ${activity.event_title}${activity.amount ? `. ${formatMoney(activity.amount)}` : ""}. ${formatDate(activity.date)}`}
                             >
                                 <View
                                     className="w-9 h-9 rounded-lg items-center justify-center"
@@ -107,7 +110,7 @@ const AnalyticsRecentActivity = ({ activities }: Props) => {
                                             font="font-ibold"
                                             style={{ color: colors.accent50 }}
                                         >
-                                            GH₵ {parseFloat(activity.amount).toLocaleString("en-GH", { minimumFractionDigits: 2 })}
+                                            {formatMoney(activity.amount)}
                                         </AppText>
                                     )}
                                 </View>

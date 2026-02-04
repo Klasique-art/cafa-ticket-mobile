@@ -6,6 +6,7 @@ import { View } from "react-native";
 import AppText from "../../../ui/AppText";
 import colors from "@/config/colors";
 import type { AttendedEvent } from "@/types/dash-events.types";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface AttendedEventCardProps {
     attendedEvent: AttendedEvent;
@@ -13,6 +14,7 @@ interface AttendedEventCardProps {
 
 const AttendedEventCard = ({ attendedEvent }: AttendedEventCardProps) => {
     const { event, ticket_id, ticket_type, attended_date, amount_paid } = attendedEvent;
+    const formatMoney = useFormatMoney();
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -32,10 +34,6 @@ const AttendedEventCard = ({ attendedEvent }: AttendedEventCardProps) => {
             hour: "2-digit",
             minute: "2-digit",
         });
-    };
-
-    const formatAmount = (amount: string) => {
-        return parseFloat(amount).toLocaleString("en-GH");
     };
 
     return (
@@ -135,7 +133,7 @@ const AttendedEventCard = ({ attendedEvent }: AttendedEventCardProps) => {
                             </AppText>
                         </View>
                         <AppText styles="text-sm" font="font-isemibold" style={{ color: "#34d399" }}>
-                            GH₵ {formatAmount(amount_paid)}
+                            {formatMoney(amount_paid)}
                         </AppText>
                     </View>
                 </View>

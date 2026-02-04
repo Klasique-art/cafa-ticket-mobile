@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 
 import Animation from "../ui/Animation";
-import { movingCar } from "@/assets";
+import { tickets } from "@/assets";
 
 const FormLoader = ({ visible }: { visible: boolean }) => {
     if (!visible) return null;
@@ -24,7 +24,7 @@ const FormLoader = ({ visible }: { visible: boolean }) => {
             accessibilityLiveRegion="polite" // Announces updates dynamically
         >
             <View style={{ height: 300, width: 300 }}>
-                <Animation isVisible={true} path={movingCar} />
+                <Animation isVisible={true} path={tickets} />
             </View>
 
             {/* Hidden text for screen readers */}

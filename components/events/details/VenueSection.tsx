@@ -16,10 +16,11 @@ const VenueSection = ({ event }: VenueSectionProps) => {
 
     const latitude = parseFloat(venue.latitude);
     const longitude = parseFloat(venue.longitude);
+    const isValidCoordinates = !isNaN(latitude) && !isNaN(longitude);
 
     const openMaps = () => {
         const scheme = Platform.select({ ios: "maps:0,0?q=", android: "geo:0,0?q=" });
-        const latLng = `${latitude},${longitude}`;
+        const latLng = isValidCoordinates ? `${latitude},${longitude}` : venue.address;
         const label = venue.name;
         const url = Platform.select({
             ios: `${scheme}${label}@${latLng}`,
@@ -47,22 +48,29 @@ const VenueSection = ({ event }: VenueSectionProps) => {
 
                 {/* Map */}
                 <View className="rounded-2xl overflow-hidden mb-4" style={{ height: 250, borderWidth: 2, borderColor: colors.accent }}>
-                    <MapView
-                        provider={PROVIDER_GOOGLE}
-                        style={{ flex: 1 }}
-                        initialRegion={{
-                            latitude,
-                            longitude,
-                            latitudeDelta: 0.01,
-                            longitudeDelta: 0.01,
-                        }}
-                    >
-                        <Marker
-                            coordinate={{ latitude, longitude }}
-                            title={venue.name}
-                            description={venue.address}
-                        />
-                    </MapView>
+                    {isValidCoordinates ? (
+                        <MapView
+                            provider={PROVIDER_GOOGLE}
+                            style={{ flex: 1 }}
+                            initialRegion={{
+                                latitude,
+                                longitude,
+                                latitudeDelta: 0.01,
+                                longitudeDelta: 0.01,
+                            }}
+                        >
+                            <Marker
+                                coordinate={{ latitude, longitude }}
+                                title={venue.name}
+                                description={venue.address}
+                            />
+                        </MapView>
+                    ) : (
+                        <View className="flex-1 items-center justify-center bg-primary-200">
+                            <Ionicons name="map-outline" size={48} color={colors.white} />
+                            <AppText styles="text-slate-400 mt-2" font="font-iregular">Map unavailable</AppText>
+                        </View>
+                    )}
 
                     {/* Map Overlay Badge */}
                     <View className="absolute top-4 left-4 px-4 py-2 rounded-lg" style={{ backgroundColor: "rgba(5, 14, 60, 0.9)" }}>

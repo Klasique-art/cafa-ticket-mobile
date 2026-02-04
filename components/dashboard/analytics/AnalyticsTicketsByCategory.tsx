@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import AppText from "../../ui/AppText";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Category = {
     category: string;
@@ -30,6 +31,8 @@ const AnalyticsTicketsByCategory = ({ ticketsByCategory, totalSpent }: Props) =>
     const totalSpentNum = parseFloat(totalSpent);
     const maxSpent = Math.max(...ticketsByCategory.map((cat) => parseFloat(cat.total_spent)));
 
+    const formatMoney = useFormatMoney();
+
     return (
         <View
             className="rounded-xl p-4 border-2"
@@ -52,7 +55,7 @@ const AnalyticsTicketsByCategory = ({ ticketsByCategory, totalSpent }: Props) =>
                     Total Spent
                 </AppText>
                 <AppText styles="text-sm text-white" font="font-ibold" style={{ color: colors.accent50 }}>
-                    GH₵ {totalSpentNum.toLocaleString("en-GH", { minimumFractionDigits: 2 })}
+                    {formatMoney(totalSpentNum)}
                 </AppText>
             </View>
 
@@ -97,7 +100,7 @@ const AnalyticsTicketsByCategory = ({ ticketsByCategory, totalSpent }: Props) =>
                                     </View>
                                     <View className="items-end">
                                         <AppText styles="text-xs text-white" font="font-ibold" style={{ color: colors.accent50 }}>
-                                            GH₵ {spent.toLocaleString("en-GH", { minimumFractionDigits: 2 })}
+                                            {formatMoney(spent)}
                                         </AppText>
                                         <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
                                             {percentage.toFixed(1)}%

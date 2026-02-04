@@ -11,11 +11,13 @@ import {
     EventCard,
     PastEventsSortModal,
     PastEventActiveFiltersDisplay,
+    Animation,
 } from "@/components";
 import { useDebounce } from "@/hooks";
 import { getPastEvents } from "@/lib/events";
 import type { Event } from "@/types";
 import colors from "@/config/colors";
+import { tickets } from "@/assets";
 
 const PastEventsScreen = () => {
     const [events, setEvents] = useState<Event[]>([]);
@@ -158,7 +160,11 @@ const PastEventsScreen = () => {
                 {/* Events List */}
                 {isLoading ? (
                     <View className="flex-1 items-center justify-center">
-                        <ActivityIndicator size="large" color={colors.accent} />
+                        <Animation
+                            isVisible={true}
+                            path={tickets}
+                            style={{ width: 200, height: 200 }}
+                        />
                         <AppText styles="text-sm text-white mt-4" font="font-iregular" style={{ opacity: 0.6 }}>
                             Loading past events...
                         </AppText>

@@ -13,6 +13,7 @@ import * as SecureStore from "expo-secure-store";
 import AppText from "../../ui/AppText";
 import { API_BASE_URL } from "@/config/settings";
 import colors from "@/config/colors";
+import { useCurrency } from "@/context/CurrencyContext";
 
 // ---------------------------------------------------------------------------
 // Types & constants
@@ -39,6 +40,8 @@ const RequestPayoutModal = ({
     onPayoutSuccess,
     availableBalance,
 }: RequestPayoutModalProps) => {
+    const { displayCurrency, getCurrencySymbol } = useCurrency();
+    const symbol = getCurrencySymbol(displayCurrency);
     const balance = parseFloat(availableBalance) || 0;
 
     // ---- state ----
@@ -71,12 +74,12 @@ const RequestPayoutModal = ({
             return false;
         }
         if (parsedAmount < MIN_PAYOUT) {
-            setError(`Minimum payout amount is GHS ${MIN_PAYOUT.toFixed(2)}`);
+            setError(`Minimum payout amount is ${symbol} ${MIN_PAYOUT.toFixed(2)}`);
             return false;
         }
         if (parsedAmount > balance) {
             setError(
-                `Amount cannot exceed available balance (GHS ${balance.toFixed(2)})`
+                `Amount cannot exceed available balance (${symbol} ${balance.toFixed(2)})`
             );
             return false;
         }
@@ -192,7 +195,7 @@ const RequestPayoutModal = ({
                     Available Balance
                 </AppText>
                 <AppText styles="text-xl text-white mt-1" font="font-ibold">
-                    GHS {balance.toFixed(2)}
+                    {symbol} {balance.toFixed(2)}
                 </AppText>
             </View>
 
@@ -223,7 +226,7 @@ const RequestPayoutModal = ({
                             font="font-iregular"
                             style={{ color: "#94a3b8" }}
                         >
-                            GHS
+                            {symbol}
                         </AppText>
                     </View>
 
@@ -269,7 +272,7 @@ const RequestPayoutModal = ({
                     font="font-iregular"
                     style={{ color: "#94a3b8" }}
                 >
-                    Minimum: GHS {MIN_PAYOUT.toFixed(2)}
+                    Minimum: {symbol} {MIN_PAYOUT.toFixed(2)}
                 </AppText>
             </View>
 
@@ -367,7 +370,7 @@ const RequestPayoutModal = ({
                         Withdrawal Amount
                     </AppText>
                     <AppText styles="text-lg text-white" font="font-ibold">
-                        GHS {parsedAmount.toFixed(2)}
+                        {symbol} {parsedAmount.toFixed(2)}
                     </AppText>
                 </View>
 
@@ -381,7 +384,7 @@ const RequestPayoutModal = ({
                         Processing Fee
                     </AppText>
                     <AppText styles="text-sm text-white" font="font-ibold">
-                        GHS 0.00
+                        {symbol} 0.00
                     </AppText>
                 </View>
 
@@ -398,7 +401,7 @@ const RequestPayoutModal = ({
                         font="font-ibold"
                         style={{ color: colors.accent50 }}
                     >
-                        GHS {parsedAmount.toFixed(2)}
+                        {symbol} {parsedAmount.toFixed(2)}
                     </AppText>
                 </View>
             </View>
@@ -565,8 +568,8 @@ const RequestPayoutModal = ({
                         {success
                             ? renderSuccess()
                             : step === "amount"
-                            ? renderAmountStep()
-                            : renderConfirmStep()}
+                                ? renderAmountStep()
+                                : renderConfirmStep()}
                     </ScrollView>
                 </View>
             </View>

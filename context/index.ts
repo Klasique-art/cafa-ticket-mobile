@@ -1,7 +1,9 @@
-import { AuthProvider } from "./AuthContext";
-import { useAuth } from "./AuthContext";
+import { AuthProvider, useAuth } from "./AuthContext";
+import { CurrencyProvider, useCurrency } from "./CurrencyContext";
 
 export { 
     AuthProvider,
-    useAuth 
+    useAuth,
+    CurrencyProvider,
+    useCurrency
 }

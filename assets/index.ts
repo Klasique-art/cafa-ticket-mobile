@@ -1,6 +1,6 @@
 // animations
-import movingCar from './animations/moving_car.json'
+import tickets from './animations/tickets.json'
 
 export {
-    movingCar,
+    tickets
 }

@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import AppText from "../../../ui/AppText";
 import type { EventTicketType } from "@/types/dash-events.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface MyEventTicketTypesProps {
     ticketTypes: EventTicketType[];
@@ -13,6 +14,8 @@ interface MyEventTicketTypesProps {
 }
 
 const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEventTicketTypesProps) => {
+    const formatMoney = useFormatMoney();
+
     const formatDate = (dateString: string | null) => {
         if (!dateString) return null;
         const date = new Date(dateString);
@@ -59,7 +62,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                 </View>
                 <TouchableOpacity
                     onPress={() => router.push(`/dashboard/events/${eventSlug}/tickets/create` as any)}
-                    className="flex-row items-center gap-2 px-4 py-2 rounded-xl" 
+                    className="flex-row items-center gap-2 px-4 py-2 rounded-xl"
                     style={{ backgroundColor: colors.accent }}
                     activeOpacity={0.8}
                 >
@@ -95,7 +98,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                         Revenue
                     </AppText>
                     <AppText styles="text-xl text-emerald-400" font="font-ibold">
-                        GH₵{totalRevenue.toLocaleString()}
+                        {formatMoney(totalRevenue)}
                     </AppText>
                 </View>
             </View>
@@ -168,7 +171,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                                         Price
                                     </AppText>
                                     <AppText styles="text-sm text-emerald-400" font="font-ibold">
-                                        GH₵{parseFloat(ticket.price).toLocaleString()}
+                                        {formatMoney(ticket.price)}
                                     </AppText>
                                 </View>
 
@@ -195,7 +198,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                                         Revenue
                                     </AppText>
                                     <AppText styles="text-sm text-emerald-400" font="font-ibold">
-                                        GH₵{parseFloat(ticket.revenue).toLocaleString()}
+                                        {formatMoney(ticket.revenue)}
                                     </AppText>
                                 </View>
                             </View>

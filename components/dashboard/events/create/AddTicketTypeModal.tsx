@@ -10,6 +10,7 @@ import AppBottomSheet from "../../../ui/AppBottomSheet";
 import type { AppBottomSheetRef } from "../../../ui/AppBottomSheet";
 import { ticketTypeSchema, type TicketTypeFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface AddTicketTypeModalProps {
     onSubmit: (values: TicketTypeFormValues) => void;
@@ -25,6 +26,7 @@ export interface AddTicketTypeModalRef {
 const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalProps>(
     ({ onSubmit, initialValues, isEditing = false }, ref) => {
         const bottomSheetRef = useRef<AppBottomSheetRef>(null);
+        const formatMoney = useFormatMoney();
 
         useImperativeHandle(ref, () => ({
             open: () => bottomSheetRef.current?.open(),
@@ -147,7 +149,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                                     </View>
                                                 </View>
                                                 <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
-                                                    Min price: GH₵10 • Max quantity: 1,000,000
+                                                    Min price: {formatMoney(10)} • Max quantity: 1,000,000
                                                 </AppText>
                                             </View>
                                         </View>

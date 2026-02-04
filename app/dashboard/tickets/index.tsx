@@ -10,12 +10,14 @@ import {
     AppText,
     MyTicketsFilters,
     MyTicketCard,
+    Animation,
 } from "@/components";
 import { fetchMyTickets } from "@/lib/dashboard";
 import { getEventCategories } from "@/lib";
 import type { MyTicket } from "@/types/tickets.types";
 import type { EventCategory } from "@/types/tickets.types";
 import colors from "@/config/colors";
+import { tickets as ticketsAnimation } from "@/assets";
 
 const MyTicketsScreen = () => {
     const [tickets, setTickets] = useState<MyTicket[]>([]);
@@ -161,7 +163,11 @@ const MyTicketsScreen = () => {
                 <View className="flex-1" style={{ backgroundColor: colors.primary }}>
                     {isLoading && tickets.length === 0 ? (
                         <View className="flex-1 items-center justify-center">
-                            <ActivityIndicator size="large" color={colors.accent} />
+                            <Animation
+                                isVisible={true}
+                                path={ticketsAnimation}
+                                style={{ width: 200, height: 200 }}
+                            />
                             <AppText styles="text-sm text-white mt-4" font="font-iregular" style={{ opacity: 0.6 }}>
                                 Loading tickets...
                             </AppText>

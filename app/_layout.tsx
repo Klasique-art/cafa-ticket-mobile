@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 import "../global.css";
 import { TabBarProvider } from "@/context/TabBarContext";
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider, CurrencyProvider } from "@/context";
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
@@ -21,20 +21,22 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
-        <TabBarProvider>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              contentStyle: {
-                backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
-              },
-              animation: "slide_from_right",
-            }}
-          >
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          </Stack>
-        </TabBarProvider>
+        <CurrencyProvider>
+          <TabBarProvider>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: {
+                  backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
+                },
+                animation: "slide_from_right",
+              }}
+            >
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            </Stack>
+          </TabBarProvider>
+        </CurrencyProvider>
       </AuthProvider>
     </GestureHandlerRootView>
   );

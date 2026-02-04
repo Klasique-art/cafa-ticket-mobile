@@ -1,10 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, RefreshControl, ScrollView, View } from "react-native";
 
-import { Screen, AppButton, AppText, AttendedEventsList, Nav, RequireAuth } from "@/components";
+import { Screen, AppButton, AppText, AttendedEventsList, Nav, RequireAuth, Animation } from "@/components";
 import colors from "@/config/colors";
+import { tickets } from "@/assets";
 import { getMyAttendedEvents } from "@/lib/events";
 import type { AttendedEvent } from "@/types/dash-events.types";
 
@@ -70,7 +70,11 @@ const AttendedEventsScreen = () => {
                     {/* Loading State */}
                     {isLoading && (
                         <View className="flex-1 items-center justify-center py-20">
-                            <ActivityIndicator size="large" color={colors.accent} />
+                            <Animation
+                                isVisible={true}
+                                path={tickets}
+                                style={{ width: 200, height: 200 }}
+                            />
                             <AppText styles="text-sm text-slate-300 mt-4" font="font-iregular">
                                 Loading attended events...
                             </AppText>

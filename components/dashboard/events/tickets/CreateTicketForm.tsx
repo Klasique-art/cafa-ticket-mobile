@@ -10,6 +10,7 @@ import SubmitButton from "../../../form/SubmitButton";
 import FormLoader from "../../../form/FormLoader";
 import { ticketTypeSchema, type TicketTypeFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface CreateTicketFormProps {
     eventSlug: string;
@@ -18,6 +19,7 @@ interface CreateTicketFormProps {
 const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
     const [createdTicketsCount, setCreatedTicketsCount] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const formatMoney = useFormatMoney();
 
     const initialValues: TicketTypeFormValues = {
         name: "",
@@ -232,7 +234,7 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
                                         font="font-iregular"
                                         style={{ opacity: 0.6 }}
                                     >
-                                        Minimum price: GH₵ 10.00 • Maximum quantity: 1,000,000
+                                        Minimum price: {formatMoney(10)} • Maximum quantity: 1,000,000
                                     </AppText>
                                 </View>
 

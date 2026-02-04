@@ -14,13 +14,15 @@ import {
   EventsGrid,
   EventsEmptyState,
   FilterOptions,
+  Screen, 
+  AppText, 
+  Animation
 } from "@/components";
 import colors from "@/config/colors";
-import { movingCar } from "@/assets";
+import { tickets } from "@/assets";
 import { useDebounce } from "@/hooks";
 import { Event, EventFilters } from "@/types";
 import { EventCategory } from "@/types/tickets.types";
-import { Screen, AppText, Animation } from "@/components";
 import { getEvents, getEventCategories } from "@/lib/events";
 
 const EventsScreen = () => {
@@ -283,7 +285,7 @@ const EventsScreen = () => {
         <View className="flex-1 items-center justify-center">
           <Animation
             isVisible={true}
-            path={movingCar}
+            path={tickets}
             style={{ width: 200, height: 200 }}
           />
           <AppText styles="text-sm text-slate-400 mt-4" font="font-iregular">

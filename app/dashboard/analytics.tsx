@@ -13,10 +13,13 @@ import {
     AnalyticsTicketsByCategory,
     AnalyticsBestSellingEvent,
     AnalyticsRevenueChart,
+    Animation as LoadingAnimation,
 } from "@/components";
 import { getUserStats } from "@/lib/dashboard";
 import colors from "@/config/colors";
+import { tickets } from "@/assets";
 import type { UserStats } from "@/types/dashboard.types";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 const getAccountAge = (days: number, display: string) => {
     if (days === 0) return display;
@@ -29,12 +32,10 @@ const getAccountAge = (days: number, display: string) => {
     return `${years} year${years > 1 ? "s" : ""}`;
 };
 
-const formatGHS = (amount: string | number) =>
-    `GH₵ ${parseFloat(amount.toString()).toLocaleString("en-GH", { minimumFractionDigits: 2 })}`;
-
 const AnalyticsScreen = () => {
     const [stats, setStats] = useState<UserStats | null>(null);
     const [loading, setLoading] = useState(true);
+    const formatMoney = useFormatMoney();
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -58,7 +59,14 @@ const AnalyticsScreen = () => {
                 <RequireAuth>
                     <Nav title="Analytics" />
                     <View className="flex-1 items-center justify-center" style={{ backgroundColor: colors.primary }}>
-                        <ActivityIndicator size="large" color={colors.accent} />
+                        <LoadingAnimation
+                            isVisible={true}
+                            path={tickets}
+                            style={{ width: 200, height: 200 }}
+                        />
+                        <AppText styles="text-sm text-slate-400 mt-4" font="font-iregular">
+                            Loading analytics...
+                        </AppText>
                     </View>
                 </RequireAuth>
             </Screen>
@@ -117,7 +125,7 @@ const AnalyticsScreen = () => {
         },
         {
             title: "Total Spent",
-            value: formatGHS(stats.overview.total_spent),
+            value: formatMoney(stats.overview.total_spent),
             icon: "cash-outline",
             subtitle: "On purchases",
             iconBgColor: colors.accent + "33",
@@ -125,7 +133,7 @@ const AnalyticsScreen = () => {
         },
         {
             title: "Total Revenue",
-            value: formatGHS(stats.overview.total_revenue),
+            value: formatMoney(stats.overview.total_revenue),
             icon: "trending-up-outline",
             subtitle: "From sales",
             iconBgColor: "#10b98133",

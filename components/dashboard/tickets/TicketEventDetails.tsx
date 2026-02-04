@@ -6,6 +6,7 @@ import type { Href } from "expo-router";
 import AppText from "../../ui/AppText";
 import colors from "@/config/colors";
 import type { TicketEventDetails as EventDetailsType, TicketTypeDetails } from "@/types/tickets.types";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     event: EventDetailsType;
@@ -27,6 +28,7 @@ const formatTime = (time: string) =>
     });
 
 const TicketEventDetails = ({ event, ticketType }: Props) => {
+    const formatMoney = useFormatMoney();
     return (
         <View>
             {/* Event Image with category badge */}
@@ -100,7 +102,7 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                         </View>
                     </View>
                     <AppText styles="text-sm" font="font-ibold" style={{ color: "#34d399" }}>
-                        GH₵ {parseFloat(ticketType.price).toLocaleString("en-GH")}
+                        {formatMoney(ticketType.price)}
                     </AppText>
 
                     {/* Date/Time grid — 2 columns */}
@@ -108,7 +110,7 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                         <View
                             className="flex-1 p-3 rounded-lg"
                             style={{ backgroundColor: colors.primary200 }}
-                            
+
                             accessibilityLabel={`Start: ${formatDate(event.start_date)} at ${formatTime(event.start_time)}`}
                         >
                             <View className="flex-row items-center gap-1.5 mb-2">
@@ -131,7 +133,7 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                         <View
                             className="flex-1 p-3 rounded-lg"
                             style={{ backgroundColor: colors.primary200 }}
-                            
+
                             accessibilityLabel={`End: ${formatDate(event.end_date)} at ${formatTime(event.end_time)}`}
                         >
                             <View className="flex-row items-center gap-1.5 mb-2">
@@ -156,7 +158,7 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                     <View
                         className="flex-row items-start gap-3 p-3 rounded-lg"
                         style={{ backgroundColor: colors.primary200 }}
-                        
+
                         accessibilityLabel={`Venue: ${event.venue_name}, ${event.venue_address}, ${event.venue_city}, ${event.venue_country}`}
                     >
                         <Ionicons name="location-outline" size={18} color={colors.accent50} style={{ marginTop: 2 }} />
