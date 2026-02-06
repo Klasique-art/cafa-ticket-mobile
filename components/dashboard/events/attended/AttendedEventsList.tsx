@@ -23,7 +23,7 @@ const AttendedEventsList = ({ attendedEvents }: AttendedEventsListProps) => {
                 >
                     <Ionicons name="calendar-outline" size={40} color={colors.accent50} />
                 </View>
-                <AppText styles="text-xl text-white text-center mb-3" font="font-ibold">
+                <AppText styles="text-xl text-black text-center mb-3" font="font-ibold">
                     No Events Attended Yet
                 </AppText>
                 <AppText styles="text-sm text-slate-300 text-center mb-6" font="font-iregular">

@@ -107,7 +107,7 @@ const PaymentsScreen = () => {
             <RequireAuth>
                 <Nav title="Revenue Dashboard" />
 
-                <View className="flex-1" style={{ backgroundColor: colors.primary }}>
+                <View className="flex-1">
                     {/* ---- Loading ---- */}
                     {isLoading ? (
                         <View className="flex-1 items-center justify-center">
@@ -142,7 +142,7 @@ const PaymentsScreen = () => {
                             <View className="p-2 gap-6">
                                 {/* Page Header */}
                                 <View>
-                                    <AppText styles="text-sm text-white" style={{ opacity: 0.7 }}>
+                                    <AppText styles="text-sm text-black" style={{ opacity: 0.7 }}>
                                         Track your earnings and manage payouts
                                     </AppText>
                                 </View>
@@ -169,11 +169,11 @@ const PaymentsScreen = () => {
                                                 <Ionicons name="cash-outline" size={24} color={colors.accent50} />
                                             </View>
                                             <View className="flex-1">
-                                                <AppText styles="text-base text-white mb-1 font-nunbold">
+                                                <AppText styles="text-base text-black mb-1 font-nunbold">
                                                     Request Payout
                                                 </AppText>
                                                 <AppText
-                                                    styles="text-xs text-white"
+                                                    styles="text-xs text-black"
                                                     style={{ opacity: 0.7 }}
                                                 >
                                                     Available: GH₵{" "}
@@ -182,7 +182,7 @@ const PaymentsScreen = () => {
                                                     ).toLocaleString("en-GH", { minimumFractionDigits: 2 })}
                                                 </AppText>
                                             </View>
-                                            <Ionicons name="chevron-forward" size={20} color={colors.white} />
+                                            <Ionicons name="chevron-forward" size={20} color={colors.black} />
                                         </View>
                                     </TouchableOpacity>
 

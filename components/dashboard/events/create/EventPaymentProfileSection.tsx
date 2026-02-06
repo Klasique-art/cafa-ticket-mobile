@@ -59,10 +59,10 @@ const EventPaymentProfileSection = () => {
                         <Ionicons name="wallet-outline" size={20} color={colors.accent50} />
                     </View>
                     <View className="flex-1">
-                        <AppText styles="text-base text-white" font="font-ibold">
+                        <AppText styles="text-base text-black" font="font-ibold">
                             Payment Profile
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                             Where to receive revenue
                         </AppText>
                     </View>
@@ -73,7 +73,7 @@ const EventPaymentProfileSection = () => {
                     style={{ backgroundColor: colors.primary100 }}
                 >
                     <ActivityIndicator size="small" color={colors.accent} />
-                    <AppText styles="text-sm text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-sm text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                         Loading payment profiles...
                     </AppText>
                 </View>
@@ -92,10 +92,10 @@ const EventPaymentProfileSection = () => {
                     <Ionicons name="wallet-outline" size={20} color={colors.accent50} />
                 </View>
                 <View className="flex-1">
-                    <AppText styles="text-base text-white" font="font-ibold">
+                    <AppText styles="text-base text-black" font="font-ibold">
                         Payment Profile
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                         Where to receive revenue
                     </AppText>
                 </View>
@@ -110,10 +110,10 @@ const EventPaymentProfileSection = () => {
                     <View className="flex-row items-start gap-3 mb-4">
                         <Ionicons name="alert-circle" size={20} color={colors.accent} />
                         <View className="flex-1">
-                            <AppText styles="text-sm text-white mb-2" font="font-ibold" style={{ color: colors.accent }}>
+                            <AppText styles="text-sm text-black mb-2" font="font-ibold" style={{ color: colors.accent }}>
                                 No Verified Payment Profile
                             </AppText>
-                            <AppText styles="text-xs text-white mb-4" font="font-iregular" style={{ opacity: 0.8 }}>
+                            <AppText styles="text-xs text-black mb-4" font="font-iregular" style={{ opacity: 0.8 }}>
                                 You need at least one verified payment profile to receive ticket revenue.
                             </AppText>
                             <TouchableOpacity
@@ -123,7 +123,7 @@ const EventPaymentProfileSection = () => {
                                 activeOpacity={0.8}
                             >
                                 <Ionicons name="add-circle-outline" size={18} color={colors.white} />
-                                <AppText styles="text-sm text-white" font="font-ibold">
+                                <AppText styles="text-sm text-black" font="font-ibold">
                                     Create Payment Profile
                                 </AppText>
                             </TouchableOpacity>
@@ -136,7 +136,7 @@ const EventPaymentProfileSection = () => {
             {hasVerifiedProfiles && (
                 <>
                     <View className="flex-row items-center justify-between mb-2">
-                        <AppText styles="text-sm text-white" font="font-isemibold">
+                        <AppText styles="text-sm text-black" font="font-isemibold">
                             Select Payment Profile
                         </AppText>
                         <TouchableOpacity
@@ -195,7 +195,7 @@ const EventPaymentProfileSection = () => {
                                                     />
                                                 </View>
 
-                                                <AppText styles="text-sm text-white" font="font-ibold">
+                                                <AppText styles="text-sm text-black" font="font-ibold">
                                                     {profile.name}
                                                 </AppText>
 
@@ -214,22 +214,22 @@ const EventPaymentProfileSection = () => {
                                             {/* Account Details */}
                                             <View className="gap-1">
                                                 <AppText
-                                                    styles="text-xs text-white"
+                                                    styles="text-xs text-black"
                                                     font="font-iregular"
                                                     style={{ opacity: 0.6 }}
                                                 >
                                                     Bank:{" "}
-                                                    <AppText styles="text-xs text-white" font="font-isemibold">
+                                                    <AppText styles="text-xs text-black" font="font-isemibold">
                                                         {accountDetails?.bank_name}
                                                     </AppText>
                                                 </AppText>
                                                 <AppText
-                                                    styles="text-xs text-white"
+                                                    styles="text-xs text-black"
                                                     font="font-iregular"
                                                     style={{ opacity: 0.6 }}
                                                 >
                                                     Account:{" "}
-                                                    <AppText styles="text-xs text-white" font="font-imedium">
+                                                    <AppText styles="text-xs text-black" font="font-imedium">
                                                         {accountDetails?.account_number}
                                                     </AppText>
                                                 </AppText>
@@ -250,17 +250,17 @@ const EventPaymentProfileSection = () => {
             >
                 <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                 <View className="flex-1">
-                    <AppText styles="text-xs text-white mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
                         How Payment Works
                     </AppText>
                     <View className="gap-1">
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Revenue sent to selected profile
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Platform fee (5%) deducted
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Immediate after ticket purchase
                         </AppText>
                     </View>

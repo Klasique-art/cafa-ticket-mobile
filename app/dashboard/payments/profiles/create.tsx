@@ -175,7 +175,7 @@ const CreatePaymentProfileScreen = () => {
               <Ionicons name="business" size={24} color={colors.info} />
             </View>
             <View className="flex-1">
-              <AppText styles="text-lg text-white font-nunbold">
+              <AppText styles="text-lg text-black font-nunbold">
                 Create Bank Account Profile
               </AppText>
               <AppText styles="text-xs text-slate-400">

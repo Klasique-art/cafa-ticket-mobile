@@ -30,10 +30,10 @@ const VerificationHeader = ({ currentStep, userName }: VerificationHeaderProps) 
                 >
                     <Ionicons name="shield-checkmark" size={32} color={colors.accent50} />
                 </View>
-                <AppText styles="text-xl text-white mb-2 text-center font-nunbold">
+                <AppText styles="text-xl text-black mb-2 text-center font-nunbold">
                     Identity Verification
                 </AppText>
-                <AppText styles="text-sm text-white text-center" style={{ opacity: 0.7 }}>
+                <AppText styles="text-sm text-black text-center" style={{ opacity: 0.7 }}>
                     Hi {userName}! Let's verify your identity
                 </AppText>
             </View>

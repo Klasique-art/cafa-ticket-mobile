@@ -62,7 +62,7 @@ const ActiveFiltersDisplay = ({
                         className="px-3 py-2 bg-primary-100 border border-accent rounded-lg"
                         activeOpacity={0.7}
                     >
-                        <AppText styles="text-xs text-white" font="font-ibold">
+                        <AppText styles="text-xs text-black" font="font-ibold">
                             Clear All
                         </AppText>
                     </TouchableOpacity>

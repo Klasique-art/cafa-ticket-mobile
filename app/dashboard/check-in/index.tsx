@@ -92,7 +92,7 @@ const CheckInScreen = () => {
             <Screen>
                 <RequireAuth>
                     <Nav title="Check-in" />
-                    <View className="flex-1 items-center justify-center" style={{ backgroundColor: colors.primary }}>
+                    <View className="flex-1 items-center justify-center">
                         <ActivityIndicator size="large" color={colors.accent} />
                     </View>
                 </RequireAuth>

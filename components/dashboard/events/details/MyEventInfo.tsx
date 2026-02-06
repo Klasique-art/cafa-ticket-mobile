@@ -38,7 +38,7 @@ const MyEventInfo = ({ event }: MyEventInfoProps) => {
         <View className="gap-2">
             {/* Section Header */}
             <View className="flex-row items-center justify-between">
-                <AppText styles="text-xl text-white" font="font-ibold">
+                <AppText styles="text-xl text-black">
                     Event Information
                 </AppText>
                 <View className="flex-row items-center gap-2">
@@ -48,7 +48,7 @@ const MyEventInfo = ({ event }: MyEventInfoProps) => {
                         color={event.is_published ? colors.accent50 : colors.white}
                     />
                     <AppText
-                        styles={`text-xs ${event.is_published ? "text-accent-50" : "text-white"}`}
+                        styles={`text-xs ${event.is_published ? "text-accent-50" : "text-black"}`}
                         font="font-isemibold"
                         style={{ opacity: event.is_published ? 1 : 0.6 }}
                     >
@@ -79,11 +79,11 @@ const MyEventInfo = ({ event }: MyEventInfoProps) => {
 
             {/* Full Description */}
             <View className="p-2">
-                <AppText styles="text-sm text-white mb-3" font="font-ibold">
+                <AppText styles="text-sm text-black mb-3 font-nunbold">
                     Full Description
                 </AppText>
                 <AppText
-                    styles="text-sm text-white"
+                    styles="text-sm text-black"
                     font="font-iregular"
                     numberOfLines={showFullDescription ? undefined : 6}
                     style={{ opacity: 0.8 }}

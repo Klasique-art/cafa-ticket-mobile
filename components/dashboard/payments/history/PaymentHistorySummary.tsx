@@ -85,7 +85,7 @@ const PaymentHistorySummary = ({ summary }: Props) => {
                                 <AppText styles="text-xs text-slate-300 mb-2">
                                     {card.title}
                                 </AppText>
-                                <AppText styles="text-xl text-white mb-1 font-nunbold">
+                                <AppText styles="text-xl text-black mb-1 font-nunbold">
                                     {card.value}
                                 </AppText>
                                 <AppText styles="text-xs text-slate-400">

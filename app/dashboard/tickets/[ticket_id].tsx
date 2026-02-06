@@ -80,10 +80,10 @@ const MyTicketDetailsScreen = () => {
                         >
                             <Ionicons name="alert-circle-outline" size={40} color="#f87171" />
                         </View>
-                        <AppText styles="text-lg text-white text-center font-nunbold">
+                        <AppText styles="text-lg text-black text-center font-nunbold">
                             Ticket Not Found
                         </AppText>
-                        <AppText styles="text-xs text-white text-center mt-2 mb-6" style={{ opacity: 0.6, maxWidth: 280 }}>
+                        <AppText styles="text-xs text-black text-center mt-2 mb-6" style={{ opacity: 0.6, maxWidth: 280 }}>
                             This ticket doesn't exist or you don't have access to it.
                         </AppText>
                         <View
@@ -92,7 +92,7 @@ const MyTicketDetailsScreen = () => {
                         >
                             <Ionicons name="arrow-back-outline" size={18} color="#fff" />
                             <AppText
-                                styles="text-sm text-white font-nunbold"
+                                styles="text-sm text-black font-nunbold"
                                 onPress={() => router.push("/my-tickets" as Href)}
                             >
                                 Back to My Tickets

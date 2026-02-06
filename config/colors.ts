@@ -6,6 +6,7 @@ export default {
     accent50: "#FF5555",
     accent100: "#FF3838",
     white: "#FFFFFF",
+    black: "#000000",
     // status
     success: "#34D399",
     error: "#EF4444",

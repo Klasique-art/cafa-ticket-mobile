@@ -116,7 +116,7 @@ const SettingsScreen = () => {
                                     </View>
 
                                     {/* Title + Description */}
-                                    <AppText styles="text-base text-white mt-3 font-nunbold">
+                                    <AppText styles="text-base text-black mt-3 font-nunbold">
                                         {section.title}
                                     </AppText>
                                     <AppText styles="text-sm text-slate-400 mt-1">
@@ -144,7 +144,7 @@ const SettingsScreen = () => {
                             <Ionicons name="help-circle-outline" size={22} color={colors.accent50} />
                         </View>
                         <View className="flex-1">
-                            <AppText styles="text-sm text-white font-nunbold">
+                            <AppText styles="text-sm text-black font-nunbold">
                                 Need help?
                             </AppText>
                             <AppText styles="text-xs text-slate-400">

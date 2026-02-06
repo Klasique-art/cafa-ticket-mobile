@@ -58,10 +58,10 @@ const QuickActionsSection = ({ isLoading = false }: QuickActionsSectionProps) =>
         <View className="mb-6">
             {/* Section Header */}
             <View className="mb-4 px-2">
-                <AppText styles="text-lg text-white font-nunbold">
+                <AppText styles="text-lg text-black font-nunbold">
                     Quick Actions
                 </AppText>
-                <AppText styles="text-xs text-white" style={{ opacity: 0.6 }}>
+                <AppText styles="text-xs text-black" style={{ opacity: 0.6 }}>
                     Get things done faster
                 </AppText>
             </View>

@@ -45,7 +45,7 @@ const EmptyStateCard = ({ type }: EmptyStateCardProps) => {
         >
             <View
                 className="w-16 h-16 rounded-2xl items-center justify-center mb-4"
-                style={{ backgroundColor: colors.accent + "33" }}
+                style={{ backgroundColor: colors.primary200 + "33" }}
             >
                 <Ionicons name={icon} size={32} color={colors.accent50} />
             </View>

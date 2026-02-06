@@ -21,7 +21,7 @@ const PaymentTicketsList = ({ tickets }: Props) => {
         <View className="bg-primary-100 rounded-xl p-4 border-2 border-accent/30 mb-4">
             {/* Header */}
             <View className="flex-row items-center justify-between mb-4">
-                <AppText styles="text-lg text-white" font="font-ibold">
+                <AppText styles="text-lg text-black" font="font-ibold">
                     Tickets ({tickets.length})
                 </AppText>
                 <TouchableOpacity
@@ -30,7 +30,7 @@ const PaymentTicketsList = ({ tickets }: Props) => {
                     activeOpacity={0.7}
                 >
                     <Ionicons name="download" size={16} color={colors.white} />
-                    <AppText styles="text-xs text-white" font="font-isemibold">
+                    <AppText styles="text-xs text-black" font="font-isemibold">
                         Download All
                     </AppText>
                 </TouchableOpacity>
@@ -54,7 +54,7 @@ const PaymentTicketsList = ({ tickets }: Props) => {
 
                         {/* Ticket Info */}
                         <View className="flex-1">
-                            <AppText styles="text-sm text-white mb-1" font="font-ibold">
+                            <AppText styles="text-sm text-black mb-1" font="font-ibold">
                                 {ticket.ticket_type.name}
                             </AppText>
                             <AppText styles="text-xs text-slate-300 mb-1" font="font-iregular">

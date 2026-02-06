@@ -85,7 +85,7 @@ const AttendedEventCard = ({ attendedEvent }: AttendedEventCardProps) => {
                 </AppText>
 
                 {/* Title */}
-                <AppText styles="text-base text-white mb-3" font="font-ibold" numberOfLines={2}>
+                <AppText styles="text-base text-black mb-3" font="font-ibold" numberOfLines={2}>
                     {event.title}
                 </AppText>
 
@@ -117,7 +117,7 @@ const AttendedEventCard = ({ attendedEvent }: AttendedEventCardProps) => {
                                 Ticket Type
                             </AppText>
                         </View>
-                        <AppText styles="text-sm text-white" font="font-isemibold" numberOfLines={1}>
+                        <AppText styles="text-sm text-black" font="font-isemibold" numberOfLines={1}>
                             {ticket_type}
                         </AppText>
                     </View>

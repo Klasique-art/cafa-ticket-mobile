@@ -59,7 +59,7 @@ const AttendedEventsScreen = () => {
                 >
                     {/* Page Header */}
                     <View className="mb-6">
-                        <AppText styles="text-2xl text-white mb-2 font-nunbold">
+                        <AppText styles="text-2xl text-black mb-2 font-nunbold">
                             Attended Events
                         </AppText>
                         <AppText styles="text-sm text-slate-300">
@@ -90,7 +90,7 @@ const AttendedEventsScreen = () => {
                             >
                                 <Ionicons name="alert-circle-outline" size={32} color={colors.accent50} />
                             </View>
-                            <AppText styles="text-lg text-white text-center mb-2 font-nunbold">
+                            <AppText styles="text-lg text-black text-center mb-2 font-nunbold">
                                 Unable to Load Events
                             </AppText>
                             <AppText styles="text-sm text-slate-300 text-center mb-4">
@@ -115,7 +115,7 @@ const AttendedEventsScreen = () => {
                             >
                                 <View className="flex-row items-center gap-3 mb-2">
                                     <Ionicons name="information-circle" size={20} color="#60a5fa" />
-                                    <AppText styles="text-base text-white font-nunbold">
+                                    <AppText styles="text-base text-black font-nunbold">
                                         About Your Attendance History
                                     </AppText>
                                 </View>

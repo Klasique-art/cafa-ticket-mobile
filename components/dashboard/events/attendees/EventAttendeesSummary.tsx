@@ -57,13 +57,13 @@ const EventAttendeesSummary = ({ summary }: EventAttendeesSummaryProps) => {
                 >
                     <View className="flex-row items-start justify-between mb-4">
                         <View className="flex-1">
-                            <AppText styles="text-sm text-white mb-2" font="font-imedium" style={{ opacity: 0.7 }}>
+                            <AppText styles="text-sm text-black mb-2" font="font-imedium" style={{ opacity: 0.7 }}>
                                 {card.title}
                             </AppText>
-                            <AppText styles="text-2xl text-white mb-1" font="font-ibold">
+                            <AppText styles="text-2xl text-black mb-1" font="font-ibold">
                                 {card.value}
                             </AppText>
-                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                                 {card.subtitle}
                             </AppText>
                         </View>

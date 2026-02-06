@@ -210,7 +210,7 @@ const EventCard = ({ event }: EventCardProps) => {
                         <AppText styles="text-xs text-slate-300 mb-1">
                             Available
                         </AppText>
-                        <AppText styles="text-sm text-accent-50 font-nunbold">
+                        <AppText styles="text-sm text-white font-nunbold">
                             {event.tickets_available} left
                         </AppText>
                     </View>

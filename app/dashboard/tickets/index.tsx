@@ -160,7 +160,7 @@ const MyTicketsScreen = () => {
             <RequireAuth>
                 <Nav title="My Tickets" />
 
-                <View className="flex-1" style={{ backgroundColor: colors.primary }}>
+                <View className="flex-1">
                     {isLoading && tickets.length === 0 ? (
                         <View className="flex-1 items-center justify-center">
                             <Animation
@@ -168,7 +168,7 @@ const MyTicketsScreen = () => {
                                 path={ticketsAnimation}
                                 style={{ width: 200, height: 200 }}
                             />
-                            <AppText styles="text-sm text-white mt-4" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-sm text-black mt-4" style={{ opacity: 0.6 }}>
                                 Loading tickets...
                             </AppText>
                         </View>
@@ -192,7 +192,7 @@ const MyTicketsScreen = () => {
                                                 <Ionicons name="ticket-outline" size={24} color={colors.accent50} />
                                             </View>
                                             <View className="flex-1">
-                                                <AppText styles="text-sm text-white" style={{ opacity: 0.7 }}>
+                                                <AppText styles="text-sm text-black" style={{ opacity: 0.7 }}>
                                                     {totalCount} ticket{totalCount !== 1 ? "s" : ""} purchased
                                                 </AppText>
                                             </View>
@@ -224,11 +224,11 @@ const MyTicketsScreen = () => {
                                                 style={{ opacity: 0.6 }}
                                             />
                                         </View>
-                                        <AppText styles="text-lg text-white mb-3 text-center font-nunbold">
+                                        <AppText styles="text-lg text-black mb-3 text-center font-nunbold">
                                             {hasActiveFilters ? "No Tickets Found" : "No Tickets Yet"}
                                         </AppText>
                                         <AppText
-                                            styles="text-sm text-white text-center mb-6"
+                                            styles="text-sm text-black text-center mb-6"
                                             style={{ opacity: 0.7, maxWidth: 300 }}
                                         >
                                             {hasActiveFilters
@@ -244,7 +244,7 @@ const MyTicketsScreen = () => {
                                         </View>
                                     ) : hasMore ? null : tickets.length > 0 ? (
                                         <View className="py-6 items-center">
-                                            <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
+                                            <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
                                                 No more tickets to load
                                             </AppText>
                                         </View>

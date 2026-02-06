@@ -51,7 +51,7 @@ const CreateTicketScreen = () => {
                         <View className="flex-1 items-center justify-center p-6">
                             <ActivityIndicator size="large" color={colors.accent} />
                             <AppText
-                                styles="text-sm text-white mt-4"
+                                styles="text-sm text-black mt-4"
                                 style={{ opacity: 0.6 }}
                             >
                                 Loading event details...
@@ -72,11 +72,11 @@ const CreateTicketScreen = () => {
                                 >
                                     <View className="items-center">
                                         <Ionicons name="alert-circle" size={48} color={colors.accent} />
-                                        <AppText styles="text-lg text-white mt-4 mb-2 font-nunbold">
+                                        <AppText styles="text-lg text-black mt-4 mb-2 font-nunbold">
                                             Event Not Found
                                         </AppText>
                                         <AppText
-                                            styles="text-sm text-white text-center"
+                                            styles="text-sm text-black text-center"
                                             style={{ opacity: 0.8 }}
                                         >
                                             The event you're looking for doesn't exist or you don't have access
@@ -94,7 +94,7 @@ const CreateTicketScreen = () => {
                             {/* Page Header */}
                             <View className="mb-4">
                                 <AppText
-                                    styles="text-sm text-white"
+                                    styles="text-sm text-black"
                                     style={{ opacity: 0.7 }}
                                 >
                                     {event.title}

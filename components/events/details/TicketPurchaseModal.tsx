@@ -80,7 +80,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                     <Ionicons name="alert-circle-outline" size={32} color="#fbbf24" />
                 </View>
 
-                <AppText styles="text-lg text-white text-center mb-3" font="font-ibold">
+                <AppText styles="text-lg text-black text-center mb-3" font="font-ibold">
                     Login Required
                 </AppText>
                 <AppText styles="text-sm text-slate-300 text-center mb-6 leading-relaxed" font="font-iregular">
@@ -97,7 +97,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                         style={{ backgroundColor: colors.accent }}
                         activeOpacity={0.8}
                     >
-                        <AppText styles="text-sm text-white" font="font-ibold">
+                        <AppText styles="text-sm text-black" font="font-ibold">
                             Login
                         </AppText>
                     </TouchableOpacity>
@@ -110,7 +110,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                         style={{ backgroundColor: colors.primary200 }}
                         activeOpacity={0.8}
                     >
-                        <AppText styles="text-sm text-white" font="font-ibold">
+                        <AppText styles="text-sm text-black" font="font-ibold">
                             Sign Up
                         </AppText>
                     </TouchableOpacity>
@@ -125,7 +125,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                     <Ionicons name="person-outline" size={32} color="#fbbf24" />
                 </View>
 
-                <AppText styles="text-lg text-white text-center mb-3" font="font-ibold">
+                <AppText styles="text-lg text-black text-center mb-3" font="font-ibold">
                     Complete Your Profile
                 </AppText>
                 <AppText styles="text-sm text-slate-300 text-center mb-6 leading-relaxed" font="font-iregular">
@@ -140,7 +140,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                         style={{ backgroundColor: colors.primary200 }}
                         activeOpacity={0.8}
                     >
-                        <AppText styles="text-sm text-white" font="font-ibold">
+                        <AppText styles="text-sm text-black" font="font-ibold">
                             Cancel
                         </AppText>
                     </TouchableOpacity>
@@ -153,7 +153,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                         style={{ backgroundColor: colors.accent }}
                         activeOpacity={0.8}
                     >
-                        <AppText styles="text-sm text-white" font="font-ibold">
+                        <AppText styles="text-sm text-black" font="font-ibold">
                             Update Profile
                         </AppText>
                     </TouchableOpacity>
@@ -180,7 +180,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                 <Ionicons name="cart-outline" size={24} color={colors.accent50} />
                             </View>
                             <View>
-                                <AppText styles="text-lg text-white" font="font-ibold">
+                                <AppText styles="text-lg text-black" font="font-ibold">
                                     Confirm Purchase
                                 </AppText>
                                 <AppText styles="text-xs text-slate-400" font="font-iregular">
@@ -218,7 +218,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
 
                         {/* Ticket Details */}
                         <View>
-                            <AppText styles="text-base text-white mb-3" font="font-ibold">
+                            <AppText styles="text-base text-black mb-3" font="font-ibold">
                                 Ticket Details
                             </AppText>
                             <View
@@ -229,7 +229,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                     <AppText styles="text-sm text-slate-400" font="font-iregular">
                                         Ticket Type
                                     </AppText>
-                                    <AppText styles="text-sm text-white" font="font-isemibold">
+                                    <AppText styles="text-sm text-black" font="font-isemibold">
                                         {ticket.name}
                                     </AppText>
                                 </View>
@@ -237,7 +237,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                     <AppText styles="text-sm text-slate-400" font="font-iregular">
                                         Quantity
                                     </AppText>
-                                    <AppText styles="text-sm text-white" font="font-isemibold">
+                                    <AppText styles="text-sm text-black" font="font-isemibold">
                                         {quantity}
                                     </AppText>
                                 </View>
@@ -245,7 +245,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                     <AppText styles="text-sm text-slate-400" font="font-iregular">
                                         Price per ticket
                                     </AppText>
-                                    <AppText styles="text-sm text-white" font="font-isemibold">
+                                    <AppText styles="text-sm text-black" font="font-isemibold">
                                         {formatMoney(ticket.price)}
                                     </AppText>
                                 </View>
@@ -255,7 +255,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                         {/* Attendee Info */}
                         {currentUser && (
                             <View>
-                                <AppText styles="text-base text-white mb-3" font="font-ibold">
+                                <AppText styles="text-base text-black mb-3" font="font-ibold">
                                     Attendee Information
                                 </AppText>
                                 <View
@@ -267,7 +267,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                             Name
                                         </AppText>
                                         <AppText
-                                            styles="text-sm text-white text-right flex-1 ml-4"
+                                            styles="text-sm text-black text-right flex-1 ml-4"
                                             font="font-isemibold"
                                             numberOfLines={1}
                                         >
@@ -279,7 +279,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                             Email
                                         </AppText>
                                         <AppText
-                                            styles="text-sm text-white text-right flex-1 ml-4"
+                                            styles="text-sm text-black text-right flex-1 ml-4"
                                             font="font-isemibold"
                                             numberOfLines={1}
                                         >
@@ -290,7 +290,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                         <AppText styles="text-sm text-slate-400" font="font-iregular">
                                             Phone
                                         </AppText>
-                                        <AppText styles="text-sm text-white" font="font-isemibold">
+                                        <AppText styles="text-sm text-black" font="font-isemibold">
                                             {currentUser.phone_number}
                                         </AppText>
                                     </View>
@@ -300,7 +300,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
 
                         {/* Price Breakdown */}
                         <View>
-                            <AppText styles="text-base text-white mb-3" font="font-ibold">
+                            <AppText styles="text-base text-black mb-3" font="font-ibold">
                                 Price Breakdown
                             </AppText>
                             <View
@@ -311,7 +311,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                     <AppText styles="text-sm text-slate-400" font="font-iregular">
                                         Subtotal
                                     </AppText>
-                                    <AppText styles="text-sm text-white" font="font-iregular">
+                                    <AppText styles="text-sm text-black" font="font-iregular">
                                         {formatMoney(subtotal)}
                                     </AppText>
                                 </View>
@@ -319,13 +319,13 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                     <AppText styles="text-sm text-slate-400" font="font-iregular">
                                         Service Fee (1%)
                                     </AppText>
-                                    <AppText styles="text-sm text-white" font="font-iregular">
+                                    <AppText styles="text-sm text-black" font="font-iregular">
                                         {formatMoney(serviceFee)}
                                     </AppText>
                                 </View>
                                 <View style={{ height: 1, backgroundColor: colors.accent + "4D" }} />
                                 <View className="flex-row justify-between">
-                                    <AppText styles="text-base text-white" font="font-ibold">
+                                    <AppText styles="text-base text-black" font="font-ibold">
                                         Total
                                     </AppText>
                                     <AppText styles="text-xl text-accent-50" font="font-ibold">
@@ -367,7 +367,7 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                 style={{ backgroundColor: colors.primary200 }}
                                 activeOpacity={0.8}
                             >
-                                <AppText styles="text-sm text-white text-center" font="font-ibold">
+                                <AppText styles="text-sm text-black text-center" font="font-ibold">
                                     Cancel
                                 </AppText>
                             </TouchableOpacity>
@@ -384,14 +384,14 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                 {isProcessing ? (
                                     <>
                                         <ActivityIndicator size="small" color={colors.white} />
-                                        <AppText styles="text-sm text-white" font="font-ibold">
+                                        <AppText styles="text-sm text-black" font="font-ibold">
                                             Processing...
                                         </AppText>
                                     </>
                                 ) : (
                                     <>
                                         <Ionicons name="card-outline" size={16} color={colors.white} />
-                                        <AppText styles="text-sm text-white" font="font-ibold">
+                                        <AppText styles="text-sm text-black" font="font-ibold">
                                             Proceed to Payment
                                         </AppText>
                                     </>

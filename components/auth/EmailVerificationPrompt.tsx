@@ -36,7 +36,7 @@ const EmailVerificationPrompt = ({ email }: EmailVerificationPromptProps) => {
                     {/* Header */}
                     <View className="items-center mb-8">
                         <AppText
-                            styles="text-3xl text-white text-center mb-3"
+                            styles="text-3xl text-black text-center mb-3"
                             font="font-ibold"
                         >
                             Check Your Email
@@ -67,7 +67,7 @@ const EmailVerificationPrompt = ({ email }: EmailVerificationPromptProps) => {
                             </View>
                             <View className="flex-1">
                                 <AppText
-                                    styles="text-lg text-white mb-2"
+                                    styles="text-lg text-black mb-2"
                                     font="font-ibold"
                                 >
                                     Next Steps
@@ -87,13 +87,13 @@ const EmailVerificationPrompt = ({ email }: EmailVerificationPromptProps) => {
                                 className="w-6 h-6 rounded-full items-center justify-center"
                                 style={{ backgroundColor: colors.accent }}
                             >
-                                <AppText styles="text-xs text-white" font="font-ibold">
+                                <AppText styles="text-xs text-black" font="font-ibold">
                                     1
                                 </AppText>
                             </View>
                             <View className="flex-1">
                                 <AppText
-                                    styles="text-sm text-white mb-1"
+                                    styles="text-sm text-black mb-1"
                                     font="font-isemibold"
                                 >
                                     Check your inbox
@@ -114,13 +114,13 @@ const EmailVerificationPrompt = ({ email }: EmailVerificationPromptProps) => {
                                 className="w-6 h-6 rounded-full items-center justify-center"
                                 style={{ backgroundColor: colors.accent }}
                             >
-                                <AppText styles="text-xs text-white" font="font-ibold">
+                                <AppText styles="text-xs text-black" font="font-ibold">
                                     2
                                 </AppText>
                             </View>
                             <View className="flex-1">
                                 <AppText
-                                    styles="text-sm text-white mb-1"
+                                    styles="text-sm text-black mb-1"
                                     font="font-isemibold"
                                 >
                                     Click the verification link
@@ -140,13 +140,13 @@ const EmailVerificationPrompt = ({ email }: EmailVerificationPromptProps) => {
                                 className="w-6 h-6 rounded-full items-center justify-center"
                                 style={{ backgroundColor: colors.accent }}
                             >
-                                <AppText styles="text-xs text-white" font="font-ibold">
+                                <AppText styles="text-xs text-black" font="font-ibold">
                                     3
                                 </AppText>
                             </View>
                             <View className="flex-1">
                                 <AppText
-                                    styles="text-sm text-white mb-1"
+                                    styles="text-sm text-black mb-1"
                                     font="font-isemibold"
                                 >
                                     Login to your account

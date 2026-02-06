@@ -242,7 +242,7 @@ const EventsScreen = () => {
           activeOpacity={0.7}
         >
           <Ionicons name="time" size={20} color={colors.accent50} />
-          <AppText styles="text-sm text-white flex-1 font-nunbold">
+          <AppText styles="text-sm text-black flex-1 font-nunbold">
             View Past Events
           </AppText>
           <Ionicons name="chevron-forward" size={20} color={colors.white} />

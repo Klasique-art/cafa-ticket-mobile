@@ -70,10 +70,10 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                     <Ionicons name="ticket-outline" size={20} color={colors.accent50} />
                 </View>
                 <View className="flex-1">
-                    <AppText styles="text-base text-white" font="font-ibold">
+                    <AppText styles="text-base text-black" font="font-ibold">
                         Ticket Types
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                         Create different ticket types
                     </AppText>
                 </View>
@@ -90,10 +90,10 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                             className="flex-1 p-3 rounded-lg"
                             style={{ backgroundColor: colors.primary }}
                         >
-                            <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                                 Types
                             </AppText>
-                            <AppText styles="text-base text-white" font="font-ibold">
+                            <AppText styles="text-base text-black" font="font-ibold">
                                 {totalTypes}
                             </AppText>
                         </View>
@@ -102,10 +102,10 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                             className="flex-1 p-3 rounded-lg"
                             style={{ backgroundColor: colors.primary }}
                         >
-                            <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                                 Tickets
                             </AppText>
-                            <AppText styles="text-base text-white" font="font-ibold">
+                            <AppText styles="text-base text-black" font="font-ibold">
                                 {totalTickets.toLocaleString()}
                             </AppText>
                         </View>
@@ -114,7 +114,7 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                             className="flex-1 p-3 rounded-lg"
                             style={{ backgroundColor: colors.primary }}
                         >
-                            <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                                 Revenue
                             </AppText>
                             <AppText styles="text-sm text-accent-50" font="font-ibold">
@@ -139,7 +139,7 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                     activeOpacity={0.8}
                 >
                     <Ionicons name="add-circle-outline" size={20} color={colors.white} />
-                    <AppText styles="text-sm text-white" font="font-ibold">
+                    <AppText styles="text-sm text-black" font="font-ibold">
                         Add Ticket Type ({ticketTypes.length}/10)
                     </AppText>
                 </TouchableOpacity>
@@ -156,11 +156,11 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                             <Ionicons name="ticket-outline" size={32} color={colors.accent50} />
                         </View>
                         <View className="items-center gap-2">
-                            <AppText styles="text-base text-white text-center" font="font-ibold">
+                            <AppText styles="text-base text-black text-center" font="font-ibold">
                                 No Ticket Types Yet
                             </AppText>
                             <AppText
-                                styles="text-sm text-white text-center"
+                                styles="text-sm text-black text-center"
                                 font="font-iregular"
                                 style={{ opacity: 0.6 }}
                             >
@@ -174,7 +174,7 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                             activeOpacity={0.8}
                         >
                             <Ionicons name="add-circle-outline" size={18} color={colors.white} />
-                            <AppText styles="text-sm text-white" font="font-ibold">
+                            <AppText styles="text-sm text-black" font="font-ibold">
                                 Create Ticket Type
                             </AppText>
                         </TouchableOpacity>
@@ -201,7 +201,7 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                     style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
                 >
                     <Ionicons name="alert-circle" size={16} color={colors.accent} style={{ marginTop: 2 }} />
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.8 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.8 }}>
                         Maximum 10 ticket types reached. Edit or remove existing tickets to add new ones.
                     </AppText>
                 </View>
@@ -214,17 +214,17 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
             >
                 <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                 <View className="flex-1">
-                    <AppText styles="text-xs text-white mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
                         Ticket Guidelines
                     </AppText>
                     <View className="gap-1">
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Create different types (Early Bird, VIP, etc.)
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Min price: GH₵10, Max quantity: 1M
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Use availability windows for time-limited offers
                         </AppText>
                     </View>

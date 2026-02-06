@@ -92,7 +92,7 @@ const DateInput = ({
         <View className="w-full">
             {/* Label */}
             <AppText 
-                className="mb-2 text-sm font-isemibold text-white"
+                className="mb-2 text-sm font-isemibold text-black"
                 {...(name && { nativeID: `${name}-label` })}
                 accessibilityRole="text"
             >
@@ -144,7 +144,7 @@ const DateInput = ({
                         disabled 
                             ? 'text-gray-500' 
                             : value 
-                                ? 'text-white' 
+                                ? 'text-black' 
                                 : 'text-slate-500'
                     }`}
                     importantForAccessibility="no"

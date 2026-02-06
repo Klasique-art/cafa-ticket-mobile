@@ -42,11 +42,11 @@ const TicketTypeCard = ({ ticket, index, onEdit, onDelete }: TicketTypeCardProps
                         <Ionicons name="ticket-outline" size={20} color={colors.accent50} />
                     </View>
                     <View className="flex-1">
-                        <AppText styles="text-sm text-white mb-1" font="font-ibold">
+                        <AppText styles="text-sm text-black mb-1" font="font-ibold">
                             {ticket.name}
                         </AppText>
                         <AppText
-                            styles="text-xs text-white"
+                            styles="text-xs text-black"
                             font="font-iregular"
                             style={{ opacity: 0.7 }}
                             numberOfLines={2}
@@ -83,7 +83,7 @@ const TicketTypeCard = ({ ticket, index, onEdit, onDelete }: TicketTypeCardProps
                     className="flex-1 p-3 rounded-lg"
                     style={{ backgroundColor: colors.primary }}
                 >
-                    <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                         Price
                     </AppText>
                     <AppText styles="text-sm text-accent-50" font="font-ibold">
@@ -95,10 +95,10 @@ const TicketTypeCard = ({ ticket, index, onEdit, onDelete }: TicketTypeCardProps
                     className="flex-1 p-3 rounded-lg"
                     style={{ backgroundColor: colors.primary }}
                 >
-                    <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                         Quantity
                     </AppText>
-                    <AppText styles="text-sm text-white" font="font-ibold">
+                    <AppText styles="text-sm text-black" font="font-ibold">
                         {parseInt(ticket.quantity).toLocaleString()}
                     </AppText>
                 </View>
@@ -107,7 +107,7 @@ const TicketTypeCard = ({ ticket, index, onEdit, onDelete }: TicketTypeCardProps
             {/* Purchase Limits */}
             <View className="flex-row items-center gap-2 mb-3">
                 <Ionicons name="people-outline" size={14} color={colors.white} style={{ opacity: 0.6 }} />
-                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                     Purchase limits: {ticket.min_purchase} - {ticket.max_purchase || "∞"} per transaction
                 </AppText>
             </View>
@@ -121,16 +121,16 @@ const TicketTypeCard = ({ ticket, index, onEdit, onDelete }: TicketTypeCardProps
                     <View className="flex-row items-start gap-2">
                         <Ionicons name="calendar-outline" size={14} color={colors.accent50} style={{ marginTop: 2 }} />
                         <View className="flex-1">
-                            <AppText styles="text-xs text-white mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
+                            <AppText styles="text-xs text-black mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
                                 Limited Availability
                             </AppText>
                             {ticket.available_from && (
-                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                                     From: {formatDate(ticket.available_from)}
                                 </AppText>
                             )}
                             {ticket.available_until && (
-                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                                     Until: {formatDate(ticket.available_until)}
                                 </AppText>
                             )}

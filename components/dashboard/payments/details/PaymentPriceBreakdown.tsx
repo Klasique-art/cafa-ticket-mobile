@@ -12,7 +12,7 @@ const PaymentPriceBreakdown = ({ breakdown }: Props) => {
     const formatMoney = useFormatMoney();
     return (
         <View className="bg-primary-100 rounded-xl p-4 border-2 border-accent/30 mb-4">
-            <AppText styles="text-lg text-white mb-4" font="font-ibold">
+            <AppText styles="text-lg text-black mb-4" font="font-ibold">
                 Price Breakdown
             </AppText>
 
@@ -22,7 +22,7 @@ const PaymentPriceBreakdown = ({ breakdown }: Props) => {
                     <AppText styles="text-sm text-slate-300" font="font-iregular">
                         Subtotal
                     </AppText>
-                    <AppText styles="text-base text-white" font="font-isemibold">
+                    <AppText styles="text-base text-black" font="font-isemibold">
                         {formatMoney(breakdown.subtotal)}
                     </AppText>
                 </View>
@@ -39,7 +39,7 @@ const PaymentPriceBreakdown = ({ breakdown }: Props) => {
 
                 {/* Total */}
                 <View className="flex-row items-center justify-between pt-3">
-                    <AppText styles="text-lg text-white" font="font-ibold">
+                    <AppText styles="text-lg text-black" font="font-ibold">
                         Total
                     </AppText>
                     <AppText styles="text-2xl text-accent-50" font="font-ibold">

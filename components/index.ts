@@ -6,7 +6,6 @@ export { default as RequireAuth } from "./layout/RequireAuth";
 export { default as TabBar } from "./layout/TabBar";
 export { default as TabBarButton } from "./layout/TabBarButton";
 // ui
-export { default as AltScreen } from "./ui/AltScreen";
 export { default as Animation } from "./ui/Animation";
 export { default as AppBottomSheet } from "./ui/AppBottomSheet";
 export { default as AppButton } from "./ui/AppButton";

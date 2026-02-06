@@ -35,7 +35,7 @@ const SecuritySettingsScreen = () => {
                     <Ionicons name="shield-checkmark-outline" size={24} color={colors.accent50} />
                   </View>
                   <View className="flex-1">
-                    <AppText styles="text-xs text-white" style={{ opacity: 0.7 }}>
+                    <AppText styles="text-xs text-black" style={{ opacity: 0.7 }}>
                       Manage your password, email, and account security
                     </AppText>
                   </View>
@@ -49,17 +49,17 @@ const SecuritySettingsScreen = () => {
                   <View className="flex-row items-start gap-3">
                     <Ionicons name="warning-outline" size={20} color={colors.accent50} style={{ marginTop: 2 }} />
                     <View className="flex-1">
-                      <AppText styles="text-sm text-white mb-2 font-nunbold">
+                      <AppText styles="text-sm text-black mb-2 font-nunbold">
                         Security Best Practices
                       </AppText>
                       <View className="gap-1">
-                        <AppText styles="text-xs text-white" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" style={{ opacity: 0.7 }}>
                           • Use a strong, unique password (at least 8 characters)
                         </AppText>
-                        <AppText styles="text-xs text-white" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" style={{ opacity: 0.7 }}>
                           • Don't share your password with anyone
                         </AppText>
-                        <AppText styles="text-xs text-white" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" style={{ opacity: 0.7 }}>
                           • Changing email or username requires verification
                         </AppText>
                       </View>

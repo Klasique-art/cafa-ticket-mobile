@@ -45,10 +45,10 @@ const PastEventsSection = ({ events, isLoading }: PastEventsSectionProps) => {
                         <Ionicons name="time-outline" size={20} color={colors.white} style={{ opacity: 0.6 }} />
                     </View>
                     <View>
-                        <AppText styles="text-lg text-white" font="font-ibold">
+                        <AppText styles="text-lg text-black" font="font-ibold">
                             Past Events
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                             Relive the memories
                         </AppText>
                     </View>

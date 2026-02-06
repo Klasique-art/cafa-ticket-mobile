@@ -70,11 +70,11 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                             >
                                 <Ionicons name="alert-circle" size={40} color={colors.accent} />
                             </View>
-                            <AppText styles="text-xl text-white text-center mb-2 font-nunbold">
+                            <AppText styles="text-xl text-black text-center mb-2 font-nunbold">
                                 Component Crashed
                             </AppText>
                             <AppText
-                                styles="text-sm text-white text-center"
+                                styles="text-sm text-black text-center"
                                 style={{ opacity: 0.6 }}
                             >
                                 The error boundary caught this crash
@@ -89,11 +89,11 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                                 borderColor: colors.accent
                             }}
                         >
-                            <AppText styles="text-sm text-white mb-2 font-nunbold">
+                            <AppText styles="text-sm text-black mb-2 font-nunbold">
                                 Error Message:
                             </AppText>
                             <AppText
-                                styles="text-xs text-white"
+                                styles="text-xs text-black"
                                 style={{ opacity: 0.8 }}
                             >
                                 {this.state.error?.message || 'Unknown error'}
@@ -109,7 +109,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                                     borderColor: colors.accent + "4D"
                                 }}
                             >
-                                <AppText styles="text-sm text-white mb-2 font-nunbold">
+                                <AppText styles="text-sm text-black mb-2 font-nunbold">
                                     Component Stack:
                                 </AppText>
                                 <ScrollView
@@ -118,7 +118,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                                     style={{ maxHeight: 200 }}
                                 >
                                     <AppText
-                                        styles="text-xs text-white"
+                                        styles="text-xs text-black"
                                         style={{ opacity: 0.7 }}
                                     >
                                         {this.state.errorInfo.componentStack}
@@ -135,12 +135,12 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                                 borderColor: colors.accent + "4D"
                             }}
                         >
-                            <AppText styles="text-sm text-white mb-2 font-nunbold">
+                            <AppText styles="text-sm text-black mb-2 font-nunbold">
                                 Full Error:
                             </AppText>
                             <ScrollView style={{ maxHeight: 200 }}>
                                 <AppText
-                                    styles="text-xs text-white"
+                                    styles="text-xs text-black"
                                     style={{ opacity: 0.7 }}
                                 >
                                     {this.state.error?.stack || 'No stack trace'}

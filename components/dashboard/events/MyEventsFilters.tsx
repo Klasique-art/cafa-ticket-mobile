@@ -96,7 +96,7 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                         >
                             <Ionicons name="filter" size={24} color={colors.accent50} />
                         </View>
-                        <AppText styles="text-xl text-white" font="font-ibold">
+                        <AppText styles="text-xl text-black" font="font-ibold">
                             Filters
                         </AppText>
                     </View>
@@ -123,7 +123,7 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                         onChangeText={setSearch}
                         placeholder="Search by title..."
                         placeholderTextColor="#64748b"
-                        className="h-12 px-4 bg-primary-100 text-white rounded-xl"
+                        className="h-12 px-4 bg-primary-100 text-black rounded-xl"
                         style={{ 
                             fontFamily: "iregular", 
                             fontSize: 14,
@@ -153,7 +153,7 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                                 <AppText
                                     styles="text-sm"
                                     font="font-isemibold"
-                                    color={status === option.value ? "text-white" : "text-slate-300"}
+                                    color={status === option.value ? "text-black" : "text-slate-300"}
                                 >
                                     {option.label}
                                 </AppText>
@@ -182,7 +182,7 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                                 <AppText
                                     styles="text-sm"
                                     font="font-isemibold"
-                                    color={isPublished === option.value ? "text-white" : "text-slate-300"}
+                                    color={isPublished === option.value ? "text-black" : "text-slate-300"}
                                 >
                                     {option.label}
                                 </AppText>
@@ -211,7 +211,7 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                                 <AppText
                                     styles="text-sm"
                                     font="font-isemibold"
-                                    color={sortBy === option.value ? "text-white" : "text-slate-300"}
+                                    color={sortBy === option.value ? "text-black" : "text-slate-300"}
                                 >
                                     {option.label}
                                 </AppText>
@@ -234,7 +234,7 @@ const MyEventsFilters = ({ onFilterChange, currentFilters }: MyEventsFiltersProp
                         style={{ backgroundColor: colors.accent }}
                         activeOpacity={0.8}
                     >
-                        <AppText styles="text-sm text-white" font="font-ibold">
+                        <AppText styles="text-sm text-black" font="font-ibold">
                             Apply Filters
                         </AppText>
                     </TouchableOpacity>

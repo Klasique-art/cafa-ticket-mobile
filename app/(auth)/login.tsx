@@ -103,7 +103,7 @@ const LoginScreen = () => {
                 </View>
 
                 <AppText
-                  styles="text-base text-white/70 text-center"
+                  styles="text-base text-black/70 text-center"
                 >
                   Sign in to continue to CafaTickets
                 </AppText>
@@ -180,7 +180,7 @@ const LoginScreen = () => {
 
               <View className="items-center mt-6">
                 <AppText
-                  styles="text-xs text-white/50 text-center px-8"
+                  styles="text-xs text-black/50 text-center px-8"
                 >
                   By signing in, you agree to our <Link href="/terms" className="text-red-400 underline">Terms</Link> and <Link href="/privacy" className="text-red-400 underline">Privacy Policy</Link>
                 </AppText>

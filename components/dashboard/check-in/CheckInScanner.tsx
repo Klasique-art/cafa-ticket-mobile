@@ -71,10 +71,10 @@ const CheckInScanner = ({ event, onSuccess, onChangeEvent }: Props) => {
                     <Ionicons name="arrow-back-outline" size={20} color="#fff" />
                 </TouchableOpacity>
                 <View className="flex-1">
-                    <AppText styles="text-sm text-white" font="font-ibold" numberOfLines={1}>
+                    <AppText styles="text-sm text-black" font="font-ibold" numberOfLines={1}>
                         {event.title}
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                         {event.venue_name}, {event.venue_city}
                     </AppText>
                 </View>

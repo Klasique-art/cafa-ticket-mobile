@@ -53,7 +53,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
             {/* Section Header */}
             <View className="flex-row items-center justify-between">
                 <View className="flex-1">
-                    <AppText styles="text-xl text-white mb-1" font="font-ibold">
+                    <AppText styles="text-xl text-black mb-1" font="font-ibold">
                         Ticket Types
                     </AppText>
                     <AppText styles="text-xs text-slate-400" font="font-iregular">
@@ -67,7 +67,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                     activeOpacity={0.8}
                 >
                     <Ionicons name="add" size={18} color="#fff" />
-                    <AppText styles="text-xs text-white" font="font-ibold">
+                    <AppText styles="text-xs text-black" font="font-ibold">
                         Add
                     </AppText>
                 </TouchableOpacity>
@@ -79,7 +79,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                     <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                         Total Types
                     </AppText>
-                    <AppText styles="text-xl text-white" font="font-ibold">
+                    <AppText styles="text-xl text-black" font="font-ibold">
                         {ticketTypes.length}
                     </AppText>
                 </View>
@@ -88,7 +88,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                     <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                         Total Sold
                     </AppText>
-                    <AppText styles="text-xl text-white" font="font-ibold">
+                    <AppText styles="text-xl text-black" font="font-ibold">
                         {totalSold}/{totalQuantity}
                     </AppText>
                 </View>

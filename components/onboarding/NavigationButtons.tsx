@@ -82,7 +82,7 @@ export default function NavigationButtons({
       >
         <Animated.Text
           style={nextButtonTextStyle}
-          className="font-bold text-white"
+          className="font-bold text-black"
         >
           Get Started
         </Animated.Text>

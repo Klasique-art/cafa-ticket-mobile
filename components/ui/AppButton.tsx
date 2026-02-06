@@ -55,9 +55,9 @@ const AppButton = ({
 
     // Text color based on variant
     const textColorClasses = {
-        primary: 'text-white',
+        primary: 'text-black',
         secondary: 'text-slate-200',
-        outline: 'text-white',
+        outline: 'text-black',
         ghost: 'text-slate-700',
         danger: 'text-white',
     };

@@ -88,10 +88,10 @@ const EventTypeSection = () => {
                     <Ionicons name="repeat-outline" size={20} color={colors.accent50} />
                 </View>
                 <View className="flex-1">
-                    <AppText styles="text-base text-white" font="font-ibold">
+                    <AppText styles="text-base text-black" font="font-ibold">
                         Event Type & Policies
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                         Configure event recurrence
                     </AppText>
                 </View>
@@ -107,10 +107,10 @@ const EventTypeSection = () => {
                         thumbColor={values.is_recurring ? colors.white : colors.white}
                     />
                     <View className="flex-1">
-                        <AppText styles="text-sm text-white mb-1" font="font-ibold">
+                        <AppText styles="text-sm text-black mb-1" font="font-ibold">
                             Recurring Event
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                             Event repeats on multiple days
                         </AppText>
                     </View>
@@ -124,7 +124,7 @@ const EventTypeSection = () => {
                     <View className="p-4 rounded-xl border" style={{ backgroundColor: colors.primary200 + "80", borderColor: colors.accent + "4D" }}>
                         <View className="flex-row items-center gap-2 mb-4">
                             <Ionicons name="repeat-outline" size={18} color={colors.accent50} />
-                            <AppText styles="text-sm text-white" font="font-ibold">
+                            <AppText styles="text-sm text-black" font="font-ibold">
                                 Recurrence Pattern
                             </AppText>
                         </View>
@@ -139,7 +139,7 @@ const EventTypeSection = () => {
                                 options={frequencyOptions}
                                 required
                             />
-                            <AppText styles="text-xs text-white mt-2" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-black mt-2" font="font-iregular" style={{ opacity: 0.6 }}>
                                 Choose repetition frequency
                             </AppText>
                         </View>
@@ -153,7 +153,7 @@ const EventTypeSection = () => {
                                 keyboardType="number-pad"
                                 required
                             />
-                            <AppText styles="text-xs text-white mt-2" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-black mt-2" font="font-iregular" style={{ opacity: 0.6 }}>
                                 1 = every {selectedFrequency || "period"}, 2 = every other
                             </AppText>
                         </View>
@@ -161,7 +161,7 @@ const EventTypeSection = () => {
                         {/* Days of Week (weekly only) */}
                         {showDaysOfWeek && (
                             <View className="mb-4">
-                                <AppText styles="text-sm text-white mb-3" font="font-imedium">
+                                <AppText styles="text-sm text-black mb-3" font="font-imedium">
                                     Which days of the week? *
                                 </AppText>
                                 <View className="flex-row flex-wrap gap-2">
@@ -179,7 +179,7 @@ const EventTypeSection = () => {
                                                 }}
                                                 activeOpacity={0.7}
                                             >
-                                                <AppText styles="text-xs text-white" font="font-isemibold">
+                                                <AppText styles="text-xs text-black" font="font-isemibold">
                                                     {day.label}
                                                 </AppText>
                                             </TouchableOpacity>
@@ -199,7 +199,7 @@ const EventTypeSection = () => {
                                     keyboardType="number-pad"
                                     required
                                 />
-                                <AppText styles="text-xs text-white mt-2" font="font-iregular" style={{ opacity: 0.6 }}>
+                                <AppText styles="text-xs text-black mt-2" font="font-iregular" style={{ opacity: 0.6 }}>
                                     Enter 1-31 (e.g., 15 for 15th of each month)
                                 </AppText>
                             </View>
@@ -207,7 +207,7 @@ const EventTypeSection = () => {
 
                         {/* End Date or Occurrences */}
                         <View>
-                            <AppText styles="text-sm text-white mb-3" font="font-isemibold">
+                            <AppText styles="text-sm text-black mb-3" font="font-isemibold">
                                 When should it end?
                             </AppText>
 
@@ -231,7 +231,7 @@ const EventTypeSection = () => {
 
                     {/* Check-in Policy */}
                     <View>
-                        <AppText styles="text-sm text-white mb-3" font="font-ibold">
+                        <AppText styles="text-sm text-black mb-3" font="font-ibold">
                             Check-in Policy
                         </AppText>
                         <View className="gap-2">
@@ -256,10 +256,10 @@ const EventTypeSection = () => {
                                             )}
                                         </View>
                                         <View className="flex-1">
-                                            <AppText styles="text-sm text-white mb-1" font="font-ibold">
+                                            <AppText styles="text-sm text-black mb-1" font="font-ibold">
                                                 {option.label}
                                             </AppText>
-                                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                                                 {option.description}
                                             </AppText>
                                         </View>
@@ -274,7 +274,7 @@ const EventTypeSection = () => {
             {/* Non-recurring Check-in Policy */}
             {!values.is_recurring && (
                 <View>
-                    <AppText styles="text-sm text-white mb-3" font="font-ibold">
+                    <AppText styles="text-sm text-black mb-3" font="font-ibold">
                         Check-in Policy
                     </AppText>
                     <View className="gap-2">
@@ -299,10 +299,10 @@ const EventTypeSection = () => {
                                         )}
                                     </View>
                                     <View className="flex-1">
-                                        <AppText styles="text-sm text-white mb-1" font="font-ibold">
+                                        <AppText styles="text-sm text-black mb-1" font="font-ibold">
                                             {option.label}
                                         </AppText>
-                                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                                             {option.description}
                                         </AppText>
                                     </View>

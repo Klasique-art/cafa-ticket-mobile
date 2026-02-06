@@ -116,7 +116,7 @@ const PaymentsHistoryScreen = () => {
               className="px-6 py-3 bg-accent rounded-xl"
               activeOpacity={0.7}
             >
-              <AppText styles="text-sm text-white text-center font-nunbold">
+              <AppText styles="text-sm text-black text-center font-nunbold">
                 Try Again
               </AppText>
             </TouchableOpacity>
@@ -131,7 +131,7 @@ const PaymentsHistoryScreen = () => {
           <View className="px-4 pt-4 pb-3">
             <View className="flex-row items-center justify-between mb-2">
               <View className="flex-1">
-                <AppText styles="text-2xl text-white mb-1 font-nunbold">
+                <AppText styles="text-2xl text-black mb-1 font-nunbold">
                   Payment History
                 </AppText>
                 <AppText styles="text-sm text-slate-400">
@@ -152,7 +152,7 @@ const PaymentsHistoryScreen = () => {
                   color={hasActiveFilters ? colors.white : colors.accent50}
                 />
                 <AppText
-                  styles={`text-sm ${hasActiveFilters ? "text-white" : "text-accent-50"} font-nunbold`}
+                  styles={`text-sm ${hasActiveFilters ? "text-black" : "text-accent-50"} font-nunbold`}
                 >
                   Filter
                 </AppText>

@@ -29,6 +29,7 @@ const EventsHero = ({
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 className="px-4 py-6 rounded-sm overflow-hidden"
+                style={{borderRadius: 12}}
             >
                 {/* Floating Accent Circles - Decorative */}
                 <View className="absolute top-10 right-8 w-32 h-32 rounded-full opacity-10"
@@ -46,7 +47,7 @@ const EventsHero = ({
                             <AppText styles="text-2xl text-white mb-1 font-nunbold">
                                 Discover Events
                             </AppText>
-                            <AppText styles="text-xs text-slate-300">
+                            <AppText styles="text-xs text-slate-200">
                                 amazing experiences
                             </AppText>
                         </View>
@@ -62,7 +63,7 @@ const EventsHero = ({
                                 value={searchQuery}
                                 onChangeText={onSearchChange}
                                 placeholder="Search events, venues, cities..."
-                                placeholderTextColor="#94a3b8"
+                                placeholderTextColor="#eeeeee"
                                 className="flex-1 ml-3 text-white"
                                 style={{ fontFamily: "iregular", fontSize: 15 }}
                             />

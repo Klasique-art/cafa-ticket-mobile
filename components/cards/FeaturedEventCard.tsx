@@ -54,7 +54,7 @@ export default function FeaturedEventCard({ event }: FeaturedEventCardProps) {
         {/* Category Badge */}
         <View
           className="absolute right-4 top-4 rounded-full px-3 py-1"
-          style={{ backgroundColor: "rgba(255,255,255,0.2)" }}
+          style={{ backgroundColor: colors.accent + "CC", borderRadius: 9999 }}
         >
           <Text className="text-xs font-medium text-white">
             {event.category.name}

@@ -24,7 +24,7 @@ const EventsResultsHeader = ({
                 <Ionicons name="calendar" size={20} color={colors.accent50} />
             </View>
             <View>
-                <AppText styles="text-base text-white font-nunbold">
+                <AppText styles="text-base text-black font-nunbold">
                     {currentCount.toLocaleString()}{" "}
                     {currentCount === 1 ? "Event" : "Events"}
                 </AppText>

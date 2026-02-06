@@ -29,7 +29,7 @@ const PaymentMethodInfo = ({ payment }: Props) => {
 
     return (
         <View className="bg-primary-100 rounded-xl p-4 border-2 border-accent/30 mb-4">
-            <AppText styles="text-lg text-white mb-4" font="font-ibold">
+            <AppText styles="text-lg text-black mb-4" font="font-ibold">
                 Payment Method
             </AppText>
 
@@ -41,12 +41,12 @@ const PaymentMethodInfo = ({ payment }: Props) => {
 
                 {/* Details */}
                 <View className="flex-1">
-                    <AppText styles="text-base text-white mb-1 capitalize" font="font-ibold">
+                    <AppText styles="text-base text-black mb-1 capitalize" font="font-ibold">
                         {payment.payment_method.replace("_", " ")}
                     </AppText>
                     <AppText styles="text-sm text-slate-300 mb-2" font="font-iregular">
                         Provider:{" "}
-                        <AppText styles="text-sm text-white capitalize" font="font-isemibold">
+                        <AppText styles="text-sm text-black capitalize" font="font-isemibold">
                             {payment.provider}
                         </AppText>
                     </AppText>

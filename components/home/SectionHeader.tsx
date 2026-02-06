@@ -19,9 +19,9 @@ export default function SectionHeader({
   return (
     <View className="mb-4 flex-row items-center justify-between">
       <View>
-        <Text className="text-lg font-bold text-white">{title}</Text>
+        <Text className="text-lg font-bold text-black">{title}</Text>
         {subtitle && (
-          <Text className="text-sm text-white/60">{subtitle}</Text>
+          <Text className="text-sm text-black/60">{subtitle}</Text>
         )}
       </View>
 

@@ -17,7 +17,7 @@ const EventNotFound = () => {
                 </View>
 
                 {/* Title */}
-                <AppText styles="text-2xl text-white text-center mb-3 font-nunbold">
+                <AppText styles="text-2xl text-black text-center mb-3 font-nunbold">
                     Event Not Found
                 </AppText>
 
@@ -60,7 +60,7 @@ const EventNotFound = () => {
                         style={{ backgroundColor: colors.accent }}
                         activeOpacity={0.8}
                     >
-                        <AppText styles="text-sm text-white font-nunbold">
+                        <AppText styles="text-sm text-black font-nunbold">
                             Browse Events
                         </AppText>
                     </TouchableOpacity>
@@ -71,7 +71,7 @@ const EventNotFound = () => {
                         style={{ borderWidth: 2, borderColor: colors.accent }}
                         activeOpacity={0.8}
                     >
-                        <AppText styles="text-sm text-white font-nunbold">
+                        <AppText styles="text-sm text-black font-nunbold">
                             Go Home
                         </AppText>
                     </TouchableOpacity>

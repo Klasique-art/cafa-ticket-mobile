@@ -23,10 +23,10 @@ const CheckInHeader = () => {
                     <Ionicons name="scan-outline" size={24} color="#34d399" />
                 </View>
                 <View>
-                    <AppText styles="text-xl text-white" font="font-ibold">
+                    <AppText styles="text-xl text-black" font="font-ibold">
                         Event Check-in
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                         Scan QR codes to check in attendees
                     </AppText>
                 </View>

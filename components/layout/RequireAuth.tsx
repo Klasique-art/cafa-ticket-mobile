@@ -39,7 +39,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
                     {/* Message */}
                     <View className="items-center mb-4">
                         <AppText
-                            styles="text-2xl text-white text-center mb-3 font-nunbold"
+                            styles="text-2xl text-black text-center mb-3 font-nunbold"
                         >
                             Authentication Required
                         </AppText>
@@ -63,7 +63,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
                         >
                             <View className="flex-row items-center gap-2">
                                 <Ionicons name="log-in-outline" size={20} color="#fff" />
-                                <AppText styles="text-base text-white font-nunbold">
+                                <AppText styles="text-base text-black font-nunbold">
                                     Sign In
                                 </AppText>
                             </View>

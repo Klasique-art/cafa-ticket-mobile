@@ -22,10 +22,10 @@ const EventBasicInfoSection = () => {
                     <Ionicons name="document-text-outline" size={20} color={colors.accent50} />
                 </View>
                 <View className="flex-1">
-                    <AppText styles="text-base text-white" font="font-ibold">
+                    <AppText styles="text-base text-black" font="font-ibold">
                         Basic Information
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                         Tell people about your event
                     </AppText>
                 </View>
@@ -78,10 +78,10 @@ const EventBasicInfoSection = () => {
                     <View className="flex-row items-start gap-2">
                         <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                         <View className="flex-1">
-                            <AppText styles="text-xs text-white mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
+                            <AppText styles="text-xs text-black mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
                                 Markdown Formatting Supported
                             </AppText>
-                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                                 Use # for headers, **bold**, *italic*, - for lists
                             </AppText>
                         </View>

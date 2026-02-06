@@ -12,7 +12,7 @@ type Props = {
 const PaymentBillingInfo = ({ billing }: Props) => {
     return (
         <View className="bg-primary-100 rounded-xl p-4 border-2 border-accent/30 mb-4">
-            <AppText styles="text-lg text-white mb-4" font="font-ibold">
+            <AppText styles="text-lg text-black mb-4" font="font-ibold">
                 Billing Information
             </AppText>
 
@@ -26,7 +26,7 @@ const PaymentBillingInfo = ({ billing }: Props) => {
                         <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                             Name
                         </AppText>
-                        <AppText styles="text-sm text-white" font="font-isemibold">
+                        <AppText styles="text-sm text-black" font="font-isemibold">
                             {billing.name}
                         </AppText>
                     </View>
@@ -41,7 +41,7 @@ const PaymentBillingInfo = ({ billing }: Props) => {
                         <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                             Email
                         </AppText>
-                        <AppText styles="text-sm text-white" font="font-isemibold">
+                        <AppText styles="text-sm text-black" font="font-isemibold">
                             {billing.email}
                         </AppText>
                     </View>
@@ -56,7 +56,7 @@ const PaymentBillingInfo = ({ billing }: Props) => {
                         <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                             Phone
                         </AppText>
-                        <AppText styles="text-sm text-white" font="font-isemibold">
+                        <AppText styles="text-sm text-black" font="font-isemibold">
                             {billing.phone}
                         </AppText>
                     </View>

@@ -225,7 +225,7 @@ const EventAttendeesScreen = () => {
                     {isLoading && !event && (
                         <View className="flex-1 items-center justify-center p-6">
                             <ActivityIndicator size="large" color={colors.accent} />
-                            <AppText styles="text-sm text-white mt-4" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-sm text-black mt-4" style={{ opacity: 0.6 }}>
                                 Loading attendees...
                             </AppText>
                         </View>
@@ -241,11 +241,11 @@ const EventAttendeesScreen = () => {
                                 >
                                     <View className="items-center">
                                         <Ionicons name="alert-circle" size={48} color={colors.accent} />
-                                        <AppText styles="text-lg text-white mt-4 mb-2 font-nunbold">
+                                        <AppText styles="text-lg text-black mt-4 mb-2 font-nunbold">
                                             {error === "Event not found" ? "Event Not Found" : "Unable to Load Attendees"}
                                         </AppText>
                                         <AppText
-                                            styles="text-sm text-white text-center mb-6"
+                                            styles="text-sm text-black text-center mb-6"
                                             style={{ opacity: 0.8 }}
                                         >
                                             {error === "Event not found"
@@ -265,7 +265,7 @@ const EventAttendeesScreen = () => {
                                             activeOpacity={0.8}
                                         >
                                             <Ionicons name="arrow-back" size={18} color={colors.white} />
-                                            <AppText styles="text-sm text-white font-nunbold">
+                                            <AppText styles="text-sm text-black font-nunbold">
                                                 {error === "Event not found" ? "Back to My Events" : "Back to Event Details"}
                                             </AppText>
                                         </TouchableOpacity>
@@ -286,10 +286,10 @@ const EventAttendeesScreen = () => {
                                 <View className="p-6 gap-6">
                                     {/* Event Title */}
                                     <View>
-                                        <AppText styles="text-xl text-white mb-1 font-nunbold">
+                                        <AppText styles="text-xl text-black mb-1 font-nunbold">
                                             Event Attendees
                                         </AppText>
-                                        <AppText styles="text-sm text-white" style={{ opacity: 0.7 }}>
+                                        <AppText styles="text-sm text-black" style={{ opacity: 0.7 }}>
                                             {event.title}
                                         </AppText>
                                     </View>
@@ -323,11 +323,11 @@ const EventAttendeesScreen = () => {
                                             >
                                                 <Ionicons name="people-outline" size={40} color={colors.accent50} />
                                             </View>
-                                            <AppText styles="text-base text-white mb-3 font-nunbold">
+                                            <AppText styles="text-base text-black mb-3 font-nunbold">
                                                 No Attendees Found
                                             </AppText>
                                             <AppText
-                                                styles="text-sm text-white text-center mb-6"
+                                                styles="text-sm text-black text-center mb-6"
                                                 style={{ opacity: 0.7 }}
                                             >
                                                 {hasActiveFilters
@@ -342,7 +342,7 @@ const EventAttendeesScreen = () => {
                                                     activeOpacity={0.8}
                                                 >
                                                     <Ionicons name="close" size={18} color={colors.white} />
-                                                    <AppText styles="text-sm text-white font-nunbold">
+                                                    <AppText styles="text-sm text-black font-nunbold">
                                                         Clear All Filters
                                                     </AppText>
                                                 </TouchableOpacity>
@@ -364,7 +364,7 @@ const EventAttendeesScreen = () => {
                                                         </View>
                                                     ) : hasMore ? null : attendees.length > 0 ? (
                                                         <View className="py-6 items-center">
-                                                            <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
+                                                            <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
                                                                 No more attendees to load
                                                             </AppText>
                                                         </View>

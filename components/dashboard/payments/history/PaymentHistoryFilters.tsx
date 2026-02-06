@@ -76,7 +76,7 @@ const PaymentHistoryFilters = forwardRef<PaymentHistoryFiltersRef, Props>(
                         <View className="w-10 h-10 rounded-lg bg-accent/20 items-center justify-center">
                             <Ionicons name="filter" size={20} color={colors.accent50} />
                         </View>
-                        <AppText styles="text-xl text-white" font="font-ibold">
+                        <AppText styles="text-xl text-black" font="font-ibold">
                             Filter Payments
                         </AppText>
                     </View>
@@ -108,7 +108,7 @@ const PaymentHistoryFilters = forwardRef<PaymentHistoryFiltersRef, Props>(
                                         />
                                     </View>
                                     <AppText
-                                        styles={`text-sm flex-1 ${status === option.value ? "text-accent-50" : "text-white"
+                                        styles={`text-sm flex-1 ${status === option.value ? "text-accent-50" : "text-black"
                                             }`}
                                         font="font-isemibold"
                                     >

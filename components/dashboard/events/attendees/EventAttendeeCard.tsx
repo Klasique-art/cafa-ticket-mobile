@@ -40,7 +40,7 @@ const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
         >
             {/* Attendee Info */}
             <View className="mb-4">
-                <AppText styles="text-base text-white mb-2" font="font-ibold">
+                <AppText styles="text-base text-black mb-2" font="font-ibold">
                     {attendee.attendee_name}
                 </AppText>
                 
@@ -48,20 +48,20 @@ const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
                 <View className="gap-2 mb-2">
                     <View className="flex-row items-center gap-2">
                         <Ionicons name="mail-outline" size={14} color={colors.white} style={{ opacity: 0.6 }} />
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             {attendee.attendee_email}
                         </AppText>
                     </View>
                     <View className="flex-row items-center gap-2">
                         <Ionicons name="call-outline" size={14} color={colors.white} style={{ opacity: 0.6 }} />
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             {attendee.attendee_phone}
                         </AppText>
                     </View>
                 </View>
 
                 {/* Ticket ID */}
-                <AppText styles="text-xs text-white" font="font-imedium" style={{ opacity: 0.5 }}>
+                <AppText styles="text-xs text-black" font="font-imedium" style={{ opacity: 0.5 }}>
                     {attendee.ticket_id}
                 </AppText>
             </View>
@@ -69,22 +69,22 @@ const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
             {/* Ticket Details */}
             <View className="flex-row items-center justify-between mb-4 pb-4 border-b" style={{ borderColor: colors.accent + "1A" }}>
                 <View>
-                    <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                         Ticket Type
                     </AppText>
-                    <AppText styles="text-sm text-white" font="font-isemibold">
+                    <AppText styles="text-sm text-black" font="font-isemibold">
                         {attendee.ticket_type.name}
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-imedium" style={{ opacity: 0.8 }}>
+                    <AppText styles="text-xs text-black" font="font-imedium" style={{ opacity: 0.8 }}>
                         GH₵ {parseFloat(attendee.ticket_type.price).toLocaleString("en-GH")}
                     </AppText>
                 </View>
 
                 <View className="items-end">
-                    <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                         Amount Paid
                     </AppText>
-                    <AppText styles="text-base text-white" font="font-ibold" style={{ color: colors.accent50 }}>
+                    <AppText styles="text-base text-black" font="font-ibold" style={{ color: colors.accent50 }}>
                         GH₵ {parseFloat(attendee.amount_paid).toLocaleString("en-GH")}
                     </AppText>
                     <View
@@ -109,18 +109,18 @@ const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
                         <View className="flex-row items-center gap-2">
                             <Ionicons name="checkmark-circle" size={24} color={colors.accent50} />
                             <View>
-                                <AppText styles="text-sm text-white" font="font-isemibold" style={{ color: colors.accent50 }}>
+                                <AppText styles="text-sm text-black" font="font-isemibold" style={{ color: colors.accent50 }}>
                                     Checked In
                                 </AppText>
                                 {attendee.checked_in_at && (
-                                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                                         {formatDate(attendee.checked_in_at)}
                                     </AppText>
                                 )}
                             </View>
                         </View>
                         {attendee.checked_in_by && (
-                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                 by {attendee.checked_in_by.full_name}
                             </AppText>
                         )}
@@ -130,10 +130,10 @@ const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
                         <View className="flex-row items-center gap-2">
                             <Ionicons name="close-circle" size={24} color={colors.white} style={{ opacity: 0.5 }} />
                             <View>
-                                <AppText styles="text-sm text-white" font="font-imedium" style={{ opacity: 0.7 }}>
+                                <AppText styles="text-sm text-black" font="font-imedium" style={{ opacity: 0.7 }}>
                                     Not checked in
                                 </AppText>
-                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                     Purchased {formatDate(attendee.purchase_date)}
                                 </AppText>
                             </View>

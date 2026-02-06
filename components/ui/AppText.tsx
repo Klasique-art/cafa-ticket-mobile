@@ -14,7 +14,7 @@ const AppText: React.FC<AppTextProps> = ({
     children,
     styles = "",
     style,
-    color = "text-white",
+    color = "text-black",
     ...otherProps
 }) => {
     return (

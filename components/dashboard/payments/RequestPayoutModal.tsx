@@ -165,11 +165,11 @@ const RequestPayoutModal = ({
                     color="#4ade80"
                 />
             </View>
-            <AppText styles="text-lg text-white text-center font-nunbold">
+            <AppText styles="text-lg text-black text-center font-nunbold">
                 Payout Requested! 🎉
             </AppText>
             <AppText
-                styles="text-sm text-white text-center mt-2"
+                styles="text-sm text-black text-center mt-2"
                 style={{ opacity: 0.6 }}
             >
                 Your payout request has been submitted successfully. You'll
@@ -192,7 +192,7 @@ const RequestPayoutModal = ({
                 >
                     Available Balance
                 </AppText>
-                <AppText styles="text-xl text-white mt-1 font-nunbold">
+                <AppText styles="text-xl text-black mt-1 font-nunbold">
                     {symbol} {balance.toFixed(2)}
                 </AppText>
             </View>
@@ -335,7 +335,7 @@ const RequestPayoutModal = ({
                 activeOpacity={0.8}
             >
                 <View className="flex-row items-center gap-2">
-                    <AppText styles="text-base text-white font-nunbold">
+                    <AppText styles="text-base text-black font-nunbold">
                         Continue
                     </AppText>
                     <Ionicons name="chevron-forward" size={20} color="#fff" />
@@ -360,7 +360,7 @@ const RequestPayoutModal = ({
                     >
                         Withdrawal Amount
                     </AppText>
-                    <AppText styles="text-lg text-white font-nunbold">
+                    <AppText styles="text-lg text-black font-nunbold">
                         {symbol} {parsedAmount.toFixed(2)}
                     </AppText>
                 </View>
@@ -373,7 +373,7 @@ const RequestPayoutModal = ({
                     >
                         Processing Fee
                     </AppText>
-                    <AppText styles="text-sm text-white font-nunbold">
+                    <AppText styles="text-sm text-black font-nunbold">
                         {symbol} 0.00
                     </AppText>
                 </View>
@@ -383,7 +383,7 @@ const RequestPayoutModal = ({
                     className="flex-row items-center justify-between pt-4 border-t-2"
                     style={{ borderColor: colors.accent }}
                 >
-                    <AppText styles="text-base text-white font-nunbold">
+                    <AppText styles="text-base text-black font-nunbold">
                         You'll Receive
                     </AppText>
                     <AppText
@@ -406,7 +406,7 @@ const RequestPayoutModal = ({
                 >
                     Payout Method
                 </AppText>
-                <AppText styles="text-sm text-white font-nunbold">
+                <AppText styles="text-sm text-black font-nunbold">
                     Default Payment Profile
                 </AppText>
                 <AppText
@@ -453,7 +453,7 @@ const RequestPayoutModal = ({
                     }}
                     activeOpacity={0.7}
                 >
-                    <AppText styles="text-base text-white font-nunbold">
+                    <AppText styles="text-base text-black font-nunbold">
                         Back
                     </AppText>
                 </TouchableOpacity>
@@ -471,7 +471,7 @@ const RequestPayoutModal = ({
                     {isLoading ? (
                         <View className="flex-row items-center gap-2">
                             <ActivityIndicator size="small" color="#fff" />
-                            <AppText styles="text-base text-white font-nunbold">
+                            <AppText styles="text-base text-black font-nunbold">
                                 Processing…
                             </AppText>
                         </View>
@@ -482,7 +482,7 @@ const RequestPayoutModal = ({
                                 size={20}
                                 color="#fff"
                             />
-                            <AppText styles="text-base text-white font-nunbold">
+                            <AppText styles="text-base text-black font-nunbold">
                                 Confirm Payout
                             </AppText>
                         </View>
@@ -527,7 +527,7 @@ const RequestPayoutModal = ({
                                     color={colors.accent50}
                                 />
                             </View>
-                            <AppText styles="text-base text-white font-nunbold">
+                            <AppText styles="text-base text-black font-nunbold">
                                 {step === "amount"
                                     ? "Request Payout"
                                     : "Confirm Payout"}

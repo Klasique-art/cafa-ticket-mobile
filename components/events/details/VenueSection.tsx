@@ -39,7 +39,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                         <View className="w-12 h-12 rounded-xl items-center justify-center" style={{ backgroundColor: colors.accent + "33", borderWidth: 1, borderColor: colors.accent }}>
                             <Ionicons name="location-outline" size={24} color={colors.accent50} />
                         </View>
-                        <AppText styles="text-xl text-white" font="font-ibold">Venue & Location</AppText>
+                        <AppText styles="text-xl text-black" font="font-ibold">Venue & Location</AppText>
                     </View>
                     <AppText styles="text-sm text-slate-300 leading-relaxed" font="font-iregular">
                         Get directions and explore the venue location.
@@ -74,7 +74,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
 
                     {/* Map Overlay Badge */}
                     <View className="absolute top-4 left-4 px-4 py-2 rounded-lg" style={{ backgroundColor: "rgba(5, 14, 60, 0.9)" }}>
-                        <AppText styles="text-xs text-white" font="font-ibold">
+                        <AppText styles="text-xs text-black" font="font-ibold">
                             📍 {venue.name}
                         </AppText>
                     </View>
@@ -89,7 +89,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                         activeOpacity={0.8}
                     >
                         <Ionicons name="navigate-outline" size={20} color={colors.white} />
-                        <AppText styles="text-sm text-white" font="font-ibold">Get Directions</AppText>
+                        <AppText styles="text-sm text-black" font="font-ibold">Get Directions</AppText>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -99,23 +99,23 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                         activeOpacity={0.8}
                     >
                         <Ionicons name="open-outline" size={20} color={colors.accent50} />
-                        <AppText styles="text-sm text-white" font="font-ibold">Open in Maps</AppText>
+                        <AppText styles="text-sm text-black" font="font-ibold">Open in Maps</AppText>
                     </TouchableOpacity>
                 </View>
 
                 {/* Venue Details Card */}
                 <View className="bg-primary rounded-xl p-4 mb-4" style={{ borderWidth: 1, borderColor: colors.accent }}>
-                    <AppText styles="text-base text-white mb-4" font="font-ibold">Venue Details</AppText>
+                    <AppText styles="text-base text-black mb-4" font="font-ibold">Venue Details</AppText>
 
                     <View style={{ gap: 16 }}>
                         <View>
                             <AppText styles="text-xs text-slate-400 mb-1" font="font-isemibold">Venue Name</AppText>
-                            <AppText styles="text-base text-white" font="font-ibold">{venue.name}</AppText>
+                            <AppText styles="text-base text-black" font="font-ibold">{venue.name}</AppText>
                         </View>
 
                         <View>
                             <AppText styles="text-xs text-slate-400 mb-1" font="font-isemibold">Address</AppText>
-                            <AppText styles="text-sm text-white" font="font-iregular">{venue.address}</AppText>
+                            <AppText styles="text-sm text-black" font="font-iregular">{venue.address}</AppText>
                             <AppText styles="text-sm text-slate-300" font="font-iregular">{venue.city}, {venue.country}</AppText>
                         </View>
 
@@ -132,7 +132,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                 <View className="bg-primary rounded-xl p-4 mb-4" style={{ borderWidth: 1, borderColor: colors.accent }}>
                     <View className="flex-row items-center gap-2 mb-4">
                         <Ionicons name="car-outline" size={20} color={colors.accent50} />
-                        <AppText styles="text-base text-white" font="font-ibold">Getting There</AppText>
+                        <AppText styles="text-base text-black" font="font-ibold">Getting There</AppText>
                     </View>
 
                     <View style={{ gap: 12 }}>
@@ -141,7 +141,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                                 <AppText styles="text-sm" font="font-ibold">🚗</AppText>
                             </View>
                             <View className="flex-1">
-                                <AppText styles="text-sm text-white" font="font-ibold">By Car</AppText>
+                                <AppText styles="text-sm text-black" font="font-ibold">By Car</AppText>
                                 <AppText styles="text-xs text-slate-300" font="font-iregular">Parking available nearby</AppText>
                             </View>
                         </View>
@@ -151,7 +151,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                                 <AppText styles="text-sm" font="font-ibold">🚌</AppText>
                             </View>
                             <View className="flex-1">
-                                <AppText styles="text-sm text-white" font="font-ibold">Public Transport</AppText>
+                                <AppText styles="text-sm text-black" font="font-ibold">Public Transport</AppText>
                                 <AppText styles="text-xs text-slate-300" font="font-iregular">Check local bus routes to {venue.city}</AppText>
                             </View>
                         </View>
@@ -161,7 +161,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                                 <AppText styles="text-sm" font="font-ibold">🚕</AppText>
                             </View>
                             <View className="flex-1">
-                                <AppText styles="text-sm text-white" font="font-ibold">Ride-Share</AppText>
+                                <AppText styles="text-sm text-black" font="font-ibold">Ride-Share</AppText>
                                 <AppText styles="text-xs text-slate-300" font="font-iregular">Uber, Bolt available in the area</AppText>
                             </View>
                         </View>
@@ -170,7 +170,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
 
                 {/* Accessibility */}
                 <View className="bg-primary rounded-xl p-4" style={{ borderWidth: 1, borderColor: colors.accent }}>
-                    <AppText styles="text-base text-white mb-3" font="font-ibold">Accessibility</AppText>
+                    <AppText styles="text-base text-black mb-3" font="font-ibold">Accessibility</AppText>
 
                     <View style={{ gap: 8 }}>
                         <View className="flex-row items-center gap-2">

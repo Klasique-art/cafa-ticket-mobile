@@ -114,10 +114,10 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                     <View className="flex-row items-start gap-3">
                         <Ionicons name="information-circle" size={24} color={colors.accent} style={{ marginTop: 2 }} />
                         <View className="flex-1">
-                            <AppText styles="text-sm text-white mb-1" font="font-ibold">
+                            <AppText styles="text-sm text-black mb-1" font="font-ibold">
                                 Ticket Has Sales
                             </AppText>
-                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.8 }}>
+                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.8 }}>
                                 {ticket.tickets_sold} ticket{ticket.tickets_sold > 1 ? "s" : ""} sold. Be careful when
                                 editing as changes may affect existing ticket holders.
                             </AppText>
@@ -132,10 +132,10 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                     className="flex-1 p-3 rounded-lg"
                     style={{ backgroundColor: colors.primary100, minWidth: "48%" }}
                 >
-                    <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                         Price
                     </AppText>
-                    <AppText styles="text-base text-white" font="font-ibold" style={{ color: colors.accent50 }}>
+                    <AppText styles="text-base text-black" font="font-ibold" style={{ color: colors.accent50 }}>
                         {formatMoney(ticket.price)}
                     </AppText>
                 </View>
@@ -144,10 +144,10 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                     className="flex-1 p-3 rounded-lg"
                     style={{ backgroundColor: colors.primary100, minWidth: "48%" }}
                 >
-                    <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                         Sold
                     </AppText>
-                    <AppText styles="text-base text-white" font="font-ibold">
+                    <AppText styles="text-base text-black" font="font-ibold">
                         {ticket.tickets_sold}
                     </AppText>
                 </View>
@@ -156,10 +156,10 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                     className="flex-1 p-3 rounded-lg"
                     style={{ backgroundColor: colors.primary100, minWidth: "48%" }}
                 >
-                    <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                         Remaining
                     </AppText>
-                    <AppText styles="text-base text-white" font="font-ibold">
+                    <AppText styles="text-base text-black" font="font-ibold">
                         {ticket.tickets_remaining}
                     </AppText>
                 </View>
@@ -168,10 +168,10 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                     className="flex-1 p-3 rounded-lg"
                     style={{ backgroundColor: colors.primary100, minWidth: "48%" }}
                 >
-                    <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                         Revenue
                     </AppText>
-                    <AppText styles="text-base text-white" font="font-ibold" style={{ color: colors.accent50 }}>
+                    <AppText styles="text-base text-black" font="font-ibold" style={{ color: colors.accent50 }}>
                         {formatMoney(ticket.revenue)}
                     </AppText>
                 </View>
@@ -198,11 +198,11 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                                         <Ionicons name="ticket-outline" size={20} color={colors.accent50} />
                                     </View>
                                     <View className="flex-1">
-                                        <AppText styles="text-base text-white" font="font-ibold">
+                                        <AppText styles="text-base text-black" font="font-ibold">
                                             Ticket Type Details
                                         </AppText>
                                         <AppText
-                                            styles="text-xs text-white"
+                                            styles="text-xs text-black"
                                             font="font-iregular"
                                             style={{ opacity: 0.6 }}
                                         >
@@ -213,7 +213,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
 
                                 {/* Basic Info */}
                                 <View className="gap-4">
-                                    <AppText styles="text-sm text-white" font="font-ibold">
+                                    <AppText styles="text-sm text-black" font="font-ibold">
                                         Basic Information
                                     </AppText>
 
@@ -236,7 +236,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
 
                                 {/* Pricing & Quantity */}
                                 <View className="gap-4">
-                                    <AppText styles="text-sm text-white" font="font-ibold">
+                                    <AppText styles="text-sm text-black" font="font-ibold">
                                         Pricing & Quantity
                                     </AppText>
 
@@ -261,7 +261,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                                     </View>
 
                                     <AppText
-                                        styles="text-xs text-white"
+                                        styles="text-xs text-black"
                                         font="font-iregular"
                                         style={{ opacity: 0.6 }}
                                     >
@@ -273,7 +273,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
 
                                 {/* Purchase Limits */}
                                 <View className="gap-4">
-                                    <AppText styles="text-sm text-white" font="font-ibold">
+                                    <AppText styles="text-sm text-black" font="font-ibold">
                                         Purchase Limits
                                     </AppText>
 
@@ -298,7 +298,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                                     </View>
 
                                     <AppText
-                                        styles="text-xs text-white"
+                                        styles="text-xs text-black"
                                         font="font-iregular"
                                         style={{ opacity: 0.6 }}
                                     >
@@ -309,11 +309,11 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                                 {/* Availability Period */}
                                 <View className="gap-4">
                                     <View>
-                                        <AppText styles="text-sm text-white mb-2" font="font-ibold">
+                                        <AppText styles="text-sm text-black mb-2" font="font-ibold">
                                             Availability Period (Optional)
                                         </AppText>
                                         <AppText
-                                            styles="text-xs text-white"
+                                            styles="text-xs text-black"
                                             font="font-iregular"
                                             style={{ opacity: 0.6 }}
                                         >
@@ -350,7 +350,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
                                         }}
                                         activeOpacity={0.8}
                                     >
-                                        <AppText styles="text-sm text-white text-center" font="font-ibold">
+                                        <AppText styles="text-sm text-black text-center" font="font-ibold">
                                             Cancel
                                         </AppText>
                                     </TouchableOpacity>
@@ -360,7 +360,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
 
                                 {/* Helper Text */}
                                 <AppText
-                                    styles="text-xs text-white text-center"
+                                    styles="text-xs text-black text-center"
                                     font="font-iregular"
                                     style={{ opacity: 0.6 }}
                                 >

@@ -64,10 +64,10 @@ const ExploreByLocationSection = ({ isLoading = false, eventCount = "50+" }: Exp
                         <Ionicons name="location" size={20} color={colors.accent} />
                     </View>
                     <View>
-                        <AppText styles="text-lg text-white font-nunbold">
+                        <AppText styles="text-lg text-black font-nunbold">
                             Events Near You
                         </AppText>
-                        <AppText styles="text-xs text-white" style={{ opacity: 0.6 }}>
+                        <AppText styles="text-xs text-black" style={{ opacity: 0.6 }}>
                             In {location.city}
                         </AppText>
                     </View>
@@ -100,11 +100,11 @@ const ExploreByLocationSection = ({ isLoading = false, eventCount = "50+" }: Exp
                         {/* Content */}
                         <View className="flex-1 p-4 justify-between">
                             <View>
-                                <AppText styles="text-base text-white mb-1 font-nunbold">
+                                <AppText styles="text-base text-black mb-1 font-nunbold">
                                     {location.city}
                                 </AppText>
                                 <AppText
-                                    styles="text-xs text-white"
+                                    styles="text-xs text-black"
                                     style={{ opacity: 0.6 }}
                                 >
                                     {location.country || "Ghana"}

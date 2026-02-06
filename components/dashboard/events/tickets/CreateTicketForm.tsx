@@ -126,10 +126,10 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
                     <View className="flex-row items-center gap-3">
                         <Ionicons name="checkmark-circle" size={24} color={colors.accent50} />
                         <View className="flex-1">
-                            <AppText styles="text-sm text-white mb-1" font="font-ibold">
+                            <AppText styles="text-sm text-black mb-1" font="font-ibold">
                                 {createdTicketsCount} Ticket Type{createdTicketsCount > 1 ? "s" : ""} Created
                             </AppText>
-                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.8 }}>
+                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.8 }}>
                                 Add another or tap Done to return
                             </AppText>
                         </View>
@@ -139,7 +139,7 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
                             style={{ backgroundColor: colors.accent }}
                             activeOpacity={0.8}
                         >
-                            <AppText styles="text-sm text-white" font="font-ibold">
+                            <AppText styles="text-sm text-black" font="font-ibold">
                                 Done
                             </AppText>
                         </TouchableOpacity>
@@ -167,11 +167,11 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
                                         <Ionicons name="ticket-outline" size={20} color={colors.accent50} />
                                     </View>
                                     <View className="flex-1">
-                                        <AppText styles="text-base text-white" font="font-ibold">
+                                        <AppText styles="text-base text-black" font="font-ibold">
                                             Ticket Type Details
                                         </AppText>
                                         <AppText
-                                            styles="text-xs text-white"
+                                            styles="text-xs text-black"
                                             font="font-iregular"
                                             style={{ opacity: 0.6 }}
                                         >
@@ -182,7 +182,7 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
 
                                 {/* Basic Info */}
                                 <View className="gap-4">
-                                    <AppText styles="text-sm text-white" font="font-ibold">
+                                    <AppText styles="text-sm text-black" font="font-ibold">
                                         Basic Information
                                     </AppText>
 
@@ -205,7 +205,7 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
 
                                 {/* Pricing & Quantity */}
                                 <View className="gap-4">
-                                    <AppText styles="text-sm text-white" font="font-ibold">
+                                    <AppText styles="text-sm text-black" font="font-ibold">
                                         Pricing & Quantity
                                     </AppText>
 
@@ -230,7 +230,7 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
                                     </View>
 
                                     <AppText
-                                        styles="text-xs text-white"
+                                        styles="text-xs text-black"
                                         font="font-iregular"
                                         style={{ opacity: 0.6 }}
                                     >
@@ -240,7 +240,7 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
 
                                 {/* Purchase Limits */}
                                 <View className="gap-4">
-                                    <AppText styles="text-sm text-white" font="font-ibold">
+                                    <AppText styles="text-sm text-black" font="font-ibold">
                                         Purchase Limits
                                     </AppText>
 
@@ -265,7 +265,7 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
                                     </View>
 
                                     <AppText
-                                        styles="text-xs text-white"
+                                        styles="text-xs text-black"
                                         font="font-iregular"
                                         style={{ opacity: 0.6 }}
                                     >
@@ -276,11 +276,11 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
                                 {/* Availability Period */}
                                 <View className="gap-4">
                                     <View>
-                                        <AppText styles="text-sm text-white mb-2" font="font-ibold">
+                                        <AppText styles="text-sm text-black mb-2" font="font-ibold">
                                             Availability Period (Optional)
                                         </AppText>
                                         <AppText
-                                            styles="text-xs text-white"
+                                            styles="text-xs text-black"
                                             font="font-iregular"
                                             style={{ opacity: 0.6 }}
                                         >
@@ -317,7 +317,7 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
                                         }}
                                         activeOpacity={0.8}
                                     >
-                                        <AppText styles="text-sm text-white text-center" font="font-ibold">
+                                        <AppText styles="text-sm text-black text-center" font="font-ibold">
                                             {createdTicketsCount > 0 ? "Done" : "Cancel"}
                                         </AppText>
                                     </TouchableOpacity>

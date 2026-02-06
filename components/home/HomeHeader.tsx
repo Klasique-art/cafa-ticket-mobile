@@ -40,8 +40,8 @@ export default function HomeHeader({ onProfilePress }: HomeHeaderProps) {
           <Ionicons name="ticket" size={20} color={colors.white} />
         </View>
         <View>
-          <Text className="text-xl font-bold text-white">CafaTickets</Text>
-          <Text className="text-xs text-white/60">Discover Events</Text>
+          <Text className="text-xl font-bold text-black">CafaTickets</Text>
+          <Text className="text-xs text-black/60">Discover Events</Text>
         </View>
       </View>
 

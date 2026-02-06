@@ -157,7 +157,7 @@ const SelectInput = ({
                                                 accessibilityState={{ selected: isSelected }}
                                             >
                                                 <AppText
-                                                    styles={`text-base ${isSelected ? 'text-accent-50 font-nunbold' : 'text-white'}`}
+                                                    styles={`text-base ${isSelected ? 'text-white font-nunbold' : 'text-white'}`}
                                                 >
                                                     {item.label}
                                                 </AppText>

@@ -25,7 +25,7 @@ const EventsEmptyState = ({
             </View>
 
             {/* Message */}
-            <AppText styles="text-xl text-white text-center mb-3 font-nunbold">
+            <AppText styles="text-xl text-black text-center mb-3 font-nunbold">
                 {hasFilters ? "No Events Found" : "No Events Available"}
             </AppText>
 
@@ -54,7 +54,7 @@ const EventsEmptyState = ({
             {/* Suggestions */}
             {hasFilters && (
                 <View className="mt-8 p-6 bg-primary-100 rounded-xl border border-accent max-w-sm">
-                    <AppText styles="text-sm text-white mb-3 font-nunbold">
+                    <AppText styles="text-sm text-black mb-3 font-nunbold">
                         Try these suggestions:
                     </AppText>
                     <View className="space-y-2">

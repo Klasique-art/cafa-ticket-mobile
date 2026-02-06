@@ -78,7 +78,7 @@ const AppInput = ({
             {!multiline ? (
                 <View className="relative w-full">
                     <RNTextInput
-                        className={`w-full h-12 ${icon ? 'pr-12' : 'pr-2'} pl-2 bg-primary border-2 border-accent text-white text-sm rounded-xl font-iregular`}
+                        className={`w-full h-12 ${icon ? 'pr-12' : 'pr-2'} pl-2 bg-primary border-2 border-accent text-black text-sm rounded-xl font-iregular`}
                         placeholder={placeholder}
                         placeholderTextColor="#94a3b8"
                         value={value}
@@ -104,7 +104,7 @@ const AppInput = ({
                 </View>
             ) : (
                 <RNTextInput
-                    className="w-full px-2 py-2 bg-primary border-2 border-accent text-white text-sm rounded-xl font-iregular"
+                    className="w-full px-2 py-2 bg-primary border-2 border-accent text-black text-sm rounded-xl font-iregular"
                     placeholder={placeholder}
                     placeholderTextColor="#94a3b8"
                     value={value}

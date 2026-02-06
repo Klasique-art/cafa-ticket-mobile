@@ -37,7 +37,7 @@ const TicketDetailsHeader = ({ ticket }: Props) => {
                         <Ionicons name="ticket-outline" size={22} color="#c084fc" />
                     </View>
                     <View>
-                        <AppText styles="text-base text-white font-nunbold">
+                        <AppText styles="text-base text-black font-nunbold">
                             Ticket Details
                         </AppText>
                         <View className="flex-row items-center gap-2 mt-1">
@@ -50,7 +50,7 @@ const TicketDetailsHeader = ({ ticket }: Props) => {
                 </View>
 
                 <View className="items-end">
-                    <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
+                    <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
                         Paid
                     </AppText>
                     <AppText styles="text-lg font-nunbold" style={{ color: "#34d399" }}>
@@ -60,7 +60,7 @@ const TicketDetailsHeader = ({ ticket }: Props) => {
             </View>
 
             {/* Event title */}
-            <AppText styles="text-sm text-white" style={{ opacity: 0.7 }}>
+            <AppText styles="text-sm text-black" style={{ opacity: 0.7 }}>
                 {ticket.event.title}
             </AppText>
 
@@ -69,7 +69,7 @@ const TicketDetailsHeader = ({ ticket }: Props) => {
                 className="mt-3 self-start px-3 py-1.5 rounded-lg border"
                 style={{ backgroundColor: colors.primary200, borderColor: colors.accent + "4D" }}
             >
-                <AppText styles="text-xs text-white" style={{ opacity: 0.6, fontFamily: "monospace" }}>
+                <AppText styles="text-xs text-black" style={{ opacity: 0.6, fontFamily: "monospace" }}>
                     {ticket.ticket_id}
                 </AppText>
             </View>

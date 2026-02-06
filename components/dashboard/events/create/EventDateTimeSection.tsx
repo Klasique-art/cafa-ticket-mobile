@@ -24,10 +24,10 @@ const EventDateTimeSection = () => {
                     <Ionicons name="calendar-outline" size={20} color={colors.accent50} />
                 </View>
                 <View className="flex-1">
-                    <AppText styles="text-base text-white" font="font-ibold">
+                    <AppText styles="text-base text-black" font="font-ibold">
                         Date & Time
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                         When will your event happen?
                     </AppText>
                 </View>
@@ -35,7 +35,7 @@ const EventDateTimeSection = () => {
 
             {/* Event Start */}
             <View>
-                <AppText styles="text-sm text-white mb-3" font="font-isemibold">
+                <AppText styles="text-sm text-black mb-3" font="font-isemibold">
                     Event Start
                 </AppText>
                 <View className="gap-3">
@@ -59,7 +59,7 @@ const EventDateTimeSection = () => {
 
             {/* Event End */}
             <View>
-                <AppText styles="text-sm text-white mb-3" font="font-isemibold">
+                <AppText styles="text-sm text-black mb-3" font="font-isemibold">
                     Event End
                 </AppText>
                 <View className="gap-3">

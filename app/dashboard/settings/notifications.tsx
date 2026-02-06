@@ -36,7 +36,7 @@ const NotificationsSettingsScreen = () => {
                                     <Ionicons name="notifications-outline" size={24} color={colors.accent50} />
                                 </View>
                                 <View className="flex-1">
-                                    <AppText styles="text-xs text-white" style={{ opacity: 0.7 }}>
+                                    <AppText styles="text-xs text-black" style={{ opacity: 0.7 }}>
                                         Manage your email and SMS notification preferences
                                     </AppText>
                                 </View>

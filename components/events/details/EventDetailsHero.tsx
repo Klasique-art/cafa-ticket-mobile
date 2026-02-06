@@ -130,7 +130,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                             <View className="w-2 h-2 bg-white rounded-full" />
                         )}
                         <AppText
-                            styles="text-xs text-white font-nunbold"
+                            styles="text-xs text-black font-nunbold"
                         >
                             {event.status === "ongoing" && "LIVE NOW"}
                             {event.status === "upcoming" && "UPCOMING"}
@@ -150,7 +150,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                         }}
                     >
                         <View className="px-3 py-1.5 rounded-lg" style={{ backgroundColor: "rgba(5, 14, 60, 0.9)" }}>
-                            <AppText styles="text-xs text-white font-nunbold">
+                            <AppText styles="text-xs text-black font-nunbold">
                                 {selectedImageIndex + 1} / {allImages.length}
                             </AppText>
                         </View>
@@ -173,7 +173,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                 </TouchableOpacity>
 
                 {/* Title */}
-                <AppText styles="text-2xl text-white mb-3 leading-tight font-nunbold">
+                <AppText styles="text-2xl text-black mb-3 leading-tight font-nunbold">
                     {event.title}
                 </AppText>
 
@@ -193,7 +193,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                             <AppText styles="text-xs text-slate-400 mb-1">
                                 {event.is_recurring && event.recurrence_info ? "Recurring Event" : "Date & Time"}
                             </AppText>
-                            <AppText styles="text-sm text-white font-nunbold">
+                            <AppText styles="text-sm text-black font-nunbold">
                                 {new Date(event.start_date).toLocaleDateString("en-US", {
                                     month: "short",
                                     day: "numeric",
@@ -228,7 +228,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                             <AppText styles="text-xs text-slate-400 mb-1">
                                 Location
                             </AppText>
-                            <AppText styles="text-sm text-white font-nunbold" numberOfLines={1}>
+                            <AppText styles="text-sm text-black font-nunbold" numberOfLines={1}>
                                 {event.venue.name}
                             </AppText>
                             <AppText styles="text-xs text-slate-300" numberOfLines={1}>
@@ -246,7 +246,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                             <AppText styles="text-xs text-slate-400 mb-1">
                                 Availability
                             </AppText>
-                            <AppText styles="text-sm text-white font-nunbold">
+                            <AppText styles="text-sm text-black font-nunbold">
                                 {event.tickets_available.toLocaleString()} tickets remaining
                             </AppText>
                             {/* Progress Bar */}

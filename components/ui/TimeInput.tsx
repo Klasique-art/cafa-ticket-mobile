@@ -79,7 +79,7 @@ const TimeInput = ({
         <View>
             {/* Label */}
             <View className="flex-row items-center mb-2">
-                <AppText styles="text-sm text-white">
+                <AppText styles="text-sm text-black">
                     {label}
                 </AppText>
                 {required && (
@@ -103,7 +103,7 @@ const TimeInput = ({
                 <View className="flex-row items-center gap-3 flex-1">
                     <Ionicons name="time-outline" size={20} color={colors.white} style={{ opacity: 0.6 }} />
                     <AppText
-                        styles="text-sm text-white flex-1"
+                        styles="text-sm text-black flex-1"
                         style={{ opacity: value ? 1 : 0.6 }}
                     >
                         {value ? formatTimeDisplay(value) : placeholder}
@@ -135,7 +135,7 @@ const TimeInput = ({
                                     style={{ backgroundColor: colors.primary200 }}
                                     activeOpacity={0.7}
                                 >
-                                    <AppText styles="text-sm text-white">
+                                    <AppText styles="text-sm text-black">
                                         Cancel
                                     </AppText>
                                 </TouchableOpacity>
@@ -145,7 +145,7 @@ const TimeInput = ({
                                     style={{ backgroundColor: colors.accent }}
                                     activeOpacity={0.7}
                                 >
-                                    <AppText styles="text-sm text-white">
+                                    <AppText styles="text-sm text-black">
                                         Done
                                     </AppText>
                                 </TouchableOpacity>

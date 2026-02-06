@@ -21,7 +21,7 @@ export default function SoonEventCard({ event }: SoonEventCardProps) {
 
   return (
     <Pressable onPress={handlePress} style={{ width: CARD_WIDTH }}>
-      <View className="flex-row overflow-hidden rounded-2xl bg-white/5">
+      <View className="flex-row overflow-hidden rounded-2xl" style={{ backgroundColor: colors.primary }}>
         {/* Image */}
         <View className="w-28">
           <Image

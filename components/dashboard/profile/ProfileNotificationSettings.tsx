@@ -49,7 +49,7 @@ const ProfileNotificationSettings = ({ settings }: ProfileNotificationSettingsPr
             {/* Header */}
             <View className="flex-row items-center justify-between mb-4">
                 <View className="flex-1">
-                    <AppText styles="text-lg text-white mb-1 font-nunbold">
+                    <AppText styles="text-lg text-black mb-1 font-nunbold">
                         Notification Preferences
                     </AppText>
                     <AppText styles="text-sm text-slate-300">
@@ -96,7 +96,7 @@ const ProfileNotificationSettings = ({ settings }: ProfileNotificationSettingsPr
                                 />
                             </View>
                             <View className="flex-1">
-                                <AppText styles="text-sm text-white mb-0.5">
+                                <AppText styles="text-sm text-black mb-0.5">
                                     {setting.title}
                                 </AppText>
                                 <AppText styles="text-xs text-slate-400">

@@ -48,10 +48,10 @@ const EventSelector = ({ events, onSelectEvent, hasMore = false, isLoadingMore =
                 >
                     <Ionicons name="calendar-outline" size={40} color={colors.accent50} style={{ opacity: 0.5 }} />
                 </View>
-                <AppText styles="text-lg text-white text-center" font="font-ibold">
+                <AppText styles="text-lg text-black text-center" font="font-ibold">
                     No Upcoming Events
                 </AppText>
-                <AppText styles="text-xs text-white text-center mt-2" font="font-iregular" style={{ opacity: 0.5, maxWidth: 280 }}>
+                <AppText styles="text-xs text-black text-center mt-2" font="font-iregular" style={{ opacity: 0.5, maxWidth: 280 }}>
                     You don't have any upcoming or ongoing events to check in attendees for.
                 </AppText>
             </View>
@@ -62,10 +62,10 @@ const EventSelector = ({ events, onSelectEvent, hasMore = false, isLoadingMore =
         <View className="gap-4">
             {/* Title + count */}
             <View className="flex-row items-center justify-between">
-                <AppText styles="text-base text-white" font="font-ibold">
+                <AppText styles="text-base text-black" font="font-ibold">
                     Select Event
                 </AppText>
-                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                     {filtered.length} of {events.length}
                 </AppText>
             </View>
@@ -97,10 +97,10 @@ const EventSelector = ({ events, onSelectEvent, hasMore = false, isLoadingMore =
                     >
                         <Ionicons name="search-outline" size={32} color={colors.accent50} style={{ opacity: 0.4 }} />
                     </View>
-                    <AppText styles="text-sm text-white text-center" font="font-ibold">
+                    <AppText styles="text-sm text-black text-center" font="font-ibold">
                         No Events Found
                     </AppText>
-                    <AppText styles="text-xs text-white text-center mt-1" font="font-iregular" style={{ opacity: 0.5 }}>
+                    <AppText styles="text-xs text-black text-center mt-1" font="font-iregular" style={{ opacity: 0.5 }}>
                         No events match "{search}"
                     </AppText>
                     <TouchableOpacity
@@ -109,7 +109,7 @@ const EventSelector = ({ events, onSelectEvent, hasMore = false, isLoadingMore =
                         style={{ backgroundColor: colors.accent }}
                         activeOpacity={0.7}
                     >
-                        <AppText styles="text-xs text-white" font="font-ibold">
+                        <AppText styles="text-xs text-black" font="font-ibold">
                             Clear Search
                         </AppText>
                     </TouchableOpacity>
@@ -150,7 +150,7 @@ const EventSelector = ({ events, onSelectEvent, hasMore = false, isLoadingMore =
                                         className="px-2.5 py-1 rounded-md border"
                                         style={{ backgroundColor: colors.primary200, borderColor: colors.accent + "33" }}
                                     >
-                                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                                             {event.category.name}
                                         </AppText>
                                     </View>
@@ -158,7 +158,7 @@ const EventSelector = ({ events, onSelectEvent, hasMore = false, isLoadingMore =
 
                                 {/* Title */}
                                 <View className="px-4">
-                                    <AppText styles="text-base text-white" font="font-ibold">
+                                    <AppText styles="text-base text-black" font="font-ibold">
                                         {event.title}
                                     </AppText>
                                 </View>
@@ -167,19 +167,19 @@ const EventSelector = ({ events, onSelectEvent, hasMore = false, isLoadingMore =
                                 <View className="px-4 mt-2 gap-1.5">
                                     <View className="flex-row items-center gap-2">
                                         <Ionicons name="calendar-outline" size={14} color={colors.accent50} style={{ opacity: 0.6 }} />
-                                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                             {formatDate(event.start_date, event.start_time)}
                                         </AppText>
                                     </View>
                                     <View className="flex-row items-center gap-2">
                                         <Ionicons name="location-outline" size={14} color={colors.accent50} style={{ opacity: 0.6 }} />
-                                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                             {event.venue_name}, {event.venue_city}
                                         </AppText>
                                     </View>
                                     <View className="flex-row items-center gap-2">
                                         <Ionicons name="people-outline" size={14} color={colors.accent50} style={{ opacity: 0.6 }} />
-                                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                             {checkedIn} / {totalSold} checked in
                                         </AppText>
                                     </View>
@@ -188,10 +188,10 @@ const EventSelector = ({ events, onSelectEvent, hasMore = false, isLoadingMore =
                                 {/* Progress bar + CTA */}
                                 <View className="px-4 pb-4 mt-3">
                                     <View className="flex-row items-center justify-between mb-1.5">
-                                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.4 }}>
+                                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.4 }}>
                                             Check-in Progress
                                         </AppText>
-                                        <AppText styles="text-xs text-white" font="font-isemibold" style={{ opacity: 0.7 }}>
+                                        <AppText styles="text-xs text-black" font="font-isemibold" style={{ opacity: 0.7 }}>
                                             {pct.toFixed(1)}%
                                         </AppText>
                                     </View>

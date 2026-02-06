@@ -43,7 +43,7 @@ const ListFooter = memo(({ isLoading, hasMore, eventsLength }: {
                 >
                     <AppText styles="text-2xl">🎉</AppText>
                 </View>
-                <AppText styles="text-base text-white mb-2 font-nunbold">
+                <AppText styles="text-base text-black mb-2 font-nunbold">
                     You've reached the end!
                 </AppText>
                 <AppText styles="text-sm text-slate-300 text-center px-8">

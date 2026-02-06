@@ -68,7 +68,7 @@ const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                 </View>
 
                 {/* Name & Username */}
-                <AppText styles="text-2xl text-white mb-2 text-center font-nunbold">
+                <AppText styles="text-2xl text-black mb-2 text-center font-nunbold">
                     {user.full_name}
                 </AppText>
                 <AppText styles="text-base text-accent-50 mb-3">
@@ -99,7 +99,7 @@ const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                     activeOpacity={0.8}
                 >
                     <Ionicons name="create-outline" size={18} color="#fff" />
-                    <AppText styles="text-sm text-white font-nunbold">
+                    <AppText styles="text-sm text-black font-nunbold">
                         Edit Profile
                     </AppText>
                 </TouchableOpacity>
@@ -131,7 +131,7 @@ const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                         <AppText styles="text-xs text-slate-400 mb-0.5" font="font-isemibold">
                             Email
                         </AppText>
-                        <AppText styles="text-sm text-white" font="font-imedium">
+                        <AppText styles="text-sm text-black" font="font-imedium">
                             {user.email}
                         </AppText>
                     </View>
@@ -149,7 +149,7 @@ const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                         <AppText styles="text-xs text-slate-400 mb-0.5">
                             Phone
                         </AppText>
-                        <AppText styles="text-sm text-white">
+                        <AppText styles="text-sm text-black">
                             {user.phone_number}
                         </AppText>
                     </View>
@@ -167,7 +167,7 @@ const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                         <AppText styles="text-xs text-slate-400 mb-0.5">
                             Location
                         </AppText>
-                        <AppText styles="text-sm text-white">
+                        <AppText styles="text-sm text-black">
                             {user.city}, {user.country}
                         </AppText>
                     </View>
@@ -185,7 +185,7 @@ const ProfileHeader = ({ user }: ProfileHeaderProps) => {
                         <AppText styles="text-xs text-slate-400 mb-0.5">
                             Member Since
                         </AppText>
-                        <AppText styles="text-sm text-white">
+                        <AppText styles="text-sm text-black">
                             {formatDate(memberSince)}
                         </AppText>
                     </View>

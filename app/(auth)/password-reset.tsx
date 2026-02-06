@@ -129,10 +129,10 @@ const PasswordResetScreen = () => {
                         <Ionicons name="chevron-back" size={20} color="#fff" />
                     </TouchableOpacity>
                     <View className="flex-1">
-                        <AppText styles="text-xl text-white font-nunbold">
+                        <AppText styles="text-xl text-black font-nunbold">
                             Reset Password
                         </AppText>
-                        <AppText styles="text-sm text-white" style={{ opacity: 0.6 }}>
+                        <AppText styles="text-sm text-black" style={{ opacity: 0.6 }}>
                             Create a new password
                         </AppText>
                     </View>
@@ -150,11 +150,11 @@ const PasswordResetScreen = () => {
                                 >
                                     <Ionicons name="lock-closed-outline" size={40} color={colors.white} />
                                 </View>
-                                <AppText styles="text-2xl text-white mb-2 text-center font-nunbold">
+                                <AppText styles="text-2xl text-black mb-2 text-center font-nunbold">
                                     Set New Password
                                 </AppText>
                                 <AppText
-                                    styles="text-sm text-white text-center"
+                                    styles="text-sm text-black text-center"
                                     style={{ opacity: 0.7, maxWidth: 300 }}
                                 >
                                     Choose a strong password for your account
@@ -216,26 +216,26 @@ const PasswordResetScreen = () => {
                                             }}
                                         >
                                             <AppText
-                                                styles="text-xs text-white mb-2 font-nunbold"
+                                                styles="text-xs text-black mb-2 font-nunbold"
                                                 style={{ opacity: 0.8 }}
                                             >
                                                 Password Requirements:
                                             </AppText>
                                             <View className="gap-1">
                                                 <AppText
-                                                    styles="text-xs text-white"
+                                                    styles="text-xs text-black"
                                                     style={{ opacity: 0.7 }}
                                                 >
                                                     • At least 8 characters long
                                                 </AppText>
                                                 <AppText
-                                                    styles="text-xs text-white"
+                                                    styles="text-xs text-black"
                                                     style={{ opacity: 0.7 }}
                                                 >
                                                     • Mix of letters and numbers recommended
                                                 </AppText>
                                                 <AppText
-                                                    styles="text-xs text-white"
+                                                    styles="text-xs text-black"
                                                     style={{ opacity: 0.7 }}
                                                 >
                                                     • Avoid common passwords
@@ -260,11 +260,11 @@ const PasswordResetScreen = () => {
                                 >
                                     <Ionicons name="checkmark-circle" size={60} color="#34d399" />
                                 </View>
-                                <AppText styles="text-2xl text-white mb-2 text-center font-nunbold">
+                                <AppText styles="text-2xl text-black mb-2 text-center font-nunbold">
                                     Password Reset Successful!
                                 </AppText>
                                 <AppText
-                                    styles="text-sm text-white text-center"
+                                    styles="text-sm text-black text-center"
                                     style={{ opacity: 0.7, maxWidth: 300 }}
                                 >
                                     Your password has been changed successfully
@@ -277,7 +277,7 @@ const PasswordResetScreen = () => {
                             >
                                 <View className="items-center">
                                     <AppText
-                                        styles="text-sm text-white mb-4 text-center"
+                                        styles="text-sm text-black mb-4 text-center"
                                         style={{ opacity: 0.7 }}
                                     >
                                         You can now login with your new password. Redirecting you to login page in...
@@ -286,7 +286,7 @@ const PasswordResetScreen = () => {
                                         <AppText styles="text-4xl font-nunbold" style={{ color: colors.accent }}>
                                             {countdown}
                                         </AppText>
-                                        <AppText styles="text-sm text-white" style={{ opacity: 0.6 }}>
+                                        <AppText styles="text-sm text-black" style={{ opacity: 0.6 }}>
                                             {countdown === 1 ? "second" : "seconds"}
                                         </AppText>
                                     </View>
@@ -297,7 +297,7 @@ const PasswordResetScreen = () => {
                                         style={{ backgroundColor: colors.accent }}
                                         activeOpacity={0.8}
                                     >
-                                        <AppText styles="text-sm text-white font-nunbold">
+                                        <AppText styles="text-sm text-black font-nunbold">
                                             Go to Login Now
                                         </AppText>
                                     </TouchableOpacity>
@@ -316,11 +316,11 @@ const PasswordResetScreen = () => {
                                 >
                                     <Ionicons name="close-circle" size={60} color="#f87171" />
                                 </View>
-                                <AppText styles="text-2xl text-white mb-2 text-center font-nunbold">
+                                <AppText styles="text-2xl text-black mb-2 text-center font-nunbold">
                                     Password Reset Failed
                                 </AppText>
                                 <AppText
-                                    styles="text-sm text-white text-center"
+                                    styles="text-sm text-black text-center"
                                     style={{ opacity: 0.7, maxWidth: 300 }}
                                 >
                                     We couldn't reset your password
@@ -342,32 +342,32 @@ const PasswordResetScreen = () => {
 
                                 <View className="mb-6">
                                     <AppText
-                                        styles="text-xs text-white mb-3 text-center"
+                                        styles="text-xs text-black mb-3 text-center"
                                         style={{ opacity: 0.6 }}
                                     >
                                         Possible reasons:
                                     </AppText>
                                     <View className="gap-2">
                                         <AppText
-                                            styles="text-xs text-white"
+                                            styles="text-xs text-black"
                                             style={{ opacity: 0.6 }}
                                         >
                                             • The reset link has expired
                                         </AppText>
                                         <AppText
-                                            styles="text-xs text-white"
+                                            styles="text-xs text-black"
                                             style={{ opacity: 0.6 }}
                                         >
                                             • The link has already been used
                                         </AppText>
                                         <AppText
-                                            styles="text-xs text-white"
+                                            styles="text-xs text-black"
                                             style={{ opacity: 0.6 }}
                                         >
                                             • The link is invalid or corrupted
                                         </AppText>
                                         <AppText
-                                            styles="text-xs text-white"
+                                            styles="text-xs text-black"
                                             style={{ opacity: 0.6 }}
                                         >
                                             • The password doesn't meet requirements
@@ -382,7 +382,7 @@ const PasswordResetScreen = () => {
                                         style={{ backgroundColor: colors.accent }}
                                         activeOpacity={0.8}
                                     >
-                                        <AppText styles="text-sm text-white font-nunbold">
+                                        <AppText styles="text-sm text-black font-nunbold">
                                             Request New Link
                                         </AppText>
                                     </TouchableOpacity>
@@ -393,7 +393,7 @@ const PasswordResetScreen = () => {
                                         style={{ backgroundColor: colors.primary200, borderColor: colors.accent + "4D" }}
                                         activeOpacity={0.8}
                                     >
-                                        <AppText styles="text-sm text-white font-nunbold">
+                                        <AppText styles="text-sm text-black font-nunbold">
                                             Back to Login
                                         </AppText>
                                     </TouchableOpacity>

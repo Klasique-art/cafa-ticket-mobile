@@ -45,10 +45,10 @@ const PopularEventsSection = ({ events, isLoading }: PopularEventsSectionProps) 
                         <Ionicons name="flame" size={20} color={colors.accent} />
                     </View>
                     <View>
-                        <AppText styles="text-lg text-white font-nunbold">
+                        <AppText styles="text-lg text-black font-nunbold">
                             Popular Events
                         </AppText>
-                        <AppText styles="text-xs text-white" style={{ opacity: 0.6 }}>
+                        <AppText styles="text-xs text-black" style={{ opacity: 0.6 }}>
                             Trending now
                         </AppText>
                     </View>

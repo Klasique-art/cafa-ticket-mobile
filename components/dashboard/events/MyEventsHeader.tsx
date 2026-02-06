@@ -20,10 +20,10 @@ const MyEventsHeader = ({ currentUser, onOpenFilters }: MyEventsHeaderProps) => 
             {/* Title & Filter Button */}
             <View className="flex-row items-center justify-between mb-2">
                 <View className="flex-1">
-                    <AppText styles="text-2xl text-white mb-1" font="font-ibold">
+                    <AppText styles="text-2xl text-black mb-1" font="font-ibold">
                         My Events
                     </AppText>
-                    <AppText styles="text-xs text-slate-300" font="font-iregular">
+                    <AppText styles="text-xs text-slate-500" font="font-iregular">
                         Manage your created events
                     </AppText>
                 </View>
@@ -47,7 +47,7 @@ const MyEventsHeader = ({ currentUser, onOpenFilters }: MyEventsHeaderProps) => 
                     activeOpacity={0.8}
                 >
                     <Ionicons name="calendar-outline" size={18} color={colors.white} />
-                    <AppText styles="text-xs text-white" font="font-isemibold">
+                    <AppText styles="text-xs text-black" font="font-isemibold">
                         Attended
                     </AppText>
                 </TouchableOpacity>
@@ -93,7 +93,7 @@ const MyEventsHeader = ({ currentUser, onOpenFilters }: MyEventsHeaderProps) => 
                             <Ionicons name="shield-checkmark" size={20} color="#fbbf24" />
                         </View>
                         <View className="flex-1">
-                            <AppText styles="text-sm text-white mb-2" font="font-ibold">
+                            <AppText styles="text-sm text-black mb-2" font="font-ibold">
                                 Verification Required
                             </AppText>
                             <AppText styles="text-xs text-slate-300 mb-3 leading-relaxed" font="font-iregular">
@@ -105,7 +105,7 @@ const MyEventsHeader = ({ currentUser, onOpenFilters }: MyEventsHeaderProps) => 
                                 style={{ backgroundColor: colors.accent }}
                                 activeOpacity={0.8}
                             >
-                                <AppText styles="text-xs text-white" font="font-isemibold">
+                                <AppText styles="text-xs text-black" font="font-isemibold">
                                     Start Verification
                                 </AppText>
                             </TouchableOpacity>

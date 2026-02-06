@@ -39,7 +39,7 @@ const EventsSortTab: FC<EventsSortTabProps> = ({ selectedSort, onSortChange }) =
                 activeOpacity={0.7}
             >
                 <Ionicons name="swap-vertical" size={20} color={colors.accent50} />
-                <AppText styles="text-sm text-white font-nunbold">
+                <AppText styles="text-sm text-black font-nunbold">
                     {selectedOption.label}
                 </AppText>
                 <Ionicons name="chevron-down" size={16} color={colors.white} />

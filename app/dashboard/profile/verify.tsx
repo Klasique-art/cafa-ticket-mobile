@@ -190,7 +190,7 @@ const VerifyProfileScreen = () => {
                                 style={{ backgroundColor: colors.accent50 + "1A", borderColor: colors.accent50 }}
                             >
                                 <Ionicons name="checkmark-circle" size={20} color={colors.accent50} />
-                                <AppText styles="text-sm text-white">
+                                <AppText styles="text-sm text-black">
                                     ID uploaded successfully!
                                 </AppText>
                             </View>
@@ -222,10 +222,10 @@ const VerifyProfileScreen = () => {
                                     style={{ backgroundColor: colors.primary100, borderColor: colors.accent }}
                                 >
                                     <ActivityIndicator size="large" color={colors.accent} />
-                                    <AppText styles="text-lg text-white mt-4 text-center font-nunbold">
+                                    <AppText styles="text-lg text-black mt-4 text-center font-nunbold">
                                         Verifying Your Identity...
                                     </AppText>
-                                    <AppText styles="text-sm text-white mt-2 text-center" style={{ opacity: 0.7 }}>
+                                    <AppText styles="text-sm text-black mt-2 text-center" style={{ opacity: 0.7 }}>
                                         This usually takes a few seconds
                                     </AppText>
                                 </View>
@@ -242,10 +242,10 @@ const VerifyProfileScreen = () => {
                                     >
                                         <Ionicons name="checkmark-circle" size={48} color={colors.accent50} />
                                     </View>
-                                    <AppText styles="text-xl text-white mb-2 text-center font-nunbold">
+                                    <AppText styles="text-xl text-black mb-2 text-center font-nunbold">
                                         Verification Successful!
                                     </AppText>
-                                    <AppText styles="text-sm text-white mb-6 text-center" style={{ opacity: 0.7 }}>
+                                    <AppText styles="text-sm text-black mb-6 text-center" style={{ opacity: 0.7 }}>
                                         Your identity has been verified. You can now create events.
                                     </AppText>
 
@@ -257,7 +257,7 @@ const VerifyProfileScreen = () => {
                                         accessibilityRole="button"
                                         accessibilityLabel="Create first event"
                                     >
-                                        <AppText styles="text-base text-white font-nunbold">
+                                        <AppText styles="text-base text-black font-nunbold">
                                             Create Your First Event
                                         </AppText>
                                     </View>
@@ -275,10 +275,10 @@ const VerifyProfileScreen = () => {
                                     >
                                         <Ionicons name="close-circle" size={48} color={colors.accent} />
                                     </View>
-                                    <AppText styles="text-xl text-white mb-2 text-center font-nunbold">
+                                    <AppText styles="text-xl text-black mb-2 text-center font-nunbold">
                                         Verification Failed
                                     </AppText>
-                                    <AppText styles="text-sm text-white mb-6 text-center" style={{ opacity: 0.7 }}>
+                                    <AppText styles="text-sm text-black mb-6 text-center" style={{ opacity: 0.7 }}>
                                         {rejectionReason || 'We couldn\'t verify your identity. Please try again.'}
                                     </AppText>
 
@@ -290,7 +290,7 @@ const VerifyProfileScreen = () => {
                                         accessibilityRole="button"
                                         accessibilityLabel="Try verification again"
                                     >
-                                        <AppText styles="text-base text-white font-nunbold">
+                                        <AppText styles="text-base text-black font-nunbold">
                                             Try Again
                                         </AppText>
                                     </View>

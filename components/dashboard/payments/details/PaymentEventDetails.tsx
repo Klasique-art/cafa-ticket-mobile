@@ -23,7 +23,7 @@ const PaymentEventDetails = ({ payment }: Props) => {
 
     return (
         <View className="bg-primary-100 rounded-xl p-4 border-2 border-accent/30 mb-4">
-            <AppText styles="text-lg text-white mb-4" font="font-ibold">
+            <AppText styles="text-lg text-black mb-4" font="font-ibold">
                 Event Information
             </AppText>
 
@@ -42,7 +42,7 @@ const PaymentEventDetails = ({ payment }: Props) => {
                 activeOpacity={0.7}
                 className="mb-4"
             >
-                <AppText styles="text-lg text-white" font="font-ibold">
+                <AppText styles="text-lg text-black" font="font-ibold">
                     {payment.event.title}
                 </AppText>
             </TouchableOpacity>
@@ -58,7 +58,7 @@ const PaymentEventDetails = ({ payment }: Props) => {
                         <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                             Date & Time
                         </AppText>
-                        <AppText styles="text-sm text-white mb-0.5" font="font-isemibold">
+                        <AppText styles="text-sm text-black mb-0.5" font="font-isemibold">
                             {formatDate(payment.event.start_date)}
                         </AppText>
                         <AppText styles="text-xs text-slate-300" font="font-iregular">
@@ -76,7 +76,7 @@ const PaymentEventDetails = ({ payment }: Props) => {
                         <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                             Venue
                         </AppText>
-                        <AppText styles="text-sm text-white" font="font-isemibold">
+                        <AppText styles="text-sm text-black" font="font-isemibold">
                             {payment.event.venue_name}
                         </AppText>
                     </View>
@@ -91,7 +91,7 @@ const PaymentEventDetails = ({ payment }: Props) => {
                         <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                             Organizer
                         </AppText>
-                        <AppText styles="text-sm text-white mb-0.5" font="font-isemibold">
+                        <AppText styles="text-sm text-black mb-0.5" font="font-isemibold">
                             {payment.event.organizer.full_name}
                         </AppText>
                         <AppText styles="text-xs text-slate-300" font="font-iregular">

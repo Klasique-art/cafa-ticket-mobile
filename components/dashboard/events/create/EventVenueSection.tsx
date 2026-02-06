@@ -54,10 +54,10 @@ const EventVenueSection = () => {
                     <Ionicons name="location-outline" size={20} color={colors.accent50} />
                 </View>
                 <View className="flex-1">
-                    <AppText styles="text-base text-white" font="font-ibold">
+                    <AppText styles="text-base text-black" font="font-ibold">
                         Venue Information
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                         Where will your event take place?
                     </AppText>
                 </View>
@@ -81,10 +81,10 @@ const EventVenueSection = () => {
                     <View className="flex-row items-start gap-3">
                         <Ionicons name="checkmark-circle" size={20} color={colors.accent50} />
                         <View className="flex-1">
-                            <AppText styles="text-sm text-white mb-1" font="font-ibold">
+                            <AppText styles="text-sm text-black mb-1" font="font-ibold">
                                 Location Selected
                             </AppText>
-                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.8 }}>
+                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.8 }}>
                                 Venue details have been automatically filled in below
                             </AppText>
                         </View>
@@ -98,7 +98,7 @@ const EventVenueSection = () => {
                     className="p-4 rounded-xl border-2"
                     style={{ backgroundColor: colors.success + "33", borderColor: colors.success }}
                 >
-                    <AppText styles="text-sm text-white mb-3" font="font-ibold">
+                    <AppText styles="text-sm text-black mb-3" font="font-ibold">
                         Selected Venue Details
                     </AppText>
 
@@ -111,13 +111,13 @@ const EventVenueSection = () => {
                             />
                             <View className="flex-1">
                                 <AppText
-                                    styles="text-xs text-white mb-0.5"
+                                    styles="text-xs text-black mb-0.5"
                                     font="font-iregular"
                                     style={{ opacity: 0.6 }}
                                 >
                                     Venue Name
                                 </AppText>
-                                <AppText styles="text-sm text-white" font="font-isemibold">
+                                <AppText styles="text-sm text-black" font="font-isemibold">
                                     {values.venue_name}
                                 </AppText>
                             </View>
@@ -131,13 +131,13 @@ const EventVenueSection = () => {
                             />
                             <View className="flex-1">
                                 <AppText
-                                    styles="text-xs text-white mb-0.5"
+                                    styles="text-xs text-black mb-0.5"
                                     font="font-iregular"
                                     style={{ opacity: 0.6 }}
                                 >
                                     Address
                                 </AppText>
-                                <AppText styles="text-sm text-white" font="font-isemibold">
+                                <AppText styles="text-sm text-black" font="font-isemibold">
                                     {values.venue_address}
                                 </AppText>
                             </View>
@@ -151,13 +151,13 @@ const EventVenueSection = () => {
                             />
                             <View className="flex-1">
                                 <AppText
-                                    styles="text-xs text-white mb-0.5"
+                                    styles="text-xs text-black mb-0.5"
                                     font="font-iregular"
                                     style={{ opacity: 0.6 }}
                                 >
                                     City
                                 </AppText>
-                                <AppText styles="text-sm text-white" font="font-isemibold">
+                                <AppText styles="text-sm text-black" font="font-isemibold">
                                     {values.venue_city}
                                 </AppText>
                             </View>
@@ -171,13 +171,13 @@ const EventVenueSection = () => {
                             />
                             <View className="flex-1">
                                 <AppText
-                                    styles="text-xs text-white mb-0.5"
+                                    styles="text-xs text-black mb-0.5"
                                     font="font-iregular"
                                     style={{ opacity: 0.6 }}
                                 >
                                     Country
                                 </AppText>
-                                <AppText styles="text-sm text-white" font="font-isemibold">
+                                <AppText styles="text-sm text-black" font="font-isemibold">
                                     {values.venue_country}
                                 </AppText>
                             </View>
@@ -192,13 +192,13 @@ const EventVenueSection = () => {
                                 />
                                 <View className="flex-1">
                                     <AppText
-                                        styles="text-xs text-white mb-0.5"
+                                        styles="text-xs text-black mb-0.5"
                                         font="font-iregular"
                                         style={{ opacity: 0.6 }}
                                     >
                                         GPS Coordinates
                                     </AppText>
-                                    <AppText styles="text-sm text-white" font="font-isemibold">
+                                    <AppText styles="text-sm text-black" font="font-isemibold">
                                         {values.venue_latitude}, {values.venue_longitude}
                                     </AppText>
                                 </View>
@@ -215,20 +215,20 @@ const EventVenueSection = () => {
             >
                 <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                 <View className="flex-1">
-                    <AppText styles="text-xs text-white mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
                         How it works
                     </AppText>
                     <View className="gap-1">
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Start typing the venue name or address
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Select from dropdown suggestions
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • All details including GPS coordinates fill automatically
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Attendees will see the location on a map
                         </AppText>
                     </View>

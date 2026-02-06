@@ -25,7 +25,7 @@ export default function SearchBar({
     <Pressable onPress={handlePress}>
       <View
         className="flex-row items-center gap-3 rounded-2xl px-4 py-3"
-        style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+        style={{ backgroundColor: colors.primary }}
       >
         <Ionicons name="search" size={20} color="rgba(255,255,255,0.6)" />
         <TextInput
@@ -34,7 +34,7 @@ export default function SearchBar({
           onSubmitEditing={onSubmit}
           placeholder={placeholder}
           placeholderTextColor="rgba(255,255,255,0.5)"
-          className="flex-1 text-base text-white"
+          className="flex-1 text-base text-black"
           editable={!!onChangeText}
           pointerEvents={onChangeText ? "auto" : "none"}
         />

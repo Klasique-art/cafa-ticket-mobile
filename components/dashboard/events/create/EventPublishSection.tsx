@@ -24,10 +24,10 @@ const EventPublishSection = () => {
                     />
                 </View>
                 <View className="flex-1">
-                    <AppText styles="text-base text-white" font="font-ibold">
+                    <AppText styles="text-base text-black" font="font-ibold">
                         Publishing Settings
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                         Control event visibility
                     </AppText>
                 </View>
@@ -52,7 +52,7 @@ const EventPublishSection = () => {
                     />
                     <View className="flex-1">
                         <View className="flex-row items-center gap-2 mb-2">
-                            <AppText styles="text-sm text-white" font="font-ibold">
+                            <AppText styles="text-sm text-black" font="font-ibold">
                                 {values.is_published ? "Event is Published" : "Event is Unpublished"}
                             </AppText>
                             <View
@@ -70,7 +70,7 @@ const EventPublishSection = () => {
                                 </AppText>
                             </View>
                         </View>
-                        <AppText styles="text-xs text-white mb-3" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black mb-3" font="font-iregular" style={{ opacity: 0.7 }}>
                             {values.is_published
                                 ? "Visible to everyone and appears in search results"
                                 : "Hidden from search, accessible via direct link only"}
@@ -85,7 +85,7 @@ const EventPublishSection = () => {
                                         backgroundColor: values.is_published ? colors.success : colors.white + "80",
                                     }}
                                 />
-                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                                     {values.is_published ? "Appears in search results" : "Hidden from search"}
                                 </AppText>
                             </View>
@@ -96,7 +96,7 @@ const EventPublishSection = () => {
                                         backgroundColor: values.is_published ? colors.success : colors.white + "80",
                                     }}
                                 />
-                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                                     {values.is_published ? "Shown on category pages" : "Not on category pages"}
                                 </AppText>
                             </View>
@@ -107,7 +107,7 @@ const EventPublishSection = () => {
                                         backgroundColor: values.is_published ? colors.success : colors.white + "80",
                                     }}
                                 />
-                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                                     {values.is_published ? "Tickets publicly available" : "Tickets via link only"}
                                 </AppText>
                             </View>
@@ -125,18 +125,18 @@ const EventPublishSection = () => {
                 >
                     <View className="flex-row items-center gap-2 mb-2">
                         <Ionicons name="eye-outline" size={14} color={colors.accent50} />
-                        <AppText styles="text-xs text-white" font="font-isemibold" style={{ opacity: 0.9 }}>
+                        <AppText styles="text-xs text-black" font="font-isemibold" style={{ opacity: 0.9 }}>
                             When Published
                         </AppText>
                     </View>
                     <View className="gap-1">
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Discoverable by all
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Search indexed
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Social shareable
                         </AppText>
                     </View>
@@ -149,18 +149,18 @@ const EventPublishSection = () => {
                 >
                     <View className="flex-row items-center gap-2 mb-2">
                         <Ionicons name="eye-off-outline" size={14} color={colors.white} style={{ opacity: 0.6 }} />
-                        <AppText styles="text-xs text-white" font="font-isemibold" style={{ opacity: 0.9 }}>
+                        <AppText styles="text-xs text-black" font="font-isemibold" style={{ opacity: 0.9 }}>
                             When Unpublished
                         </AppText>
                     </View>
                     <View className="gap-1">
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Hidden from public
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Direct link access
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Good for testing
                         </AppText>
                     </View>
@@ -174,17 +174,17 @@ const EventPublishSection = () => {
             >
                 <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                 <View className="flex-1">
-                    <AppText styles="text-xs text-white mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
                         Important Notes
                     </AppText>
                     <View className="gap-1">
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • You can change this anytime from dashboard
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Unpublishing won't affect purchased tickets
                         </AppText>
-                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Unpublish if not ready to sell yet
                         </AppText>
                     </View>

@@ -108,7 +108,7 @@ const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
                 {/* Category Badge */}
                 <View className="absolute top-3 left-3">
                     <View className="px-2 py-1 rounded-lg border" style={{ backgroundColor: colors.primary100 + "CC", borderColor: colors.accent + "4D" }}>
-                        <AppText styles="text-xs text-white" font="font-isemibold">
+                        <AppText styles="text-xs text-black" font="font-isemibold">
                             {ticket.event.category.name}
                         </AppText>
                     </View>
@@ -119,7 +119,7 @@ const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
             <View className="p-2 gap-3">
                 {/* Event Title */}
                 <TouchableOpacity onPress={() => router.push(`/events/${ticket.event.slug}`)}>
-                    <AppText styles="text-base text-white underline" font="font-ibold" numberOfLines={2}>
+                    <AppText styles="text-base text-black underline" font="font-ibold" numberOfLines={2}>
                         {ticket.event.title}
                     </AppText>
                 </TouchableOpacity>
@@ -129,10 +129,10 @@ const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
                     <View className="flex-row items-start gap-2">
                         <Ionicons name="calendar-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                         <View className="flex-1">
-                            <AppText styles="text-xs text-white mb-0.5" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-black mb-0.5" font="font-iregular" style={{ opacity: 0.6 }}>
                                 Date
                             </AppText>
-                            <AppText styles="text-sm text-white" font="font-isemibold">
+                            <AppText styles="text-sm text-black" font="font-isemibold">
                                 {formatDate(ticket.event.start_date)}
                             </AppText>
                         </View>
@@ -140,10 +140,10 @@ const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
                             <View className="flex-row items-start gap-2">
                                 <Ionicons name="time-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                                 <View className="flex-1">
-                                    <AppText styles="text-xs text-white mb-0.5" font="font-iregular" style={{ opacity: 0.6 }}>
+                                    <AppText styles="text-xs text-black mb-0.5" font="font-iregular" style={{ opacity: 0.6 }}>
                                         Time
                                     </AppText>
-                                    <AppText styles="text-sm text-white" font="font-isemibold">
+                                    <AppText styles="text-sm text-black" font="font-isemibold">
                                         {formatTime(ticket.event.start_time)}
                                     </AppText>
                                 </View>
@@ -154,10 +154,10 @@ const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
                     <View className="flex-row items-start gap-2">
                         <Ionicons name="location-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                         <View className="flex-1">
-                            <AppText styles="text-xs text-white mb-0.5" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-black mb-0.5" font="font-iregular" style={{ opacity: 0.6 }}>
                                 Venue
                             </AppText>
-                            <AppText styles="text-sm text-white" font="font-isemibold" numberOfLines={1}>
+                            <AppText styles="text-sm text-black" font="font-isemibold" numberOfLines={1}>
                                 {ticket.event.venue_name}, {ticket.event.venue_city}
                             </AppText>
                         </View>
@@ -170,18 +170,18 @@ const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
                 {/* Ticket Info */}
                 <View className="flex-row items-center justify-between">
                     <View>
-                        <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                        <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                             Ticket Type
                         </AppText>
-                        <AppText styles="text-sm text-white" font="font-ibold">
+                        <AppText styles="text-sm text-black" font="font-ibold">
                             {ticket.ticket_type.name}
                         </AppText>
                     </View>
                     <View className="items-end">
-                        <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                        <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                             Amount Paid
                         </AppText>
-                        <AppText styles="text-sm text-white" font="font-ibold" style={{ color: colors.accent50 }}>
+                        <AppText styles="text-sm text-black" font="font-ibold" style={{ color: colors.accent50 }}>
                             {formatMoney(ticket.amount_paid)}
                         </AppText>
                     </View>
@@ -193,11 +193,11 @@ const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
                         <View className="flex-row items-center gap-2">
                             <Ionicons name="checkmark-circle" size={20} color={colors.accent50} />
                             <View>
-                                <AppText styles="text-sm text-white" font="font-isemibold" style={{ color: colors.accent50 }}>
+                                <AppText styles="text-sm text-black" font="font-isemibold" style={{ color: colors.accent50 }}>
                                     Checked In
                                 </AppText>
                                 {ticket.checked_in_at && (
-                                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
+                                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
                                         {formatDate(ticket.checked_in_at)}
                                     </AppText>
                                 )}
@@ -208,13 +208,13 @@ const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
 
                 {/* Attendee Info */}
                 <View className="p-3 rounded-lg" style={{ backgroundColor: colors.primary200 }}>
-                    <AppText styles="text-xs text-white mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
                         Attendee
                     </AppText>
-                    <AppText styles="text-sm text-white mb-1" font="font-isemibold">
+                    <AppText styles="text-sm text-black mb-1" font="font-isemibold">
                         {ticket.attendee_info.name}
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-imedium" style={{ opacity: 0.5 }}>
+                    <AppText styles="text-xs text-black" font="font-imedium" style={{ opacity: 0.5 }}>
                         {ticket.ticket_id}
                     </AppText>
                 </View>
@@ -228,7 +228,7 @@ const MyTicketCard = ({ ticket }: MyTicketCardProps) => {
                         activeOpacity={0.8}
                     >
                         <Ionicons name="eye-outline" size={16} color={colors.white} />
-                        <AppText styles="text-sm text-white" font="font-ibold">
+                        <AppText styles="text-sm text-black" font="font-ibold">
                             View
                         </AppText>
                     </TouchableOpacity>

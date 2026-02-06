@@ -86,10 +86,10 @@ const AnalyticsScreen = () => {
                         >
                             <Ionicons name="warning-outline" size={32} color={colors.accent50} />
                         </View>
-                        <AppText styles="text-base text-white text-center font-nunbold">
+                        <AppText styles="text-base text-black text-center font-nunbold">
                             Unable to load analytics
                         </AppText>
-                        <AppText styles="text-xs text-white mt-2 text-center" style={{ opacity: 0.6 }}>
+                        <AppText styles="text-xs text-black mt-2 text-center" style={{ opacity: 0.6 }}>
                             Please check your connection and try again.
                         </AppText>
                     </View>
@@ -161,15 +161,15 @@ const AnalyticsScreen = () => {
             <RequireAuth>
                 <Nav title="Analytics" />
 
-                <View className="flex-1" style={{ backgroundColor: colors.primary }}>
+                <View className="flex-1" >
                     <ScrollView className="flex-1" showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 50 }}>
                         <View className="gap-6">
                             {/* Welcome Header */}
                             <View className=" pt-2">
-                                <AppText styles="text-xl text-white font-nunbold">
+                                <AppText styles="text-xl text-black font-nunbold">
                                     Welcome back, {stats.username}
                                 </AppText>
-                                <AppText styles="text-xs text-white mt-1" style={{ opacity: 0.6 }}>
+                                <AppText styles="text-xs text-black mt-1" style={{ opacity: 0.6 }}>
                                     Here's your activity summary
                                 </AppText>
                             </View>

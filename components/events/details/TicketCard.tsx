@@ -109,7 +109,7 @@ const TicketCard = ({ ticket, event, currentUser, onPurchase }: TicketCardProps)
 
                     {/* Price */}
                     <View className="flex-row items-baseline gap-2 mb-1">
-                        <AppText styles="text-2xl text-white font-nunbold">
+                        <AppText styles="text-2xl text-black font-nunbold">
                             GHS {parseFloat(ticket.price).toFixed(0)}
                         </AppText>
                         <AppText styles="text-sm text-slate-400">
@@ -156,11 +156,11 @@ const TicketCard = ({ ticket, event, currentUser, onPurchase }: TicketCardProps)
                                         style={{ backgroundColor: colors.primary200, borderWidth: 2, borderColor: colors.accent, opacity: quantity <= ticket.min_purchase ? 0.3 : 1 }}
                                         activeOpacity={0.7}
                                     >
-                                        <AppText styles="text-lg text-white font-nunbold">-</AppText>
+                                        <AppText styles="text-lg text-black font-nunbold">-</AppText>
                                     </TouchableOpacity>
 
                                     <View className="flex-1 h-12 px-4 bg-primary-200 rounded-xl items-center justify-center" style={{ borderWidth: 2, borderColor: colors.accent }}>
-                                        <AppText styles="text-lg text-white font-nunbold">{quantity}</AppText>
+                                        <AppText styles="text-lg text-black font-nunbold">{quantity}</AppText>
                                     </View>
 
                                     <TouchableOpacity
@@ -170,7 +170,7 @@ const TicketCard = ({ ticket, event, currentUser, onPurchase }: TicketCardProps)
                                         style={{ backgroundColor: colors.primary200, borderWidth: 2, borderColor: colors.accent, opacity: quantity >= Math.min(ticket.max_purchase, ticket.tickets_remaining) ? 0.3 : 1 }}
                                         activeOpacity={0.7}
                                     >
-                                        <AppText styles="text-lg text-white font-nunbold">+</AppText>
+                                        <AppText styles="text-lg text-black font-nunbold">+</AppText>
                                     </TouchableOpacity>
                                 </View>
                                 <AppText styles="text-xs text-slate-400 mt-2">
@@ -181,7 +181,7 @@ const TicketCard = ({ ticket, event, currentUser, onPurchase }: TicketCardProps)
                             {/* Total Price */}
                             <View className="flex-row justify-between items-center p-2 bg-primary-200 rounded-xl mb-4" style={{ borderWidth: 1, borderColor: colors.accent }}>
                                 <AppText styles="text-sm text-slate-300">Total Price</AppText>
-                                <AppText styles="text-xl text-white font-nunbold">GHS {subtotal.toFixed(2)}</AppText>
+                                <AppText styles="text-xl text-black font-nunbold">GHS {subtotal.toFixed(2)}</AppText>
                             </View>
 
                             {/* Select Button */}
@@ -191,7 +191,7 @@ const TicketCard = ({ ticket, event, currentUser, onPurchase }: TicketCardProps)
                                 style={{ backgroundColor: theme.buttonColor }}
                                 activeOpacity={0.8}
                             >
-                                <AppText styles="text-sm text-white font-nunbold">Select {ticket.name}</AppText>
+                                <AppText styles="text-sm text-black font-nunbold">Select {ticket.name}</AppText>
                             </TouchableOpacity>
                         </>
                     )}

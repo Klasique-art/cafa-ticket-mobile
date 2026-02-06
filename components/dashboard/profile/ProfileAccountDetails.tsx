@@ -70,7 +70,7 @@ const ProfileAccountDetails = ({ user }: ProfileAccountDetailsProps) => {
         <View className="bg-primary-100 rounded-2xl p-2">
             {/* Header */}
             <View className="mb-4">
-                <AppText styles="text-lg text-white mb-1 font-nunbold">
+                <AppText styles="text-lg text-black mb-1 font-nunbold">
                     Account Details
                 </AppText>
                 <AppText styles="text-sm text-slate-300">
@@ -97,7 +97,7 @@ const ProfileAccountDetails = ({ user }: ProfileAccountDetailsProps) => {
                                     {detail.title}
                                 </AppText>
                                 <View className="flex-row items-center gap-2 flex-wrap mb-1">
-                                    <AppText styles="text-base text-white font-nunbold">
+                                    <AppText styles="text-base text-black font-nunbold">
                                         {detail.value}
                                     </AppText>
                                     {detail.badge && (
@@ -140,7 +140,7 @@ const ProfileAccountDetails = ({ user }: ProfileAccountDetailsProps) => {
                 <View className="flex-row items-start gap-3">
                     <Ionicons name="shield-checkmark-outline" size={20} color={colors.accent50} />
                     <View className="flex-1">
-                        <AppText styles="text-sm text-white mb-1">
+                        <AppText styles="text-sm text-black mb-1">
                             Security Recommendation
                         </AppText>
                         <AppText styles="text-xs text-slate-300">

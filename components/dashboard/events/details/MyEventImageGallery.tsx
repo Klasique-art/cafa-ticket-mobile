@@ -29,7 +29,7 @@ const MyEventImageGallery = ({ images }: MyEventImageGalleryProps) => {
                         <Ionicons name="images-outline" size={20} color="#a855f7" />
                     </View>
                     <View>
-                        <AppText styles="text-base text-white" font="font-ibold">
+                        <AppText styles="text-base text-black" font="font-ibold">
                             Event Gallery
                         </AppText>
                         <AppText styles="text-xs text-slate-400" font="font-iregular">
@@ -137,7 +137,7 @@ const MyEventImageGallery = ({ images }: MyEventImageGalleryProps) => {
                             className="absolute bottom-8 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl"
                             style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
                         >
-                            <AppText styles="text-sm text-white" font="font-isemibold">
+                            <AppText styles="text-sm text-black" font="font-isemibold">
                                 {selectedIndex + 1} / {images.length}
                             </AppText>
                         </View>

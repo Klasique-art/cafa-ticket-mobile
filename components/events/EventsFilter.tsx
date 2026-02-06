@@ -50,7 +50,7 @@ const EventsFilter = ({
                 activeOpacity={0.7}
             >
                 <Ionicons name="filter" size={20} color={colors.accent50} />
-                <AppText styles="text-sm text-white font-nunbold">
+                <AppText styles="text-sm text-black font-nunbold">
                     Filters
                 </AppText>
                 {activeFiltersCount > 0 && (
@@ -141,7 +141,7 @@ const EventsFilter = ({
                             <View className="flex-1">
                                 <AppButton
                                     title="Clear All"
-                                    variant="outline"
+                                    variant="secondary"
                                     size="md"
                                     onClick={() => {
                                         onClearFilters();
@@ -152,7 +152,7 @@ const EventsFilter = ({
                             <View className="flex-1">
                                 <AppButton
                                     title="Apply"
-                                    variant="primary"
+                                    variant="danger"
                                     size="md"
                                     onClick={handleApply}
                                 />

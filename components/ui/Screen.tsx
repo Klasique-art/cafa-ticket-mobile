@@ -14,7 +14,7 @@ const Screen = ({ children, statusBarStyle = "light-content", statusBarBg = "#1a
     return (
         <SafeAreaView style={[styles.screen]} className={`${className} bg-primary`}>
             <StatusBar backgroundColor={statusBarBg} barStyle={statusBarStyle} />
-            <View style={{ flex: 1 }} className={`${className} bg-primary px-2`}>
+            <View style={{ flex: 1 }} className={`${className} bg-white px-2 pt-2`}>
                 {children}
             </View>
         </SafeAreaView>

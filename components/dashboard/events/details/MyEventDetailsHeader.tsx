@@ -104,7 +104,7 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
 
                 {/* Event Info Overlay */}
                 <View className="absolute bottom-0 left-0 right-0 p-4">
-                    <AppText styles="text-xs text-accent-50 mb-2" font="font-isemibold">
+                    <AppText styles="text-xs text-accent-50 mb-2 text-white" font="font-isemibold">
                         {event.category.name}
                     </AppText>
                     <AppText styles="text-2xl text-white mb-3" font="font-ibold">
@@ -168,7 +168,7 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
                         activeOpacity={0.8}
                     >
                         <Ionicons name="people-outline" size={18} color={colors.white} />
-                        <AppText styles="text-sm text-white" font="font-isemibold">
+                        <AppText styles="text-sm text-black" font="font-isemibold">
                             Attendees
                         </AppText>
                     </TouchableOpacity>
@@ -179,7 +179,7 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
                         activeOpacity={0.8}
                     >
                         <Ionicons name="eye-outline" size={18} color={colors.white} />
-                        <AppText styles="text-sm text-white" font="font-isemibold">
+                        <AppText styles="text-sm text-black" font="font-isemibold">
                             View Public
                         </AppText>
                     </TouchableOpacity>

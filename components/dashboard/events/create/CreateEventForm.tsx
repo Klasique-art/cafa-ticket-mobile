@@ -250,20 +250,20 @@ const CreateEventForm = ({ onOpenModal, formContextRef }: CreateEventFormProps) 
                                         <View className="flex-row items-start gap-3">
                                             <Ionicons name="alert-circle" size={18} color={colors.accent} style={{ marginTop: 2 }} />
                                             <View className="flex-1">
-                                                <AppText styles="text-sm text-white mb-2" font="font-ibold">
+                                                <AppText styles="text-sm text-black mb-2" font="font-ibold">
                                                     Complete Required Fields
                                                 </AppText>
-                                                <AppText styles="text-xs text-white mb-2" font="font-iregular" style={{ opacity: 0.8 }}>
+                                                <AppText styles="text-xs text-black mb-2" font="font-iregular" style={{ opacity: 0.8 }}>
                                                     Please fill in the following:
                                                 </AppText>
                                                 <View className="gap-1">
                                                     {missingFields.slice(0, 5).map((field, index) => (
-                                                        <AppText key={index} styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.8 }}>
+                                                        <AppText key={index} styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.8 }}>
                                                             • {field}
                                                         </AppText>
                                                     ))}
                                                     {missingFields.length > 5 && (
-                                                        <AppText styles="text-xs text-white" font="font-isemibold" style={{ opacity: 0.9 }}>
+                                                        <AppText styles="text-xs text-black" font="font-isemibold" style={{ opacity: 0.9 }}>
                                                             ...and {missingFields.length - 5} more
                                                         </AppText>
                                                     )}
@@ -281,7 +281,7 @@ const CreateEventForm = ({ onOpenModal, formContextRef }: CreateEventFormProps) 
                                     >
                                         <View className="flex-row items-center gap-3">
                                             <Ionicons name="checkmark-circle" size={18} color={colors.accent50} />
-                                            <AppText styles="text-sm text-white" font="font-ibold">
+                                            <AppText styles="text-sm text-black" font="font-ibold">
                                                 All set! Ready to create your event.
                                             </AppText>
                                         </View>
@@ -296,7 +296,7 @@ const CreateEventForm = ({ onOpenModal, formContextRef }: CreateEventFormProps) 
                                 </View>
 
                                 {/* Helper Text */}
-                                <AppText styles="text-xs text-white text-center" font="font-iregular" style={{ opacity: 0.6 }}>
+                                <AppText styles="text-xs text-black text-center" font="font-iregular" style={{ opacity: 0.6 }}>
                                     By creating this event, you agree to our Terms of Service
                                 </AppText>
                             </View>

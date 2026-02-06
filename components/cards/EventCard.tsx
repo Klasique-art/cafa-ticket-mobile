@@ -30,7 +30,7 @@ export default function EventCard({ event, width = 180 }: EventCardProps) {
             className="absolute bottom-2 right-2 rounded-lg px-2 py-1"
             style={{ backgroundColor: colors.accent }}
           >
-            <Text className="text-xs font-bold text-white">
+            <Text className="text-xs font-bold text-black">
               {formatPrice(event.lowest_price)}
             </Text>
           </View>
@@ -38,20 +38,20 @@ export default function EventCard({ event, width = 180 }: EventCardProps) {
 
         {/* Content */}
         <View className="p-3">
-          <Text className="mb-1 text-sm font-bold text-white" numberOfLines={2}>
+          <Text className="mb-1 text-sm font-bold text-black" numberOfLines={2}>
             {event.title}
           </Text>
 
           <View className="flex-row items-center gap-1 mb-1">
             <Ionicons name="calendar-outline" size={12} color="rgba(255,255,255,0.6)" />
-            <Text className="text-xs text-white/60">
+            <Text className="text-xs text-black/60">
               {formatEventDate(event.start_date)}
             </Text>
           </View>
 
           <View className="flex-row items-center gap-1">
             <Ionicons name="location-outline" size={12} color="rgba(255,255,255,0.6)" />
-            <Text className="text-xs text-white/60" numberOfLines={1}>
+            <Text className="text-xs text-black/60" numberOfLines={1}>
               {event.venue_city}
             </Text>
           </View>

@@ -64,7 +64,7 @@ const CreateEventScreen = () => {
                 <View className="flex-1 px-4 pb-6">
                     <View className="mb-6">
                         <AppText
-                            styles="text-sm text-white"
+                            styles="text-sm text-black"
                             style={{ opacity: 0.6 }}
                         >
                             Fill in the details below to create your event

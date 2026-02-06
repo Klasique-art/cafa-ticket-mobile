@@ -51,7 +51,7 @@ const PaymentDetailsHeader = ({ payment }: Props) => {
             {/* Header Row */}
             <View className="flex-row items-start justify-between mb-4">
                 <View className="flex-1 mr-3">
-                    <AppText styles="text-xl text-white mb-2" font="font-ibold">
+                    <AppText styles="text-xl text-black mb-2" font="font-ibold">
                         Payment Details
                     </AppText>
                     <View className="flex-row items-center flex-wrap">
@@ -80,7 +80,7 @@ const PaymentDetailsHeader = ({ payment }: Props) => {
                 <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                     Total Amount Paid
                 </AppText>
-                <AppText styles="text-3xl text-white" font="font-ibold">
+                <AppText styles="text-3xl text-black" font="font-ibold">
                     {formatMoney(payment.amount)}
                 </AppText>
             </View>

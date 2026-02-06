@@ -1,4 +1,4 @@
-import { View, ActivityIndicator } from "react-native";
+import { View } from "react-native";
 import { useState, useEffect, useCallback, useRef } from "react";
 
 import { Screen, MyEventsHeader, MyEventsFilters, MyEventsGrid, MyEventsEmptyState, AppBottomSheet, ConfirmAction, AppText, Nav, RequireAuth, Animation } from "@/components";
@@ -6,7 +6,6 @@ import type { AppBottomSheetRef } from "@/components";
 import type { MyEvent } from "@/types/dash-events.types";
 import { getMyEvents, deleteMyEvent } from "@/lib/events";
 import { useAuth } from "@/context";
-import colors from "@/config/colors";
 import { tickets } from "@/assets";
 
 interface Filters {

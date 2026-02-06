@@ -73,7 +73,7 @@ const MyEventAnalyticsOverview = ({ analytics }: MyEventAnalyticsOverviewProps) 
 
     return (
         <View className="gap-4">
-            <AppText styles="text-xl text-white" font="font-ibold">
+            <AppText styles="text-xl text-black" font="font-ibold">
                 Event Analytics
             </AppText>
 

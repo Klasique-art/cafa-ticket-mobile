@@ -88,7 +88,7 @@ const SearchableSelect = ({
                     ${disabled || isLoading ? 'opacity-50' : ''}
                 `}
             >
-                <Text className={`text-sm flex-1 ${displayValue ? 'text-white' : 'text-slate-500'}`}>
+                <Text className={`text-sm flex-1 ${displayValue ? 'text-black' : 'text-slate-500'}`}>
                     {isLoading ? 'Loading...' : displayValue || placeholder}
                 </Text>
                 
@@ -128,7 +128,7 @@ const SearchableSelect = ({
                     >
                         {/* Header */}
                         <View className="flex-row items-center justify-between p-4 border-b border-secondary/30">
-                            <Text className="text-base font-isemibold text-white">{label}</Text>
+                            <Text className="text-base font-isemibold text-black">{label}</Text>
                             <TouchableOpacity onPress={handleClose}>
                                 <Ionicons name="close" size={24} color="#cbd5e1" />
                             </TouchableOpacity>
@@ -148,7 +148,7 @@ const SearchableSelect = ({
                                     onChangeText={setSearchQuery}
                                     placeholder="Type to search..."
                                     placeholderTextColor="#94a3b8"
-                                    className="w-full pl-10 pr-2 py-2 bg-primary/50 border-2 border-secondary/30 text-white text-sm rounded-lg font-iregular"
+                                    className="w-full pl-10 pr-2 py-2 bg-primary/50 border-2 border-secondary/30 text-black text-sm rounded-lg font-iregular"
                                 />
                             </View>
                         </View>

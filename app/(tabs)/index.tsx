@@ -84,8 +84,8 @@ export default function HomeScreen() {
     const hasNoUpcomingEvents = upcomingEvents.length === 0;
 
     return (
-        <View className="flex-1 px-2" style={{ backgroundColor: colors.primary }}>
-            <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
+        <View className="flex-1 px-2" style={{ backgroundColor: colors.white }}>
+            <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
 
             <Animated.ScrollView
                 className="flex-1"
@@ -134,11 +134,11 @@ export default function HomeScreen() {
                                     <Ionicons name="calendar" size={20} color={colors.accent} />
                                 </View>
                                 <View>
-                                    <AppText styles="text-lg text-white font-nunbold">
+                                    <AppText styles="text-lg text-black font-nunbold">
                                         Events Happening Soon
                                     </AppText>
                                     <AppText
-                                        styles="text-xs text-white"
+                                        styles="text-xs text-black"
                                         style={{ opacity: 0.6 }}
                                     >
                                         Within the next 7 days
@@ -172,11 +172,11 @@ export default function HomeScreen() {
                                     <Ionicons name="calendar-outline" size={20} color={colors.accent} />
                                 </View>
                                 <View>
-                                    <AppText styles="text-lg text-white font-nunbold">
+                                    <AppText styles="text-lg text-black font-nunbold">
                                         Upcoming Events
                                     </AppText>
                                     <AppText
-                                        styles="text-xs text-white"
+                                        styles="text-xs text-black"
                                         style={{ opacity: 0.6 }}
                                     >
                                         Events coming up

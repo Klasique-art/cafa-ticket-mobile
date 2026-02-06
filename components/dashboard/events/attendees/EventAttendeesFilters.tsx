@@ -142,7 +142,7 @@ const EventAttendeesFilters = ({
                             className="absolute -top-1 -right-1 w-5 h-5 rounded-full items-center justify-center"
                             style={{ backgroundColor: colors.accent }}
                         >
-                            <AppText styles="text-xs text-white" font="font-ibold">
+                            <AppText styles="text-xs text-black" font="font-ibold">
                                 !
                             </AppText>
                         </View>
@@ -166,7 +166,7 @@ const EventAttendeesFilters = ({
                                 >
                                     <Ionicons name="filter" size={20} color={colors.accent50} />
                                 </View>
-                                <AppText styles="text-lg text-white" font="font-ibold">
+                                <AppText styles="text-lg text-black" font="font-ibold">
                                     Filter Attendees
                                 </AppText>
                             </View>
@@ -251,7 +251,7 @@ const EventAttendeesFilters = ({
                                 style={{ backgroundColor: colors.accent }}
                                 activeOpacity={0.8}
                             >
-                                <AppText styles="text-sm text-white text-center" font="font-ibold">
+                                <AppText styles="text-sm text-black text-center" font="font-ibold">
                                     Apply Filters
                                 </AppText>
                             </TouchableOpacity>

@@ -103,7 +103,7 @@ const EditProfileScreen = () => {
                         <Ionicons name="chevron-back" size={20} color="#fff" />
                     </TouchableOpacity>
                     <View className="flex-1">
-                        <AppText styles="text-xl text-white font-nunbold">
+                        <AppText styles="text-xl text-black font-nunbold">
                             Edit Profile
                         </AppText>
                         <AppText styles="text-sm text-slate-400">
@@ -148,7 +148,7 @@ const EditProfileScreen = () => {
                                             <Ionicons name="person-outline" size={20} color="#a855f7" />
                                         </View>
                                         <View>
-                                            <AppText styles="text-lg text-white font-nunbold">
+                                            <AppText styles="text-lg text-black font-nunbold">
                                                 Profile Picture
                                             </AppText>
                                             <AppText styles="text-xs text-slate-400">
@@ -176,7 +176,7 @@ const EditProfileScreen = () => {
                                             <Ionicons name="person-circle-outline" size={20} color="#3b82f6" />
                                         </View>
                                         <View>
-                                            <AppText styles="text-lg text-white font-nunbold">
+                                            <AppText styles="text-lg text-black font-nunbold">
                                                 Personal Information
                                             </AppText>
                                             <AppText styles="text-xs text-slate-400">
@@ -226,7 +226,7 @@ const EditProfileScreen = () => {
                                             <Ionicons name="location-outline" size={20} color="#10b981" />
                                         </View>
                                         <View>
-                                            <AppText styles="text-lg text-white font-nunbold">
+                                            <AppText styles="text-lg text-black font-nunbold">
                                                 Location
                                             </AppText>
                                             <AppText styles="text-xs text-slate-400">
@@ -292,7 +292,7 @@ const EditProfileScreen = () => {
                                     }}
                                     activeOpacity={0.8}
                                 >
-                                    <AppText styles="text-sm text-white font-nunbold">
+                                    <AppText styles="text-sm text-black font-nunbold">
                                         Cancel
                                     </AppText>
                                 </TouchableOpacity>

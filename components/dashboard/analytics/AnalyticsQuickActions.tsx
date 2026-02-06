@@ -40,7 +40,7 @@ const quickActions = [
 const AnalyticsQuickActions = () => {
     return (
         <View>
-            <AppText styles="text-sm text-white mb-3" font="font-ibold">
+            <AppText styles="text-sm text-black mb-3" font="font-ibold">
                 Quick Actions
             </AppText>
 

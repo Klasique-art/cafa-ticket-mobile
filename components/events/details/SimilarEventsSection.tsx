@@ -49,10 +49,10 @@ const SimilarEventCard = ({ event }: { event: SimilarEvent }) => {
                     className="absolute top-4 left-4 w-14 h-14 rounded-xl items-center justify-center"
                     style={{ backgroundColor: colors.accent }}
                 >
-                    <AppText styles="text-xs text-white font-nunbold">
+                    <AppText styles="text-xs text-black font-nunbold">
                         {month}
                     </AppText>
-                    <AppText styles="text-2xl text-white font-nunbold">
+                    <AppText styles="text-2xl text-black font-nunbold">
                         {day}
                     </AppText>
                 </View>
@@ -60,7 +60,7 @@ const SimilarEventCard = ({ event }: { event: SimilarEvent }) => {
 
             {/* Content */}
             <View className="p-4">
-                <AppText styles="text-base text-white mb-2 font-nunbold" numberOfLines={2}>
+                <AppText styles="text-base text-black mb-2 font-nunbold" numberOfLines={2}>
                     {event.title}
                 </AppText>
 
@@ -76,7 +76,7 @@ const SimilarEventCard = ({ event }: { event: SimilarEvent }) => {
                         <AppText styles="text-xs text-slate-400">
                             From
                         </AppText>
-                        <AppText styles="text-base text-white font-nunbold">
+                        <AppText styles="text-base text-black font-nunbold">
                             GHS {parseFloat(event.lowest_price).toFixed(0)}
                         </AppText>
                     </View>
@@ -104,7 +104,7 @@ const SimilarEventsSection = ({ event }: SimilarEventsSectionProps) => {
                         >
                             <Ionicons name="sparkles-outline" size={24} color={colors.accent50} />
                         </View>
-                        <AppText styles="text-xl text-white font-nunbold">
+                        <AppText styles="text-xl text-black font-nunbold">
                             You Might Also Like
                         </AppText>
                     </View>
@@ -132,7 +132,7 @@ const SimilarEventsSection = ({ event }: SimilarEventsSectionProps) => {
                         style={{ backgroundColor: colors.accent }}
                         activeOpacity={0.8}
                     >
-                        <AppText styles="text-sm text-white font-nunbold">
+                        <AppText styles="text-sm text-black font-nunbold">
                             Explore All Events
                         </AppText>
                     </TouchableOpacity>

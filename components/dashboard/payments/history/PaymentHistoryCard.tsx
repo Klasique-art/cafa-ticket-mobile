@@ -82,7 +82,7 @@ const PaymentHistoryCard = ({ payment }: Props) => {
                 {/* Event Info and Status */}
                 <View className="flex-1">
                     <AppText
-                        styles="text-base text-white mb-1 font-nunbold"
+                        styles="text-base text-black mb-1 font-nunbold"
                         numberOfLines={2}
                     >
                         {payment.event.title}
@@ -110,7 +110,7 @@ const PaymentHistoryCard = ({ payment }: Props) => {
                     <AppText styles="text-xs text-slate-400 mb-1">
                         Amount
                     </AppText>
-                    <AppText styles="text-base text-white font-nunbold">
+                    <AppText styles="text-base text-black font-nunbold">
                         {formatMoney(payment.amount)}
                     </AppText>
                 </View>
@@ -120,7 +120,7 @@ const PaymentHistoryCard = ({ payment }: Props) => {
                     <AppText styles="text-xs text-slate-400 mb-1">
                         Tickets
                     </AppText>
-                    <AppText styles="text-base text-white font-nunbold">
+                    <AppText styles="text-base text-black font-nunbold">
                         {payment.tickets.length}
                     </AppText>
                 </View>

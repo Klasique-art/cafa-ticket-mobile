@@ -75,7 +75,7 @@ const CategorySelect = ({
                     }}
                 >
                     <ActivityIndicator size="small" color={colors.accent} />
-                    <AppText styles="text-sm text-white" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-sm text-black" style={{ opacity: 0.6 }}>
                         Loading categories...
                     </AppText>
                 </View>
@@ -107,10 +107,10 @@ const CategorySelect = ({
                     <View className="flex-row items-start gap-3 mb-3">
                         <Ionicons name="alert-circle" size={20} color={colors.accent} />
                         <View className="flex-1">
-                            <AppText styles="text-sm text-white mb-1 font-nunbold">
+                            <AppText styles="text-sm text-black mb-1 font-nunbold">
                                 {fetchError}
                             </AppText>
-                            <AppText styles="text-xs text-white" style={{ opacity: 0.7 }}>
+                            <AppText styles="text-xs text-black" style={{ opacity: 0.7 }}>
                                 Please try again
                             </AppText>
                         </View>
@@ -123,7 +123,7 @@ const CategorySelect = ({
                         accessibilityRole="button"
                         accessibilityLabel="Retry loading categories"
                     >
-                        <AppText styles="text-sm text-white">
+                        <AppText styles="text-sm text-black">
                             Retry
                         </AppText>
                     </View>

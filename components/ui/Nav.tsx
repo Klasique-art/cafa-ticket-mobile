@@ -33,7 +33,7 @@ const Nav = ({ title = "", onPress }: NavProps) => {
         <Ionicons name="arrow-back" size={22} color={colors.accent} />
       </TouchableOpacity>
       
-      <AppText styles="flex-1 text-center">{title}</AppText>
+      <AppText styles="flex-1 text-center text-white">{title}</AppText>
       
       {user && user.profile_image && (
         <View className="border border-secondary w-10 h-10 rounded-full">

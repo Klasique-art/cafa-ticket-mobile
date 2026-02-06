@@ -81,7 +81,7 @@ const PaymentResultScreen = () => {
                         >
                             <ActivityIndicator size="large" color={colors.accent50} />
                         </View>
-                        <AppText styles="text-xl text-white text-center mb-2 font-nunbold">
+                        <AppText styles="text-xl text-black text-center mb-2 font-nunbold">
                             Verifying Payment
                         </AppText>
                         <AppText styles="text-sm text-slate-300 text-center">
@@ -109,7 +109,7 @@ const PaymentResultScreen = () => {
                         >
                             <Ionicons name="checkmark-circle" size={48} color={colors.success} />
                         </View>
-                        <AppText styles="text-2xl text-white text-center mb-2 font-nunbold">
+                        <AppText styles="text-2xl text-black text-center mb-2 font-nunbold">
                             Payment Successful! 🎉
                         </AppText>
                         <AppText styles="text-sm text-slate-300 text-center mb-4">
@@ -123,7 +123,7 @@ const PaymentResultScreen = () => {
                                 <AppText styles="text-xs text-slate-400">
                                     Purchase ID:
                                 </AppText>
-                                <AppText styles="text-sm text-white font-nunbold">
+                                <AppText styles="text-sm text-black font-nunbold">
                                     {purchaseDetails?.purchase_id}
                                 </AppText>
                             </View>
@@ -135,7 +135,7 @@ const PaymentResultScreen = () => {
                         className="p-4 rounded-2xl mb-4"
                         style={{ backgroundColor: colors.primary100, borderWidth: 1, borderColor: colors.accent + "4D" }}
                     >
-                        <AppText styles="text-lg text-white mb-4 font-nunbold">
+                        <AppText styles="text-lg text-black mb-4 font-nunbold">
                             Purchase Summary
                         </AppText>
                         <View className="flex-row gap-4">
@@ -151,7 +151,7 @@ const PaymentResultScreen = () => {
                                 <AppText styles="text-xs text-slate-400 mb-1">
                                     Tickets
                                 </AppText>
-                                <AppText styles="text-xl text-white font-nunbold">
+                                <AppText styles="text-xl text-black font-nunbold">
                                     {purchaseDetails?.ticket_count} Ticket
                                     {purchaseDetails && purchaseDetails.ticket_count > 1 ? "s" : ""}
                                 </AppText>
@@ -171,7 +171,7 @@ const PaymentResultScreen = () => {
                             >
                                 <Ionicons name="ticket" size={20} color={colors.accent50} />
                             </View>
-                            <AppText styles="text-lg text-white font-nunbold">
+                            <AppText styles="text-lg text-black font-nunbold">
                                 Your Tickets
                             </AppText>
                         </View>
@@ -188,7 +188,7 @@ const PaymentResultScreen = () => {
                                             <AppText styles="text-xs text-slate-400 mb-1">
                                                 Ticket #{index + 1}
                                             </AppText>
-                                            <AppText styles="text-sm text-white mb-1 font-nunbold">
+                                            <AppText styles="text-sm text-black mb-1 font-nunbold">
                                                 {ticket.ticket_id}
                                             </AppText>
                                             <AppText styles="text-xs text-slate-300">
@@ -218,7 +218,7 @@ const PaymentResultScreen = () => {
                             style={{ backgroundColor: colors.accent }}
                             activeOpacity={0.8}
                         >
-                            <AppText styles="text-sm text-white font-nunbold">
+                            <AppText styles="text-sm text-black font-nunbold">
                                 View All My Tickets
                             </AppText>
                         </TouchableOpacity>
@@ -229,7 +229,7 @@ const PaymentResultScreen = () => {
                             activeOpacity={0.8}
                         >
                             <Ionicons name="home" size={20} color={colors.white} />
-                            <AppText styles="text-sm text-white font-nunbold">
+                            <AppText styles="text-sm text-black font-nunbold">
                                 Browse Events
                             </AppText>
                         </TouchableOpacity>
@@ -264,7 +264,7 @@ const PaymentResultScreen = () => {
                     >
                         <Ionicons name="close-circle" size={48} color={colors.error} />
                     </View>
-                    <AppText styles="text-xl text-white text-center mb-2 font-nunbold">
+                    <AppText styles="text-xl text-black text-center mb-2 font-nunbold">
                         {status === "failed" ? "Payment Failed" : "Something Went Wrong"}
                     </AppText>
                     <AppText styles="text-sm text-slate-300 text-center mb-6">
@@ -277,7 +277,7 @@ const PaymentResultScreen = () => {
                             style={{ backgroundColor: colors.accent }}
                             activeOpacity={0.8}
                         >
-                            <AppText styles="text-sm text-white font-nunbold">
+                            <AppText styles="text-sm text-black font-nunbold">
                                 Back to Events
                             </AppText>
                         </TouchableOpacity>
@@ -287,7 +287,7 @@ const PaymentResultScreen = () => {
                             style={{ backgroundColor: colors.primary200 }}
                             activeOpacity={0.8}
                         >
-                            <AppText styles="text-sm text-white font-nunbold">
+                            <AppText styles="text-sm text-black font-nunbold">
                                 Contact Support
                             </AppText>
                         </TouchableOpacity>

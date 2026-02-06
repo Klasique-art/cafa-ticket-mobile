@@ -118,21 +118,21 @@ const CheckInResult = ({ result, onDismiss }: Props) => {
                     <View className="flex-row gap-2">
                         {/* Attendee */}
                         <View className="flex-1 p-3 rounded-lg" style={{ backgroundColor: colors.primary200 }}>
-                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                 Attendee
                             </AppText>
-                            <AppText styles="text-xs text-white" font="font-ibold">
+                            <AppText styles="text-xs text-black" font="font-ibold">
                                 {result.ticket.attendee_name}
                             </AppText>
                         </View>
 
                         {/* Ticket type (success) or ticket ID (error) */}
                         <View className="flex-1 p-3 rounded-lg" style={{ backgroundColor: colors.primary200 }}>
-                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                 {result.success && "ticket_type" in result.ticket ? "Ticket Type" : "Ticket ID"}
                             </AppText>
                             <AppText
-                                styles="text-xs text-white"
+                                styles="text-xs text-black"
                                 font="font-ibold"
                                 style={!(result.success && "ticket_type" in result.ticket) ? { fontFamily: "monospace" } : undefined}
                             >
@@ -147,18 +147,18 @@ const CheckInResult = ({ result, onDismiss }: Props) => {
                     {result.success && result.ticket.attendee_email && (
                         <View className="flex-row gap-2">
                             <View className="flex-1 p-3 rounded-lg" style={{ backgroundColor: colors.primary200 }}>
-                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                     Email
                                 </AppText>
-                                <AppText styles="text-xs text-white" font="font-isemibold" numberOfLines={1}>
+                                <AppText styles="text-xs text-black" font="font-isemibold" numberOfLines={1}>
                                     {result.ticket.attendee_email}
                                 </AppText>
                             </View>
                             <View className="flex-1 p-3 rounded-lg" style={{ backgroundColor: colors.primary200 }}>
-                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                     Ticket ID
                                 </AppText>
-                                <AppText styles="text-xs text-white" font="font-isemibold" style={{ fontFamily: "monospace" }} numberOfLines={1}>
+                                <AppText styles="text-xs text-black" font="font-isemibold" style={{ fontFamily: "monospace" }} numberOfLines={1}>
                                     {result.ticket.ticket_id}
                                 </AppText>
                             </View>
@@ -169,19 +169,19 @@ const CheckInResult = ({ result, onDismiss }: Props) => {
                     {result.ticket.checked_in_at && (
                         <View className="flex-row items-center justify-between p-3 rounded-lg" style={{ backgroundColor: colors.primary200 }}>
                             <View>
-                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                     Checked In
                                 </AppText>
-                                <AppText styles="text-xs text-white" font="font-isemibold">
+                                <AppText styles="text-xs text-black" font="font-isemibold">
                                     {formatDateTime(result.ticket.checked_in_at)}
                                 </AppText>
                             </View>
                             {result.ticket.checked_in_by && (
                                 <View className="items-end">
-                                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                         By
                                     </AppText>
-                                    <AppText styles="text-xs text-white" font="font-isemibold">
+                                    <AppText styles="text-xs text-black" font="font-isemibold">
                                         {typeof result.ticket.checked_in_by === "string"
                                             ? result.ticket.checked_in_by
                                             : result.ticket.checked_in_by.full_name}
@@ -196,10 +196,10 @@ const CheckInResult = ({ result, onDismiss }: Props) => {
                         <View className="p-3 rounded-lg mt-1" style={{ backgroundColor: colors.primary200 }}>
                             <View className="flex-row items-center justify-between mb-2">
                                 <View>
-                                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.5 }}>
+                                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.5 }}>
                                         Total Progress
                                     </AppText>
-                                    <AppText styles="text-sm text-white" font="font-ibold">
+                                    <AppText styles="text-sm text-black" font="font-ibold">
                                         {result.event_stats.total_checked_in} / {result.event_stats.total_attendees}
                                     </AppText>
                                 </View>

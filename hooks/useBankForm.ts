@@ -26,7 +26,7 @@ export const useBankForm = () => {
                 if (data.country_code) {
                     const countryCode = data.country_code.toLowerCase();
                     setSelectedCountry(countryCode);
-                    console.log(`✅ Detected country: ${data.country_name} (${countryCode})`);
+                    // console.log(`✅ Detected country: ${data.country_name} (${countryCode})`);
                 } else {
                     setSelectedCountry("gh"); // Fallback to Ghana
                     console.log("⚠️ Could not detect country, defaulting to Ghana");
@@ -54,7 +54,7 @@ export const useBankForm = () => {
 
                 if (response.data && response.data.banks) {
                     setBanks(response.data.banks);
-                    console.log(`✅ Loaded ${response.data.banks.length} banks for ${selectedCountry}`);
+                    // console.log(`✅ Loaded ${response.data.banks.length} banks for ${selectedCountry}`);
                 } else {
                     setBanks([]);
                 }

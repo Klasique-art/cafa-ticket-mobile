@@ -37,7 +37,7 @@ const ListItem: FC<ListItemProps> = ({
             style={{
                 borderWidth: 1,
                 borderColor: borderColor,
-                backgroundColor: colors.primary + "80",
+                backgroundColor: colors.primary,
             }}
             accessible={true}
             accessibilityRole="button"

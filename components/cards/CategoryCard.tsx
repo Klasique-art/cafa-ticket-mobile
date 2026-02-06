@@ -42,14 +42,14 @@ export default function CategoryCard({ category }: CategoryCardProps) {
       <View className="items-center" style={{ width: 80 }}>
         <View
           className="mb-2 h-14 w-14 items-center justify-center rounded-2xl"
-          style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+          style={{ backgroundColor: colors.primary + "e6" }}
         >
           <Ionicons name={iconName} size={24} color={colors.accent} />
         </View>
-        <Text className="text-center text-xs text-white" numberOfLines={1}>
+        <Text className="text-center text-xs text-black" numberOfLines={1}>
           {category.name}
         </Text>
-        <Text className="text-center text-xs text-white/50">
+        <Text className="text-center text-xs text-black/50">
           {category.event_count} events
         </Text>
       </View>
