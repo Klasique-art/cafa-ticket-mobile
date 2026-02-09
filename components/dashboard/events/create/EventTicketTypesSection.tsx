@@ -174,7 +174,7 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                             activeOpacity={0.8}
                         >
                             <Ionicons name="add-circle-outline" size={18} color={colors.white} />
-                            <AppText styles="text-sm text-black" font="font-ibold">
+                            <AppText styles="text-sm text-white" font="font-ibold">
                                 Create Ticket Type
                             </AppText>
                         </TouchableOpacity>
@@ -210,21 +210,21 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
             {/* Info Note */}
             <View
                 className="p-3 rounded-lg border flex-row items-start gap-2"
-                style={{ backgroundColor: colors.primary200 + "80", borderColor: colors.accent + "4D" }}
+                style={{ backgroundColor: colors.primary200, borderColor: colors.accent + "4D" }}
             >
                 <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                 <View className="flex-1">
-                    <AppText styles="text-xs text-black mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
+                    <AppText styles="text-xs text-white mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>
                         Ticket Guidelines
                     </AppText>
                     <View className="gap-1">
-                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Create different types (Early Bird, VIP, etc.)
                         </AppText>
-                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Min price: GH₵10, Max quantity: 1M
                         </AppText>
-                        <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
+                        <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Use availability windows for time-limited offers
                         </AppText>
                     </View>

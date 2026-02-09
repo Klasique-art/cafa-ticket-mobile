@@ -160,7 +160,7 @@ const EventPaymentProfileSection = () => {
                                     onPress={() => setFieldValue("payment_profile_id", profile.id)}
                                     className="p-4 rounded-xl border-2"
                                     style={{
-                                        backgroundColor: isSelected ? colors.success + "33" : colors.primary100,
+                                        backgroundColor: isSelected ? colors.success : colors.primary100,
                                         borderColor: isSelected ? colors.success : colors.accent + "4D",
                                     }}
                                     activeOpacity={0.7}
@@ -195,7 +195,7 @@ const EventPaymentProfileSection = () => {
                                                     />
                                                 </View>
 
-                                                <AppText styles="text-sm text-black" font="font-ibold">
+                                                <AppText styles="text-sm text-white" font="font-ibold">
                                                     {profile.name}
                                                 </AppText>
 
@@ -214,22 +214,22 @@ const EventPaymentProfileSection = () => {
                                             {/* Account Details */}
                                             <View className="gap-1">
                                                 <AppText
-                                                    styles="text-xs text-black"
+                                                    styles="text-xs text-white"
                                                     font="font-iregular"
                                                     style={{ opacity: 0.6 }}
                                                 >
                                                     Bank:{" "}
-                                                    <AppText styles="text-xs text-black" font="font-isemibold">
+                                                    <AppText styles="text-xs text-white" font="font-isemibold">
                                                         {accountDetails?.bank_name}
                                                     </AppText>
                                                 </AppText>
                                                 <AppText
-                                                    styles="text-xs text-black"
+                                                    styles="text-xs text-white"
                                                     font="font-iregular"
                                                     style={{ opacity: 0.6 }}
                                                 >
                                                     Account:{" "}
-                                                    <AppText styles="text-xs text-black" font="font-imedium">
+                                                    <AppText styles="text-xs text-white" font="font-imedium">
                                                         {accountDetails?.account_number}
                                                     </AppText>
                                                 </AppText>

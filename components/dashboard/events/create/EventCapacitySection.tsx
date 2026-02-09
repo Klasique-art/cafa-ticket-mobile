@@ -50,6 +50,7 @@ const EventCapacitySection = () => {
             <AppFormField
                 name="max_attendees"
                 label="Maximum Attendees"
+                labelColor="text-black"
                 placeholder="e.g., 500"
                 keyboardType="number-pad"
                 required

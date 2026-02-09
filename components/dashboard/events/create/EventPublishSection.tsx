@@ -9,6 +9,8 @@ import colors from "@/config/colors";
 
 const EventPublishSection = () => {
     const { values, setFieldValue } = useFormikContext<EventFormValues>();
+    const isPublished = values.is_published || false;
+    const stateTextClass = isPublished ? "text-black" : "text-white";
 
     return (
         <View className="gap-4">
@@ -38,13 +40,13 @@ const EventPublishSection = () => {
             <View
                 className="p-4 rounded-xl border-2"
                 style={{
-                    backgroundColor: values.is_published ? colors.success + "1A" : colors.primary100,
-                    borderColor: values.is_published ? colors.success : colors.accent + "4D",
+                    backgroundColor: isPublished ? colors.success + "1A" : colors.primary100,
+                    borderColor: isPublished ? colors.success : colors.accent + "4D",
                 }}
             >
                 <View className="flex-row items-start gap-3">
                     <AppSwitch
-                        value={values.is_published || false}
+                        value={isPublished}
                         onValueChange={(value) => {
                             setFieldValue("is_published", value);
                         }}
@@ -55,26 +57,26 @@ const EventPublishSection = () => {
                     />
                     <View className="flex-1">
                         <View className="flex-row items-center gap-2 mb-2">
-                            <AppText styles="text-sm text-black" font="font-ibold">
-                                {values.is_published ? "Event is Published" : "Event is Unpublished"}
+                            <AppText styles={`text-sm ${stateTextClass}`} font="font-ibold">
+                                {isPublished ? "Event is Published" : "Event is Unpublished"}
                             </AppText>
                             <View
                                 className="px-2 py-0.5 rounded"
                                 style={{
-                                    backgroundColor: values.is_published ? colors.success + "33" : colors.primary200,
+                                    backgroundColor: isPublished ? colors.success + "33" : colors.primary200,
                                 }}
                             >
                                 <AppText
                                     styles="text-xs"
                                     font="font-isemibold"
-                                    style={{ color: values.is_published ? colors.success : colors.white }}
+                                    style={{ color: isPublished ? colors.success : colors.white }}
                                 >
-                                    {values.is_published ? "Public" : "Private"}
+                                    {isPublished ? "Public" : "Private"}
                                 </AppText>
                             </View>
                         </View>
-                        <AppText styles="text-xs text-black mb-3" font="font-iregular" style={{ opacity: 0.7 }}>
-                            {values.is_published
+                        <AppText styles={`text-xs mb-3 ${stateTextClass}`} font="font-iregular" style={{ opacity: 0.7 }}>
+                            {isPublished
                                 ? "Visible to everyone and appears in search results"
                                 : "Hidden from search, accessible via direct link only"}
                         </AppText>
@@ -85,33 +87,33 @@ const EventPublishSection = () => {
                                 <View
                                     className="w-2 h-2 rounded-full"
                                     style={{
-                                        backgroundColor: values.is_published ? colors.success : colors.white + "80",
+                                        backgroundColor: isPublished ? colors.success : colors.white + "80",
                                     }}
                                 />
-                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
-                                    {values.is_published ? "Appears in search results" : "Hidden from search"}
+                                <AppText styles={`text-xs ${stateTextClass}`} font="font-iregular" style={{ opacity: 0.7 }}>
+                                    {isPublished ? "Appears in search results" : "Hidden from search"}
                                 </AppText>
                             </View>
                             <View className="flex-row items-center gap-2">
                                 <View
                                     className="w-2 h-2 rounded-full"
                                     style={{
-                                        backgroundColor: values.is_published ? colors.success : colors.white + "80",
+                                        backgroundColor: isPublished ? colors.success : colors.white + "80",
                                     }}
                                 />
-                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
-                                    {values.is_published ? "Shown on category pages" : "Not on category pages"}
+                                <AppText styles={`text-xs ${stateTextClass}`} font="font-iregular" style={{ opacity: 0.7 }}>
+                                    {isPublished ? "Shown on category pages" : "Not on category pages"}
                                 </AppText>
                             </View>
                             <View className="flex-row items-center gap-2">
                                 <View
                                     className="w-2 h-2 rounded-full"
                                     style={{
-                                        backgroundColor: values.is_published ? colors.success : colors.white + "80",
+                                        backgroundColor: isPublished ? colors.success : colors.white + "80",
                                     }}
                                 />
-                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
-                                    {values.is_published ? "Tickets publicly available" : "Tickets via link only"}
+                                <AppText styles={`text-xs ${stateTextClass}`} font="font-iregular" style={{ opacity: 0.7 }}>
+                                    {isPublished ? "Tickets publicly available" : "Tickets via link only"}
                                 </AppText>
                             </View>
                         </View>

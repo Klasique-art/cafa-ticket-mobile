@@ -17,6 +17,7 @@ type Props = {
     placeholder?: string;
     disabled?: boolean;
     error?: string;
+    labelColor?: string;
 };
 
 const DateInput = ({ 
@@ -30,7 +31,8 @@ const DateInput = ({
     max, 
     placeholder = 'Select date',
     disabled = false,
-    error
+    error,
+    labelColor = 'text-black',
 }: Props) => {
     const [show, setShow] = useState(false);
     const [date, setDate] = useState(value ? new Date(value) : new Date());
@@ -92,7 +94,7 @@ const DateInput = ({
         <View className="w-full">
             {/* Label */}
             <AppText 
-                className="mb-2 text-sm font-isemibold text-black"
+                className={`mb-2 text-sm font-isemibold ${labelColor}`}
                 {...(name && { nativeID: `${name}-label` })}
                 accessibilityRole="text"
             >

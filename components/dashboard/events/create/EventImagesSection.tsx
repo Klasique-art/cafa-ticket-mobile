@@ -18,8 +18,8 @@ const EventImagesSection = () => {
 
     // ✅ Handle MULTIPLE additional images (array of URIs)
     const handleAdditionalImagesChange = (imageUris: string[]) => {
-        // Replace entire array with new selection
-        const limitedImages = imageUris.slice(0, 5);
+        const uniqueImages = Array.from(new Set(imageUris));
+        const limitedImages = uniqueImages.slice(0, 5);
         setFieldValue("additional_images", limitedImages);
     };
 
@@ -48,10 +48,10 @@ const EventImagesSection = () => {
                     <Ionicons name="image-outline" size={20} color={colors.accent50} />
                 </View>
                 <View className="flex-1">
-                    <AppText styles="text-base text-white" font="font-ibold">
+                    <AppText styles="text-base text-black" font="font-ibold">
                         Event Images
                     </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
                         Add attractive images
                     </AppText>
                 </View>
@@ -81,15 +81,6 @@ const EventImagesSection = () => {
                 className="p-4 rounded-xl border-2"
                 style={{ backgroundColor: colors.primary100, borderColor: colors.accent }}
             >
-                <View className="flex-row items-center justify-between mb-3">
-                    <AppText styles="text-sm text-white" font="font-ibold">
-                        Additional Images (Optional)
-                    </AppText>
-                    <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
-                        {additionalImages.length}/5
-                    </AppText>
-                </View>
-
                 {additionalImages.length === 0 ? (
                     // ✅ No images yet - show upload button
                     <ImageUpload
@@ -151,12 +142,11 @@ const EventImagesSection = () => {
                                     name="additional_images_add_more"
                                     onImageChange={() => {}} // Not used
                                     onMultipleImagesChange={(newUris) => {
-                                        // ✅ Append new images to existing ones
                                         const combined = [...additionalImages, ...newUris];
-                                        const limited = combined.slice(0, 5);
+                                        const unique = Array.from(new Set(combined));
+                                        const limited = unique.slice(0, 5);
                                         setFieldValue("additional_images", limited);
                                     }}
-                                    currentImages={additionalImages} // ✅ Pass current images
                                     multiple={true}
                                     maxImages={remainingSlots} // ✅ Only allow remaining slots
                                     compact
@@ -171,7 +161,7 @@ const EventImagesSection = () => {
             {/* Info Note */}
             <View
                 className="p-3 rounded-lg border flex-row items-start gap-2"
-                style={{ backgroundColor: colors.primary200 + "80", borderColor: colors.accent + "4D" }}
+                style={{ backgroundColor: colors.primary200, borderColor: colors.accent }}
             >
                 <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                 <View className="flex-1">

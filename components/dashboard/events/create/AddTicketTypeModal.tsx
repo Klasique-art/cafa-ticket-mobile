@@ -71,7 +71,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                     color={colors.accent50}
                                 />
                             </View>
-                            <AppText styles="text-lg text-black" font="font-ibold">
+                            <AppText styles="text-lg text-white" font="font-ibold">
                                 {isEditing ? "Edit Ticket Type" : "Add Ticket Type"}
                             </AppText>
                         </View>
@@ -102,7 +102,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                     <View className="gap-4 pb-4">
                                         {/* Basic Info */}
                                         <View>
-                                            <AppText styles="text-sm text-black mb-3" font="font-ibold">
+                                            <AppText styles="text-sm text-white mb-3" font="font-ibold">
                                                 Basic Information
                                             </AppText>
                                             <View className="gap-3">
@@ -124,7 +124,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
 
                                         {/* Pricing & Quantity */}
                                         <View>
-                                            <AppText styles="text-sm text-black mb-3" font="font-ibold">
+                                            <AppText styles="text-sm text-white mb-3" font="font-ibold">
                                                 Pricing & Quantity
                                             </AppText>
                                             <View className="gap-3">
@@ -148,7 +148,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                                         />
                                                     </View>
                                                 </View>
-                                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
+                                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
                                                     Min price: {formatMoney(10)} • Max quantity: 1,000,000
                                                 </AppText>
                                             </View>
@@ -156,7 +156,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
 
                                         {/* Purchase Limits */}
                                         <View>
-                                            <AppText styles="text-sm text-black mb-3" font="font-ibold">
+                                            <AppText styles="text-sm text-white mb-3" font="font-ibold">
                                                 Purchase Limits
                                             </AppText>
                                             <View className="gap-3">
@@ -179,7 +179,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                                         />
                                                     </View>
                                                 </View>
-                                                <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
+                                                <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.6 }}>
                                                     Per transaction limits • Max: 100
                                                 </AppText>
                                             </View>
@@ -187,10 +187,10 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
 
                                         {/* Availability Period */}
                                         <View>
-                                            <AppText styles="text-sm text-black mb-1" font="font-ibold">
+                                            <AppText styles="text-sm text-white mb-1" font="font-ibold">
                                                 Availability Period (Optional)
                                             </AppText>
-                                            <AppText styles="text-xs text-black mb-3" font="font-iregular" style={{ opacity: 0.6 }}>
+                                            <AppText styles="text-xs text-white mb-3" font="font-iregular" style={{ opacity: 0.6 }}>
                                                 Set time window for this ticket type
                                             </AppText>
                                             <View className="gap-3">
@@ -198,11 +198,13 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                                     name="available_from"
                                                     label="Available From"
                                                     type="date"
+                                                    labelColor="text-white"
                                                 />
                                                 <AppFormField
                                                     name="available_until"
                                                     label="Available Until"
                                                     type="date"
+                                                    labelColor="text-white"
                                                 />
                                             </View>
                                         </View>
@@ -220,7 +222,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                         }}
                                         activeOpacity={0.7}
                                     >
-                                        <AppText styles="text-sm text-black text-center" font="font-ibold">
+                                        <AppText styles="text-sm text-white text-center" font="font-ibold">
                                             Cancel
                                         </AppText>
                                     </TouchableOpacity>
@@ -234,7 +236,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                         }}
                                         activeOpacity={0.8}
                                     >
-                                        <AppText styles="text-sm text-black text-center" font="font-ibold">
+                                        <AppText styles="text-sm text-white text-center" font="font-ibold">
                                             {isEditing ? "Update Ticket" : "Add Ticket"}
                                         </AppText>
                                     </TouchableOpacity>

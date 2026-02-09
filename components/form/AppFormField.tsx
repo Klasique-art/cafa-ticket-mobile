@@ -101,6 +101,7 @@ const AppFormField = <Values extends StringFieldFormValues = StringFieldFormValu
                 <DateInput
                     name={name}
                     label={label}
+                    labelColor={labelColor}
                     value={value}
                     onChange={handleChange}
                     onBlur={handleBlur}
