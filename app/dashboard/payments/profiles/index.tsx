@@ -116,7 +116,7 @@ const PaymentProfilesScreen = () => {
                                             </AppText>
                                             <AppText styles="text-xs text-white" style={{ opacity: 0.7 }}>
                                                 Payment profiles are used to receive payouts from your event sales. Add your
-                                                bank account details to get paid.
+                                                bank account details to get paid. This is only required if you plan to sell tickets and receive payouts.
                                             </AppText>
                                         </View>
                                     </View>

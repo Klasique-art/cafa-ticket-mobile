@@ -73,7 +73,7 @@ const CreateEventScreen = () => {
 
                     <CreateEventForm
                         onOpenModal={handleOpenModal}
-                        formContextRef={formContextRef}
+                        formContextRef={formContextRef} 
                     />
                 </View>
             </RequireAuth>

@@ -1,11 +1,21 @@
 import { useState, useEffect } from "react";
-import client from "@/lib/client";
+import { detectUserCountry, getPaystackCode } from "@/utils/countryUtils";
 
 type Bank = {
     name: string;
     code: string;
     country: string;
 };
+
+const DEFAULT_COUNTRY = "ghana";
+
+const FALLBACK_BANKS: Bank[] = [
+    { name: "Absa Bank Ghana Limited", code: "030100", country: "ghana" },
+    { name: "Access Bank Ghana Plc", code: "280100", country: "ghana" },
+    { name: "GCB Bank Limited", code: "040100", country: "ghana" },
+    { name: "Ecobank Ghana Limited", code: "130100", country: "ghana" },
+    { name: "Fidelity Bank Ghana Limited", code: "240100", country: "ghana" },
+];
 
 export const useBankForm = () => {
     const [banks, setBanks] = useState<Bank[]>([]);
@@ -19,21 +29,15 @@ export const useBankForm = () => {
             setIsDetectingCountry(true);
 
             try {
-                // Option 1: Use IP geolocation service
-                const response = await fetch("https://ipapi.co/json/");
-                const data = await response.json();
-
-                if (data.country_code) {
-                    const countryCode = data.country_code.toLowerCase();
-                    setSelectedCountry(countryCode);
-                    // console.log(`✅ Detected country: ${data.country_name} (${countryCode})`);
+                const detected = await detectUserCountry();
+                if (detected?.code) {
+                    setSelectedCountry(detected.code);
                 } else {
-                    setSelectedCountry("gh"); // Fallback to Ghana
-                    console.log("⚠️ Could not detect country, defaulting to Ghana");
+                    setSelectedCountry(DEFAULT_COUNTRY);
                 }
             } catch (error) {
                 console.error("Country detection error:", error);
-                setSelectedCountry("gh"); // Fallback to Ghana
+                setSelectedCountry(DEFAULT_COUNTRY);
             } finally {
                 setIsDetectingCountry(false);
             }
@@ -49,18 +53,37 @@ export const useBankForm = () => {
         const fetchBanks = async () => {
             setIsLoadingBanks(true);
             try {
-                // Replace with your actual backend endpoint
-                const response = await client.get(`/payments/banks/?country=${selectedCountry}`);
+                const country = getPaystackCode(selectedCountry);
+                const response = await fetch(
+                    `https://api.paystack.co/bank?country=${encodeURIComponent(country)}`,
+                    {
+                        headers: { Accept: "application/json" },
+                    }
+                );
 
-                if (response.data && response.data.banks) {
-                    setBanks(response.data.banks);
-                    // console.log(`✅ Loaded ${response.data.banks.length} banks for ${selectedCountry}`);
+                if (!response.ok) {
+                    throw new Error(`Bank fetch failed with status ${response.status}`);
+                }
+
+                const payload = await response.json();
+                if (payload?.status && Array.isArray(payload?.data)) {
+                    const uniqueBanks = new Map<string, Bank>();
+                    payload.data.forEach((bank: any) => {
+                        if (!uniqueBanks.has(bank.code)) {
+                            uniqueBanks.set(bank.code, {
+                                name: bank.name,
+                                code: bank.code,
+                                country: bank.country || country,
+                            });
+                        }
+                    });
+                    setBanks(Array.from(uniqueBanks.values()));
                 } else {
                     setBanks([]);
                 }
-            } catch (err) {
-                console.error("Failed to fetch banks:", err);
-                setBanks([]);
+            } catch {
+                console.warn("Failed to fetch banks. Using fallback list.");
+                setBanks(FALLBACK_BANKS);
             } finally {
                 setIsLoadingBanks(false);
             }
@@ -79,7 +102,8 @@ export const useBankForm = () => {
     };
 
     const handleCountryChange = (newCountry: string) => {
-        setSelectedCountry(newCountry);
+        const normalized = getPaystackCode(newCountry);
+        setSelectedCountry(normalized);
     };
 
     return {

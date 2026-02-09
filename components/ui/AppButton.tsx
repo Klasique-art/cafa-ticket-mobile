@@ -57,7 +57,7 @@ const AppButton = ({
     const textColorClasses = {
         primary: 'text-black',
         secondary: 'text-slate-200',
-        outline: 'text-black',
+        outline: 'text-white',
         ghost: 'text-slate-700',
         danger: 'text-white',
     };

@@ -61,6 +61,7 @@ const DashboardList = () => {
                     onCancel={() => bottomSheetRef.current?.close()}
                     onConfirm={handleConfirmLogout}
                     confirmBtnTitle="Logout"
+                    isDestructive={true}
                 />
             </AppBottomSheet>
         </>

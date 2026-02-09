@@ -11,24 +11,28 @@ import { useCountries } from "@/hooks/useCountries";
 import { createPaymentProfile } from "@/lib/dashboard";
 import colors from "@/config/colors";
 
+type FormFieldsProps = {
+  bankOptions: { label: string; value: string }[];
+  isLoadingBanks: boolean;
+  selectedCountry: string;
+  setSelectedCountry: (country: string) => void;
+  isDetectingCountry: boolean;
+};
+
 // Inner component that has access to Formik context
-const FormFields = () => {
+const FormFields = ({
+  bankOptions,
+  isLoadingBanks,
+  selectedCountry,
+  setSelectedCountry,
+  isDetectingCountry,
+}: FormFieldsProps) => {
   const { values } = useFormikContext<Record<string, string>>();
-
-  const {
-    bankOptions,
-    isLoadingBanks,
-    selectedCountry,
-    setSelectedCountry,
-    isDetectingCountry,
-  } = useBankForm();
-
   const { countryOptions, isLoading: isLoadingCountries } = useCountries();
 
   // Sync form's country field with bank fetching
   useEffect(() => {
     if (values.country && values.country !== selectedCountry) {
-      console.log(`🔄 Country changed to: ${values.country}`);
       setSelectedCountry(values.country);
     }
   }, [values.country, selectedCountry, setSelectedCountry]);
@@ -100,10 +104,15 @@ const FormFields = () => {
         type="text"
         name="branch"
         label="Branch (Optional)"
-        placeholder="e.g., Main Branch, Osu Branch"
       />
 
-      <View className="p-4 bg-info/10 rounded-lg border border-info/20">
+      <AppFormField
+        type="text"
+        name="branch"
+        label="ABA/SWIFT/Rounting Number (Optional)"
+      />
+
+      <View className="p-4 bg-info/10 rounded-lg border border-accent">
         <AppText styles="text-xs text-blue-300">
           <AppText styles="text-xs text-blue-300 font-nunbold">
             Verification:{" "}
@@ -121,7 +130,14 @@ const CreatePaymentProfileScreen = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { selectedCountry, isDetectingCountry, getBankFromCode } = useBankForm();
+  const {
+    bankOptions,
+    isLoadingBanks,
+    selectedCountry,
+    setSelectedCountry,
+    isDetectingCountry,
+    getBankFromCode,
+  } = useBankForm();
 
   const handleSubmit = async (values: Record<string, string>) => {
     setIsSubmitting(true);
@@ -160,7 +176,7 @@ const CreatePaymentProfileScreen = () => {
   };
 
   return (
-    <Screen statusBarStyle="light-content" statusBarBg={colors.primary}>
+    <Screen statusBarStyle="light-content" className="bg-primary" statusBarBg={colors.primary}>
       <Nav title="Create Payment Profile" />
 
       <ScrollView
@@ -168,14 +184,13 @@ const CreatePaymentProfileScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 32, paddingTop: 16 }}
       >
-        {/* Header */}
-        <View className="bg-primary-100 rounded-xl p-4 border-2 border-accent/30 mb-6">
+        <View className="bg-primary-100 rounded-xl p-4 border-2 border-accent mb-6">
           <View className="flex-row items-center gap-3 mb-3">
             <View className="w-12 h-12 rounded-xl bg-info/20 items-center justify-center">
               <Ionicons name="business" size={24} color={colors.info} />
             </View>
             <View className="flex-1">
-              <AppText styles="text-lg text-black font-nunbold">
+              <AppText styles="text-lg text-white font-nunbold">
                 Create Bank Account Profile
               </AppText>
               <AppText styles="text-xs text-slate-400">
@@ -185,7 +200,6 @@ const CreatePaymentProfileScreen = () => {
           </View>
         </View>
 
-        {/* Error Display */}
         {error && (
           <View className="mb-6 p-4 bg-red-500/10 rounded-lg border border-red-500/20">
             <View className="flex-row items-center gap-2">
@@ -197,7 +211,6 @@ const CreatePaymentProfileScreen = () => {
           </View>
         )}
 
-        {/* Form */}
         <AppForm
           initialValues={{
             name: "",
@@ -212,7 +225,13 @@ const CreatePaymentProfileScreen = () => {
           onSubmit={handleSubmit}
           enableReinitialize
         >
-          <FormFields />
+          <FormFields
+            bankOptions={bankOptions}
+            isLoadingBanks={isLoadingBanks}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
+            isDetectingCountry={isDetectingCountry}
+          />
         </AppForm>
       </ScrollView>
 
@@ -222,3 +241,5 @@ const CreatePaymentProfileScreen = () => {
 };
 
 export default CreatePaymentProfileScreen;
+
+

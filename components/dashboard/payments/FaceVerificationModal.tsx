@@ -190,11 +190,11 @@ const FaceVerificationModal = ({
             >
                 <Ionicons name="videocam-off" size={32} color="#f87171" />
             </View>
-            <AppText styles="text-sm text-black text-center font-nunbold">
+            <AppText styles="text-sm text-white text-center font-nunbold">
                 Camera Permission Required
             </AppText>
             <AppText
-                styles="text-xs text-black text-center mt-1 mb-4"
+                styles="text-xs text-white text-center mt-1 mb-4"
                 style={{ opacity: 0.5, maxWidth: 260 }}
             >
                 Allow camera access so we can verify your identity before
@@ -206,7 +206,7 @@ const FaceVerificationModal = ({
                 style={{ backgroundColor: colors.accent }}
                 activeOpacity={0.7}
             >
-                <AppText styles="text-sm text-black font-nunbold">
+                <AppText styles="text-sm text-white font-nunbold">
                     Grant Permission
                 </AppText>
             </TouchableOpacity>
@@ -276,7 +276,7 @@ const FaceVerificationModal = ({
             >
                 <View className="flex-row items-center gap-2">
                     <Ionicons name="camera-outline" size={20} color="#fff" />
-                    <AppText styles="text-base text-black font-nunbold">
+                    <AppText styles="text-base text-white font-nunbold">
                         Capture Selfie
                     </AppText>
                 </View>
@@ -319,7 +319,7 @@ const FaceVerificationModal = ({
                     >
                         <ActivityIndicator size="large" color={colors.accent} />
                         <AppText
-                            styles="text-sm text-black mt-3 font-nunbold"
+                            styles="text-sm text-white mt-3 font-nunbold"
                         >
                             Verifying Your Identity…
                         </AppText>
@@ -360,7 +360,7 @@ const FaceVerificationModal = ({
                         style={{ backgroundColor: colors.primary200 }}
                         activeOpacity={0.7}
                     >
-                        <AppText styles="text-base text-black font-nunbold">
+                        <AppText styles="text-base text-white font-nunbold">
                             Retake
                         </AppText>
                     </TouchableOpacity>
@@ -377,7 +377,7 @@ const FaceVerificationModal = ({
                                 size={20}
                                 color="#fff"
                             />
-                            <AppText styles="text-base text-black font-nunbold">
+                            <AppText styles="text-base text-white font-nunbold">
                                 Verify
                             </AppText>
                         </View>
@@ -400,11 +400,11 @@ const FaceVerificationModal = ({
                     color="#4ade80"
                 />
             </View>
-            <AppText styles="text-lg text-black text-center font-nunbold">
+            <AppText styles="text-lg text-white text-center font-nunbold">
                 Identity Verified!
             </AppText>
             <AppText
-                styles="text-sm text-black text-center mt-2"
+                styles="text-sm text-white text-center mt-2"
                 style={{ opacity: 0.6 }}
             >
                 Proceeding to withdrawal…
@@ -457,7 +457,7 @@ const FaceVerificationModal = ({
                                     color="#60a5fa"
                                 />
                             </View>
-                            <AppText styles="text-base text-black font-nunbold">
+                            <AppText styles="text-base text-white font-nunbold">
                                 {title}
                             </AppText>
                         </View>
@@ -476,7 +476,7 @@ const FaceVerificationModal = ({
                     {/* description (only when not in success) */}
                     {verificationState !== "success" && (
                         <AppText
-                            styles="text-xs text-black text-center"
+                            styles="text-xs text-white text-center"
                             style={{ opacity: 0.6 }}
                         >
                             {description}
