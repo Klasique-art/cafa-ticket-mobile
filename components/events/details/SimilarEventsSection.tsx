@@ -49,24 +49,24 @@ const SimilarEventCard = ({ event }: { event: SimilarEvent }) => {
                     className="absolute top-4 left-4 w-14 h-14 rounded-xl items-center justify-center"
                     style={{ backgroundColor: colors.accent }}
                 >
-                    <AppText styles="text-xs text-black font-nunbold">
+                    <AppText styles="text-xs text-white font-nunbold">
                         {month}
                     </AppText>
-                    <AppText styles="text-2xl text-black font-nunbold">
+                    <AppText styles="text-2xl text-white font-nunbold">
                         {day}
                     </AppText>
                 </View>
             </View>
 
             {/* Content */}
-            <View className="p-4">
-                <AppText styles="text-base text-black mb-2 font-nunbold" numberOfLines={2}>
+            <View className="p-4 bg-primary">
+                <AppText styles="text-base text-white mb-2 font-nunbold" numberOfLines={2}>
                     {event.title}
                 </AppText>
 
                 <View className="flex-row items-center gap-2 mb-3">
                     <Ionicons name="location-outline" size={16} color={colors.accent50} />
-                    <AppText styles="text-xs text-slate-300">
+                    <AppText styles="text-xs text-white">
                         {event.venue_city}
                     </AppText>
                 </View>
@@ -76,7 +76,7 @@ const SimilarEventCard = ({ event }: { event: SimilarEvent }) => {
                         <AppText styles="text-xs text-slate-400">
                             From
                         </AppText>
-                        <AppText styles="text-base text-black font-nunbold">
+                        <AppText styles="text-base text-white font-nunbold">
                             GHS {parseFloat(event.lowest_price).toFixed(0)}
                         </AppText>
                     </View>
@@ -93,7 +93,7 @@ const SimilarEventsSection = ({ event }: SimilarEventsSectionProps) => {
     if (!event.similar_events || event.similar_events.length === 0) return null;
 
     return (
-        <Animated.View entering={FadeInDown.delay(1400)} className="bg-primary-100 py-8">
+        <Animated.View entering={FadeInDown.delay(1400)} className="bg-white py-8">
             <View>
                 {/* Header */}
                 <View className="px-4 mb-6">
@@ -108,7 +108,7 @@ const SimilarEventsSection = ({ event }: SimilarEventsSectionProps) => {
                             You Might Also Like
                         </AppText>
                     </View>
-                    <AppText styles="text-sm text-slate-300 leading-relaxed">
+                    <AppText styles="text-sm text-slate-700 leading-relaxed">
                         Check out these similar events that might interest you.
                     </AppText>
                 </View>
@@ -132,7 +132,7 @@ const SimilarEventsSection = ({ event }: SimilarEventsSectionProps) => {
                         style={{ backgroundColor: colors.accent }}
                         activeOpacity={0.8}
                     >
-                        <AppText styles="text-sm text-black font-nunbold">
+                        <AppText styles="text-sm text-white font-nunbold">
                             Explore All Events
                         </AppText>
                     </TouchableOpacity>

@@ -79,7 +79,7 @@ const MyEventCard = ({ event, onDelete }: MyEventCardProps) => {
 
             {/* Content */}
             <View className="p-4">
-                <AppText styles="text-xs text-accent-50 mb-2">{event.category.name}</AppText>
+                <AppText styles="text-xs text-white mb-2">{event.category.name}</AppText>
                 <TouchableOpacity onPress={() => router.push(`/dashboard/events/${event.slug}` as Href)} activeOpacity={0.8}>
                     <AppText styles="text-base text-white mb-3" numberOfLines={2}>{event.title}</AppText>
                 </TouchableOpacity>
@@ -117,7 +117,7 @@ const MyEventCard = ({ event, onDelete }: MyEventCardProps) => {
                 <View className="mb-3">
                     <View className="flex-row items-center justify-between mb-2">
                         <AppText styles="text-xs text-slate-400">Sales Progress</AppText>
-                        <AppText styles="text-xs text-accent-50">{salesPercentage.toFixed(1)}%</AppText>
+                        <AppText styles="text-xs text-white">{salesPercentage.toFixed(1)}%</AppText>
                     </View>
                     <View className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: colors.primary100 }}>
                         <View className="h-full rounded-full" style={{ width: `${salesPercentage}%`, backgroundColor: colors.accent }} />

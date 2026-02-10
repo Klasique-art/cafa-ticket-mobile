@@ -86,10 +86,10 @@ const AnalyticsScreen = () => {
                         >
                             <Ionicons name="warning-outline" size={32} color={colors.accent50} />
                         </View>
-                        <AppText styles="text-base text-black text-center font-nunbold">
+                        <AppText styles="text-base text-white text-center font-nunbold">
                             Unable to load analytics
                         </AppText>
-                        <AppText styles="text-xs text-black mt-2 text-center" style={{ opacity: 0.6 }}>
+                        <AppText styles="text-xs text-white mt-2 text-center" style={{ opacity: 0.6 }}>
                             Please check your connection and try again.
                         </AppText>
                     </View>

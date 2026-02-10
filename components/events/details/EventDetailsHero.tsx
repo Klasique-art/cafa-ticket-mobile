@@ -41,7 +41,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
     }, [event]);
 
     return (
-        <View className="bg-primary">
+        <View className="bg-white">
             {/* Back Button & Share - Floating over image */}
             <View
                 style={{
@@ -130,7 +130,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                             <View className="w-2 h-2 bg-white rounded-full" />
                         )}
                         <AppText
-                            styles="text-xs text-black font-nunbold"
+                            styles="text-xs text-white font-nunbold"
                         >
                             {event.status === "ongoing" && "LIVE NOW"}
                             {event.status === "upcoming" && "UPCOMING"}
@@ -150,7 +150,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                         }}
                     >
                         <View className="px-3 py-1.5 rounded-lg" style={{ backgroundColor: "rgba(5, 14, 60, 0.9)" }}>
-                            <AppText styles="text-xs text-black font-nunbold">
+                            <AppText styles="text-xs text-white font-nunbold">
                                 {selectedImageIndex + 1} / {allImages.length}
                             </AppText>
                         </View>
@@ -178,14 +178,14 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                 </AppText>
 
                 {/* Short Description */}
-                <AppText styles="text-sm text-slate-300 leading-relaxed mb-4">
+                <AppText styles="text-sm leading-relaxed mb-4">
                     {event.short_description}
                 </AppText>
 
                 {/* Quick Info Cards */}
                 <View style={{ gap: 12 }}>
                     {/* Date & Time */}
-                    <View className="flex-row items-center gap-3 p-2 bg-primary-100 rounded-xl" style={{ borderWidth: 1, borderColor: colors.accent }}>
+                    <View className="flex-row items-center gap-3 p-2 bg-primary rounded-xl" style={{ borderWidth: 1, borderColor: colors.accent }}>
                         <View className="w-12 h-12 rounded-xl items-center justify-center" style={{ backgroundColor: colors.accent + "33" }}>
                             <Ionicons name="calendar-outline" size={24} color={colors.accent50} />
                         </View>
@@ -193,7 +193,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                             <AppText styles="text-xs text-slate-400 mb-1">
                                 {event.is_recurring && event.recurrence_info ? "Recurring Event" : "Date & Time"}
                             </AppText>
-                            <AppText styles="text-sm text-black font-nunbold">
+                            <AppText styles="text-sm text-white font-nunbold">
                                 {new Date(event.start_date).toLocaleDateString("en-US", {
                                     month: "short",
                                     day: "numeric",
@@ -220,7 +220,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                     </View>
 
                     {/* Location */}
-                    <View className="flex-row items-center gap-3 p-2 bg-primary-100 rounded-xl" style={{ borderWidth: 1, borderColor: colors.accent }}>
+                    <View className="flex-row items-center gap-3 p-2 bg-primary rounded-xl" style={{ borderWidth: 1, borderColor: colors.accent }}>
                         <View className="w-12 h-12 rounded-xl items-center justify-center" style={{ backgroundColor: colors.accent + "33" }}>
                             <Ionicons name="location-outline" size={24} color={colors.accent50} />
                         </View>
@@ -228,7 +228,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                             <AppText styles="text-xs text-slate-400 mb-1">
                                 Location
                             </AppText>
-                            <AppText styles="text-sm text-black font-nunbold" numberOfLines={1}>
+                            <AppText styles="text-sm text-white font-nunbold" numberOfLines={1}>
                                 {event.venue.name}
                             </AppText>
                             <AppText styles="text-xs text-slate-300" numberOfLines={1}>
@@ -238,7 +238,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                     </View>
 
                     {/* Tickets Available */}
-                    <View className="flex-row items-center gap-3 p-2 bg-primary-100 rounded-xl" style={{ borderWidth: 1, borderColor: colors.accent }}>
+                    <View className="flex-row items-center gap-3 p-2 bg-primary rounded-xl" style={{ borderWidth: 1, borderColor: colors.accent }}>
                         <View className="w-12 h-12 rounded-xl items-center justify-center" style={{ backgroundColor: colors.accent + "33" }}>
                             <Ionicons name="people-outline" size={24} color={colors.accent50} />
                         </View>
@@ -246,7 +246,7 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                             <AppText styles="text-xs text-slate-400 mb-1">
                                 Availability
                             </AppText>
-                            <AppText styles="text-sm text-black font-nunbold">
+                            <AppText styles="text-sm text-white font-nunbold">
                                 {event.tickets_available.toLocaleString()} tickets remaining
                             </AppText>
                             {/* Progress Bar */}

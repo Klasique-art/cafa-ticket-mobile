@@ -16,7 +16,7 @@ const EventDescription = ({ event }: EventDescriptionProps) => {
     const isRecurring = event.is_recurring && event.recurrence_info !== null;
 
     return (
-        <Animated.View entering={FadeInDown.delay(400)} className="bg-primary-100 py-4">
+        <Animated.View entering={FadeInDown.delay(400)} className="bg-white py-4">
             <View className="px-2">
                 {/* Header */}
                 <View className="flex-row items-center gap-3 mb-6">
@@ -53,19 +53,19 @@ const EventDescription = ({ event }: EventDescriptionProps) => {
 
                 {/* Capacity Card */}
                 <View className="p-4 rounded-xl" style={{ backgroundColor: colors.primary, borderWidth: 1, borderColor: colors.accent }}>
-                    <AppText styles="text-base text-black mb-4" font="font-ibold">Capacity</AppText>
+                    <AppText styles="text-base text-white mb-4" font="font-ibold">Capacity</AppText>
                     <View style={{ gap: 12 }}>
                         <View className="flex-row justify-between">
                             <AppText styles="text-xs text-slate-400" font="font-iregular">Total Capacity</AppText>
-                            <AppText styles="text-sm text-black" font="font-ibold">{event.max_attendees.toLocaleString()}</AppText>
+                            <AppText styles="text-sm text-white" font="font-ibold">{event.max_attendees.toLocaleString()}</AppText>
                         </View>
                         <View className="flex-row justify-between">
                             <AppText styles="text-xs text-slate-400" font="font-iregular">Tickets Sold</AppText>
-                            <AppText styles="text-sm text-accent-50" font="font-ibold">{event.tickets_sold.toLocaleString()}</AppText>
+                            <AppText styles="text-sm text-white" font="font-ibold">{event.tickets_sold.toLocaleString()}</AppText>
                         </View>
                         <View className="flex-row justify-between">
                             <AppText styles="text-xs text-slate-400" font="font-iregular">Available</AppText>
-                            <AppText styles="text-sm text-black" font="font-ibold">{event.tickets_available.toLocaleString()}</AppText>
+                            <AppText styles="text-sm text-white" font="font-ibold">{event.tickets_available.toLocaleString()}</AppText>
                         </View>
                         <View className="h-2 bg-primary-100 rounded-full overflow-hidden mt-2">
                             <View className="h-full bg-accent-50 rounded-full" style={{ width: `${(event.tickets_sold / event.max_attendees) * 100}%` }} />

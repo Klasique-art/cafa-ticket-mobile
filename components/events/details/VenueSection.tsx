@@ -31,7 +31,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
     };
 
     return (
-        <Animated.View entering={FadeInDown.delay(1000)} className="bg-primary-100 py-8">
+        <Animated.View entering={FadeInDown.delay(1000)} className="bg-white py-8">
             <View className="px-4">
                 {/* Header */}
                 <View className="mb-6">
@@ -41,7 +41,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                         </View>
                         <AppText styles="text-xl text-black" font="font-ibold">Venue & Location</AppText>
                     </View>
-                    <AppText styles="text-sm text-slate-300 leading-relaxed" font="font-iregular">
+                    <AppText styles="text-sm text-slate-700 leading-relaxed" font="font-iregular">
                         Get directions and explore the venue location.
                     </AppText>
                 </View>
@@ -89,7 +89,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                         activeOpacity={0.8}
                     >
                         <Ionicons name="navigate-outline" size={20} color={colors.white} />
-                        <AppText styles="text-sm text-black" font="font-ibold">Get Directions</AppText>
+                        <AppText styles="text-sm text-white" font="font-ibold">Get Directions</AppText>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -105,24 +105,24 @@ const VenueSection = ({ event }: VenueSectionProps) => {
 
                 {/* Venue Details Card */}
                 <View className="bg-primary rounded-xl p-4 mb-4" style={{ borderWidth: 1, borderColor: colors.accent }}>
-                    <AppText styles="text-base text-black mb-4" font="font-ibold">Venue Details</AppText>
+                    <AppText styles="text-base text-white mb-4" font="font-ibold">Venue Details</AppText>
 
                     <View style={{ gap: 16 }}>
                         <View>
                             <AppText styles="text-xs text-slate-400 mb-1" font="font-isemibold">Venue Name</AppText>
-                            <AppText styles="text-base text-black" font="font-ibold">{venue.name}</AppText>
+                            <AppText styles="text-base text-white" font="font-ibold">{venue.name}</AppText>
                         </View>
 
                         <View>
                             <AppText styles="text-xs text-slate-400 mb-1" font="font-isemibold">Address</AppText>
-                            <AppText styles="text-sm text-black" font="font-iregular">{venue.address}</AppText>
+                            <AppText styles="text-sm text-white" font="font-iregular">{venue.address}</AppText>
                             <AppText styles="text-sm text-slate-300" font="font-iregular">{venue.city}, {venue.country}</AppText>
                         </View>
 
                         <View>
-                            <AppText styles="text-xs text-slate-400 mb-1" font="font-isemibold">Coordinates</AppText>
-                            <View className="px-3 py-2 bg-primary-100 rounded-lg self-start" style={{ borderWidth: 1, borderColor: colors.accent + "50" }}>
-                                <AppText styles="text-xs text-accent-50" font="font-iregular">{venue.latitude}, {venue.longitude}</AppText>
+                            <AppText styles="text-xs text-slate-300 mb-1" font="font-isemibold">Coordinates</AppText>
+                            <View className="px-3 py-2 bg-primary-100 rounded-lg self-start" style={{ borderWidth: 1, borderColor: colors.accent }}>
+                                <AppText styles="text-xs text-white" font="font-iregular">{venue.latitude}, {venue.longitude}</AppText>
                             </View>
                         </View>
                     </View>
@@ -132,7 +132,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                 <View className="bg-primary rounded-xl p-4 mb-4" style={{ borderWidth: 1, borderColor: colors.accent }}>
                     <View className="flex-row items-center gap-2 mb-4">
                         <Ionicons name="car-outline" size={20} color={colors.accent50} />
-                        <AppText styles="text-base text-black" font="font-ibold">Getting There</AppText>
+                        <AppText styles="text-base text-white" font="font-ibold">Getting There</AppText>
                     </View>
 
                     <View style={{ gap: 12 }}>
@@ -141,7 +141,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                                 <AppText styles="text-sm" font="font-ibold">🚗</AppText>
                             </View>
                             <View className="flex-1">
-                                <AppText styles="text-sm text-black" font="font-ibold">By Car</AppText>
+                                <AppText styles="text-sm text-white" font="font-ibold">By Car</AppText>
                                 <AppText styles="text-xs text-slate-300" font="font-iregular">Parking available nearby</AppText>
                             </View>
                         </View>
@@ -151,7 +151,7 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                                 <AppText styles="text-sm" font="font-ibold">🚌</AppText>
                             </View>
                             <View className="flex-1">
-                                <AppText styles="text-sm text-black" font="font-ibold">Public Transport</AppText>
+                                <AppText styles="text-sm text-white" font="font-ibold">Public Transport</AppText>
                                 <AppText styles="text-xs text-slate-300" font="font-iregular">Check local bus routes to {venue.city}</AppText>
                             </View>
                         </View>
@@ -161,35 +161,11 @@ const VenueSection = ({ event }: VenueSectionProps) => {
                                 <AppText styles="text-sm" font="font-ibold">🚕</AppText>
                             </View>
                             <View className="flex-1">
-                                <AppText styles="text-sm text-black" font="font-ibold">Ride-Share</AppText>
+                                <AppText styles="text-sm text-white" font="font-ibold">Ride-Share</AppText>
                                 <AppText styles="text-xs text-slate-300" font="font-iregular">Uber, Bolt available in the area</AppText>
                             </View>
                         </View>
                     </View>
-                </View>
-
-                {/* Accessibility */}
-                <View className="bg-primary rounded-xl p-4" style={{ borderWidth: 1, borderColor: colors.accent }}>
-                    <AppText styles="text-base text-black mb-3" font="font-ibold">Accessibility</AppText>
-
-                    <View style={{ gap: 8 }}>
-                        <View className="flex-row items-center gap-2">
-                            <AppText styles="text-sm text-accent-50" font="font-ibold">✓</AppText>
-                            <AppText styles="text-sm text-slate-300" font="font-iregular">Wheelchair accessible venue</AppText>
-                        </View>
-                        <View className="flex-row items-center gap-2">
-                            <AppText styles="text-sm text-accent-50" font="font-ibold">✓</AppText>
-                            <AppText styles="text-sm text-slate-300" font="font-iregular">Accessible parking available</AppText>
-                        </View>
-                        <View className="flex-row items-center gap-2">
-                            <AppText styles="text-sm text-accent-50" font="font-ibold">✓</AppText>
-                            <AppText styles="text-sm text-slate-300" font="font-iregular">Accessible restrooms</AppText>
-                        </View>
-                    </View>
-
-                    <AppText styles="text-xs text-slate-400 mt-3" font="font-iregular">
-                        For specific accessibility needs, please contact the organizer
-                    </AppText>
                 </View>
             </View>
         </Animated.View>

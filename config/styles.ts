@@ -3,34 +3,34 @@ import colors from '@/config/colors';
 
 export const markdownStyles = StyleSheet.create({
     body: { 
-        color: colors.white, 
+        color: colors.black, 
         fontSize: 15, 
         lineHeight: 24, 
         fontFamily: "iregular" 
     },
     heading1: { 
-        color: colors.white, 
+        color: colors.black, 
         fontSize: 24, 
         fontFamily: "ibold", 
         marginTop: 20, 
         marginBottom: 12 
     },
     heading2: { 
-        color: colors.white, 
+        color: colors.black, 
         fontSize: 20, 
         fontFamily: "ibold", 
         marginTop: 16, 
         marginBottom: 10 
     },
     heading3: { 
-        color: colors.white, 
+        color: colors.black, 
         fontSize: 18, 
         fontFamily: "isemibold", 
         marginTop: 12, 
         marginBottom: 8 
     },
     paragraph: { 
-        color: colors.white, 
+        color: colors.black, 
         marginBottom: 12, 
         fontSize: 15, 
         lineHeight: 24 
@@ -45,11 +45,11 @@ export const markdownStyles = StyleSheet.create({
         marginRight: 8 
     },
     bullet_list_content: { 
-        color: colors.white, 
+        color: colors.black, 
         fontSize: 15 
     },
     strong: { 
-        color: colors.white, 
+        color: colors.black, 
         fontFamily: "ibold" 
     },
     em: { 

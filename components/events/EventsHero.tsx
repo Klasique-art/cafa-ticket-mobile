@@ -1,6 +1,5 @@
 import { View, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 
@@ -19,17 +18,14 @@ const EventsHero = ({
     searchQuery,
     onSearchChange,
 }: EventsHeroProps) => {
-    const insets = useSafeAreaInsets();
-
     return (
-        <View style={{ paddingTop: insets.top }} className="pb-8 rounded-sm overflow-hidden">
+        <View className="pb-8 overflow-hidden">
             {/* Gradient Background with Decorative Elements */}
             <LinearGradient
                 colors={[colors.primary, colors.primary200, colors.primary]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
-                className="px-4 py-6 rounded-sm overflow-hidden"
-                style={{borderRadius: 12}}
+                className="px-4 py-6 overflow-hidden rounded-xl"
             >
                 {/* Floating Accent Circles - Decorative */}
                 <View className="absolute top-10 right-8 w-32 h-32 rounded-full opacity-10"

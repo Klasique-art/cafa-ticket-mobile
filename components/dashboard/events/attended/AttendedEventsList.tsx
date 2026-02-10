@@ -23,7 +23,7 @@ const AttendedEventsList = ({ attendedEvents }: AttendedEventsListProps) => {
                 >
                     <Ionicons name="calendar-outline" size={40} color={colors.accent50} />
                 </View>
-                <AppText styles="text-xl text-black text-center mb-3" font="font-ibold">
+                <AppText styles="text-xl text-white text-center mb-3" font="font-ibold">
                     No Events Attended Yet
                 </AppText>
                 <AppText styles="text-sm text-slate-300 text-center mb-6" font="font-iregular">
@@ -31,7 +31,7 @@ const AttendedEventsList = ({ attendedEvents }: AttendedEventsListProps) => {
                 </AppText>
                 <AppButton
                     title="Browse Events"
-                    variant="primary"
+                    variant="danger"
                     onClick={() => router.push("/events")}
                     icon={<Ionicons name="search" size={16} color={colors.white} />}
                 />

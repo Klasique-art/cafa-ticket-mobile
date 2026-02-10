@@ -201,7 +201,7 @@ const MyEventDetailsScreen = () => {
             <ScrollView
                 className="flex-1"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ padding: 10, paddingBottom: 100, gap: 16 }}
+                contentContainerStyle={{ paddingBottom: 100, gap: 16 }}
                 refreshControl={
                     <RefreshControl
                         refreshing={isRefreshing}

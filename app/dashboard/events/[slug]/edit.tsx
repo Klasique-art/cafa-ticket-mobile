@@ -51,7 +51,7 @@ const EditEventScreen = () => {
 
     return (
         <RequireAuth>
-            <View className="flex-1" style={{ backgroundColor: colors.primary }}>
+            <View className="flex-1" style={{ backgroundColor: colors.white }}>
                 <Stack.Screen
                     options={{
                         headerShown: true,
@@ -106,7 +106,7 @@ const EditEventScreen = () => {
                                         activeOpacity={0.8}
                                     >
                                         <Ionicons name="arrow-back" size={18} color={colors.white} />
-                                        <AppText styles="text-sm text-black font-nunbold">
+                                        <AppText styles="text-sm text-white font-nunbold">
                                             Back to My Events
                                         </AppText>
                                     </TouchableOpacity>
@@ -144,7 +144,7 @@ const EditEventScreen = () => {
                                         activeOpacity={0.8}
                                     >
                                         <Ionicons name="arrow-back" size={18} color={colors.white} />
-                                        <AppText styles="text-sm text-black font-nunbold">
+                                        <AppText styles="text-sm text-white font-nunbold">
                                             Back to Event Details
                                         </AppText>
                                     </TouchableOpacity>

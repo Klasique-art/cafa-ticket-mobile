@@ -47,7 +47,7 @@ const AttendedEventsScreen = () => {
                 <ScrollView
                     className="flex-1"
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 24 }}
+                    contentContainerStyle={{ paddingBottom: 24 }}
                     refreshControl={
                         <RefreshControl
                             refreshing={isRefreshing}
@@ -62,7 +62,7 @@ const AttendedEventsScreen = () => {
                         <AppText styles="text-2xl text-black mb-2 font-nunbold">
                             Attended Events
                         </AppText>
-                        <AppText styles="text-sm text-slate-300">
+                        <AppText styles="text-sm text-slate-700">
                             Your event attendance history
                         </AppText>
                     </View>
@@ -90,7 +90,7 @@ const AttendedEventsScreen = () => {
                             >
                                 <Ionicons name="alert-circle-outline" size={32} color={colors.accent50} />
                             </View>
-                            <AppText styles="text-lg text-black text-center mb-2 font-nunbold">
+                            <AppText styles="text-lg text-white text-center mb-2 font-nunbold">
                                 Unable to Load Events
                             </AppText>
                             <AppText styles="text-sm text-slate-300 text-center mb-4">
@@ -115,7 +115,7 @@ const AttendedEventsScreen = () => {
                             >
                                 <View className="flex-row items-center gap-3 mb-2">
                                     <Ionicons name="information-circle" size={20} color="#60a5fa" />
-                                    <AppText styles="text-base text-black font-nunbold">
+                                    <AppText styles="text-base text-white font-nunbold">
                                         About Your Attendance History
                                     </AppText>
                                 </View>

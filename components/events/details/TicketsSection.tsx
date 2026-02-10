@@ -24,7 +24,7 @@ const TicketsSection = ({ event, currentUser, onTicketSelect }: TicketsSectionPr
     // Non-upcoming events
     if (!isUpcoming) {
         return (
-            <Animated.View entering={FadeInDown.delay(600)} className="bg-primary py-4">
+            <Animated.View entering={FadeInDown.delay(600)} className="bg-white py-4">
                 <View className="px-2">
                     {/* Header */}
                     <View className="flex-row items-center gap-3 mb-6">
@@ -35,12 +35,12 @@ const TicketsSection = ({ event, currentUser, onTicketSelect }: TicketsSectionPr
                     </View>
 
                     {/* Status Message */}
-                    <View className="p-6 rounded-2xl" style={{ backgroundColor: isOngoing ? colors.accent + "20" : "#64748b20", borderWidth: 2, borderColor: isOngoing ? colors.accent : "#64748b" }}>
+                    <View className="p-6 rounded-2xl" style={{ backgroundColor: isOngoing ? colors.accent + "20" : colors.primary, borderWidth: 2, borderColor: isOngoing ? colors.accent : "#64748b" }}>
                         <View className="w-16 h-16 mx-auto mb-4 rounded-full items-center justify-center" style={{ backgroundColor: isOngoing ? colors.accent + "33" : "#64748b33" }}>
                             <Ionicons name={isOngoing ? "time-outline" : "ban-outline"} size={32} color={isOngoing ? colors.accent50 : "#94a3b8"} />
                         </View>
 
-                        <AppText styles="text-lg text-black text-center mb-3 font-nunbold">
+                        <AppText styles="text-lg text-white text-center mb-3 font-nunbold">
                             {isOngoing && "Event In Progress"}
                             {isPast && "Ticket Sales Closed"}
                         </AppText>
@@ -50,7 +50,7 @@ const TicketsSection = ({ event, currentUser, onTicketSelect }: TicketsSectionPr
                             {isPast && "This event has already taken place. Ticket sales are no longer available."}
                         </AppText>
 
-                        <View className="items-center py-2 px-4 bg-primary-100 rounded-lg self-center" style={{ borderWidth: 1, borderColor: colors.accent + "50" }}>
+                        <View className="items-center py-2 px-4 bg-primary-100 rounded-lg self-center" style={{ borderWidth: 1, borderColor: colors.accent }}>
                             <AppText styles="text-xs text-slate-300">
                                 {isOngoing && `Started ${new Date(event.start_date).toLocaleDateString()}`}
                                 {isPast && `Took place ${new Date(event.start_date).toLocaleDateString()}`}
@@ -58,7 +58,7 @@ const TicketsSection = ({ event, currentUser, onTicketSelect }: TicketsSectionPr
                         </View>
 
                         <TouchableOpacity onPress={() => router.push("/events")} className="mt-6 py-3 px-6 bg-accent rounded-xl self-center" activeOpacity={0.8}>
-                            <AppText styles="text-sm text-black font-nunbold">Explore Other Events</AppText>
+                            <AppText styles="text-sm text-white font-nunbold">Explore Other Events</AppText>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -71,7 +71,7 @@ const EventDetailsScreen = () => {
 
     return (
         <>
-            <ScrollView className="flex-1 bg-primary" showsVerticalScrollIndicator={false}>
+            <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
                 <EventDetailsHero event={event} />
                 <EventDescription event={event} />
                 <TicketsSection event={event} currentUser={user} onTicketSelect={handleTicketPurchase} />
