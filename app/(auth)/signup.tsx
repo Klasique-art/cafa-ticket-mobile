@@ -25,7 +25,7 @@ import {
 } from "@/components";
 import { SignupValidationSchema, SignupFormValues } from "@/data/validationSchema";
 import colors from "@/config/colors";
-import { API_BASE_URL } from "@/lib/client";
+import { API_BASE_URL } from "@/config/settings";
 import EmailVerificationPrompt from "@/components/auth/EmailVerificationPrompt";
 
 const SignupScreen = () => {
@@ -184,7 +184,7 @@ const SignupScreen = () => {
                     <Ionicons name="ticket" size={24} color="white" />
                   </View>
                   <View>
-                    <AppText styles="text-xl text-black font-nunbold">
+                    <AppText styles="text-xl text-white font-nunbold">
                       Cafa Tickets
                     </AppText>
                     <AppText
@@ -196,7 +196,7 @@ const SignupScreen = () => {
                 </View>
 
                 <AppText
-                  styles="text-3xl text-black mb-2 font-nunbold"
+                  styles="text-3xl text-white mb-2 font-nunbold"
                 >
                   Create Account
                 </AppText>
@@ -326,7 +326,7 @@ const SignupScreen = () => {
                     activeOpacity={0.7}
                   >
                     <AppText
-                      styles="text-sm text-black font-nunbold"
+                      styles="text-sm text-white font-nunbold"
                     >
                       Sign In
                     </AppText>

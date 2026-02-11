@@ -16,20 +16,36 @@ const EventsCategoryTabs = ({
     onCategorySelect,
     categories,
 }: EventsCategoryTabsProps) => {
-    const getIconName = (iconName: string): keyof typeof Ionicons.glyphMap => {
-        // Map category icons to Ionicons
+    const getIconName = (iconName?: string): keyof typeof Ionicons.glyphMap => {
+        // API sends icon names like `FaMusic`/`FaFootballBall`, so support both
+        // FA-style icon keys and semantic category names.
+        const normalized = (iconName ?? "").trim().toLowerCase();
+        const normalizedNoPrefix = normalized.replace(/^fa/, "");
+
         const iconMap: Record<string, keyof typeof Ionicons.glyphMap> = {
+            // Current web/API category icon keys
+            famusic: "musical-notes",
             music: "musical-notes",
+            fafootballball: "football",
+            footballball: "football",
             sports: "trophy",
+            fapaintbrush: "color-palette",
+            paintbrush: "color-palette",
+            arts: "color-palette",
+            "arts-culture": "color-palette",
+            art: "color-palette",
+            culture: "color-palette",
+
+            // Generic fallbacks for other possible categories
             tech: "code-slash",
             food: "restaurant",
-            art: "color-palette",
             business: "briefcase",
             education: "school",
             health: "fitness",
             entertainment: "game-controller",
         };
-        return iconMap[iconName.toLowerCase()] || "calendar";
+
+        return iconMap[normalized] || iconMap[normalizedNoPrefix] || "calendar";
     };
 
     return (
@@ -76,7 +92,7 @@ const EventsCategoryTabs = ({
                                 color={isSelected ? colors.white : colors.accent50}
                             />
                             <AppText
-                                styles={`text-xs font-nunbold ${isSelected ? "text-white" : "text-slate-200"}`}
+                                styles={`text-xs capitalize font-nunbold ${isSelected ? "text-white" : "text-slate-200"}`}
                             >
                                 {category.name}
                             </AppText>
@@ -92,3 +108,5 @@ const EventsCategoryTabs = ({
 };
 
 export default EventsCategoryTabs;
+
+
