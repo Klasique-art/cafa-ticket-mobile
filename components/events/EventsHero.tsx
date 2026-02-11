@@ -2,6 +2,7 @@ import { View, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
+import { router } from "expo-router";
 
 import AppText from "../ui/AppText";
 import colors from "@/config/colors";
@@ -49,6 +50,15 @@ const EventsHero = ({
                                     amazing experiences
                                 </AppText>
                             </View>
+
+                            <TouchableOpacity
+                                onPress={() => router.push("/(tabs)")}
+                                className="w-10 h-10 rounded-xl border items-center justify-center bg-primary/40"
+                                style={{ borderColor: colors.white }}
+                                activeOpacity={0.7}
+                            >
+                                <Ionicons name="home-outline" size={20} color={colors.white} />
+                            </TouchableOpacity>
                         </View>
                     </View>
 

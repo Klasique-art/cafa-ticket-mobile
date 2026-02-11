@@ -30,7 +30,7 @@ const EventsEmptyState = ({
             </AppText>
 
             <AppText
-                styles="text-sm text-slate-300 text-center mb-6 max-w-sm"
+                styles="text-sm text-slate-600 text-center mb-6 max-w-sm"
             >
                 {hasFilters
                     ? "We couldn't find any events matching your filters. Try adjusting your search criteria."
