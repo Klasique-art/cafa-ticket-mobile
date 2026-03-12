@@ -51,7 +51,7 @@ const SignupScreen = () => {
         password_confirm: values.confirmPassword,
       };
 
-      const response = await axios.post(
+      await axios.post(
         `${API_BASE_URL}/auth/users/`,
         payload
       );
@@ -168,11 +168,14 @@ const SignupScreen = () => {
             className="ml-2 mt-4 w-10 h-10 items-center justify-center rounded-full"
             style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Go back"
+            accessibilityHint="Returns to the previous screen"
           >
             <Ionicons name="arrow-back" size={24} color="white" />
           </TouchableOpacity>
 
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View className="flex-1 px-4 py-8">
               {/* Header Section */}
               <View className="mb-8">
@@ -288,6 +291,9 @@ const SignupScreen = () => {
                       <Link href="/terms" asChild>
                         <AppText
                           styles="text-xs text-white underline font-nunbold"
+                          accessibilityRole="link"
+                          accessibilityLabel="Terms of Service"
+                          accessibilityHint="Opens terms of service"
                         >
                           Terms of Service
                         </AppText>
@@ -296,6 +302,9 @@ const SignupScreen = () => {
                       <Link href="/privacy" asChild>
                         <AppText
                           styles="text-xs text-white underline font-nunbold"
+                          accessibilityRole="link"
+                          accessibilityLabel="Privacy Policy"
+                          accessibilityHint="Opens privacy policy"
                         >
                           Privacy Policy
                         </AppText>
@@ -324,6 +333,9 @@ const SignupScreen = () => {
                     onPress={() => router.push("/(auth)/login" as Href)}
                     className="flex-row items-center justify-center gap-2 py-3 border-2 border-accent rounded-xl"
                     activeOpacity={0.7}
+                    accessibilityRole="button"
+                    accessibilityLabel="Sign in"
+                    accessibilityHint="Opens sign in screen"
                   >
                     <AppText
                       styles="text-sm text-white font-nunbold"

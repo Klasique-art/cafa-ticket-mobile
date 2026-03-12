@@ -75,7 +75,7 @@ const LoginScreen = () => {
         style={{ position: "absolute", left: 0, right: 0, top: 0, bottom: 0 }}
       />
 
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -89,6 +89,9 @@ const LoginScreen = () => {
               onPress={() => router.back()}
               className="ml-2 mt-4 w-10 h-10 items-center justify-center rounded-full"
               style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+              accessibilityRole="button"
+              accessibilityLabel="Go back"
+              accessibilityHint="Returns to the previous screen"
             >
               <Ionicons name="arrow-back" size={24} color="white" />
             </TouchableOpacity>
@@ -150,7 +153,15 @@ const LoginScreen = () => {
                     />
                   </View>
 
-                  <Link href="/forgot-password" className="text-red-300 underline">Forgot Password?</Link>
+                  <Link
+                    href="/forgot-password"
+                    className="text-red-300 underline"
+                    accessibilityRole="link"
+                    accessibilityLabel="Forgot password"
+                    accessibilityHint="Opens password reset screen"
+                  >
+                    Forgot Password?
+                  </Link>
 
 
                   <View className="mb-4">
@@ -167,9 +178,14 @@ const LoginScreen = () => {
 
                   <View className="flex-row justify-center items-center">
                     <AppText styles="text-sm text-slate-200">
-                      Don't have an account?{" "}
+                      Don&apos;t have an account?{" "}
                     </AppText>
-                    <TouchableOpacity onPress={() => router.push("/signup" as Href)}>
+                    <TouchableOpacity
+                      onPress={() => router.push("/signup" as Href)}
+                      accessibilityRole="button"
+                      accessibilityLabel="Sign up"
+                      accessibilityHint="Opens create account screen"
+                    >
                       <AppText styles="text-sm underline font-nunbold" color="text-red-400">
                         Sign Up
                       </AppText>
@@ -182,7 +198,26 @@ const LoginScreen = () => {
                 <AppText
                   styles="text-xs text-white text-center px-8"
                 >
-                  By signing in, you agree to our <Link href="/terms" className="text-red-400 underline">Terms</Link> and <Link href="/privacy" className="text-red-400 underline">Privacy Policy</Link>
+                  By signing in, you agree to our{" "}
+                  <Link
+                    href="/terms"
+                    className="text-red-400 underline"
+                    accessibilityRole="link"
+                    accessibilityLabel="Terms"
+                    accessibilityHint="Opens terms and conditions"
+                  >
+                    Terms
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="/privacy"
+                    className="text-red-400 underline"
+                    accessibilityRole="link"
+                    accessibilityLabel="Privacy Policy"
+                    accessibilityHint="Opens privacy policy"
+                  >
+                    Privacy Policy
+                  </Link>
                 </AppText>
               </View>
             </View>
