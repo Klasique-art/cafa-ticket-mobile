@@ -72,6 +72,16 @@ const AppFormField = <Values extends StringFieldFormValues = StringFieldFormValu
         setFieldTouched(name, true);
     };
 
+    // Searchable selects need immediate value validation on select to clear "required" errors.
+    const handleSearchableSelectChange = (text: string) => {
+        setFieldValue(name, text, true);
+    };
+
+    // Prevent blur-time stale validation from running before selected value is committed.
+    const handleSearchableSelectBlur = () => {
+        setFieldTouched(name, true, false);
+    };
+
     return (
         <View className={`flex flex-col gap-2 ${styles}`}>
             {type === 'searchable-select' ? (
@@ -79,8 +89,8 @@ const AppFormField = <Values extends StringFieldFormValues = StringFieldFormValu
                     name={name}
                     label={label}
                     value={value}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    onChange={handleSearchableSelectChange}
+                    onBlur={handleSearchableSelectBlur}
                     options={options}
                     required={required}
                     placeholder={placeholder}

@@ -365,6 +365,17 @@ export async function createPaymentProfile(data: {
     }
 }
 
+export async function deletePaymentProfile(profileId: string) {
+    try {
+        const response = await client.delete(`/auth/payment-profile/${profileId}/`);
+        return response.data;
+    } catch (error) {
+        console.error("deletePaymentProfile error:", error);
+        Sentry.captureException(error);
+        throw error;
+    }
+}
+
 export async function getVerificationStatus() {
     try {
         const response = await client.get("/auth/verification/status/");

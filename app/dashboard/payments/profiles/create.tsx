@@ -1,4 +1,4 @@
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, KeyboardAvoidingView } from "react-native";
 import { useState, useEffect } from "react";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -60,6 +60,7 @@ const FormFields = ({
         type="searchable-select"
         name="country"
         label="Country"
+        labelColor="text-white"
         options={countryOptions}
         placeholder={isDetectingCountry ? "Detecting your country..." : "Search for your country..."}
         isLoading={isDetectingCountry || isLoadingCountries}
@@ -70,6 +71,7 @@ const FormFields = ({
         type="searchable-select"
         name="bank_name"
         label="Bank Name"
+        labelColor="text-white"
         options={bankOptions}
         placeholder={
           isLoadingBanks
@@ -179,61 +181,68 @@ const CreatePaymentProfileScreen = () => {
     <Screen statusBarStyle="light-content" className="bg-primary" statusBarBg={colors.primary}>
       <Nav title="Create Payment Profile" />
 
-      <ScrollView
-        className="flex-1 px-4"
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 32, paddingTop: 16 }}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior="padding"
+        keyboardVerticalOffset={0}
       >
-        <View className="bg-primary-100 rounded-xl p-4 border-2 border-accent mb-6">
-          <View className="flex-row items-center gap-3 mb-3">
-            <View className="w-12 h-12 rounded-xl bg-info/20 items-center justify-center">
-              <Ionicons name="business" size={24} color={colors.info} />
-            </View>
-            <View className="flex-1">
-              <AppText styles="text-lg text-white font-nunbold">
-                Create Bank Account Profile
-              </AppText>
-              <AppText styles="text-xs text-slate-400">
-                Add your bank account for receiving payouts
-              </AppText>
-            </View>
-          </View>
-        </View>
-
-        {error && (
-          <View className="mb-6 p-4 bg-red-500/10 rounded-lg border border-red-500/20">
-            <View className="flex-row items-center gap-2">
-              <Ionicons name="alert-circle" size={20} color={colors.error} />
-              <AppText styles="text-sm text-red-400 flex-1 font-nunbold">
-                {error}
-              </AppText>
-            </View>
-          </View>
-        )}
-
-        <AppForm
-          initialValues={{
-            name: "",
-            description: "",
-            account_number: "",
-            account_name: "",
-            country: selectedCountry,
-            bank_name: "",
-            branch: "",
-          }}
-          validationSchema={bankTransferValidation}
-          onSubmit={handleSubmit}
-          enableReinitialize
+        <ScrollView
+          className="flex-1 px-4"
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 32, paddingTop: 16 }}
+          keyboardShouldPersistTaps="handled"
         >
-          <FormFields
-            bankOptions={bankOptions}
-            isLoadingBanks={isLoadingBanks}
-            selectedCountry={selectedCountry}
-            setSelectedCountry={setSelectedCountry}
-            isDetectingCountry={isDetectingCountry}
-          />
-        </AppForm>
-      </ScrollView>
+          <View className="bg-primary-100 rounded-xl p-4 border-2 border-accent mb-6">
+            <View className="flex-row items-center gap-3 mb-3">
+              <View className="w-12 h-12 rounded-xl bg-info/20 items-center justify-center">
+                <Ionicons name="business" size={24} color={colors.info} />
+              </View>
+              <View className="flex-1">
+                <AppText styles="text-lg text-white font-nunbold">
+                  Create Bank Account Profile
+                </AppText>
+                <AppText styles="text-xs text-slate-400">
+                  Add your bank account for receiving payouts
+                </AppText>
+              </View>
+            </View>
+          </View>
+
+          {error && (
+            <View className="mb-6 p-4 bg-red-500/10 rounded-lg border border-red-500/20">
+              <View className="flex-row items-center gap-2">
+                <Ionicons name="alert-circle" size={20} color={colors.error} />
+                <AppText styles="text-sm text-red-400 flex-1 font-nunbold">
+                  {error}
+                </AppText>
+              </View>
+            </View>
+          )}
+
+          <AppForm
+            initialValues={{
+              name: "",
+              description: "",
+              account_number: "",
+              account_name: "",
+              country: selectedCountry,
+              bank_name: "",
+              branch: "",
+            }}
+            validationSchema={bankTransferValidation}
+            onSubmit={handleSubmit}
+            enableReinitialize
+          >
+            <FormFields
+              bankOptions={bankOptions}
+              isLoadingBanks={isLoadingBanks}
+              selectedCountry={selectedCountry}
+              setSelectedCountry={setSelectedCountry}
+              isDetectingCountry={isDetectingCountry}
+            />
+          </AppForm>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       <FormLoader visible={isSubmitting} />
     </Screen>
@@ -241,5 +250,3 @@ const CreatePaymentProfileScreen = () => {
 };
 
 export default CreatePaymentProfileScreen;
-
-
