@@ -3,7 +3,9 @@ import { View, ScrollView, TouchableOpacity, Linking } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
-import { Screen, Nav, AppText } from "@/components";
+import Screen from "@/components/ui/Screen";
+import Nav from "@/components/ui/Nav";
+import AppText from "@/components/ui/AppText";
 import colors from "@/config/colors";
 import { APP_EMAIL, APP_NUMBER } from "@/data/constants";
 import {

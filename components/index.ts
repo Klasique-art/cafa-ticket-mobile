@@ -52,7 +52,6 @@ export { default as SimilarEventsSection } from "./events/details/SimilarEventsS
 export { default as TicketCard } from "./events/details/TicketCard";
 export { default as TicketPurchaseModal } from "./events/details/TicketPurchaseModal";
 export { default as TicketsSection } from "./events/details/TicketsSection";
-export { default as VenueSection } from "./events/details/VenueSection";
 // dashboard
 export { default as DashboardList } from "./dashboard/DashboardList";
 // dashboard profile

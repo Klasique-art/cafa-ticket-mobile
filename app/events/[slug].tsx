@@ -8,13 +8,13 @@ import {
     TicketsSection,
     TicketPurchaseModal,
     OrganizerSection,
-    VenueSection,
     ShareSection,
     SimilarEventsSection,
     EventNotFound,
     AppText,
     Animation,
 } from "@/components";
+import VenueSection from "@/components/events/details/VenueSection";
 import { tickets } from "@/assets";
 import type { TicketPurchaseModalRef } from "@/components/events/details/TicketPurchaseModal";
 import { getEventBySlug } from "@/lib/events";

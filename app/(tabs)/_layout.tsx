@@ -3,7 +3,7 @@ import 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { Tabs } from 'expo-router'
-import { TabBar } from '@/components';
+import TabBar from '@/components/layout/TabBar';
 
 const TabLayout = () => {
     return (
