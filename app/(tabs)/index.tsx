@@ -116,10 +116,6 @@ export default function HomeScreen() {
                     </View>
                 )}
 
-                <AppText styles="text-center text-black text-2xl">
-                    Testing to see if eas OTA update will apply
-                </AppText>
-
                 {/* Stats */}
                 <StatsSection stats={stats} />
 
