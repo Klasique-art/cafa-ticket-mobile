@@ -68,9 +68,6 @@ export const bankTransferValidation = Yup.object().shape({
         .matches(/^\d+$/, 'Account number must contain only digits')
         .min(8, 'Account number must be at least 8 digits')
         .max(17, 'Account number must be at most 17 digits'),
-    account_name: Yup.string()
-        .required('Account name is required')
-        .min(3, 'Account name must be at least 3 characters'),
     bank_name: Yup.string()
         .required('Bank name is required'),
     branch: Yup.string()

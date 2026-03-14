@@ -349,7 +349,6 @@ export async function createPaymentProfile(data: {
     description?: string;
     account_details: {
         account_number: string;
-        account_name: string;
         bank_name: string;
         bank_code: string;
         branch?: string;

@@ -35,12 +35,6 @@ const extractPaymentProfileErrorMessage = (err: any): string => {
           : accountDetails.account_number;
         if (msg) return String(msg);
       }
-      if (accountDetails.account_name) {
-        const msg = Array.isArray(accountDetails.account_name)
-          ? accountDetails.account_name[0]
-          : accountDetails.account_name;
-        if (msg) return String(msg);
-      }
       if (accountDetails.bank_name) {
         const msg = Array.isArray(accountDetails.bank_name)
           ? accountDetails.bank_name[0]
@@ -139,15 +133,6 @@ const FormFields = ({
 
       <AppFormField
         type="text"
-        name="account_name"
-        label="Account Name"
-        placeholder="Full name as registered with the bank"
-        autoCapitalize="words"
-        required
-      />
-
-      <AppFormField
-        type="text"
         name="branch"
         label="Branch (Optional)"
       />
@@ -202,7 +187,6 @@ const CreatePaymentProfileScreen = () => {
         description: values.description || "",
         account_details: {
           account_number: values.account_number,
-          account_name: values.account_name,
           bank_name: bank.name,
           bank_code: bank.code,
           branch: values.branch || "",
@@ -268,7 +252,6 @@ const CreatePaymentProfileScreen = () => {
               name: "",
               description: "",
               account_number: "",
-              account_name: "",
               country: selectedCountry,
               bank_name: "",
               branch: "",
