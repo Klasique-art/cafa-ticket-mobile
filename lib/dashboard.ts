@@ -376,6 +376,17 @@ export async function deletePaymentProfile(profileId: string) {
     }
 }
 
+export async function setDefaultPaymentProfile(profileId: string) {
+    try {
+        const response = await client.post(`/auth/payment-profile/${profileId}/set-default/`);
+        return response.data;
+    } catch (error) {
+        console.error("setDefaultPaymentProfile error:", error);
+        Sentry.captureException(error);
+        throw error;
+    }
+}
+
 export async function getVerificationStatus() {
     try {
         const response = await client.get("/auth/verification/status/");

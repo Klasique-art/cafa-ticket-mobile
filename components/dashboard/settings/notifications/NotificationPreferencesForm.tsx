@@ -1,11 +1,12 @@
 import { View, TouchableOpacity, ActivityIndicator, Alert } from "react-native";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as Sentry from '@sentry/react-native';
 import { Ionicons } from "@expo/vector-icons";
 
 import AppText from "../../../ui/AppText";
 import AppSwitch from "../../../ui/AppSwitch";
 import colors from "@/config/colors";
+import { updateNotificationSettings } from "@/lib/settings";
 
 type NotificationSettings = {
     marketing_emails: boolean;
@@ -16,6 +17,7 @@ type NotificationSettings = {
 
 interface NotificationPreferencesFormProps {
     currentSettings: NotificationSettings;
+    onSaved?: (settings: NotificationSettings) => void | Promise<void>;
 }
 
 const notificationOptions = [
@@ -49,12 +51,25 @@ const notificationOptions = [
     },
 ];
 
-const NotificationPreferencesForm = ({ currentSettings }: NotificationPreferencesFormProps) => {
+const NotificationPreferencesForm = ({ currentSettings, onSaved }: NotificationPreferencesFormProps) => {
     const [settings, setSettings] = useState<NotificationSettings>(currentSettings);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [savedSettings, setSavedSettings] = useState<NotificationSettings>(currentSettings);
 
-    const hasChanges = JSON.stringify(settings) !== JSON.stringify(currentSettings);
+    useEffect(() => {
+        setSettings(currentSettings);
+        setSavedSettings(currentSettings);
+    }, [currentSettings]);
+
+    const hasChanges = useMemo(
+        () =>
+            settings.marketing_emails !== savedSettings.marketing_emails ||
+            settings.event_reminders !== savedSettings.event_reminders ||
+            settings.email_notifications !== savedSettings.email_notifications ||
+            settings.sms_notifications !== savedSettings.sms_notifications,
+        [settings, savedSettings]
+    );
 
     const handleToggle = (key: keyof NotificationSettings) => {
         setSettings((prev) => ({
@@ -67,10 +82,30 @@ const NotificationPreferencesForm = ({ currentSettings }: NotificationPreference
     const handleSave = async () => {
         try {
             setIsSubmitting(true);
+            setSuccess(false);
 
-            // TODO: Replace with actual API call
-            // await updateNotificationSettings(settings);
-            await new Promise((resolve) => setTimeout(resolve, 1500));
+            const payload: Partial<NotificationSettings> = {};
+
+            if (settings.marketing_emails !== savedSettings.marketing_emails) {
+                payload.marketing_emails = settings.marketing_emails;
+            }
+            if (settings.event_reminders !== savedSettings.event_reminders) {
+                payload.event_reminders = settings.event_reminders;
+            }
+            if (settings.email_notifications !== savedSettings.email_notifications) {
+                payload.email_notifications = settings.email_notifications;
+            }
+            if (settings.sms_notifications !== savedSettings.sms_notifications) {
+                payload.sms_notifications = settings.sms_notifications;
+            }
+
+            if (Object.keys(payload).length === 0) {
+                return;
+            }
+
+            await updateNotificationSettings(payload);
+            setSavedSettings(settings);
+            await onSaved?.(settings);
 
             setSuccess(true);
         } catch (error: any) {

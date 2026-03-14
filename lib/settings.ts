@@ -1,5 +1,6 @@
 import client from "./client";
 import * as Sentry from '@sentry/react-native';
+import type { UserSettings } from "@/types";
 
 // =====================
 // Security Settings
@@ -57,6 +58,17 @@ export async function deleteAccount(data: {
         return response.data;
     } catch (error) {
         console.error("deleteAccount error:", error);
+        Sentry.captureException(error);
+        throw error;
+    }
+}
+
+export async function updateNotificationSettings(data: Partial<UserSettings>) {
+    try {
+        const response = await client.patch("/auth/settings/", data);
+        return response.data;
+    } catch (error) {
+        console.error("updateNotificationSettings error:", error);
         Sentry.captureException(error);
         throw error;
     }

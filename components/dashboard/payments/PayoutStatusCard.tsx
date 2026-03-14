@@ -85,7 +85,10 @@ const PayoutStatusCard = ({ payoutStatus, summary, revenueByMonth }: Props) => {
                                 Balance
                             </AppText>
                         </View>
-                        <AppText styles="text-lg text-white font-nunbold" style={{ color: Number(currentBalance) > 0 ? colors.success : colors.accent }}>
+                        <AppText
+                            styles="text-lg text-white font-nunbold"
+                            style={{ color: Number(currentBalance) > 0 ? colors.success : colors.accent50 }}
+                        >
                             {formatMoney(currentBalance)}
                         </AppText>
                         {revenueByMonth && revenueByMonth.length >= 2 ? (
@@ -157,7 +160,10 @@ const PayoutStatusCard = ({ payoutStatus, summary, revenueByMonth }: Props) => {
                             Current Balance
                         </AppText>
                     </View>
-                    <AppText styles="text-sm text-white font-nunbold" style={{ color: Number(currentBalance) > 0 ? colors.success : colors.accent }}>
+                    <AppText
+                        styles="text-sm text-white font-nunbold"
+                        style={{ color: Number(currentBalance) > 0 ? colors.success : colors.accent50 }}
+                    >
                         {formatMoney(currentBalance)}
                     </AppText>
                 </View>

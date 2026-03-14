@@ -1,6 +1,7 @@
 import { View } from "react-native";
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback } from "react";
 import { router } from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
 
 import {
     Screen,
@@ -25,16 +26,20 @@ const CreateEventScreen = () => {
 
     const isOrganizer = user?.is_organizer;
 
-    useEffect(() => {
-        if (user && !isOrganizer) {
-            const timer = setTimeout(() => {
-                verificationPromptRef.current?.open();
-            }, 50);
-            return () => clearTimeout(timer);
-        } else if (isOrganizer) {
-            verificationPromptRef.current?.close();
-        }
-    }, [user, isOrganizer]);
+    useFocusEffect(
+        useCallback(() => {
+            if (user && !isOrganizer) {
+                const timer = setTimeout(() => {
+                    verificationPromptRef.current?.open();
+                }, 150);
+                return () => clearTimeout(timer);
+            }
+
+            if (isOrganizer) {
+                verificationPromptRef.current?.close();
+            }
+        }, [user, isOrganizer])
+    );
 
     const formContextRef = useRef<{
         setFieldValue: (field: string, value: any) => void;
@@ -87,6 +92,14 @@ const CreateEventScreen = () => {
                                 formContextRef={formContextRef}
                             />
                         </>
+                    )}
+
+                    {!isOrganizer && (
+                        <View className="flex-1 items-center justify-center px-4">
+                            <AppText styles="text-sm text-black text-center" style={{ opacity: 0.7 }}>
+                                Identity verification is required before you can create an event.
+                            </AppText>
+                        </View>
                     )}
                 </View>
             </RequireAuth>

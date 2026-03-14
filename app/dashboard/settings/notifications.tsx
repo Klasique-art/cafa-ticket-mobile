@@ -1,4 +1,5 @@
 import { View, ScrollView } from "react-native";
+import { useEffect, useMemo, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 import {
@@ -8,17 +9,29 @@ import {
     AppText,
     NotificationPreferencesForm,
 } from "@/components";
+import type { UserSettings } from "@/types";
+import { useAuth } from "@/context";
 import colors from "@/config/colors";
 
-// TODO: Replace with actual API call to fetch user's notification settings
-const mockSettings = {
-    marketing_emails: false,
-    event_reminders: true,
-    email_notifications: true,
-    sms_notifications: false,
-};
-
 const NotificationsSettingsScreen = () => {
+    const { user, refreshUser } = useAuth();
+    const fallbackSettings = useMemo<UserSettings>(
+        () => ({
+            marketing_emails: false,
+            event_reminders: true,
+            email_notifications: true,
+            sms_notifications: false,
+        }),
+        []
+    );
+    const [settings, setSettings] = useState<UserSettings>(user?.settings ?? fallbackSettings);
+
+    useEffect(() => {
+        if (user?.settings) {
+            setSettings(user.settings);
+        }
+    }, [user?.settings]);
+
     return (
         <Screen>
             <RequireAuth>
@@ -48,12 +61,12 @@ const NotificationsSettingsScreen = () => {
                                 style={{ backgroundColor: "#3b82f6" + "1A", borderColor: "#3b82f6" + "33" }}
                             >
                                 <View className="flex-row items-start gap-3">
-                                    <Ionicons name="information-circle-outline" size={20} color="#60a5fa" style={{ marginTop: 2 }} />
+                                    <Ionicons name="information-circle-outline" size={20} color="#1e40af" style={{ marginTop: 2 }} />
                                     <View className="flex-1">
-                                        <AppText styles="text-sm mb-1 font-nunbold" style={{ color: "#60a5fa" }}>
+                                        <AppText styles="text-sm mb-1 font-nunbold" style={{ color: "#1e40af" }}>
                                             Stay Updated
                                         </AppText>
-                                        <AppText styles="text-xs" style={{ color: "#60a5fa", opacity: 0.85 }}>
+                                        <AppText styles="text-xs" style={{ color: "#1e40af", opacity: 0.9 }}>
                                             Choose how you want to receive updates about your tickets, upcoming events, and special offers. You can change these preferences at any time.
                                         </AppText>
                                     </View>
@@ -61,7 +74,13 @@ const NotificationsSettingsScreen = () => {
                             </View>
 
                             {/* Preferences Form */}
-                            <NotificationPreferencesForm currentSettings={mockSettings} />
+                            <NotificationPreferencesForm
+                                currentSettings={settings}
+                                onSaved={async (updated) => {
+                                    setSettings(updated);
+                                    await refreshUser();
+                                }}
+                            />
                         </View>
                     </ScrollView>
                 </View>

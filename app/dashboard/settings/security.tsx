@@ -7,7 +7,6 @@ import {
   Nav,
   AppText,
   ChangePasswordForm,
-  ChangeEmailForm,
   ChangeUsernameForm,
 } from "@/components";
 import colors from "@/config/colors";
@@ -70,8 +69,9 @@ const SecuritySettingsScreen = () => {
                 {/* Change Password Form */}
                 <ChangePasswordForm />
 
-                {/* Change Email Form */}
+                {/* Change Email Form - temporarily disabled
                 <ChangeEmailForm />
+                */}
 
                 {/* Change Username Form */}
                 <ChangeUsernameForm />

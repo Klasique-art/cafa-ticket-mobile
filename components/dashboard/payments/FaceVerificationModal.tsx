@@ -9,6 +9,7 @@ import {
 import { useState, useRef, useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { CameraView, useCameraPermissions } from "expo-camera";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import * as SecureStore from "expo-secure-store";
 
@@ -42,6 +43,7 @@ const FaceVerificationModal = ({
     title = "Verify Your Identity",
     description = "For your security, please verify your identity with a selfie before proceeding.",
 }: FaceVerificationModalProps) => {
+    const insets = useSafeAreaInsets();
     // ---- camera permission (expo-camera hook) ----
     const [permission, requestPermission] = useCameraPermissions();
 
@@ -230,6 +232,18 @@ const FaceVerificationModal = ({
                     facing={facingMode}
                 />
 
+                <TouchableOpacity
+                    onPress={handleFlipCamera}
+                    className="absolute top-3 right-3 w-11 h-11 rounded-xl items-center justify-center border"
+                    style={{
+                        backgroundColor: "rgba(5, 14, 60, 0.75)",
+                        borderColor: colors.accent + "99",
+                    }}
+                    activeOpacity={0.8}
+                >
+                    <Ionicons name="refresh-outline" size={20} color={colors.accent50} />
+                </TouchableOpacity>
+
                 {/* oval face guide overlay */}
                 <View
                     className="absolute inset-0 items-center justify-center"
@@ -279,20 +293,6 @@ const FaceVerificationModal = ({
                     <Ionicons name="camera-outline" size={20} color="#fff" />
                     <AppText styles="text-base text-white font-nunbold">
                         Capture Selfie
-                    </AppText>
-                </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                onPress={handleFlipCamera}
-                className="w-full py-3 rounded-xl items-center"
-                style={{ backgroundColor: colors.primary200 }}
-                activeOpacity={0.7}
-            >
-                <View className="flex-row items-center gap-2">
-                    <Ionicons name="refresh-outline" size={18} color={colors.accent50} />
-                    <AppText styles="text-sm" style={{ color: colors.accent50 }}>
-                        Flip Camera
                     </AppText>
                 </View>
             </TouchableOpacity>
@@ -443,6 +443,7 @@ const FaceVerificationModal = ({
                         backgroundColor: colors.primary100,
                         borderColor: colors.accent,
                         maxHeight: "90%",
+                        paddingBottom: 24 + Math.max(insets.bottom, 0),
                     }}
                 >
                     {/* header row */}

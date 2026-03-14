@@ -6,7 +6,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 import { Screen, RequireAuth, Nav, AppText, AppBottomSheet, ConfirmAction } from "@/components";
 import type { AppBottomSheetRef } from "@/components";
-import { deletePaymentProfile, getMyPaymentProfiles } from "@/lib/dashboard";
+import { deletePaymentProfile, getMyPaymentProfiles, setDefaultPaymentProfile } from "@/lib/dashboard";
 import type { BankTransferPaymentProfile } from "@/types/payments.types";
 import colors from "@/config/colors";
 
@@ -19,6 +19,7 @@ const PaymentProfilesScreen = () => {
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; name: string } | null>(null);
     const [deleting, setDeleting] = useState(false);
+    const [settingDefaultId, setSettingDefaultId] = useState<string | null>(null);
 
     // Fetch payment profiles
     const fetchProfiles = useCallback(async (showLoader = true) => {
@@ -84,6 +85,25 @@ const PaymentProfilesScreen = () => {
             setDeleteConfirm(null);
         } finally {
             setDeleting(false);
+        }
+    };
+
+    const handleSetDefaultProfile = async (profileId: string, profileName: string) => {
+        try {
+            setSettingDefaultId(profileId);
+            setError(null);
+            await setDefaultPaymentProfile(profileId);
+            await fetchProfiles(false);
+            setSuccessMessage(`"${profileName}" is now your default payment profile.`);
+        } catch (err: any) {
+            const message =
+                err?.response?.data?.message ||
+                err?.response?.data?.detail ||
+                err?.message ||
+                "Failed to set payment profile as default.";
+            setError(message);
+        } finally {
+            setSettingDefaultId(null);
         }
     };
 
@@ -322,6 +342,24 @@ const PaymentProfilesScreen = () => {
 
                                                     {/* Actions */}
                                                     <View className="flex-row gap-3 pt-3">
+                                                        {!profile.is_default && profile.is_verified && (
+                                                            <TouchableOpacity
+                                                                onPress={() => handleSetDefaultProfile(profile.id, profile.name)}
+                                                                disabled={settingDefaultId === profile.id}
+                                                                className="flex-1 flex-row items-center justify-center gap-2 px-4 py-3 rounded-xl border-2"
+                                                                style={{
+                                                                    backgroundColor: colors.accent + "1A",
+                                                                    borderColor: colors.accent,
+                                                                }}
+                                                                activeOpacity={0.8}
+                                                            >
+                                                                <Ionicons name="star-outline" size={16} color={colors.accent} />
+                                                                <AppText styles="text-sm" style={{ color: colors.accent }}>
+                                                                    {settingDefaultId === profile.id ? "Setting..." : "Set as Default"}
+                                                                </AppText>
+                                                            </TouchableOpacity>
+                                                        )}
+
                                                         <TouchableOpacity
                                                             onPress={() => handleEditProfile(profile.id)}
                                                             className="flex-1 flex-row items-center justify-center gap-2 px-4 py-3 rounded-xl border-2"
