@@ -144,8 +144,13 @@ export interface RevenueSummary {
     payout_status: {
         available_balance: string;
         pending_balance: string;
-        total_paid_out: string;
-        next_payout_date: string;
+        // New backend fields
+        on_hold_balance?: string;
+        total_earnings?: string;
+        total_withdrawn?: string;
+        // Legacy/backward-compatible field
+        total_paid_out?: string;
+        next_payout_date?: string;
     };
 
     revenue_by_event: RevenueByEvent[];

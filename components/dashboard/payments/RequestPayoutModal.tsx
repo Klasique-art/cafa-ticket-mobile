@@ -5,6 +5,8 @@ import {
     ActivityIndicator,
     Modal,
     ScrollView,
+    KeyboardAvoidingView,
+    Platform,
 } from "react-native";
 import { useState, useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -247,6 +249,7 @@ const RequestPayoutModal = ({
                         }}
                         placeholderTextColor="#64748b"
                         accessibilityLabel="Withdrawal amount"
+                        accessibilityHint="Enter the amount you wish to withdraw"
                     />
 
                     {/* MAX button */}
@@ -255,6 +258,8 @@ const RequestPayoutModal = ({
                         className="px-3 py-1.5 rounded-lg mx-2"
                         style={{ backgroundColor: colors.accent + "33" }}
                         activeOpacity={0.7}
+                        accessibilityRole="button"
+                        accessibilityLabel="Use maximum available balance"
                     >
                         <AppText
                             styles="text-xs font-nunbold"
@@ -291,6 +296,7 @@ const RequestPayoutModal = ({
                     <AppText
                         styles="text-xs flex-1"
                         style={{ color: "#f87171" }}
+                        accessibilityLiveRegion="assertive"
                     >
                         {error}
                     </AppText>
@@ -336,6 +342,8 @@ const RequestPayoutModal = ({
                     opacity: !amount ? 0.5 : 1,
                 }}
                 activeOpacity={0.8}
+                accessibilityRole="button"
+                accessibilityLabel="Continue to confirmation"
             >
                 <View className="flex-row items-center gap-2">
                     <AppText styles="text-base text-white font-nunbold">
@@ -455,6 +463,8 @@ const RequestPayoutModal = ({
                         opacity: isLoading ? 0.5 : 1,
                     }}
                     activeOpacity={0.7}
+                    accessibilityRole="button"
+                    accessibilityLabel="Go back to amount entry"
                 >
                     <AppText styles="text-base text-white font-nunbold">
                         Back
@@ -470,6 +480,8 @@ const RequestPayoutModal = ({
                         opacity: isLoading ? 0.5 : 1,
                     }}
                     activeOpacity={0.8}
+                    accessibilityRole="button"
+                    accessibilityLabel="Confirm and process payout"
                 >
                     {isLoading ? (
                         <View className="flex-row items-center gap-2">
@@ -505,16 +517,18 @@ const RequestPayoutModal = ({
             animationType="slide"
             onRequestClose={handleClose}
         >
-            <View
-                className="flex-1 justify-end"
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                className="flex-1 justify-start"
                 style={{ backgroundColor: "rgba(0,0,0,0.7)" }}
             >
                 <View
-                    className="rounded-t-2xl border-t-2"
+                    className="rounded-b-2xl border-b-2"
                     style={{
                         backgroundColor: colors.primary100,
                         borderColor: colors.accent,
                         maxHeight: "90%",
+                        paddingTop: Platform.OS === "ios" ? 40 : 20,
                     }}
                 >
                     {/* header */}
@@ -530,7 +544,10 @@ const RequestPayoutModal = ({
                                     color={colors.accent50}
                                 />
                             </View>
-                            <AppText styles="text-base text-white font-nunbold">
+                            <AppText 
+                                styles="text-base text-white font-nunbold"
+                                accessibilityRole="header"
+                            >
                                 {step === "amount"
                                     ? "Request Payout"
                                     : "Confirm Payout"}
@@ -543,6 +560,8 @@ const RequestPayoutModal = ({
                             className="w-8 h-8 rounded-lg items-center justify-center"
                             style={{ backgroundColor: colors.primary200 }}
                             activeOpacity={0.7}
+                            accessibilityRole="button"
+                            accessibilityLabel="Close modal"
                         >
                             <Ionicons name="close-outline" size={20} color="#fff" />
                         </TouchableOpacity>
@@ -553,6 +572,7 @@ const RequestPayoutModal = ({
                         className="px-6 pb-6"
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{ gap: 16 }}
+                        keyboardShouldPersistTaps="handled"
                     >
                         {success
                             ? renderSuccess()
@@ -561,7 +581,7 @@ const RequestPayoutModal = ({
                                 : renderConfirmStep()}
                     </ScrollView>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         </Modal>
     );
 };

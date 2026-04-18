@@ -208,6 +208,8 @@ const FaceVerificationModal = ({
                 className="px-5 py-2.5 rounded-xl"
                 style={{ backgroundColor: colors.accent }}
                 activeOpacity={0.7}
+                accessibilityRole="button"
+                accessibilityLabel="Grant camera permission"
             >
                 <AppText styles="text-sm text-white font-nunbold">
                     Grant Permission
@@ -240,6 +242,9 @@ const FaceVerificationModal = ({
                         borderColor: colors.accent + "99",
                     }}
                     activeOpacity={0.8}
+                    accessibilityRole="button"
+                    accessibilityLabel="Switch camera"
+                    accessibilityHint="Toggles between front and back camera"
                 >
                     <Ionicons name="refresh-outline" size={20} color={colors.accent50} />
                 </TouchableOpacity>
@@ -257,6 +262,8 @@ const FaceVerificationModal = ({
                             borderColor: "rgba(255,255,255,0.5)",
                             borderRadius: 100,
                         }}
+                        accessibilityLabel="Face guide oval"
+                        accessibilityRole="image"
                     />
                 </View>
             </View>
@@ -288,6 +295,9 @@ const FaceVerificationModal = ({
                 className="w-full py-4 rounded-xl items-center"
                 style={{ backgroundColor: colors.accent }}
                 activeOpacity={0.8}
+                accessibilityRole="button"
+                accessibilityLabel="Capture selfie"
+                accessibilityHint="Takes a photo of your face for verification"
             >
                 <View className="flex-row items-center gap-2">
                     <Ionicons name="camera-outline" size={20} color="#fff" />
@@ -321,6 +331,7 @@ const FaceVerificationModal = ({
                         <ActivityIndicator size="large" color={colors.accent} />
                         <AppText
                             styles="text-sm text-white mt-3 font-nunbold"
+                            accessibilityLiveRegion="polite"
                         >
                             Verifying Your Identity…
                         </AppText>
@@ -346,6 +357,7 @@ const FaceVerificationModal = ({
                     <AppText
                         styles="text-xs flex-1"
                         style={{ color: "#f87171" }}
+                        accessibilityLiveRegion="assertive"
                     >
                         {error}
                     </AppText>
@@ -360,6 +372,8 @@ const FaceVerificationModal = ({
                         className="flex-1 py-4 rounded-xl items-center"
                         style={{ backgroundColor: colors.primary200 }}
                         activeOpacity={0.7}
+                        accessibilityRole="button"
+                        accessibilityLabel="Retake photo"
                     >
                         <AppText styles="text-base text-white font-nunbold">
                             Retake
@@ -371,6 +385,9 @@ const FaceVerificationModal = ({
                         className="flex-1 py-4 rounded-xl items-center"
                         style={{ backgroundColor: colors.accent }}
                         activeOpacity={0.8}
+                        accessibilityRole="button"
+                        accessibilityLabel="Verify identity"
+                        accessibilityHint="Submits your selfie for verification"
                     >
                         <View className="flex-row items-center gap-2">
                             <Ionicons
@@ -401,7 +418,11 @@ const FaceVerificationModal = ({
                     color="#4ade80"
                 />
             </View>
-            <AppText styles="text-lg text-white text-center font-nunbold">
+                <AppText 
+                styles="text-lg text-white text-center font-nunbold"
+                accessibilityRole="header"
+                accessibilityLiveRegion="polite"
+            >
                 Identity Verified!
             </AppText>
             <AppText
@@ -459,7 +480,10 @@ const FaceVerificationModal = ({
                                     color="#60a5fa"
                                 />
                             </View>
-                            <AppText styles="text-base text-white font-nunbold">
+                            <AppText 
+                                styles="text-base text-white font-nunbold"
+                                accessibilityRole="header"
+                            >
                                 {title}
                             </AppText>
                         </View>
@@ -470,6 +494,8 @@ const FaceVerificationModal = ({
                             className="w-8 h-8 rounded-lg items-center justify-center"
                             style={{ backgroundColor: colors.primary200 }}
                             activeOpacity={0.7}
+                            accessibilityRole="button"
+                            accessibilityLabel="Close verification modal"
                         >
                             <Ionicons name="close-outline" size={20} color="#fff" />
                         </TouchableOpacity>

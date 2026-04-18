@@ -34,8 +34,12 @@ const PayoutStatusCard = ({ payoutStatus, summary, revenueByMonth }: Props) => {
     const monthlyGrowth = calculateMonthlyGrowth();
     const isPositiveGrowth = monthlyGrowth >= 0;
 
-    const currentBalance = parseFloat(payoutStatus.available_balance);
-    const totalRevenue = parseFloat(payoutStatus.total_paid_out);
+    const currentBalance = parseFloat(payoutStatus.available_balance || "0");
+    const onHoldBalance = parseFloat(payoutStatus.on_hold_balance || "0");
+    const totalWithdrawn = parseFloat(
+        payoutStatus.total_withdrawn ?? payoutStatus.total_paid_out ?? "0"
+    );
+    const totalRevenue = summary ? parseFloat(summary.gross_revenue) : 0;
     const averageTicketPrice = summary ? parseFloat(summary.average_ticket_price) : 0;
     const totalEvents = summary?.total_events || 0;
     const totalTicketsSold = summary?.total_tickets_sold || 0;
@@ -177,6 +181,30 @@ const PayoutStatusCard = ({ payoutStatus, summary, revenueByMonth }: Props) => {
                     </View>
                     <AppText styles="text-sm text-white font-nunbold">
                         {totalEvents} events
+                    </AppText>
+                </View>
+
+                <View className="flex-row items-center justify-between p-3 rounded-lg border" style={{ backgroundColor: colors.primary200, borderColor: colors.accent + "4D" }}>
+                    <View className="flex-row items-center gap-2">
+                        <View className="w-2 h-2 rounded-full" style={{ backgroundColor: "#f59e0b" }} />
+                        <AppText styles="text-sm text-white" style={{ opacity: 0.8 }}>
+                            On Hold Balance
+                        </AppText>
+                    </View>
+                    <AppText styles="text-sm text-white font-nunbold" style={{ color: "#fbbf24" }}>
+                        {formatMoney(onHoldBalance)}
+                    </AppText>
+                </View>
+
+                <View className="flex-row items-center justify-between p-3 rounded-lg border" style={{ backgroundColor: colors.primary200, borderColor: colors.accent + "4D" }}>
+                    <View className="flex-row items-center gap-2">
+                        <View className="w-2 h-2 rounded-full" style={{ backgroundColor: colors.success }} />
+                        <AppText styles="text-sm text-white" style={{ opacity: 0.8 }}>
+                            Total Withdrawn
+                        </AppText>
+                    </View>
+                    <AppText styles="text-sm text-white font-nunbold" style={{ color: colors.success }}>
+                        {formatMoney(totalWithdrawn)}
                     </AppText>
                 </View>
             </View>
