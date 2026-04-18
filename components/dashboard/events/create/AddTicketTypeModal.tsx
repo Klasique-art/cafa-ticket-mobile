@@ -16,6 +16,8 @@ interface AddTicketTypeModalProps {
     onSubmit: (values: TicketTypeFormValues) => void;
     initialValues?: TicketTypeFormValues;
     isEditing?: boolean;
+    eventStartDate?: string;
+    eventEndDate?: string;
 }
 
 export interface AddTicketTypeModalRef {
@@ -24,9 +26,18 @@ export interface AddTicketTypeModalRef {
 }
 
 const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalProps>(
-    ({ onSubmit, initialValues, isEditing = false }, ref) => {
+    ({ onSubmit, initialValues, isEditing = false, eventStartDate, eventEndDate }, ref) => {
         const bottomSheetRef = useRef<AppBottomSheetRef>(null);
         const formatMoney = useFormatMoney();
+
+        const getLocalToday = () => {
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = `${now.getMonth() + 1}`.padStart(2, "0");
+            const d = `${now.getDate()}`.padStart(2, "0");
+            return `${y}-${m}-${d}`;
+        };
+        const today = getLocalToday();
 
         useImperativeHandle(ref, () => ({
             open: () => bottomSheetRef.current?.open(),
@@ -80,6 +91,9 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                             className="w-10 h-10 rounded-lg items-center justify-center"
                             style={{ backgroundColor: colors.primary200 }}
                             activeOpacity={0.7}
+                            accessibilityRole="button"
+                            accessibilityLabel="Close ticket type form"
+                            accessibilityHint="Closes this sheet without saving"
                         >
                             <Ionicons name="close" size={20} color={colors.white} />
                         </TouchableOpacity>
@@ -90,9 +104,34 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                         initialValues={initialValues || defaultValues}
                         validationSchema={ticketTypeSchema}
                         onSubmit={handleSubmit}
+                        validate={(values) => {
+                            const errors: Partial<Record<keyof TicketTypeFormValues, string>> = {};
+
+                            if (values.available_from) {
+                                if (values.available_from < today) {
+                                    errors.available_from = "Available from date cannot be earlier than today";
+                                }
+
+                                if (eventStartDate && values.available_from > eventStartDate) {
+                                    errors.available_from = "Available from date cannot be later than event start date";
+                                }
+                            }
+
+                            if (values.available_until) {
+                                if (values.available_from && values.available_until < values.available_from) {
+                                    errors.available_until = "Available until date cannot be earlier than available from date";
+                                }
+
+                                if (eventEndDate && values.available_until > eventEndDate) {
+                                    errors.available_until = "Available until date cannot be later than event end date";
+                                }
+                            }
+
+                            return errors;
+                        }}
                         enableReinitialize
                     >
-                        {({ handleSubmit: formikHandleSubmit, isSubmitting }) => (
+                        {({ handleSubmit: formikHandleSubmit, isSubmitting, values }) => (
                             <>
                                 {/* ── Scrollable form fields — only this part scrolls ── */}
                                 <BottomSheetScrollView
@@ -132,7 +171,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                                     <View className="flex-1">
                                                         <AppFormField
                                                             name="price"
-                                                            label="Price (GH₵)"
+                                                            label="Price"
                                                             placeholder="50.00"
                                                             keyboardType="decimal-pad"
                                                             required
@@ -199,12 +238,16 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                                     label="Available From"
                                                     type="date"
                                                     labelColor="text-white"
+                                                    min={today}
+                                                    max={eventStartDate}
                                                 />
                                                 <AppFormField
                                                     name="available_until"
                                                     label="Available Until"
                                                     type="date"
                                                     labelColor="text-white"
+                                                    min={values.available_from || today}
+                                                    max={eventEndDate}
                                                 />
                                             </View>
                                         </View>
@@ -221,6 +264,9 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                             borderColor: colors.accent + "4D",
                                         }}
                                         activeOpacity={0.7}
+                                        accessibilityRole="button"
+                                        accessibilityLabel="Cancel ticket type changes"
+                                        accessibilityHint="Closes the ticket type form without saving"
                                     >
                                         <AppText styles="text-sm text-white text-center" font="font-ibold">
                                             Cancel
@@ -235,6 +281,9 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                             opacity: isSubmitting ? 0.6 : 1,
                                         }}
                                         activeOpacity={0.8}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={isEditing ? "Update ticket type" : "Add ticket type"}
+                                        accessibilityHint={isEditing ? "Saves updates to this ticket type" : "Saves this new ticket type"}
                                     >
                                         <AppText styles="text-sm text-white text-center" font="font-ibold">
                                             {isEditing ? "Update Ticket" : "Add Ticket"}

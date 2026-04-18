@@ -63,16 +63,17 @@ const TimeInput = ({
         if (event.type === "set" && selectedDate) {
             const formattedTime = formatTime(selectedDate);
             onChange(formattedTime);
+            onBlur();
         }
 
         if (event.type === "dismissed") {
             setShowPicker(false);
+            onBlur();
         }
     };
 
     const handlePress = () => {
         setShowPicker(true);
-        onBlur();
     };
 
     return (

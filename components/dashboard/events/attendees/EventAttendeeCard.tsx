@@ -4,12 +4,15 @@ import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../../ui/AppText";
 import type { EventAttendee } from "@/types/dash-events.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface EventAttendeeCardProps {
     attendee: EventAttendee;
 }
 
 const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
+    const formatMoney = useFormatMoney();
+
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-GH", {
@@ -38,13 +41,11 @@ const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
             className="rounded-xl p-4 border-2"
             style={{ backgroundColor: colors.primary100, borderColor: colors.accent + "4D" }}
         >
-            {/* Attendee Info */}
             <View className="mb-4">
                 <AppText styles="text-base text-black mb-2" font="font-ibold">
                     {attendee.attendee_name}
                 </AppText>
-                
-                {/* Contact Info */}
+
                 <View className="gap-2 mb-2">
                     <View className="flex-row items-center gap-2">
                         <Ionicons name="mail-outline" size={14} color={colors.white} style={{ opacity: 0.6 }} />
@@ -60,13 +61,11 @@ const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
                     </View>
                 </View>
 
-                {/* Ticket ID */}
                 <AppText styles="text-xs text-black" font="font-imedium" style={{ opacity: 0.5 }}>
                     {attendee.ticket_id}
                 </AppText>
             </View>
 
-            {/* Ticket Details */}
             <View className="flex-row items-center justify-between mb-4 pb-4 border-b" style={{ borderColor: colors.accent + "1A" }}>
                 <View>
                     <AppText styles="text-xs text-black mb-1" font="font-iregular" style={{ opacity: 0.6 }}>
@@ -76,7 +75,7 @@ const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
                         {attendee.ticket_type.name}
                     </AppText>
                     <AppText styles="text-xs text-black" font="font-imedium" style={{ opacity: 0.8 }}>
-                        GH₵ {parseFloat(attendee.ticket_type.price).toLocaleString("en-GH")}
+                        {formatMoney(attendee.ticket_type.price)}
                     </AppText>
                 </View>
 
@@ -85,7 +84,7 @@ const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
                         Amount Paid
                     </AppText>
                     <AppText styles="text-base text-black" font="font-ibold" style={{ color: colors.accent50 }}>
-                        GH₵ {parseFloat(attendee.amount_paid).toLocaleString("en-GH")}
+                        {formatMoney(attendee.amount_paid)}
                     </AppText>
                     <View
                         className="px-2 py-1 rounded-lg mt-1"
@@ -102,7 +101,6 @@ const EventAttendeeCard = ({ attendee }: EventAttendeeCardProps) => {
                 </View>
             </View>
 
-            {/* Check-in Status */}
             <View className="flex-row items-center justify-between">
                 {attendee.is_checked_in ? (
                     <>

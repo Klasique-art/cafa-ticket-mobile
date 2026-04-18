@@ -148,7 +148,7 @@ const AnalyticsBestSellingEvent = ({ bestSellingEvent, totalTicketsSold }: Props
 
             {/* View Event Button */}
             <TouchableOpacity
-                onPress={() => router.push(`/events/${bestSellingEvent.id}` as Href)}
+                onPress={() => router.push(`/dashboard/events/${bestSellingEvent.id}` as Href)}
                 className="flex-row items-center justify-center gap-2 py-3 rounded-lg border"
                 style={{ backgroundColor: "#f59e0b1A", borderColor: "#f59e0b4D" }}
                 activeOpacity={0.7}

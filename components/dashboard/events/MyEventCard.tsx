@@ -3,13 +3,14 @@ import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import type { Href } from "expo-router";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 
 import AppText from "../../ui/AppText";
 import type { MyEvent } from "@/types/dash-events.types";
 import colors from "@/config/colors";
 import { useFormatMoney } from "@/hooks/useFormatMoney";
 import { getFullImageUrl } from "@/utils/imageUrl";
+import { placeholderImage } from "@/data/constants";
 
 interface MyEventCardProps {
     event: MyEvent;
@@ -18,6 +19,7 @@ interface MyEventCardProps {
 
 const MyEventCard = ({ event, onDelete }: MyEventCardProps) => {
     const formatMoney = useFormatMoney();
+    const [hasImageError, setHasImageError] = useState(false);
 
     const getStatusBadge = (status: string) => {
         switch (status) {
@@ -43,16 +45,32 @@ const MyEventCard = ({ event, onDelete }: MyEventCardProps) => {
 
     const statusColors = getStatusBadge(event.status);
     const salesPercentage = event.analytics.sales_percentage;
+    const imageUri = hasImageError
+        ? placeholderImage
+        : getFullImageUrl(event.featured_image) || placeholderImage;
+
+    useEffect(() => {
+        setHasImageError(false);
+    }, [event.featured_image]);
 
     return (
         <View className="bg-primary rounded-2xl overflow-hidden border-2 border-accent">
             {/* Image */}
-            <View style={{ height: 180, position: "relative" }}>
+            <View
+                style={{
+                    height: 196,
+                    position: "relative",
+                    backgroundColor: colors.primary200,
+                    borderBottomWidth: 1,
+                    borderColor: colors.accent + "40",
+                }}
+            >
                 <Image
-                    source={{ uri: getFullImageUrl(event.featured_image) || undefined }}
+                    source={{ uri: imageUri }}
                     style={{ width: "100%", height: "100%" }}
                     contentFit="cover"
                     transition={200}
+                    onError={() => setHasImageError(true)}
                 />
 
                 {/* Badges */}
@@ -79,13 +97,13 @@ const MyEventCard = ({ event, onDelete }: MyEventCardProps) => {
             </View>
 
             {/* Content */}
-            <View className="p-4">
-                <AppText styles="text-xs text-white mb-2">{event.category.name}</AppText>
+            <View className="p-3">
+                <AppText styles="text-xs text-white mb-1">{event.category.name}</AppText>
                 <TouchableOpacity onPress={() => router.push(`/dashboard/events/${event.slug}` as Href)} activeOpacity={0.8}>
-                    <AppText styles="text-base text-white mb-3" numberOfLines={2}>{event.title}</AppText>
+                    <AppText styles="text-base text-white mb-2" numberOfLines={2}>{event.title}</AppText>
                 </TouchableOpacity>
 
-                <View style={{ gap: 8, marginBottom: 12 }}>
+                <View style={{ gap: 6, marginBottom: 10 }}>
                     <View className="flex-row items-center gap-2">
                         <Ionicons name="calendar-outline" size={14} color="#94a3b8" />
                         <AppText styles="text-xs text-slate-300">{formatDate(event.start_date)}{event.start_date !== event.end_date && ` - ${formatDate(event.end_date)}`}</AppText>
@@ -97,7 +115,7 @@ const MyEventCard = ({ event, onDelete }: MyEventCardProps) => {
                 </View>
 
                 {/* Stats */}
-                <View className="flex-row gap-3 mb-3">
+                <View className="flex-row gap-2 mb-2">
                     <View className="flex-1 p-3 rounded-lg border" style={{ backgroundColor: colors.primary200, borderColor: colors.accent + "33" }}>
                         <View className="flex-row items-center gap-2 mb-1">
                             <Ionicons name="ticket-outline" size={14} color="#60a5fa" />
@@ -115,8 +133,8 @@ const MyEventCard = ({ event, onDelete }: MyEventCardProps) => {
                 </View>
 
                 {/* Progress */}
-                <View className="mb-3">
-                    <View className="flex-row items-center justify-between mb-2">
+                <View className="mb-2">
+                    <View className="flex-row items-center justify-between mb-1">
                         <AppText styles="text-xs text-slate-400">Sales Progress</AppText>
                         <AppText styles="text-xs text-white">{salesPercentage.toFixed(1)}%</AppText>
                     </View>

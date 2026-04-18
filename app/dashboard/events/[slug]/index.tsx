@@ -1,7 +1,6 @@
-import { View, ScrollView, ActivityIndicator, RefreshControl, Alert } from "react-native";
+import { View, ScrollView, ActivityIndicator, RefreshControl, Alert, TouchableOpacity } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import {
@@ -93,10 +92,7 @@ const MyEventDetailsScreen = () => {
 
             const result = await deleteMyEvent(eventDetails.slug);
 
-            console.log("Delete event result:", result);
-
             if (!result.success) {
-                console.log("Error deleting event:", result);
                 throw new Error(result.message || "Failed to delete event");
             }
 
@@ -152,7 +148,12 @@ const MyEventDetailsScreen = () => {
         return (
             <Screen statusBarStyle="dark-content" statusBarBg={colors.primary}>
                 <View className="flex-1 items-center justify-center">
-                    <ActivityIndicator size="large" color={colors.accent} />
+                    <ActivityIndicator
+                        size="large"
+                        color={colors.accent}
+                        accessibilityRole="progressbar"
+                        accessibilityLabel="Loading event details"
+                    />
                     <AppText styles="text-sm text-slate-400 mt-4">
                         Loading event details...
                     </AppText>
@@ -183,6 +184,9 @@ const MyEventDetailsScreen = () => {
                         className="flex-row items-center gap-2 px-6 py-3 rounded-xl"
                         style={{ backgroundColor: colors.accent }}
                         activeOpacity={0.8}
+                        accessibilityRole="button"
+                        accessibilityLabel="Back to my events"
+                        accessibilityHint="Returns to your events list"
                     >
                         <Ionicons name="chevron-back" size={18} color="#fff" />
                         <AppText styles="text-sm text-white font-nunbold">
@@ -202,6 +206,8 @@ const MyEventDetailsScreen = () => {
                 className="flex-1"
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100, gap: 16 }}
+                accessibilityLabel="Event details"
+                accessibilityHint="Shows event information, gallery, ticket types, and analytics"
                 refreshControl={
                     <RefreshControl
                         refreshing={isRefreshing}
@@ -283,7 +289,7 @@ const MyEventDetailsScreen = () => {
                         <AppText styles="text-sm text-slate-300 mb-2">
                             Are you sure you want to delete{" "}
                             <AppText styles="text-sm text-white font-nunbold">
-                                "{eventDetails.title}"
+                                {eventDetails.title}
                             </AppText>
                             ?
                         </AppText>
@@ -310,6 +316,9 @@ const MyEventDetailsScreen = () => {
                             className="flex-1 px-4 py-3 rounded-xl items-center"
                             style={{ backgroundColor: "#ef4444", opacity: deletingEvent ? 0.5 : 1 }}
                             activeOpacity={0.8}
+                            accessibilityRole="button"
+                            accessibilityLabel={deletingEvent ? "Deleting event" : "Confirm delete event"}
+                            accessibilityHint="Permanently deletes this event"
                         >
                             <AppText styles="text-sm text-white font-nunbold">
                                 {deletingEvent ? "Deleting..." : "Yes, Delete"}
@@ -325,6 +334,9 @@ const MyEventDetailsScreen = () => {
                             className="flex-1 px-4 py-3 bg-primary-200 rounded-xl border border-accent items-center"
                             style={{ opacity: deletingEvent ? 0.5 : 1 }}
                             activeOpacity={0.8}
+                            accessibilityRole="button"
+                            accessibilityLabel="Cancel deleting event"
+                            accessibilityHint="Closes delete event confirmation"
                         >
                             <AppText styles="text-sm text-white" >
                                 Cancel
@@ -359,7 +371,7 @@ const MyEventDetailsScreen = () => {
                             <AppText styles="text-sm text-slate-300 mb-2">
                                 Deleting{" "}
                                 <AppText styles="text-sm text-white font-nunbold">
-                                    "{deleteTicketTarget.name}"
+                                    {deleteTicketTarget.name}
                                 </AppText>{" "}
                                 ticket type.
                             </AppText>
@@ -387,6 +399,9 @@ const MyEventDetailsScreen = () => {
                             className="flex-1 px-4 py-3 rounded-xl items-center"
                             style={{ backgroundColor: "#ef4444", opacity: deletingTicket ? 0.5 : 1 }}
                             activeOpacity={0.8}
+                            accessibilityRole="button"
+                            accessibilityLabel={deletingTicket ? "Deleting ticket type" : "Confirm delete ticket type"}
+                            accessibilityHint="Deletes selected ticket type"
                         >
                             <AppText styles="text-sm text-white font-nunbold">
                                 {deletingTicket ? "Deleting..." : "Yes, Delete"}
@@ -402,6 +417,9 @@ const MyEventDetailsScreen = () => {
                             className="flex-1 px-4 py-3 bg-primary-200 rounded-xl border border-accent items-center"
                             style={{ opacity: deletingTicket ? 0.5 : 1 }}
                             activeOpacity={0.8}
+                            accessibilityRole="button"
+                            accessibilityLabel="Cancel deleting ticket type"
+                            accessibilityHint="Closes delete ticket type confirmation"
                         >
                             <AppText styles="text-sm text-white font-nunbold">
                                 Cancel

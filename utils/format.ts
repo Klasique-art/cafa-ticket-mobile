@@ -29,7 +29,7 @@ export function formatEventTime(timeString: string): string {
 export function formatPrice(price: string | number): string {
   const numPrice = typeof price === "string" ? parseFloat(price) : price;
   if (numPrice === 0) return "Free";
-  return `GHS ${numPrice.toFixed(2)}`;
+  return numPrice.toFixed(2);
 }
 
 /**

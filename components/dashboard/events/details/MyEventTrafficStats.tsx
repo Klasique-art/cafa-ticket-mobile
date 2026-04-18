@@ -27,7 +27,11 @@ const MyEventTrafficStats = ({ traffic, ticketsSold }: MyEventTrafficStatsProps)
 
             {/* Stats Grid */}
             <View className="flex-row gap-2 mb-4">
-                <View className="flex-1 p-3 bg-primary-200 rounded-xl border border-blue-500/30">
+                <View
+                    className="flex-1 p-3 bg-primary-200 rounded-xl border border-blue-500/30"
+                    accessible
+                    accessibilityLabel={`Page views ${traffic.page_views.toLocaleString()}`}
+                >
                     <View className="flex-row items-center gap-1 mb-2">
                         <Ionicons name="eye-outline" size={14} color="#3b82f6" />
                         <AppText styles="text-xs text-slate-400" font="font-iregular">
@@ -39,7 +43,11 @@ const MyEventTrafficStats = ({ traffic, ticketsSold }: MyEventTrafficStatsProps)
                     </AppText>
                 </View>
 
-                <View className="flex-1 p-3 bg-primary-200 rounded-xl border border-purple-500/30">
+                <View
+                    className="flex-1 p-3 bg-primary-200 rounded-xl border border-purple-500/30"
+                    accessible
+                    accessibilityLabel={`Unique visitors ${traffic.unique_visitors.toLocaleString()}`}
+                >
                     <View className="flex-row items-center gap-1 mb-2">
                         <Ionicons name="people-outline" size={14} color="#a855f7" />
                         <AppText styles="text-xs text-slate-400" font="font-iregular">
@@ -51,7 +59,11 @@ const MyEventTrafficStats = ({ traffic, ticketsSold }: MyEventTrafficStatsProps)
                     </AppText>
                 </View>
 
-                <View className="flex-1 p-3 bg-primary-200 rounded-xl border border-emerald-500/30">
+                <View
+                    className="flex-1 p-3 bg-primary-200 rounded-xl border border-emerald-500/30"
+                    accessible
+                    accessibilityLabel={`Conversion rate ${traffic.conversion_rate.toFixed(2)} percent`}
+                >
                     <View className="flex-row items-center gap-1 mb-2">
                         <Ionicons name="trending-up-outline" size={14} color="#10b981" />
                         <AppText styles="text-xs text-slate-400" font="font-iregular">

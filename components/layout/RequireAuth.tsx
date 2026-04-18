@@ -3,7 +3,6 @@ import { router, usePathname } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { ReactNode } from "react";
 
-import Screen from "../ui/Screen";
 import AppText from "../ui/AppText";
 import Nav from "../ui/Nav";
 import { useAuth } from "@/context";
@@ -19,7 +18,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
 
     if (!user) {
         return (
-            <Screen statusBarStyle="dark-content" statusBarBg={colors.primary}>
+            <View className="flex-1 -mt-2">
                 <Nav />
                 <View className="flex-1 items-center justify-center px-4">
                     {/* Icon */}
@@ -44,7 +43,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
                             Authentication Required
                         </AppText>
                         <AppText
-                            styles="text-base text-slate-300 text-center leading-relaxed px-4"
+                            styles="text-base text-slate-700 text-center leading-relaxed px-4"
                         >
                             Please sign in to access this section and enjoy all features
                         </AppText>
@@ -63,7 +62,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
                         >
                             <View className="flex-row items-center gap-2">
                                 <Ionicons name="log-in-outline" size={20} color="#fff" />
-                                <AppText styles="text-base text-black font-nunbold">
+                                <AppText styles="text-base text-white font-nunbold">
                                     Sign In
                                 </AppText>
                             </View>
@@ -73,7 +72,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
                     {/* Divider */}
                     <View className="flex-row items-center w-full my-4">
                         <View className="flex-1 h-px bg-slate-600" />
-                        <AppText styles="text-sm text-slate-400 mx-4">
+                        <AppText styles="text-sm text-slate-600 mx-4">
                             OR
                         </AppText>
                         <View className="flex-1 h-px bg-slate-600" />
@@ -81,8 +80,8 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
 
                     {/* Sign Up Section */}
                     <View className="items-center">
-                        <AppText styles="text-sm text-slate-300 mb-3">
-                            Don't have an account yet?
+                        <AppText styles="text-sm text-slate-700 mb-3">
+                            Don&apos;t have an account yet?
                         </AppText>
                         <TouchableOpacity
                             onPress={() => router.push('/signup')}
@@ -96,7 +95,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
                         >
                             <View className="flex-row items-center gap-2">
                                 <Ionicons name="person-add-outline" size={18} color={colors.accent50} />
-                                <AppText styles="text-sm font-nunbold">
+                                <AppText styles="text-sm text-slate-800 font-nunbold">
                                     Create Account
                                 </AppText>
                             </View>
@@ -105,7 +104,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
 
                     {/* Features Info */}
                     <View className="mt-12 w-full">
-                        <AppText styles="text-xs text-slate-400 text-center mb-4">
+                        <AppText styles="text-xs text-slate-600 text-center mb-4">
                             WITH AN ACCOUNT YOU CAN:
                         </AppText>
                         <View className="gap-3">
@@ -121,7 +120,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
                                     >
                                         <Ionicons name={feature.icon as any} size={16} color={colors.accent50} />
                                     </View>
-                                    <AppText styles="text-sm text-slate-300">
+                                    <AppText styles="text-sm text-slate-700">
                                         {feature.text}
                                     </AppText>
                                 </View>
@@ -129,7 +128,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
                         </View>
                     </View>
                 </View>
-            </Screen>
+            </View>
         );
     }
 

@@ -15,6 +15,7 @@ import {
 } from "@/data/validationSchema";
 import client from "@/lib/client";
 import colors from "@/config/colors";
+import { logAxiosError } from "@/utils/axiosError";
 
 type ContactFormLoggedInValues = {
     subject: string;
@@ -106,7 +107,7 @@ const ContactForm = () => {
             setSuccess(true);
             resetForm();
         } catch (err: any) {
-            console.error("Contact form error:", err);
+            logAxiosError("Contact form error", err);
 
             // Priority 1: Backend validation errors in details
             if (err?.response?.data?.details) {
@@ -154,7 +155,7 @@ const ContactForm = () => {
                     Message Sent Successfully!
                 </AppText>
                 <AppText styles="text-xs text-white text-center mb-6" font="font-iregular" style={{ opacity: 0.7 }}>
-                    Thank you for contacting us. We'll get back to you as soon as possible.
+                    Thank you for contacting us. We&apos;ll get back to you as soon as possible.
                 </AppText>
                 <TouchableOpacity
                     onPress={() => {

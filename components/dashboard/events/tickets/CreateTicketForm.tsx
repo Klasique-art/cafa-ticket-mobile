@@ -212,7 +212,7 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
                                     <View className="gap-3">
                                         <AppFormField
                                             name="price"
-                                            label="Price (GH₵)"
+                                            label="Price"
                                             type="number"
                                             placeholder="50.00"
                                             keyboardType="decimal-pad"

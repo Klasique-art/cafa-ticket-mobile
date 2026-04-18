@@ -93,7 +93,7 @@ const AnalyticsRevenueChart = ({ revenueData, totalRevenue }: Props) => {
             {/* Chart */}
             <View
                 accessibilityRole="image"
-                accessibilityLabel={`Revenue bar chart showing ${revenueData.length} months. Total revenue GH₵ ${totalRevenue}`}
+                accessibilityLabel={`Revenue bar chart showing ${revenueData.length} months. Total revenue ${formatMoney(totalRevenueNum)}`}
             >
                 <View className="flex-row">
                     {/* Y-Axis Labels */}

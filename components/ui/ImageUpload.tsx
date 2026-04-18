@@ -22,6 +22,7 @@ interface ImageUploadProps {
     multiple?: boolean;
     compact?: boolean;
     maxImages?: number;
+    singleImageAspect?: [number, number];
 }
 
 const ImageUpload = ({
@@ -37,6 +38,7 @@ const ImageUpload = ({
     multiple = false,
     compact = false,
     maxImages = 5,
+    singleImageAspect = [1, 1],
 }: ImageUploadProps) => {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -60,7 +62,7 @@ const ImageUpload = ({
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ['images'],
                 allowsEditing: !multiple,
-                aspect: multiple ? undefined : [1, 1],
+                aspect: multiple ? undefined : singleImageAspect,
                 quality: 0.6,
                 allowsMultipleSelection: multiple,
                 selectionLimit: multiple ? maxImages : 1,

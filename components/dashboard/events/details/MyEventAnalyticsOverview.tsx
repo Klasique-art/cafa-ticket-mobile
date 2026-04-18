@@ -82,6 +82,8 @@ const MyEventAnalyticsOverview = ({ analytics }: MyEventAnalyticsOverviewProps) 
                     <View
                         key={index}
                         className="p-4 bg-primary rounded-xl border border-accent"
+                        accessible
+                        accessibilityLabel={`${card.title}. ${card.value}. ${card.subtitle}`}
                     >
                         <View className="flex-row items-start justify-between mb-3">
                             <View className="flex-1">

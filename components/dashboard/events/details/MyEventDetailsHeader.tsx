@@ -71,6 +71,16 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
                     source={{ uri: getFullImageUrl(event.featured_image) || undefined }}
                     className="w-full h-full"
                     resizeMode="cover"
+                    accessible
+                    accessibilityRole="image"
+                    accessibilityLabel={`${event.title} featured image`}
+                />
+
+                {/* Dark overlay for better text readability */}
+                <View
+                    pointerEvents="none"
+                    className="absolute inset-0"
+                    style={{ backgroundColor: "rgba(0, 0, 0, 0.14)" }}
                 />
 
                 {/* Status Badges Overlay */}
@@ -100,8 +110,12 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
                     )}
                 </View>
 
-                {/* Gradient Overlay */}
-                <View className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent" />
+                {/* Stronger bottom fade for title/details contrast */}
+                <View
+                    pointerEvents="none"
+                    className="absolute left-0 right-0 bottom-0"
+                    style={{ height: 180, backgroundColor: "rgba(5, 14, 60, 0.30)" }}
+                />
 
                 {/* Event Info Overlay */}
                 <View className="absolute bottom-0 left-0 right-0 p-4">
@@ -141,6 +155,9 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
                         className="flex-1 flex-row items-center justify-center gap-2 px-4 py-3 rounded-xl"
                         style={{ backgroundColor: "#3b82f6" }}
                         activeOpacity={0.8}
+                        accessibilityRole="button"
+                        accessibilityLabel="Edit event"
+                        accessibilityHint="Opens event editing form"
                     >
                         <Ionicons name="create-outline" size={18} color="#fff" />
                         <AppText styles="text-sm text-white" font="font-ibold">
@@ -153,6 +170,9 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
                         className="flex-1 flex-row items-center justify-center gap-2 px-4 py-3 rounded-xl"
                         style={{ backgroundColor: "#ef4444" }}
                         activeOpacity={0.8}
+                        accessibilityRole="button"
+                        accessibilityLabel="Delete event"
+                        accessibilityHint="Opens delete confirmation"
                     >
                         <Ionicons name="trash-outline" size={18} color="#fff" />
                         <AppText styles="text-sm text-white" font="font-ibold">
@@ -167,8 +187,11 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
                         onPress={() => router.push(`/dashboard/events/${event.slug}/attendees`)}
                         className="flex-1 flex-row items-center justify-center gap-2 px-4 py-3 bg-primary-200 rounded-xl border border-accent"
                         activeOpacity={0.8}
+                        accessibilityRole="button"
+                        accessibilityLabel="View attendees"
+                        accessibilityHint="Opens event attendees screen"
                     >
-                        <Ionicons name="people-outline" size={18} color={colors.white} />
+                        <Ionicons name="people-outline" size={18} color={colors.accent} />
                         <AppText styles="text-sm text-black" font="font-isemibold">
                             Attendees
                         </AppText>
@@ -178,8 +201,11 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
                         onPress={() => router.push(`/events/${event.slug}` as any)}
                         className="flex-1 flex-row items-center justify-center gap-2 px-4 py-3 bg-primary-200 rounded-xl border border-accent"
                         activeOpacity={0.8}
+                        accessibilityRole="button"
+                        accessibilityLabel="View public event"
+                        accessibilityHint="Opens this event public page"
                     >
-                        <Ionicons name="eye-outline" size={18} color={colors.white} />
+                        <Ionicons name="eye-outline" size={18} color={colors.accent} />
                         <AppText styles="text-sm text-black" font="font-isemibold">
                             View Public
                         </AppText>
@@ -192,6 +218,9 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
                         onPress={handleShare}
                         className="flex-1 flex-row items-center justify-center gap-2 px-4 py-3 bg-primary-200 rounded-xl border border-accent"
                         activeOpacity={0.8}
+                        accessibilityRole="button"
+                        accessibilityLabel="Share event"
+                        accessibilityHint="Opens share options"
                     >
                         <Ionicons name="share-social-outline" size={18} color={colors.accent50} />
                         <AppText styles="text-sm text-accent-50" font="font-isemibold">
@@ -203,6 +232,9 @@ const MyEventDetailsHeader = ({ event, onOpenDeleteModal }: MyEventDetailsHeader
                         onPress={handleCopyLink}
                         className="flex-1 flex-row items-center justify-center gap-2 px-4 py-3 bg-primary-200 rounded-xl border border-accent"
                         activeOpacity={0.8}
+                        accessibilityRole="button"
+                        accessibilityLabel="Copy event link"
+                        accessibilityHint="Copies public event link to clipboard"
                     >
                         <Ionicons name="link-outline" size={18} color={colors.accent50} />
                         <AppText styles="text-sm text-accent-50" font="font-isemibold">

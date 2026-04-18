@@ -1,5 +1,6 @@
 import client from "./client";
 import * as Sentry from '@sentry/react-native';
+import { captureAxiosContext, isAxios4xx, isAxiosAuthError, logAxiosError } from "@/utils/axiosError";
 import type {
     MyEventDetailsResponse,
     MyEventAnalytics,
@@ -16,6 +17,16 @@ import type {
 import type { MyTicketsResponse, TicketDetails } from "@/types/tickets.types";
 import type { CheckInHistoryItem, CheckInResponse, UserStats } from "@/types/dashboard.types";
 
+function logApiError(label: string, error: unknown) {
+    logAxiosError(label, error);
+}
+
+function captureApiError(error: unknown) {
+    if (!isAxios4xx(error)) {
+        Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
+}
+
 // =====================
 // User Stats
 // =====================
@@ -25,8 +36,8 @@ export async function getUserStats() {
         const response = await client.get("/auth/stats/");
         return response.data as UserStats;
     } catch (error) {
-        console.error("getUserStats error:", error);
-        Sentry.captureException(error);
+        logApiError("getUserStats error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -36,23 +47,31 @@ export async function getUserStats() {
 // =====================
 
 export async function getMyCreatedEventDetails(slugOrId: string) {
+    if (!slugOrId || slugOrId === "undefined" || slugOrId === "null") {
+        return null;
+    }
+
     try {
         const response = await client.get(`/events/my-events/${slugOrId}/`);
         return response.data as MyEventDetailsResponse;
     } catch (error) {
-        console.error("getMyCreatedEventDetails error:", error);
-        Sentry.captureException(error);
+        logApiError("getMyCreatedEventDetails error:", error);
+        captureApiError(error);
         return null;
     }
 }
 
 export async function getMyCreatedEventAnalytics(slugOrId: string) {
+    if (!slugOrId || slugOrId === "undefined" || slugOrId === "null") {
+        return null;
+    }
+
     try {
         const response = await client.get(`/events/my-events/${slugOrId}/analytics/`);
         return response.data as MyEventAnalytics;
     } catch (error) {
-        console.error("getMyCreatedEventAnalytics error:", error);
-        Sentry.captureException(error);
+        logApiError("getMyCreatedEventAnalytics error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -66,8 +85,8 @@ export async function getMyPaymentProfiles() {
         const response = await client.get("/auth/payment-profile/");
         return response.data as PaymentProfilesResponse;
     } catch (error) {
-        console.error("getMyPaymentProfiles error:", error);
-        Sentry.captureException(error);
+        logApiError("getMyPaymentProfiles error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -83,8 +102,8 @@ export async function getMyRevenueSummary(
         const response = await client.get(`/organizers/revenue/?period=${period}`);
         return response.data as RevenueSummary;
     } catch (error) {
-        console.error("getMyRevenueSummary error:", error);
-        Sentry.captureException(error);
+        logApiError("getMyRevenueSummary error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -123,8 +142,8 @@ export async function getMyPaymentHistory(
         const response = await client.get(`/payments/?${params.toString()}`);
         return response.data as PaymentHistory;
     } catch (error) {
-        console.error("getMyPaymentHistory error:", error);
-        Sentry.captureException(error);
+        logApiError("getMyPaymentHistory error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -134,8 +153,8 @@ export async function getPaymentDetailsById(id: string) {
         const response = await client.get(`/payments/${id}/`);
         return response.data as PaymentDetails;
     } catch (error) {
-        console.error("getPaymentDetailsById error:", error);
-        Sentry.captureException(error);
+        logApiError("getPaymentDetailsById error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -154,8 +173,8 @@ export async function getMyAttendedEvents(page: number = 1, pageSize: number = 1
         const response = await client.get(`/tickets/attended-events/?${params}`);
         return response.data as AttendedEventsResponse;
     } catch (error) {
-        console.error("getMyAttendedEvents error:", error);
-        Sentry.captureException(error);
+        logApiError("getMyAttendedEvents error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -184,8 +203,8 @@ export async function fetchMyTickets(params: {
         const response = await client.get(`/tickets/my-tickets/?${searchParams}`);
         return response.data as MyTicketsResponse;
     } catch (error) {
-        console.error("fetchMyTickets error:", error);
-        Sentry.captureException(error);
+        logApiError("fetchMyTickets error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -195,8 +214,8 @@ export async function getMyTicketDetails(ticketId: string) {
         const response = await client.get(`/tickets/${ticketId}/`);
         return response.data as TicketDetails;
     } catch (error) {
-        console.error("getMyTicketDetails error:", error);
-        Sentry.captureException(error);
+        logApiError("getMyTicketDetails error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -241,8 +260,8 @@ export async function getMyCreatedEvents(
         const response = await client.get(`/events/my-events/?${params}`);
         return response.data as MyEventsResponse;
     } catch (error) {
-        console.error("getMyCreatedEvents error:", error);
-        Sentry.captureException(error);
+        logApiError("getMyCreatedEvents error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -288,8 +307,8 @@ export async function getMyEventAttendees(
         const response = await client.get(`/events/${eventSlug}/attendees/?${params}`);
         return response.data as EventAttendees;
     } catch (error) {
-        console.error("getMyEventAttendees error:", error);
-        Sentry.captureException(error);
+        logApiError("getMyEventAttendees error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -299,8 +318,8 @@ export async function getCheckInHistory(eventSlug: string) {
         const response = await client.get(`/events/${eventSlug}/checkin-history/`);
         return response.data as CheckInHistoryItem[];
     } catch (error) {
-        console.error("getCheckInHistory error:", error);
-        Sentry.captureException(error);
+        logApiError("getCheckInHistory error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -316,8 +335,8 @@ export async function checkInEventTicket(eventSlug: string, ticketId: string) {
             return error.response.data as CheckInResponse;
         }
 
-        console.error("checkInEventTicket error:", error);
-        Sentry.captureException(error);
+        logApiError("checkInEventTicket error:", error);
+        captureApiError(error);
         return {
             success: false,
             error: "Check-in failed",
@@ -337,8 +356,11 @@ export async function updatePaymentProfile(
         const response = await client.patch(`/auth/payment-profile/${profileId}/`, data);
         return response.data;
     } catch (error) {
-        console.error("updatePaymentProfile error:", error);
-        Sentry.captureException(error);
+        logApiError("updatePaymentProfile error:", error);
+        captureApiError(error);
+        if (isAxiosAuthError(error)) {
+            throw new Error("Authentication required");
+        }
         throw error;
     }
 }
@@ -358,8 +380,11 @@ export async function createPaymentProfile(data: {
         const response = await client.post("/auth/payment-profile/", data);
         return response.data;
     } catch (error) {
-        console.error("createPaymentProfile error:", error);
-        Sentry.captureException(error);
+        logApiError("createPaymentProfile error:", error);
+        captureApiError(error);
+        if (isAxiosAuthError(error)) {
+            throw new Error("Authentication required");
+        }
         throw error;
     }
 }
@@ -369,8 +394,11 @@ export async function deletePaymentProfile(profileId: string) {
         const response = await client.delete(`/auth/payment-profile/${profileId}/`);
         return response.data;
     } catch (error) {
-        console.error("deletePaymentProfile error:", error);
-        Sentry.captureException(error);
+        logApiError("deletePaymentProfile error:", error);
+        captureApiError(error);
+        if (isAxiosAuthError(error)) {
+            throw new Error("Authentication required");
+        }
         throw error;
     }
 }
@@ -380,8 +408,11 @@ export async function setDefaultPaymentProfile(profileId: string) {
         const response = await client.post(`/auth/payment-profile/${profileId}/set-default/`);
         return response.data;
     } catch (error) {
-        console.error("setDefaultPaymentProfile error:", error);
-        Sentry.captureException(error);
+        logApiError("setDefaultPaymentProfile error:", error);
+        captureApiError(error);
+        if (isAxiosAuthError(error)) {
+            throw new Error("Authentication required");
+        }
         throw error;
     }
 }
@@ -391,8 +422,8 @@ export async function getVerificationStatus() {
         const response = await client.get("/auth/verification/status/");
         return response.data;
     } catch (error) {
-        console.error("getVerificationStatus error:", error);
-        Sentry.captureException(error);
+        logApiError("getVerificationStatus error:", error);
+        captureApiError(error);
         return null;
     }
 }
@@ -414,8 +445,11 @@ export async function uploadIDDocument(idDocumentUri: string) {
 
         return response.data;
     } catch (error) {
-        console.error("uploadIDDocument error:", error);
-        Sentry.captureException(error);
+        logApiError("uploadIDDocument error:", error);
+        captureApiError(error);
+        if (isAxiosAuthError(error)) {
+            throw new Error("Authentication required");
+        }
         throw error;
     }
 }
@@ -437,8 +471,11 @@ export async function uploadSelfieImage(selfieUri: string) {
 
         return response.data;
     } catch (error) {
-        console.error("uploadSelfieImage error:", error);
-        Sentry.captureException(error);
+        logApiError("uploadSelfieImage error:", error);
+        captureApiError(error);
+        if (isAxiosAuthError(error)) {
+            throw new Error("Authentication required");
+        }
         throw error;
     }
 }
@@ -448,8 +485,13 @@ export async function retryVerification() {
         const response = await client.post("/auth/verification/retry/");
         return response.data;
     } catch (error) {
-        console.error("retryVerification error:", error);
-        Sentry.captureException(error);
+        logApiError("retryVerification error:", error);
+        captureApiError(error);
+        if (isAxiosAuthError(error)) {
+            throw new Error("Authentication required");
+        }
         throw error;
     }
 }
+
+

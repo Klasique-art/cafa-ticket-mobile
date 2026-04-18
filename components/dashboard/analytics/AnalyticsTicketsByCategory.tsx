@@ -38,7 +38,6 @@ const AnalyticsTicketsByCategory = ({ ticketsByCategory, totalSpent }: Props) =>
             className="rounded-xl p-4 border-2"
             style={{ backgroundColor: colors.primary100, borderColor: colors.accent }}
         >
-            {/* Header */}
             <View className="flex-row items-center gap-2 mb-4">
                 <Ionicons name="trending-up-outline" size={18} color={colors.accent50} />
                 <AppText styles="text-sm text-white" font="font-ibold">
@@ -46,7 +45,6 @@ const AnalyticsTicketsByCategory = ({ ticketsByCategory, totalSpent }: Props) =>
                 </AppText>
             </View>
 
-            {/* Total Spent Pill */}
             <View
                 className="flex-row items-center justify-between p-3 rounded-lg mb-4"
                 style={{ backgroundColor: colors.primary200 }}
@@ -77,7 +75,7 @@ const AnalyticsTicketsByCategory = ({ ticketsByCategory, totalSpent }: Props) =>
                         return (
                             <View
                                 key={index}
-                                accessibilityLabel={`${category.category}: ${category.count} tickets, GH₵ ${category.total_spent}, ${percentage.toFixed(1)}% of total`}
+                                accessibilityLabel={`${category.category}: ${category.count} tickets, ${formatMoney(spent)}, ${percentage.toFixed(1)}% of total`}
                             >
                                 <View className="flex-row items-center justify-between mb-2">
                                     <View className="flex-row items-center gap-2">
@@ -108,7 +106,6 @@ const AnalyticsTicketsByCategory = ({ ticketsByCategory, totalSpent }: Props) =>
                                     </View>
                                 </View>
 
-                                {/* Progress Bar */}
                                 <View className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: colors.primary200 }}>
                                     <View
                                         className="h-full rounded-full"

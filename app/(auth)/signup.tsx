@@ -12,7 +12,7 @@ import { router, Link } from "expo-router";
 import type { Href } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 
 import {
   AppText,
@@ -27,6 +27,27 @@ import { SignupValidationSchema, SignupFormValues } from "@/data/validationSchem
 import colors from "@/config/colors";
 import { API_BASE_URL } from "@/config/settings";
 import EmailVerificationPrompt from "@/components/auth/EmailVerificationPrompt";
+import { formatAxiosError } from "@/utils/axiosError";
+
+const toReadableErrorList = (value: unknown): string => {
+  if (!value) return "";
+
+  if (typeof value === "string") return value;
+  if (Array.isArray(value)) return value.map((item) => String(item)).join(", ");
+
+  if (typeof value === "object") {
+    const entries = Object.entries(value as Record<string, unknown>).map(
+      ([key, val]) => {
+        if (Array.isArray(val)) return `${key}: ${val.map((x) => String(x)).join(", ")}`;
+        if (val && typeof val === "object") return `${key}: ${JSON.stringify(val)}`;
+        return `${key}: ${String(val)}`;
+      }
+    );
+    return entries.join(" | ");
+  }
+
+  return String(value);
+};
 
 const SignupScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -60,7 +81,21 @@ const SignupScreen = () => {
       setRegisteredEmail(values.email);
       resetForm();
     } catch (err: any) {
-      console.error("Signup error:", err);
+      const status = isAxiosError(err) ? err.response?.status : undefined;
+      const method = isAxiosError(err) ? err.config?.method?.toUpperCase() : undefined;
+      const endpoint = isAxiosError(err) ? err.config?.url : undefined;
+      const data = isAxiosError(err) ? err.response?.data : undefined;
+      const details =
+        (data as any)?.details ||
+        (data as any)?.error ||
+        (data as any)?.message ||
+        (data as any)?.detail ||
+        data;
+
+      const conciseDetails = toReadableErrorList(details);
+      console.log(
+        `[Signup] ${status || "NO_STATUS"} ${method || "POST"} ${endpoint || "/auth/users/"}${conciseDetails ? ` | ${conciseDetails}` : ` | ${formatAxiosError(err)}`}`
+      );
 
       // Priority 1: Check for backend validation errors in 'details' object
       if (err?.response?.data?.details) {

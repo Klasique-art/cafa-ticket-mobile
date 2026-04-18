@@ -2,7 +2,7 @@ import { View, Image, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import type { Href } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 
 import AppText from "../ui/AppText";
 import { Event } from "@/types";
@@ -16,10 +16,23 @@ interface EventCardProps {
 }
 
 const EventCard = ({ event }: EventCardProps) => {
+    const imageUri = getFullImageUrl(event.featured_image) || undefined;
     const isOngoing = event.status === "ongoing";
     const ticketPercentage = Math.round((event.tickets_sold / event.total_tickets) * 100);
     const isTrending = ticketPercentage >= 60;
     const formatMoney = useFormatMoney();
+
+    useEffect(() => {
+        if (!__DEV__) return;
+
+        console.log("[EventsScreen][EventImageURI]", {
+            id: event.id,
+            slug: event.slug,
+            title: event.title,
+            featured_image_raw: event.featured_image,
+            featured_image_resolved: imageUri ?? null,
+        });
+    }, [event.id, event.slug, event.title, event.featured_image, imageUri]);
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -56,9 +69,19 @@ const EventCard = ({ event }: EventCardProps) => {
                 style={{ aspectRatio: 4 / 3 }}
             >
                 <Image
-                    source={{ uri: getFullImageUrl(event.featured_image) || undefined }}
+                    source={{ uri: imageUri }}
                     className="w-full h-full"
                     resizeMode="cover"
+                    onError={(nativeEvent) => {
+                        if (!__DEV__) return;
+                        console.warn("[EventsScreen][EventImageLoadError]", {
+                            id: event.id,
+                            slug: event.slug,
+                            title: event.title,
+                            uri: imageUri ?? null,
+                            error: nativeEvent?.nativeEvent?.error ?? "unknown",
+                        });
+                    }}
                 />
 
                 {/* Gradient Overlay */}

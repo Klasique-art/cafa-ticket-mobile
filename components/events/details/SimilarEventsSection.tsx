@@ -9,6 +9,7 @@ import AppText from "../../ui/AppText";
 import { EventDetails, SimilarEvent } from "@/types";
 import { getFullImageUrl } from "@/utils/imageUrl";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = SCREEN_WIDTH * 0.7;
@@ -18,6 +19,8 @@ interface SimilarEventsSectionProps {
 }
 
 const SimilarEventCard = ({ event }: { event: SimilarEvent }) => {
+    const formatMoney = useFormatMoney();
+
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         return {
@@ -77,7 +80,7 @@ const SimilarEventCard = ({ event }: { event: SimilarEvent }) => {
                             From
                         </AppText>
                         <AppText styles="text-base text-white font-nunbold">
-                            GHS {parseFloat(event.lowest_price).toFixed(0)}
+                            {formatMoney(event.lowest_price)}
                         </AppText>
                     </View>
                     <View className="w-10 h-10 rounded-full items-center justify-center" style={{ backgroundColor: colors.accent }}>

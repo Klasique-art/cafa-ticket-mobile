@@ -49,7 +49,11 @@ const MyEventRecentSales = ({ recentSales }: MyEventRecentSalesProps) => {
 
                 {/* Empty State */}
                 <View className="py-8 items-center">
-                    <AppText styles="text-sm text-slate-400 text-center" font="font-iregular">
+                    <AppText
+                        styles="text-sm text-slate-400 text-center"
+                        font="font-iregular"
+                        accessibilityLabel="No recent sales for this event"
+                    >
                         No sales yet for this event
                     </AppText>
                 </View>
@@ -78,6 +82,8 @@ const MyEventRecentSales = ({ recentSales }: MyEventRecentSalesProps) => {
                     <View
                         key={index}
                         className="p-3 bg-primary-200 rounded-xl border border-accent/20"
+                        accessible
+                        accessibilityLabel={`${sale.buyer_name} bought ${sale.ticket_type} for ${formatMoney(sale.amount)}. ${formatDateTime(sale.purchase_date)}.`}
                     >
                         <View className="flex-row items-center justify-between mb-2">
                             <View className="flex-1">

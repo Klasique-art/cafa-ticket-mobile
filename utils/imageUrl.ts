@@ -1,4 +1,17 @@
 import { placeholderImage } from "@/data/constants";
+import { API_BASE_URL } from "@/config/settings";
+
+const getApiOrigin = (): string => {
+    try {
+        const parsed = new URL(API_BASE_URL);
+        return `${parsed.protocol}//${parsed.host}`;
+    } catch {
+        return "https://api.cafatickets.com";
+    }
+};
+
+const API_ORIGIN = getApiOrigin();
+const API_PROTOCOL = API_ORIGIN.startsWith("https://") ? "https:" : "http:";
 
 export const getFullImageUrl = (path?: string | null): string => {
     if (!path) return placeholderImage;
@@ -17,11 +30,11 @@ export const getFullImageUrl = (path?: string | null): string => {
     }
 
     if (trimmedPath.startsWith("//")) {
-        return `https:${trimmedPath}`;
+        return `${API_PROTOCOL}${trimmedPath}`;
     }
 
     if (trimmedPath.startsWith("http://")) {
-        return `https://${trimmedPath.slice(7)}`;
+        return trimmedPath;
     }
 
     if (trimmedPath.startsWith("https://")) {
@@ -32,5 +45,5 @@ export const getFullImageUrl = (path?: string | null): string => {
         ? trimmedPath
         : `/${trimmedPath}`;
 
-    return `https://api.cafatickets.com${normalizedPath}`;
+    return `${API_ORIGIN}${normalizedPath}`;
 };

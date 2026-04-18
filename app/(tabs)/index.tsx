@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
-import { RefreshControl, View, StatusBar } from "react-native";
+import { RefreshControl, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import Animated from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -85,7 +86,7 @@ export default function HomeScreen() {
 
     return (
         <View className="flex-1 px-2" style={{ backgroundColor: colors.white }}>
-            <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
+            <StatusBar style="dark" backgroundColor={colors.white} translucent={false} />
 
             <Animated.ScrollView
                 className="flex-1"

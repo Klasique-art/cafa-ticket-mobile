@@ -20,6 +20,7 @@ import colors from "@/config/colors";
 import client from "@/lib/client";
 import { getFullImageUrl } from "@/utils/imageUrl";
 import { useCountries } from "@/hooks/useCountries";
+import { logAxiosError } from "@/utils/axiosError";
 
 const isLocalFileUri = (uri: string) => uri.startsWith("file://") || uri.startsWith("content://");
 
@@ -99,7 +100,7 @@ const EditProfileScreen = () => {
             setTimeout(() => router.back(), 900);
 
         } catch (err: any) {
-            console.error("Error updating profile:", err);
+            logAxiosError("Error updating profile", err);
 
             if (err?.response?.data?.message) {
                 setError(err.response.data.message);

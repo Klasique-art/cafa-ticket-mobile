@@ -31,7 +31,12 @@ const MyEventSalesByTicketType = ({
             {/* Ticket Types List */}
             <View className="gap-4">
                 {salesByTicketType.map((ticketType, index) => (
-                    <View key={index}>
+                    <View
+                        key={index}
+                        className="p-3 bg-primary-200 rounded-xl border border-accent"
+                        accessible
+                        accessibilityLabel={`${ticketType.ticket_type}. Sold ${ticketType.tickets_sold} of ${ticketType.total_quantity}. Revenue ${formatMoney(ticketType.revenue, { compact: true, trimTrailingZeros: true })}.`}
+                    >
                         {/* Ticket Header */}
                         <View className="flex-row items-center justify-between mb-2">
                             <View className="flex-1">
@@ -75,29 +80,25 @@ const MyEventSalesByTicketType = ({
 
                         {/* Revenue Stats */}
                         <View className="flex-row gap-2">
-                            <View className="flex-1 p-2 bg-primary-200 rounded-lg border border-accent/20">
+                            <View className="flex-1 p-2 bg-primary-200 rounded-lg border border-accent">
                                 <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                                     Revenue
                                 </AppText>
                                 <AppText styles="text-sm text-emerald-400" font="font-ibold">
-                                    {formatMoney(ticketType.revenue)}
+                                    {formatMoney(ticketType.revenue, { compact: true, trimTrailingZeros: true })}
                                 </AppText>
                             </View>
 
-                            <View className="flex-1 p-2 bg-primary-200 rounded-lg border border-accent/20">
+                            <View className="flex-1 p-2 bg-primary-200 rounded-lg border border-accent">
                                 <AppText styles="text-xs text-slate-400 mb-1" font="font-iregular">
                                     % of Total Sales
                                 </AppText>
-                                <AppText styles="text-sm text-accent-50" font="font-ibold">
+                                <AppText styles="text-sm text-white" font="font-ibold">
                                     {ticketType.percentage_of_total_sales.toFixed(1)}%
                                 </AppText>
                             </View>
                         </View>
 
-                        {/* Divider */}
-                        {index < salesByTicketType.length - 1 && (
-                            <View className="border-t border-accent/20 mt-4" />
-                        )}
                     </View>
                 ))}
             </View>

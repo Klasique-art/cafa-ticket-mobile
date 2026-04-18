@@ -2,8 +2,10 @@
  * Tickets API functions
  */
 
+import { isAxiosError } from "axios";
 import client from "./client";
 import { API_BASE_URL } from "@/config/settings";
+import { formatAxiosError } from "@/utils/axiosError";
 
 interface BuyTicketPayload {
     event_slug: string;
@@ -41,6 +43,23 @@ export async function buyTicket(payload: BuyTicketPayload): Promise<BuyTicketRes
         const response = await client.post("/payments/initiate/", requestPayload);
         return response.data;
     } catch (error: any) {
+        const isAxios = isAxiosError(error);
+        const status = isAxios ? error.response?.status : undefined;
+        const method = isAxios ? error.config?.method?.toUpperCase() : "POST";
+        const endpoint = isAxios ? error.config?.url : "/payments/initiate/";
+        const backendData = isAxios ? error.response?.data : undefined;
+
+        const backendDetails =
+            backendData?.details ||
+            backendData?.error ||
+            backendData?.message ||
+            backendData?.detail ||
+            null;
+
+        console.log(
+            `[Payment Init] ${status || "NO_STATUS"} ${method || "POST"} ${endpoint || "/payments/initiate/"} | event=${payload.event_slug} ticketType=${payload.ticket_type_id} qty=${payload.quantity} | ${backendDetails ? JSON.stringify(backendDetails) : formatAxiosError(error)}`
+        );
+
         if (error.response?.data) {
             const errorData = error.response.data;
 

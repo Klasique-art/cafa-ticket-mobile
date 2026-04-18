@@ -12,11 +12,26 @@ import {
     retryVerification
 } from "@/lib/dashboard";
 import colors from "@/config/colors";
+import { API_BASE_URL } from "@/config/settings";
 
 type VerificationStep = 'id-upload' | 'selfie' | 'result';
 type VerificationStatus = 'not_started' | 'id_uploaded' | 'pending' | 'verified' | 'rejected';
 const VERIFICATION_POLL_INTERVAL_MS = 5000;
-const VERIFICATION_PENDING_TIMEOUT_MS = 10000;
+const VERIFICATION_PENDING_TIMEOUT_MS = 60000;
+const VERIFICATION_STATUS_ENDPOINT = `${API_BASE_URL}/auth/verification/status/`;
+const VERIFICATION_UPLOAD_SELFIE_ENDPOINT = `${API_BASE_URL}/auth/verification/upload-selfie/`;
+
+const resolveErrorEndpoint = (error: any) => {
+    const requestUrl = error?.config?.url;
+    const baseURL = error?.config?.baseURL || API_BASE_URL;
+
+    if (!requestUrl) return null;
+    if (requestUrl.startsWith("http://") || requestUrl.startsWith("https://")) {
+        return requestUrl;
+    }
+
+    return `${baseURL}${requestUrl}`;
+};
 
 const logVerificationError = (context: string, error: any) => {
     const statusCode = error?.response?.status;
@@ -24,12 +39,14 @@ const logVerificationError = (context: string, error: any) => {
     const networkCode = error?.code;
     const message = error?.message || "Unknown verification error";
     const source = statusCode ? "backend" : "network_or_client";
+    const endpoint = resolveErrorEndpoint(error);
 
     console.error(`[VerifyIdentity] ${context}`, {
         source,
         statusCode: statusCode ?? null,
         networkCode: networkCode ?? null,
         message,
+        endpoint: endpoint ?? null,
         responseData: responseData ?? null,
     });
 };
@@ -39,7 +56,7 @@ const logVerificationInfo = (context: string, payload?: Record<string, unknown>)
 };
 
 const VerifyProfileScreen = () => {
-    const { user } = useAuth();
+    const { user, refreshUser } = useAuth();
     const [currentStep, setCurrentStep] = useState<VerificationStep>('id-upload');
     const [verificationStatus, setVerificationStatus] = useState<VerificationStatus>('not_started');
     const [isLoading, setIsLoading] = useState(false);
@@ -85,22 +102,48 @@ const VerifyProfileScreen = () => {
                     durationMs: Date.now() - startedAt,
                     result,
                     failedPolls: pendingPollStatsRef.current.failedPolls,
+                    endpoint: VERIFICATION_STATUS_ENDPOINT,
                 });
                 return;
             }
 
             const status = result.data.verification_status;
             pendingPollStatsRef.current.successfulPolls += 1;
-            logVerificationInfo("status poll success", {
-                durationMs: Date.now() - startedAt,
-                status,
-                successfulPolls: pendingPollStatsRef.current.successfulPolls,
-            });
             setVerificationStatus(status);
             if (status !== 'pending') {
                 setPendingTimeoutMessage(null);
                 setPendingTimeoutDiagnosis(null);
                 setHasPendingTimedOut(false);
+            }
+
+            const verificationNotes =
+                result?.data?.verification_notes ||
+                result?.data?.message ||
+                null;
+
+            // If we were waiting for selfie verification and backend moved us back to
+            // selfie-required states, surface a clear reason instead of silent step changes.
+            if (
+                currentStep === "result" &&
+                verificationStatus === "pending" &&
+                (status === "id_uploaded" || status === "not_started")
+            ) {
+                const fallbackMessage =
+                    status === "id_uploaded"
+                        ? "Selfie verification did not complete. Please retake and submit your selfie again."
+                        : "Verification session reset. Please upload your ID and selfie again.";
+
+                setUploadError(
+                    typeof verificationNotes === "string" && verificationNotes.trim()
+                        ? verificationNotes
+                        : fallbackMessage
+                );
+
+                logVerificationInfo("verification returned to capture step", {
+                    status,
+                    notes: verificationNotes,
+                    endpoint: VERIFICATION_STATUS_ENDPOINT,
+                });
             }
 
             if (status === 'not_started') {
@@ -120,6 +163,7 @@ const VerifyProfileScreen = () => {
             logVerificationInfo("status poll failed (exception)", {
                 durationMs: Date.now() - startedAt,
                 failedPolls: pendingPollStatsRef.current.failedPolls,
+                endpoint: VERIFICATION_STATUS_ENDPOINT,
             });
             const message =
                 "Network issue while checking verification status. Please try again.";
@@ -160,7 +204,7 @@ const VerifyProfileScreen = () => {
             }
             setHasPendingTimedOut(true);
             setPendingTimeoutMessage(
-                "Verification timed out. Please check your connection and try again."
+                "Verification is taking longer than usual. You can retry status check or re-upload selfie."
             );
             setPendingTimeoutDiagnosis(diagnosis);
             logVerificationInfo("pending verification timeout", {
@@ -169,6 +213,8 @@ const VerifyProfileScreen = () => {
                 failedPolls,
                 lastFailureMessage: lastFailureMessage || null,
                 diagnosis,
+                statusEndpoint: VERIFICATION_STATUS_ENDPOINT,
+                selfieUploadEndpoint: VERIFICATION_UPLOAD_SELFIE_ENDPOINT,
             });
         }, VERIFICATION_PENDING_TIMEOUT_MS);
 
@@ -179,13 +225,11 @@ const VerifyProfileScreen = () => {
     }, [currentStep, verificationStatus, checkVerificationStatus]);
 
     const handleIDUpload = async (uri: string) => {
-        logVerificationInfo("ID upload started", { uriPrefix: uri?.slice(0, 40) });
         setIsLoading(true);
         setUploadError(null);
 
         try {
             const data = await uploadIDDocument(uri);
-            logVerificationInfo("ID upload response", { data });
 
             if (data && data.success) {
                 setVerificationStatus('id_uploaded');
@@ -205,7 +249,6 @@ const VerifyProfileScreen = () => {
     };
 
     const handleSelfieUpload = async (uri: string) => {
-        logVerificationInfo("Selfie upload started", { uriPrefix: uri?.slice(0, 40) });
         setIsLoading(true);
         setUploadError(null);
         setPendingTimeoutMessage(null);
@@ -216,7 +259,6 @@ const VerifyProfileScreen = () => {
 
         try {
             const data = await uploadSelfieImage(uri);
-            logVerificationInfo("Selfie upload response", { data });
 
             if (data && data.success) {
                 if (data.data.verification_status === 'verified') {
@@ -286,6 +328,18 @@ const VerifyProfileScreen = () => {
         }
     };
 
+    const handleGoToCreateEvent = async () => {
+        setIsLoading(true);
+        try {
+            await refreshUser();
+        } catch (error) {
+            logVerificationError("refreshUser after verification failed", error);
+        } finally {
+            setIsLoading(false);
+            router.replace('/dashboard/events/create');
+        }
+    };
+
     return (
         <Screen>
             <RequireAuth>
@@ -333,23 +387,14 @@ const VerifyProfileScreen = () => {
                             isLoading={isLoading}
                             error={uploadError}
                             cameraFacing="back"
+                            useLightText
+                            libraryAspect={[8, 5]}
                         />
                     )}
 
                     {/* Selfie Step */}
                     {currentStep === 'selfie' && (
-                        <View className="gap-4">
-                            {/* Success Badge */}
-                            <View
-                                className="mx-4 p-4 rounded-xl border flex-row items-center gap-3"
-                                style={{ backgroundColor: colors.accent50 + "1A", borderColor: colors.accent50 }}
-                            >
-                                <Ionicons name="checkmark-circle" size={20} color={colors.accent50} />
-                                <AppText styles="text-sm text-black">
-                                    ID uploaded successfully!
-                                </AppText>
-                            </View>
-
+                        <View>
                             <PhotoCapture
                                 onPhotoCapture={handleSelfieUpload}
                                 title="Take a Selfie"
@@ -365,6 +410,7 @@ const VerifyProfileScreen = () => {
                                 error={uploadError}
                                 cameraFacing="front"
                                 useLightText
+                                allowLibrary={false}
                             />
                         </View>
                     )}
@@ -451,25 +497,27 @@ const VerifyProfileScreen = () => {
                                     >
                                         <Ionicons name="checkmark-circle" size={48} color={colors.accent50} />
                                     </View>
-                                    <AppText styles="text-xl text-black mb-2 text-center font-nunbold">
+                                    <AppText styles="text-xl text-white mb-2 text-center font-nunbold">
                                         Verification Successful!
                                     </AppText>
-                                    <AppText styles="text-sm text-black mb-6 text-center" style={{ opacity: 0.7 }}>
+                                    <AppText styles="text-sm text-slate-200 mb-6 text-center">
                                         Your identity has been verified. You can now create events.
                                     </AppText>
 
-                                    <View
-                                        onTouchEnd={() => router.push('/dashboard/events/create')}
+                                    <TouchableOpacity
+                                        onPress={handleGoToCreateEvent}
+                                        disabled={isLoading}
                                         className="w-full p-4 rounded-xl items-center"
-                                        style={{ backgroundColor: colors.accent }}
+                                        style={{ backgroundColor: colors.accent, opacity: isLoading ? 0.6 : 1 }}
                                         accessible
                                         accessibilityRole="button"
                                         accessibilityLabel="Create first event"
+                                        activeOpacity={0.85}
                                     >
                                         <AppText styles="text-base text-white font-nunbold">
                                             Create Your First Event
                                         </AppText>
-                                    </View>
+                                    </TouchableOpacity>
                                 </View>
                             )}
 
@@ -484,10 +532,10 @@ const VerifyProfileScreen = () => {
                                     >
                                         <Ionicons name="close-circle" size={48} color={colors.accent} />
                                     </View>
-                                    <AppText styles="text-xl text-black mb-2 text-center font-nunbold">
+                                    <AppText styles="text-xl text-white mb-2 text-center font-nunbold">
                                         Verification Failed
                                     </AppText>
-                                    <AppText styles="text-sm text-black mb-6 text-center" style={{ opacity: 0.7 }}>
+                                    <AppText styles="text-sm text-slate-200 mb-6 text-center">
                                         {rejectionReason || 'We couldn\'t verify your identity. Please try again.'}
                                     </AppText>
 

@@ -82,6 +82,17 @@ const AppFormField = <Values extends StringFieldFormValues = StringFieldFormValu
         setFieldTouched(name, true, false);
     };
 
+    // Date/time pickers should validate immediately on value select so "required"
+    // errors clear without waiting for another field interaction.
+    const handleDateTimeChange = (text: string) => {
+        setFieldValue(name, text, true);
+    };
+
+    // Avoid running stale blur-time validation before selected value commit.
+    const handleDateTimeBlur = () => {
+        setFieldTouched(name, true, false);
+    };
+
     return (
         <View className={`flex flex-col gap-2 ${styles}`}>
             {type === 'searchable-select' ? (
@@ -114,8 +125,8 @@ const AppFormField = <Values extends StringFieldFormValues = StringFieldFormValu
                     label={label}
                     labelColor={labelColor}
                     value={value}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    onChange={handleDateTimeChange}
+                    onBlur={handleDateTimeBlur}
                     required={required}
                     min={min}
                     max={max}
@@ -125,8 +136,8 @@ const AppFormField = <Values extends StringFieldFormValues = StringFieldFormValu
                     name={name}
                     label={label}
                     value={value}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    onChange={handleDateTimeChange}
+                    onBlur={handleDateTimeBlur}
                     required={required}
                     placeholder={placeholder}
                 />

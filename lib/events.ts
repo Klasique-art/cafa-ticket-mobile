@@ -7,6 +7,7 @@ import {
 import { AttendedEventsResponse, EventCategory, MyEventsResponse } from "@/types/dash-events.types";
 import client from "./client";
 import * as Sentry from '@sentry/react-native';
+import { captureAxiosContext, isAxios4xx, logAxiosError } from "@/utils/axiosError";
 
 export async function getEvents(
   filters: EventFilters = {}
@@ -29,8 +30,10 @@ export async function getEvents(
     const response = await client.get(`/events/?${params.toString()}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching events:", error);
-    Sentry.captureException(error);
+    logAxiosError("Error fetching events", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     return {
       count: 0,
       next: null,
@@ -45,8 +48,10 @@ export async function getEventBySlug(slug: string): Promise<EventDetails | null>
     const response = await client.get(`/events/${slug}/`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching event:", error);
-    Sentry.captureException(error);
+    logAxiosError("Error fetching event", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     return null;
   }
 }
@@ -56,8 +61,10 @@ export async function getEventCategories(): Promise<EventCategory[]> {
     const response = await client.get("/event-categories/");
     return response.data.categories || [];
   } catch (error) {
-    console.error("Error fetching categories:", error);
-    Sentry.captureException(error);
+    logAxiosError("Error fetching categories", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     return [];
   }
 }
@@ -67,8 +74,10 @@ export async function searchEvents(query: string): Promise<Event[]> {
     const response = await getEvents({ search: query, status: "upcoming" });
     return response.results;
   } catch (error) {
-    console.error("Error searching events:", error);
-    Sentry.captureException(error);
+    logAxiosError("Error searching events", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     return [];
   }
 }
@@ -99,8 +108,10 @@ export async function getMyEvents(filters: MyEventsFilters = {}): Promise<MyEven
     const response = await client.get(`/events/my-events/?${params.toString()}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching my events:", error);
-    Sentry.captureException(error);
+    logAxiosError("Error fetching my events", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     return {
       count: 0,
       next: null,
@@ -127,7 +138,7 @@ export async function deleteMyEvent(slug: string): Promise<{ success: boolean; m
       message: response.data?.message || 'Event deleted successfully'
     };
   } catch (error: any) {
-    console.error("Error deleting event:", error);
+    logAxiosError("Error deleting event", error);
 
     const errorData = error.response?.data;
 
@@ -152,8 +163,10 @@ export async function getMyAttendedEvents(
     const response = await client.get(`/tickets/attended-events/?${params.toString()}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching attended events:", error);
-    Sentry.captureException(error);
+    logAxiosError("Error fetching attended events", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     return {
       count: 0,
       next: null,
@@ -222,12 +235,13 @@ export async function createEvent(payload: any) {
       },
     });
 
-    console.log("Event created successfully:", response.data);
     return response.data;
 
   } catch (error: any) {
-    console.error("Create event error:", error);
-    Sentry.captureException(error);
+    logAxiosError("Create event error", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
 
     if (error.response?.data) {
       const errorData = error.response.data;
@@ -274,8 +288,10 @@ export async function updateEvent(slug: string, payload: any) {
     });
     return response.data;
   } catch (error: any) {
-    console.error("Update event error:", error);
-    Sentry.captureException(error);
+    logAxiosError("Update event error", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     if (error.response?.data) {
       const errorData = error.response.data;
 
@@ -322,10 +338,11 @@ export async function getPastEvents(params?: {
     const response = await client.get(`/events/past/?${searchParams.toString()}`);
     return response.data as PaginatedEventsResponse;
   } catch (error) {
-    console.error("getPastEvents error:", error);
-    Sentry.captureException(error);
+    logAxiosError("getPastEvents error", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     return null;
   }
 }
-
 

@@ -1,8 +1,18 @@
-import { View, ScrollView, TouchableOpacity, Dimensions, Share } from "react-native";
+import {
+    View,
+    ScrollView,
+    TouchableOpacity,
+    Pressable,
+    Dimensions,
+    Share,
+    Modal,
+    FlatList,
+    ListRenderItemInfo,
+} from "react-native";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 
@@ -21,12 +31,18 @@ const IMAGE_HEIGHT = SCREEN_WIDTH * 0.75;
 const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
     const insets = useSafeAreaInsets();
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [isGalleryModalVisible, setIsGalleryModalVisible] = useState(false);
+    const [modalImageIndex, setModalImageIndex] = useState(0);
+    const modalListRef = useRef<FlatList<string>>(null);
 
-    // All images
-    const additionalImages = Array.isArray(event.additional_images)
-        ? event.additional_images.map(getFullImageUrl).filter(Boolean)
-        : [];
-    const allImages = [getFullImageUrl(event.featured_image), ...additionalImages];
+    const allImages = useMemo(() => {
+        const featuredImage = getFullImageUrl(event.featured_image);
+        const additionalImages = Array.isArray(event.additional_images)
+            ? event.additional_images.map(getFullImageUrl).filter(Boolean)
+            : [];
+
+        return [featuredImage, ...additionalImages];
+    }, [event.featured_image, event.additional_images]);
 
     // Share functionality
     const handleShare = useCallback(async () => {
@@ -39,6 +55,68 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
             console.error("Share error:", error);
         }
     }, [event]);
+
+    const openImageGallery = useCallback((index: number) => {
+        setModalImageIndex(index);
+        setIsGalleryModalVisible(true);
+    }, []);
+
+    const closeImageGallery = useCallback(() => {
+        setIsGalleryModalVisible(false);
+    }, []);
+
+    const goToModalImage = useCallback((nextIndex: number, animated = true) => {
+        setModalImageIndex(nextIndex);
+        modalListRef.current?.scrollToIndex({
+            index: nextIndex,
+            animated,
+        });
+    }, []);
+
+    const goToPreviousImage = useCallback(() => {
+        if (allImages.length <= 1) return;
+        const previousIndex = modalImageIndex === 0 ? allImages.length - 1 : modalImageIndex - 1;
+        goToModalImage(previousIndex);
+    }, [allImages.length, goToModalImage, modalImageIndex]);
+
+    const goToNextImage = useCallback(() => {
+        if (allImages.length <= 1) return;
+        const nextIndex = modalImageIndex === allImages.length - 1 ? 0 : modalImageIndex + 1;
+        goToModalImage(nextIndex);
+    }, [allImages.length, goToModalImage, modalImageIndex]);
+
+    useEffect(() => {
+        if (!isGalleryModalVisible) return;
+        const frame = requestAnimationFrame(() => {
+            modalListRef.current?.scrollToIndex({
+                index: modalImageIndex,
+                animated: false,
+            });
+        });
+
+        return () => cancelAnimationFrame(frame);
+    }, [isGalleryModalVisible, modalImageIndex]);
+
+    const renderModalImage = useCallback(
+        ({ item, index }: ListRenderItemInfo<string>) => (
+            <View
+                style={{ width: SCREEN_WIDTH, height: "100%" }}
+                accessible
+                accessibilityRole="image"
+                accessibilityLabel={`Event image ${index + 1} of ${allImages.length}`}
+            >
+                <Image
+                    source={{ uri: item }}
+                    style={{ width: "100%", height: "100%" }}
+                    contentFit="contain"
+                    cachePolicy="memory-disk"
+                    transition={120}
+                    recyclingKey={`event-modal-${event.id}-${index}`}
+                />
+            </View>
+        ),
+        [allImages.length, event.id]
+    );
 
     return (
         <View className="bg-white">
@@ -87,25 +165,49 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                     }}
                 >
                     {allImages.map((image, index) => (
-                        <Image
+                        <TouchableOpacity
                             key={index}
-                            source={{ uri: getFullImageUrl(image) || undefined }}
-                            style={{ width: SCREEN_WIDTH, height: IMAGE_HEIGHT }}
-                            contentFit="cover"
-                            transition={200}
-                        />
+                            activeOpacity={0.95}
+                            onPress={() => openImageGallery(index)}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Open image ${index + 1} of ${allImages.length}`}
+                            accessibilityHint="Opens full-screen image gallery"
+                        >
+                            <Image
+                                source={{ uri: image || undefined }}
+                                style={{ width: SCREEN_WIDTH, height: IMAGE_HEIGHT }}
+                                contentFit="cover"
+                                cachePolicy="memory-disk"
+                                transition={160}
+                                recyclingKey={`event-hero-${event.id}-${index}`}
+                            />
+                        </TouchableOpacity>
                     ))}
                 </ScrollView>
 
-                {/* Gradient Overlay at bottom */}
+                {/* Dark overlay for better text/readability on bright images */}
                 <View
+                    pointerEvents="none"
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: "rgba(0, 0, 0, 0.24)",
+                    }}
+                />
+
+                {/* Stronger bottom fade for badges/text contrast */}
+                <View
+                    pointerEvents="none"
                     style={{
                         position: "absolute",
                         bottom: 0,
                         left: 0,
                         right: 0,
                         height: 120,
-                        // background: "linear-gradient(to top, rgba(5, 14, 60, 0.9), transparent)",
+                        backgroundColor: "rgba(5, 14, 60, 0.46)",
                     }}
                 />
 
@@ -265,6 +367,123 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
                     </View>
                 </View>
             </Animated.View>
+
+            <Modal
+                visible={isGalleryModalVisible}
+                transparent
+                animationType="fade"
+                presentationStyle="overFullScreen"
+                statusBarTranslucent
+                onRequestClose={closeImageGallery}
+            >
+                <View className="flex-1" style={{ backgroundColor: "rgba(5, 14, 60, 0.78)" }}>
+                    <TouchableOpacity
+                        onPress={closeImageGallery}
+                        className="absolute z-20 w-12 h-12 rounded-full items-center justify-center"
+                        style={{
+                            top: insets.top + 8,
+                            right: 16,
+                            backgroundColor: "rgba(255,255,255,0.15)",
+                        }}
+                        activeOpacity={0.85}
+                        accessibilityRole="button"
+                        accessibilityLabel="Close image gallery"
+                        accessibilityHint="Closes full-screen image gallery"
+                    >
+                        <Ionicons name="close" size={24} color={colors.white} />
+                    </TouchableOpacity>
+
+                    <Pressable
+                        style={{ flex: 1 }}
+                        onPress={closeImageGallery}
+                        accessibilityRole="button"
+                        accessibilityLabel="Close gallery"
+                        accessibilityHint="Tap empty space to close image gallery"
+                    >
+                        <FlatList
+                            ref={modalListRef}
+                            data={allImages}
+                            horizontal
+                            pagingEnabled
+                            initialScrollIndex={modalImageIndex}
+                            getItemLayout={(_, index) => ({
+                                length: SCREEN_WIDTH,
+                                offset: SCREEN_WIDTH * index,
+                                index,
+                            })}
+                            showsHorizontalScrollIndicator={false}
+                            renderItem={renderModalImage}
+                            keyExtractor={(item, index) => `${item}-${index}`}
+                            onMomentumScrollEnd={(e) => {
+                                const index = Math.round(e.nativeEvent.contentOffset.x / SCREEN_WIDTH);
+                                setModalImageIndex(index);
+                            }}
+                            onScrollToIndexFailed={({ index }) => {
+                                requestAnimationFrame(() => {
+                                    modalListRef.current?.scrollToOffset({
+                                        offset: SCREEN_WIDTH * index,
+                                        animated: false,
+                                    });
+                                });
+                            }}
+                            windowSize={3}
+                            initialNumToRender={1}
+                            maxToRenderPerBatch={2}
+                            removeClippedSubviews
+                        />
+                    </Pressable>
+
+                    {allImages.length > 1 && (
+                        <>
+                            <TouchableOpacity
+                                onPress={goToPreviousImage}
+                                className="absolute left-4 w-12 h-12 rounded-full items-center justify-center"
+                                style={{
+                                    top: "50%",
+                                    marginTop: -24,
+                                    backgroundColor: "rgba(255,255,255,0.15)",
+                                }}
+                                activeOpacity={0.85}
+                                accessibilityRole="button"
+                                accessibilityLabel="Previous image"
+                                accessibilityHint="Shows the previous image in the gallery"
+                            >
+                                <Ionicons name="chevron-back" size={24} color={colors.white} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={goToNextImage}
+                                className="absolute right-4 w-12 h-12 rounded-full items-center justify-center"
+                                style={{
+                                    top: "50%",
+                                    marginTop: -24,
+                                    backgroundColor: "rgba(255,255,255,0.15)",
+                                }}
+                                activeOpacity={0.85}
+                                accessibilityRole="button"
+                                accessibilityLabel="Next image"
+                                accessibilityHint="Shows the next image in the gallery"
+                            >
+                                <Ionicons name="chevron-forward" size={24} color={colors.white} />
+                            </TouchableOpacity>
+                        </>
+                    )}
+
+                    <View
+                        className="absolute left-1/2 -translate-x-1/2 rounded-xl px-4 py-2"
+                        style={{
+                            bottom: Math.max(insets.bottom + 12, 24),
+                            backgroundColor: "rgba(0,0,0,0.45)",
+                        }}
+                        accessible
+                        accessibilityLabel={`Image ${modalImageIndex + 1} of ${allImages.length}`}
+                    >
+                        <AppText styles="text-sm font-nunbold" style={{ color: colors.white }}>
+                            {modalImageIndex + 1} / {allImages.length}
+                        </AppText>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 };

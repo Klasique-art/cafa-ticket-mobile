@@ -1,9 +1,10 @@
 import { View, ScrollView, Image, TouchableOpacity, Modal } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import AppText from "../../../ui/AppText";
 import { getFullImageUrl } from "@/utils/imageUrl";
+import { placeholderImage } from "@/data/constants";
 
 interface MyEventImageGalleryProps {
     images: string[];
@@ -12,6 +13,16 @@ interface MyEventImageGalleryProps {
 
 const MyEventImageGallery = ({ images }: MyEventImageGalleryProps) => {
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const [failedImageIndexes, setFailedImageIndexes] = useState<Record<number, boolean>>({});
+
+    const resolvedImages = useMemo(
+        () => images.map((image) => getFullImageUrl(image) || placeholderImage),
+        [images]
+    );
+
+    useEffect(() => {
+        setFailedImageIndexes({});
+    }, [images]);
 
     if (!images || images.length === 0) {
         return null;
@@ -50,11 +61,17 @@ const MyEventImageGallery = ({ images }: MyEventImageGalleryProps) => {
                             onPress={() => setSelectedIndex(index)}
                             activeOpacity={0.9}
                             className="relative"
+                            accessibilityRole="button"
+                            accessibilityLabel={`Open gallery image ${index + 1} of ${images.length}`}
+                            accessibilityHint="Opens full-screen gallery viewer"
                         >
                             <Image
-                                source={{ uri: getFullImageUrl(image) }}
+                                source={{ uri: failedImageIndexes[index] ? placeholderImage : resolvedImages[index] }}
                                 className="w-64 h-40 rounded-xl"
                                 resizeMode="cover"
+                                onError={() =>
+                                    setFailedImageIndexes((prev) => ({ ...prev, [index]: true }))
+                                }
                             />
 
                             {/* Zoom Icon Overlay */}
@@ -88,6 +105,9 @@ const MyEventImageGallery = ({ images }: MyEventImageGalleryProps) => {
                             className="absolute top-12 right-4 w-12 h-12 rounded-full items-center justify-center z-10"
                             style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
                             activeOpacity={0.8}
+                            accessibilityRole="button"
+                            accessibilityLabel="Close gallery"
+                            accessibilityHint="Closes full-screen image viewer"
                         >
                             <Ionicons name="close" size={24} color="#fff" />
                         </TouchableOpacity>
@@ -95,9 +115,17 @@ const MyEventImageGallery = ({ images }: MyEventImageGalleryProps) => {
                         {/* Image */}
                         <View className="flex-1 items-center justify-center">
                             <Image
-                                source={{ uri: getFullImageUrl(images[selectedIndex]) }}
+                                source={{
+                                    uri:
+                                        failedImageIndexes[selectedIndex]
+                                            ? placeholderImage
+                                            : resolvedImages[selectedIndex] || placeholderImage,
+                                }}
                                 className="w-full h-full"
                                 resizeMode="contain"
+                                onError={() =>
+                                    setFailedImageIndexes((prev) => ({ ...prev, [selectedIndex]: true }))
+                                }
                             />
                         </View>
 
@@ -111,8 +139,11 @@ const MyEventImageGallery = ({ images }: MyEventImageGalleryProps) => {
                                         )
                                     }
                                     className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full items-center justify-center"
-                                    style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+                                    style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
                                     activeOpacity={0.8}
+                                    accessibilityRole="button"
+                                    accessibilityLabel="Previous gallery image"
+                                    accessibilityHint="Shows previous image"
                                 >
                                     <Ionicons name="chevron-back" size={24} color="#fff" />
                                 </TouchableOpacity>
@@ -124,8 +155,11 @@ const MyEventImageGallery = ({ images }: MyEventImageGalleryProps) => {
                                         )
                                     }
                                     className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full items-center justify-center"
-                                    style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+                                    style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
                                     activeOpacity={0.8}
+                                    accessibilityRole="button"
+                                    accessibilityLabel="Next gallery image"
+                                    accessibilityHint="Shows next image"
                                 >
                                     <Ionicons name="chevron-forward" size={24} color="#fff" />
                                 </TouchableOpacity>

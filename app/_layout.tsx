@@ -1,6 +1,6 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack, SplashScreen } from "expo-router";
-import { useColorScheme } from "react-native";
+import { NativeModules, useColorScheme } from "react-native";
 import { useEffect, useState, useCallback } from 'react';
 import { useFonts } from "expo-font";
 
@@ -45,6 +45,12 @@ export default Sentry.wrap(function RootLayout() {
   const colorScheme = useColorScheme();
   const loadNetInfo = useCallback(async () => {
     try {
+      // Prevent runtime crash when native module is not bundled in the current app binary.
+      if (!NativeModules?.RNCNetInfo) {
+        console.warn("NetInfo native module not found in this build. Skipping offline monitoring.");
+        return null;
+      }
+
       const NetInfoModule = await import("@react-native-community/netinfo");
       return NetInfoModule.default;
     } catch (netInfoError) {

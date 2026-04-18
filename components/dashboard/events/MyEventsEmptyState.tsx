@@ -17,7 +17,7 @@ const MyEventsEmptyState = ({ onCreateEventPress }: MyEventsEmptyStateProps) => 
                 <Ionicons name="calendar-outline" size={40} color={colors.accent50} />
             </View>
             <AppText styles="text-xl text-black text-center mb-3" font="font-ibold">No Events Found</AppText>
-            <AppText styles="text-sm text-slate-300 text-center mb-6 leading-relaxed max-w-sm" font="font-iregular">
+            <AppText styles="text-sm text-slate-700 text-center mb-6 leading-relaxed max-w-sm" font="font-iregular">
                 You haven&apos;t created any events yet. Create your first event and reach thousands of attendees.
             </AppText>
             <TouchableOpacity

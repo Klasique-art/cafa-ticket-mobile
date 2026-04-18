@@ -38,7 +38,7 @@ const MyEventInfo = ({ event }: MyEventInfoProps) => {
         <View className="gap-2">
             {/* Section Header */}
             <View className="flex-row items-center justify-between">
-                <AppText styles="text-xl text-black">
+                <AppText styles="text-xl text-black" accessibilityRole="header">
                     Event Information
                 </AppText>
                 <View className="flex-row items-center gap-2">
@@ -94,6 +94,9 @@ const MyEventInfo = ({ event }: MyEventInfoProps) => {
                     onPress={() => setShowFullDescription(!showFullDescription)}
                     className="mt-3"
                     activeOpacity={0.7}
+                    accessibilityRole="button"
+                    accessibilityLabel={showFullDescription ? "Show less description" : "Read full description"}
+                    accessibilityHint="Toggles full event description"
                 >
                     <AppText styles="text-sm text-accent-50" font="font-isemibold">
                         {showFullDescription ? "Show Less" : "Read More"}
@@ -102,7 +105,11 @@ const MyEventInfo = ({ event }: MyEventInfoProps) => {
             </View>
 
             {/* Date & Time Card */}
-            <View className="p-2 bg-primary rounded-xl border border-accent">
+            <View
+                className="p-2 bg-primary rounded-xl border border-accent"
+                accessible
+                accessibilityLabel={`Capacity. Maximum attendees ${event.max_attendees.toLocaleString()}`}
+            >
                 <View className="flex-row items-start gap-3">
                     <View
                         className="w-10 h-10 rounded-lg items-center justify-center"

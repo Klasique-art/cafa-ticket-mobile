@@ -1,9 +1,10 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import * as SecureStore from "expo-secure-store";
 import client, { AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY } from "./client";
 import { API_BASE_URL } from "@/config/settings";
 import { CurrentUser, LoginCredentials, SignupData, LoginResponse } from "@/types";
 import * as Sentry from '@sentry/react-native';
+import { captureAxiosContext, isAxios4xx, logAxiosError } from "@/utils/axiosError";
 
 export async function login(credentials: LoginCredentials): Promise<LoginResponse> {
   const response = await axios.post(`${API_BASE_URL}/auth/login/`, credentials);
@@ -32,8 +33,10 @@ export async function logout(): Promise<void> {
     await client.post("/auth/logout/");
   } catch (error) {
     // Continue with local logout even if API fails
-    console.error("Logout API error:", error);
-    Sentry.captureException(error);
+    logAxiosError("Logout API error", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
   } finally {
     await SecureStore.deleteItemAsync(AUTH_TOKEN_KEY);
     await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
@@ -45,8 +48,14 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
     const response = await client.get("/auth/profile/");
     return response.data;
   } catch (error) {
-    console.error("Error getting current user:", error);
-    Sentry.captureException(error);
+    if (isAxiosError(error) && (error.response?.status === 401 || error.response?.status === 403)) {
+      return null;
+    }
+
+    logAxiosError("Error getting current user", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     return null;
   }
 }
@@ -54,7 +63,7 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 export async function getStoredToken(): Promise<string | null> {
   try {
     return await SecureStore.getItemAsync(AUTH_TOKEN_KEY);
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -65,8 +74,10 @@ export async function forgotPassword(email: string) {
     const response = await client.post("/auth/password/reset/", { email });
     return response.data;
   } catch (error) {
-    console.error("forgotPassword error:", error);
-    Sentry.captureException(error);
+    logAxiosError("forgotPassword error", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     throw error;
   }
 }
@@ -81,8 +92,10 @@ export async function resetPassword(data: {
     const response = await client.post("/auth/password/reset/confirm/", data);
     return response.data;
   } catch (error) {
-    console.error("resetPassword error:", error);
-    Sentry.captureException(error);
+    logAxiosError("resetPassword error", error);
+    if (!isAxios4xx(error)) {
+      Sentry.captureException(error, { extra: captureAxiosContext(error) });
+    }
     throw error;
   }
 }

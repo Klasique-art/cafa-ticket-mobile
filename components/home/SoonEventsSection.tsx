@@ -1,4 +1,4 @@
-import { View, ScrollView, ActivityIndicator, Text } from "react-native";
+import { View, ScrollView, ActivityIndicator } from "react-native";
 import { router } from "expo-router";
 
 import { Event } from "@/types";

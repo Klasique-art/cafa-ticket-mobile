@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../ui/AppText";
 import colors from "@/config/colors";
 import type { TicketPurchaseInfo as PurchaseInfoType } from "@/types/tickets.types";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 type Props = {
     purchaseInfo: PurchaseInfoType;
@@ -33,6 +34,7 @@ const formatDateTime = (dateTime: string) =>
     });
 
 const TicketPurchaseInfo = ({ purchaseInfo }: Props) => {
+    const formatMoney = useFormatMoney();
     const status = statusConfigs[purchaseInfo.payment_status] || statusConfigs.completed;
 
     const rows = [
@@ -130,13 +132,13 @@ const TicketPurchaseInfo = ({ purchaseInfo }: Props) => {
                 <View
                     className="flex-row items-center justify-between p-3 rounded-lg"
                     style={{ backgroundColor: colors.primary200 }}
-                    accessibilityLabel={`Amount Paid: ${purchaseInfo.currency} ${purchaseInfo.amount_paid}`}
+                    accessibilityLabel={`Amount Paid: ${formatMoney(purchaseInfo.amount_paid)}`}
                 >
                     <AppText styles="text-xs text-black" style={{ opacity: 0.6 }}>
                         Amount Paid
                     </AppText>
                     <AppText styles="text-sm text-black font-nunbold">
-                        {purchaseInfo.currency} {parseFloat(purchaseInfo.amount_paid).toLocaleString("en-GH")}
+                        {formatMoney(purchaseInfo.amount_paid)}
                     </AppText>
                 </View>
             </View>

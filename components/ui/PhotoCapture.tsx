@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useState, useRef, useEffect } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Sentry from '@sentry/react-native';
 
 import { AppText } from "@/components";
@@ -19,6 +20,8 @@ interface PhotoCaptureProps {
     error?: string | null;
     cameraFacing?: 'front' | 'back';
     useLightText?: boolean;
+    libraryAspect?: [number, number];
+    allowLibrary?: boolean;
 }
 
 const PhotoCapture = ({
@@ -31,7 +34,10 @@ const PhotoCapture = ({
     error = null,
     cameraFacing = 'front',
     useLightText = false,
+    libraryAspect = [4, 3],
+    allowLibrary = true,
 }: PhotoCaptureProps) => {
+    const insets = useSafeAreaInsets();
     const [capturedPhoto, setCapturedPhoto] = useState<string | null>(null);
     const [showCamera, setShowCamera] = useState(false);
     const [isTakingPhoto, setIsTakingPhoto] = useState(false);
@@ -45,13 +51,15 @@ const PhotoCapture = ({
             if (!cameraPermission?.granted) {
                 await requestCameraPermission();
             }
-            if (!libraryPermission?.granted) {
+            if (allowLibrary && !libraryPermission?.granted) {
                 await requestLibraryPermission();
             }
         })();
-    }, []);
+    }, [allowLibrary, cameraPermission?.granted, libraryPermission?.granted, requestCameraPermission, requestLibraryPermission]);
 
-    const hasPermission = cameraPermission?.granted && libraryPermission?.granted;
+    const hasCameraPermission = !!cameraPermission?.granted;
+    const hasLibraryPermission = allowLibrary ? !!libraryPermission?.granted : true;
+    const hasPermission = hasCameraPermission && hasLibraryPermission;
     const headingTextColor = "text-black";
     const instructionTextColor = "text-black";
     const cardPrimaryTextColor = useLightText ? "text-white" : "text-black";
@@ -79,11 +87,12 @@ const PhotoCapture = ({
     };
 
     const handlePickFromLibrary = async () => {
+        if (!allowLibrary) return;
         try {
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ['images'],
                 allowsEditing: true,
-                aspect: [4, 3],
+                aspect: libraryAspect,
                 quality: 0.7,
             });
 
@@ -108,6 +117,11 @@ const PhotoCapture = ({
     };
 
     const showOptions = () => {
+        if (!allowLibrary) {
+            setShowCamera(true);
+            return;
+        }
+
         Alert.alert(
             'Select Photo',
             'Choose how you want to add your photo',
@@ -198,7 +212,10 @@ const PhotoCapture = ({
                 </CameraView>
 
                 {/* Secondary Actions - below camera area */}
-                <View className="flex-row items-center justify-between px-2 pb-2">
+                <View
+                    className="flex-row items-center justify-between px-2"
+                    style={{ paddingBottom: Math.max(insets.bottom + 8, 16) }}
+                >
                     <TouchableOpacity
                         onPress={() => setShowCamera(false)}
                         className="px-4 py-2 rounded-lg"
@@ -213,18 +230,20 @@ const PhotoCapture = ({
                         </AppText>
                     </TouchableOpacity>
 
-                    <TouchableOpacity
-                        onPress={handlePickFromLibrary}
-                        className="px-4 py-2 rounded-lg flex-row items-center gap-2"
-                        style={{ backgroundColor: colors.primary200 }}
-                        activeOpacity={0.8}
-                        accessible
-                        accessibilityRole="button"
-                        accessibilityLabel="Choose from library"
-                    >
-                        <Ionicons name="images-outline" size={20} color={colors.white} />
-                        <AppText styles="text-sm text-white">Photos</AppText>
-                    </TouchableOpacity>
+                    {allowLibrary ? (
+                        <TouchableOpacity
+                            onPress={handlePickFromLibrary}
+                            className="px-4 py-2 rounded-lg flex-row items-center gap-2"
+                            style={{ backgroundColor: colors.primary200 }}
+                            activeOpacity={0.8}
+                            accessible
+                            accessibilityRole="button"
+                            accessibilityLabel="Choose from library"
+                        >
+                            <Ionicons name="images-outline" size={20} color={colors.white} />
+                            <AppText styles="text-sm text-white">Photos</AppText>
+                        </TouchableOpacity>
+                    ) : <View />}
                 </View>
             </View>
         );
@@ -287,7 +306,7 @@ const PhotoCapture = ({
                     accessible
                     accessibilityRole="button"
                     accessibilityLabel="Add photo"
-                    accessibilityHint="Tap to choose between camera or photo library"
+                    accessibilityHint={allowLibrary ? "Tap to choose between camera or photo library" : "Tap to open camera"}
                 >
                     <View
                         className="w-20 h-20 rounded-full items-center justify-center mb-4"
@@ -296,10 +315,10 @@ const PhotoCapture = ({
                         <Ionicons name="camera-outline" size={40} color={colors.accent50} />
                     </View>
                     <AppText styles={`text-base mb-2 font-nunbold ${cardPrimaryTextColor}`}>
-                        Take Photo or Upload
+                        {allowLibrary ? "Take Photo or Upload" : "Take Selfie Photo"}
                     </AppText>
                     <AppText styles={`text-xs text-center ${cardSecondaryTextColor}`} style={{ opacity: 0.85 }}>
-                        Tap to choose camera or library
+                        {allowLibrary ? "Tap to choose camera or library" : "Tap to open camera"}
                     </AppText>
                 </TouchableOpacity>
             ) : (
@@ -310,6 +329,7 @@ const PhotoCapture = ({
                             source={{ uri: getFullImageUrl(capturedPhoto) || undefined }}
                             className="w-full h-80"
                             resizeMode="cover"
+                            style={cameraFacing === "front" ? { transform: [{ scaleX: -1 }] } : undefined}
                         />
 
                         {/* Retake Button */}

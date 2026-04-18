@@ -1,8 +1,9 @@
 import { View, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useFormikContext } from "formik";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { router } from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
 
 import AppText from "../../../ui/AppText";
 import type { EventFormValues } from "@/data/eventCreationSchema";
@@ -14,36 +15,45 @@ const EventPaymentProfileSection = () => {
     const { values, setFieldValue } = useFormikContext<EventFormValues>();
     const [profiles, setProfiles] = useState<PaymentProfile[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const selectedCardBg = "#047857";
+    const selectedCardBorder = "#10B981";
+
+    const fetchProfiles = useCallback(async () => {
+        try {
+            setIsLoading(true);
+            const data = await getMyPaymentProfiles();
+
+            // Handle null response
+            if (!data || !data.results) {
+                setProfiles([]);
+                return;
+            }
+
+            const verifiedProfiles = data.results.filter((p) => p.is_verified);
+            setProfiles(verifiedProfiles);
+
+            // Auto-select default profile
+            const defaultProfile = verifiedProfiles.find((p) => p.is_default);
+            if (!values.payment_profile_id && defaultProfile) {
+                setFieldValue("payment_profile_id", defaultProfile.id);
+            }
+        } catch (error) {
+            console.error("Failed to fetch payment profiles:", error);
+            setProfiles([]);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [setFieldValue, values.payment_profile_id]);
 
     useEffect(() => {
-        const fetchProfiles = async () => {
-            try {
-                const data = await getMyPaymentProfiles();
-                
-                // Handle null response
-                if (!data || !data.results) {
-                    setProfiles([]);
-                    return;
-                }
+        void fetchProfiles();
+    }, [fetchProfiles]);
 
-                const verifiedProfiles = data.results.filter((p) => p.is_verified);
-                setProfiles(verifiedProfiles);
-
-                // Auto-select default profile
-                const defaultProfile = verifiedProfiles.find((p) => p.is_default);
-                if (!values.payment_profile_id && defaultProfile) {
-                    setFieldValue("payment_profile_id", defaultProfile.id);
-                }
-            } catch (error) {
-                console.error("Failed to fetch payment profiles:", error);
-                setProfiles([]);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchProfiles();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            void fetchProfiles();
+        }, [fetchProfiles])
+    );
 
     const hasVerifiedProfiles = profiles.length > 0;
 
@@ -71,6 +81,9 @@ const EventPaymentProfileSection = () => {
                 <View
                     className="flex-row items-center gap-3 p-4 rounded-xl"
                     style={{ backgroundColor: colors.primary100 }}
+                    accessible
+                    accessibilityRole="status"
+                    accessibilityLabel="Loading payment profiles"
                 >
                     <ActivityIndicator size="small" color={colors.accent} />
                     <AppText styles="text-sm text-black" font="font-iregular" style={{ opacity: 0.6 }}>
@@ -121,9 +134,12 @@ const EventPaymentProfileSection = () => {
                                 className="flex-row items-center gap-2 px-4 py-3 rounded-lg"
                                 style={{ backgroundColor: colors.accent }}
                                 activeOpacity={0.8}
+                                accessibilityRole="button"
+                                accessibilityLabel="Create payment profile"
+                                accessibilityHint="Opens payment profile creation screen"
                             >
                                 <Ionicons name="add-circle-outline" size={18} color={colors.white} />
-                                <AppText styles="text-sm text-black" font="font-ibold">
+                                <AppText styles="text-sm text-white" font="font-ibold">
                                     Create Payment Profile
                                 </AppText>
                             </TouchableOpacity>
@@ -142,6 +158,9 @@ const EventPaymentProfileSection = () => {
                         <TouchableOpacity
                             onPress={() => router.push("/dashboard/payments/profiles")}
                             activeOpacity={0.7}
+                            accessibilityRole="button"
+                            accessibilityLabel="Manage payment profiles"
+                            accessibilityHint="Opens payment profiles management screen"
                         >
                             <AppText styles="text-xs text-accent-50" font="font-isemibold">
                                 Manage Profiles
@@ -160,10 +179,14 @@ const EventPaymentProfileSection = () => {
                                     onPress={() => setFieldValue("payment_profile_id", profile.id)}
                                     className="p-4 rounded-xl border-2"
                                     style={{
-                                        backgroundColor: isSelected ? colors.success : colors.primary100,
-                                        borderColor: isSelected ? colors.success : colors.accent + "4D",
+                                        backgroundColor: isSelected ? selectedCardBg : colors.primary100,
+                                        borderColor: isSelected ? selectedCardBorder : colors.accent + "4D",
                                     }}
                                     activeOpacity={0.7}
+                                    accessibilityRole="radio"
+                                    accessibilityState={{ selected: isSelected }}
+                                    accessibilityLabel={`Payment profile ${profile.name}${profile.is_default ? ", default" : ""}`}
+                                    accessibilityHint="Select this profile to receive event revenue"
                                 >
                                     <View className="flex-row items-start gap-3">
                                         {/* Radio Button */}
@@ -204,7 +227,10 @@ const EventPaymentProfileSection = () => {
                                                         className="px-2 py-0.5 rounded"
                                                         style={{ backgroundColor: colors.accent + "33" }}
                                                     >
-                                                        <AppText styles="text-xs text-accent-50" font="font-isemibold">
+                                                        <AppText
+                                                            styles={`text-xs ${isSelected ? "text-white" : "text-accent-50"}`}
+                                                            font="font-isemibold"
+                                                        >
                                                             Default
                                                         </AppText>
                                                     </View>

@@ -2,6 +2,7 @@ import { View, ScrollView, Alert, RefreshControl } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useCallback } from "react";
 import { router } from "expo-router";
+import type { FormikErrors } from "formik";
 
 import AppText from "../../../ui/AppText";
 import AppForm from "../../../form/AppForm";
@@ -112,6 +113,85 @@ const EditEventForm = ({ event }: EditEventFormProps) => {
         return missing;
     };
 
+    const toTitleCase = (value: string): string => {
+        return value
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, (char) => char.toUpperCase());
+    };
+
+    const getValidationErrorPaths = (errorObj: unknown, parentPath = ""): string[] => {
+        if (!errorObj) return [];
+
+        if (typeof errorObj === "string") {
+            return parentPath ? [parentPath] : [];
+        }
+
+        if (Array.isArray(errorObj)) {
+            return errorObj.flatMap((item, index) => getValidationErrorPaths(item, `${parentPath}[${index}]`));
+        }
+
+        if (typeof errorObj === "object") {
+            return Object.entries(errorObj as Record<string, unknown>).flatMap(([key, value]) => {
+                const nextPath = parentPath ? `${parentPath}.${key}` : key;
+                return getValidationErrorPaths(value, nextPath);
+            });
+        }
+
+        return [];
+    };
+
+    const mapPathToFieldLabel = (path: string): string => {
+        const ticketTypeMatch = path.match(/^ticket_types\[(\d+)\]\.(.+)$/);
+        if (ticketTypeMatch) {
+            const ticketTypeIndex = parseInt(ticketTypeMatch[1], 10) + 1;
+            const ticketTypeField = ticketTypeMatch[2];
+            return `Ticket Type ${ticketTypeIndex}: ${toTitleCase(ticketTypeField)}`;
+        }
+
+        const topLevelMap: Record<string, string> = {
+            title: "Event title",
+            category_slug: "Category",
+            short_description: "Short description",
+            description: "Full description",
+            venue_name: "Venue name",
+            venue_address: "Venue address",
+            venue_city: "City",
+            venue_country: "Country",
+            venue_latitude: "Venue latitude",
+            venue_longitude: "Venue longitude",
+            start_date: "Start date",
+            end_date: "End date",
+            start_time: "Start time",
+            end_time: "End time",
+            max_attendees: "Maximum attendees",
+            payment_profile_id: "Payment profile",
+            featured_image: "Featured image",
+            additional_images: "Additional images",
+            ticket_types: "Ticket types",
+            is_published: "Publish status",
+            check_in_policy: "Check-in policy",
+            is_recurring: "Recurring setting",
+            recurrence_pattern: "Recurrence pattern",
+            "recurrence_pattern.frequency": "Recurrence frequency",
+            "recurrence_pattern.interval": "Recurrence interval",
+            "recurrence_pattern.end_date": "Recurrence end date",
+            "recurrence_pattern.occurrences": "Recurrence occurrences",
+            "recurrence_pattern.days_of_week": "Recurrence days of week",
+            "recurrence_pattern.day_of_month": "Recurrence day of month",
+        };
+
+        if (topLevelMap[path]) return topLevelMap[path];
+
+        const lastSegment = path.split(".").pop() || path;
+        return toTitleCase(lastSegment);
+    };
+
+    const getValidationErrorFields = (errors: FormikErrors<EventFormValues>): string[] => {
+        const paths = getValidationErrorPaths(errors);
+        const labels = paths.map(mapPathToFieldLabel);
+        return Array.from(new Set(labels));
+    };
+
     const handleSubmit = async (values: EventFormValues) => {
         try {
             setIsSubmitting(true);
@@ -155,8 +235,9 @@ const EditEventForm = ({ event }: EditEventFormProps) => {
             onSubmit={handleSubmit}
             enableReinitialize
         >
-            {({ values, isValid }) => {
+            {({ values, isValid, errors }) => {
                 const missingFields = getMissingFields(values);
+                const validationErrorFields = getValidationErrorFields(errors);
                 const canSubmit = isValid && missingFields.length === 0;
 
                 return (
@@ -214,7 +295,7 @@ const EditEventForm = ({ event }: EditEventFormProps) => {
                                 <EventPublishSection />
 
                                 {/* Form Status */}
-                                {!canSubmit && !isSubmitting && (
+                                {missingFields.length > 0 && !isSubmitting && (
                                     <View
                                         className="p-4 rounded-lg border-2"
                                         style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
@@ -237,6 +318,38 @@ const EditEventForm = ({ event }: EditEventFormProps) => {
                                                     {missingFields.length > 5 && (
                                                         <AppText styles="text-xs text-black" font="font-isemibold" style={{ opacity: 0.9 }}>
                                                             ...and {missingFields.length - 5} more
+                                                        </AppText>
+                                                    )}
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </View>
+                                )}
+
+                                {/* Validation Issues (non-missing fields) */}
+                                {!isValid && missingFields.length === 0 && !isSubmitting && (
+                                    <View
+                                        className="p-4 rounded-lg border-2"
+                                        style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
+                                    >
+                                        <View className="flex-row items-start gap-3">
+                                            <Ionicons name="alert-circle" size={18} color={colors.accent} style={{ marginTop: 2 }} />
+                                            <View className="flex-1">
+                                                <AppText styles="text-sm text-black mb-1" font="font-ibold">
+                                                    Fix Validation Errors
+                                                </AppText>
+                                                <AppText styles="text-xs text-black mb-2" font="font-iregular" style={{ opacity: 0.8 }}>
+                                                    Please check these fields:
+                                                </AppText>
+                                                <View className="gap-1">
+                                                    {validationErrorFields.slice(0, 5).map((field, index) => (
+                                                        <AppText key={index} styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.8 }}>
+                                                            • {field}
+                                                        </AppText>
+                                                    ))}
+                                                    {validationErrorFields.length > 5 && (
+                                                        <AppText styles="text-xs text-black" font="font-isemibold" style={{ opacity: 0.9 }}>
+                                                            ...and {validationErrorFields.length - 5} more
                                                         </AppText>
                                                     )}
                                                 </View>

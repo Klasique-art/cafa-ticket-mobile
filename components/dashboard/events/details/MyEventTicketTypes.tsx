@@ -65,9 +65,12 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                     className="flex-row items-center gap-2 px-4 py-2 rounded-xl"
                     style={{ backgroundColor: colors.accent }}
                     activeOpacity={0.8}
+                    accessibilityRole="button"
+                    accessibilityLabel="Add ticket type"
+                    accessibilityHint="Opens ticket type creation form"
                 >
                     <Ionicons name="add" size={18} color="#fff" />
-                    <AppText styles="text-xs text-black" font="font-ibold">
+                    <AppText styles="text-xs text-white" font="font-ibold">
                         Add
                     </AppText>
                 </TouchableOpacity>
@@ -98,7 +101,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                         Revenue
                     </AppText>
                     <AppText styles="text-xl text-emerald-400" font="font-ibold">
-                        {formatMoney(totalRevenue)}
+                        {formatMoney(totalRevenue, { compact: true })}
                     </AppText>
                 </View>
             </View>
@@ -149,6 +152,9 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                                         className="w-8 h-8 rounded-lg items-center justify-center"
                                         style={{ backgroundColor: "#3b82f6" }}
                                         activeOpacity={0.8}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={`Edit ${ticket.name} ticket type`}
+                                        accessibilityHint="Opens edit form for this ticket type"
                                     >
                                         <Ionicons name="create-outline" size={16} color="#fff" />
                                     </TouchableOpacity>
@@ -158,6 +164,9 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                                         className="w-8 h-8 rounded-lg items-center justify-center"
                                         style={{ backgroundColor: "#ef4444" }}
                                         activeOpacity={0.8}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={`Delete ${ticket.name} ticket type`}
+                                        accessibilityHint="Opens delete confirmation for this ticket type"
                                     >
                                         <Ionicons name="trash-outline" size={16} color="#fff" />
                                     </TouchableOpacity>
@@ -171,7 +180,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                                         Price
                                     </AppText>
                                     <AppText styles="text-sm text-emerald-400" font="font-ibold">
-                                        {formatMoney(ticket.price)}
+                                        {formatMoney(ticket.price, { trimTrailingZeros: true })}
                                     </AppText>
                                 </View>
 
@@ -198,7 +207,7 @@ const MyEventTicketTypes = ({ ticketTypes, eventSlug, onOpenDeleteModal }: MyEve
                                         Revenue
                                     </AppText>
                                     <AppText styles="text-sm text-emerald-400" font="font-ibold">
-                                        {formatMoney(ticket.revenue)}
+                                        {formatMoney(ticket.revenue, { compact: true })}
                                     </AppText>
                                 </View>
                             </View>

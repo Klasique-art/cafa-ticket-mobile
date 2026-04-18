@@ -17,8 +17,10 @@ import {
 import { getMyRevenueSummary, getMyPaymentProfiles } from "@/lib/dashboard";
 import type { RevenueSummary } from "@/types/payments.types";
 import colors from "@/config/colors";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 const PaymentsScreen = () => {
+    const formatMoney = useFormatMoney();
     // ---- data ----
     const [revenueSummary, setRevenueSummary] = useState<RevenueSummary | null>(null);
     const [hasVerifiedProfile, setHasVerifiedProfile] = useState(false);
@@ -139,7 +141,7 @@ const PaymentsScreen = () => {
                             showsVerticalScrollIndicator={false}
                             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                         >
-                            <View className="p-2 gap-6">
+                            <View className="gap-6 pb-8">
                                 {/* Page Header */}
                                 <View>
                                     <AppText styles="text-sm text-black" style={{ opacity: 0.7 }}>
@@ -176,10 +178,7 @@ const PaymentsScreen = () => {
                                                     styles="text-xs text-black"
                                                     style={{ opacity: 0.7 }}
                                                 >
-                                                    Available: GH₵{" "}
-                                                    {parseFloat(
-                                                        revenueSummary.payout_status.available_balance
-                                                    ).toLocaleString("en-GH", { minimumFractionDigits: 2 })}
+                                                    Available: {formatMoney(revenueSummary.payout_status.available_balance)}
                                                 </AppText>
                                             </View>
                                             <Ionicons name="chevron-forward" size={20} color={colors.black} />
@@ -286,3 +285,5 @@ const PaymentsScreen = () => {
 };
 
 export default PaymentsScreen;
+
+

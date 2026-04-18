@@ -72,7 +72,8 @@ const EventImagesSection = () => {
                     onImageChange={handleFeaturedImageChange}
                     currentImage={values.featured_image}
                     required
-                    multiple={false} // ✅ Single image only
+                    multiple={false} // Single image only
+                    singleImageAspect={[16, 9]}
                     helperText="Main event image shown on event cards"
                 />
             </View>
@@ -190,3 +191,4 @@ const EventImagesSection = () => {
 };
 
 export default EventImagesSection;
+

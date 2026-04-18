@@ -40,9 +40,11 @@ const RequestPayoutModal = ({
     onPayoutSuccess,
     availableBalance,
 }: RequestPayoutModalProps) => {
-    const { displayCurrency, getCurrencySymbol } = useCurrency();
+    const { displayCurrency, getCurrencySymbol, convertFromGHS, convertToGHS, formatCurrency } = useCurrency();
     const symbol = getCurrencySymbol(displayCurrency);
-    const balance = parseFloat(availableBalance) || 0;
+    const balanceGhs = parseFloat(availableBalance) || 0;
+    const balance = convertFromGHS(balanceGhs);
+    const minimumPayout = convertFromGHS(MIN_PAYOUT);
 
     // ---- state ----
     const [step, setStep] = useState<Step>("amount");
@@ -52,6 +54,7 @@ const RequestPayoutModal = ({
     const [success, setSuccess] = useState(false);
 
     const parsedAmount = parseFloat(amount);
+    const parsedAmountGhs = isNaN(parsedAmount) ? 0 : convertToGHS(parsedAmount);
 
     // ---- close / reset ----
     const handleClose = useCallback(() => {
@@ -73,13 +76,13 @@ const RequestPayoutModal = ({
             setError("Please enter a valid amount");
             return false;
         }
-        if (parsedAmount < MIN_PAYOUT) {
-            setError(`Minimum payout amount is ${symbol} ${MIN_PAYOUT.toFixed(2)}`);
+        if (parsedAmount < minimumPayout) {
+            setError(`Minimum payout amount is ${formatCurrency(minimumPayout, displayCurrency)}`);
             return false;
         }
         if (parsedAmount > balance) {
             setError(
-                `Amount cannot exceed available balance (${symbol} ${balance.toFixed(2)})`
+                `Amount cannot exceed available balance (${formatCurrency(balance, displayCurrency)})`
             );
             return false;
         }
@@ -92,7 +95,7 @@ const RequestPayoutModal = ({
     };
 
     const handleMaxAmount = () => {
-        setAmount(balance.toString());
+        setAmount(balance.toFixed(2));
         setError(null);
     };
 
@@ -112,7 +115,7 @@ const RequestPayoutModal = ({
                         "Content-Type": "application/json",
                         ...(token ? { Authorization: `Bearer ${token}` } : {}),
                     },
-                    body: JSON.stringify({ amount: parsedAmount }),
+                    body: JSON.stringify({ amount: parsedAmountGhs }),
                 }
             );
 
@@ -172,7 +175,7 @@ const RequestPayoutModal = ({
                 styles="text-sm text-white text-center mt-2"
                 style={{ opacity: 0.6 }}
             >
-                Your payout request has been submitted successfully. You'll
+                Your payout request has been submitted successfully. You&apos;ll
                 receive your funds within 1–3 business days.
             </AppText>
         </View>
@@ -193,7 +196,7 @@ const RequestPayoutModal = ({
                     Available Balance
                 </AppText>
                 <AppText styles="text-xl text-white mt-1 font-nunbold">
-                    {symbol} {balance.toFixed(2)}
+                    {formatCurrency(balance, displayCurrency)}
                 </AppText>
             </View>
 
@@ -216,7 +219,7 @@ const RequestPayoutModal = ({
                         borderColor: colors.accent,
                     }}
                 >
-                    {/* GHS prefix */}
+                    {/* Currency prefix */}
                     <View className="px-4 py-4">
                         <AppText
                             styles="text-base"
@@ -266,7 +269,7 @@ const RequestPayoutModal = ({
                     styles="text-xs mt-2"
                     style={{ color: "#94a3b8" }}
                 >
-                    Minimum: {symbol} {MIN_PAYOUT.toFixed(2)}
+                    Minimum: {formatCurrency(minimumPayout, displayCurrency)}
                 </AppText>
             </View>
 
@@ -361,7 +364,7 @@ const RequestPayoutModal = ({
                         Withdrawal Amount
                     </AppText>
                     <AppText styles="text-lg text-white font-nunbold">
-                        {symbol} {parsedAmount.toFixed(2)}
+                        {formatCurrency(parsedAmount, displayCurrency)}
                     </AppText>
                 </View>
 
@@ -374,7 +377,7 @@ const RequestPayoutModal = ({
                         Processing Fee
                     </AppText>
                     <AppText styles="text-sm text-white font-nunbold">
-                        {symbol} 0.00
+                        {formatCurrency(0, displayCurrency)}
                     </AppText>
                 </View>
 
@@ -384,13 +387,13 @@ const RequestPayoutModal = ({
                     style={{ borderColor: colors.accent }}
                 >
                     <AppText styles="text-base text-white font-nunbold">
-                        You'll Receive
+                        You&apos;ll Receive
                     </AppText>
                     <AppText
                         styles="text-xl font-nunbold"
                         style={{ color: colors.accent50 }}
                     >
-                        {symbol} {parsedAmount.toFixed(2)}
+                        {formatCurrency(parsedAmount, displayCurrency)}
                     </AppText>
                 </View>
             </View>

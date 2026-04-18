@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useFormikContext } from "formik";
@@ -9,7 +9,9 @@ import type { EventFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
 
 const EventCapacitySection = () => {
-    const { values } = useFormikContext<EventFormValues>();
+    const { values, setFieldValue, validateField } = useFormikContext<EventFormValues>();
+    const hasUserEditedMaxAttendees = useRef(false);
+    const lastAutoFilledMaxAttendees = useRef<string | null>(null);
 
     // Calculate total tickets from ticket types
     const totalTickets = useMemo(() => {
@@ -25,6 +27,27 @@ const EventCapacitySection = () => {
     const maxAttendeesValue = parseInt(values.max_attendees) || 0;
     const isCapacityValid = maxAttendeesValue >= totalTickets;
     const availableSpace = maxAttendeesValue - totalTickets;
+
+    useEffect(() => {
+        const currentValue = values.max_attendees ?? "";
+        if (lastAutoFilledMaxAttendees.current !== null && currentValue !== lastAutoFilledMaxAttendees.current) {
+            hasUserEditedMaxAttendees.current = true;
+        }
+    }, [values.max_attendees]);
+
+    useEffect(() => {
+        if (hasUserEditedMaxAttendees.current) return;
+
+        const suggestedValue = totalTickets > 0 ? String(totalTickets) : "";
+        if (values.max_attendees !== suggestedValue) {
+            lastAutoFilledMaxAttendees.current = suggestedValue;
+            setFieldValue("max_attendees", suggestedValue, true);
+        }
+    }, [setFieldValue, totalTickets, values.max_attendees]);
+
+    useEffect(() => {
+        void validateField("max_attendees");
+    }, [totalTickets, validateField, values.max_attendees]);
 
     return (
         <View className="gap-4">
@@ -75,15 +98,11 @@ const EventCapacitySection = () => {
                             <AppText
                                 styles="text-sm text-black mb-1"
                                 font="font-ibold"
-                                style={{ color: isCapacityValid ? colors.white : colors.accent }}
+                                style={{ color: isCapacityValid ? colors.black : colors.accent }}
                             >
                                 {isCapacityValid ? "Capacity Valid" : "Capacity Invalid"}
                             </AppText>
-                            <AppText
-                                styles="text-xs text-black"
-                                font="font-iregular"
-                                style={{ opacity: 0.8 }}
-                            >
+                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.8 }}>
                                 {isCapacityValid
                                     ? "Maximum attendees covers all tickets"
                                     : "Maximum attendees must be at least equal to total tickets"}
@@ -97,10 +116,10 @@ const EventCapacitySection = () => {
                             className="flex-row items-center justify-between p-3 rounded-lg"
                             style={{ backgroundColor: colors.primary }}
                         >
-                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.75 }}>
                                 Total Tickets
                             </AppText>
-                            <AppText styles="text-base text-black" font="font-ibold">
+                            <AppText styles="text-base text-white" font="font-ibold">
                                 {totalTickets.toLocaleString()}
                             </AppText>
                         </View>
@@ -109,11 +128,11 @@ const EventCapacitySection = () => {
                             className="flex-row items-center justify-between p-3 rounded-lg"
                             style={{ backgroundColor: colors.primary }}
                         >
-                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.75 }}>
                                 Max Attendees
                             </AppText>
-                            <AppText styles="text-base text-black" font="font-ibold">
-                                {maxAttendeesValue > 0 ? maxAttendeesValue.toLocaleString() : "—"}
+                            <AppText styles="text-base text-white" font="font-ibold">
+                                {maxAttendeesValue > 0 ? maxAttendeesValue.toLocaleString() : "-"}
                             </AppText>
                         </View>
 
@@ -121,15 +140,11 @@ const EventCapacitySection = () => {
                             className="flex-row items-center justify-between p-3 rounded-lg"
                             style={{ backgroundColor: colors.primary }}
                         >
-                            <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.75 }}>
                                 Available Space
                             </AppText>
-                            <AppText
-                                styles="text-base text-black"
-                                font="font-ibold"
-                                style={{ color: isCapacityValid ? colors.accent50 : colors.accent }}
-                            >
-                                {isCapacityValid && availableSpace >= 0 ? availableSpace.toLocaleString() : "—"}
+                            <AppText styles="text-base text-white" font="font-ibold" style={{ color: colors.white }}>
+                                {isCapacityValid && availableSpace >= 0 ? availableSpace.toLocaleString() : "-"}
                             </AppText>
                         </View>
                     </View>
@@ -148,13 +163,13 @@ const EventCapacitySection = () => {
                     </AppText>
                     <View className="gap-1">
                         <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
-                            • Must cover all ticket quantities
+                            - Must cover all ticket quantities
                         </AppText>
                         <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
-                            • Can exceed tickets for future additions
+                            - Can exceed tickets for future additions
                         </AppText>
                         <AppText styles="text-xs text-black" font="font-iregular" style={{ opacity: 0.7 }}>
-                            • Helps with venue planning
+                            - Helps with venue planning
                         </AppText>
                     </View>
                 </View>

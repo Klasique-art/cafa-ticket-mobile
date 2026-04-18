@@ -21,6 +21,7 @@ import {
 import colors from "@/config/colors";
 import { tickets } from "@/assets";
 import { useDebounce } from "@/hooks";
+import { useFormatMoney } from "@/hooks/useFormatMoney";
 import { Event, EventFilters } from "@/types";
 import { EventCategory } from "@/types/tickets.types";
 import { getEvents, getEventCategories } from "@/lib/events";
@@ -51,6 +52,7 @@ const EventsScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const formatMoney = useFormatMoney();
 
   // Debounce search query
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
@@ -168,17 +170,17 @@ const EventsScreen = () => {
       active.push({
         key: "price_min",
         label: "Min Price",
-        value: `GHS ${filters.price_min}`,
+        value: formatMoney(Number(filters.price_min) || 0),
       });
     if (filters.price_max)
       active.push({
         key: "price_max",
         label: "Max Price",
-        value: `GHS ${filters.price_max}`,
+        value: formatMoney(Number(filters.price_max) || 0),
       });
 
     return active;
-  }, [debouncedSearchQuery, selectedCategory, filters]);
+  }, [debouncedSearchQuery, selectedCategory, filters, formatMoney]);
 
   // Remove single filter
   const handleRemoveFilter = (key: string) => {

@@ -15,6 +15,8 @@ export default function UpcomingEventsSection({
   events,
   isLoading,
 }: UpcomingEventsSectionProps) {
+  const cardWidth = 180;
+
   const handleSeeAll = () => {
     router.push("/(tabs)/events");
   };
@@ -37,15 +39,22 @@ export default function UpcomingEventsSection({
         onSeeAll={handleSeeAll}
       />
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 20, gap: 12 }}
-      >
-        {events.map((event) => (
-          <EventCard key={event.id} event={event} />
-        ))}
-      </ScrollView>
+      <View style={{ overflow: "visible" }}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ overflow: "visible" }}
+          contentContainerStyle={{
+            gap: 12,
+            paddingVertical: 2,
+            alignItems: "flex-start",
+          }}
+        >
+          {events.map((event) => (
+            <EventCard key={event.id} event={event} width={cardWidth} />
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 }

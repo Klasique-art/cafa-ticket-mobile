@@ -17,33 +17,65 @@ import type { AppBottomSheetRef } from "@/components";
 import type { AddTicketTypeModalRef } from "@/components/dashboard/events/create/AddTicketTypeModal";
 import type { TicketTypeFormValues } from "@/data/eventCreationSchema";
 import { useAuth } from "@/context";
+import { getVerificationStatus } from "@/lib/dashboard";
 
 const CreateEventScreen = () => {
     const modalRef = useRef<AddTicketTypeModalRef>(null);
     const verificationPromptRef = useRef<AppBottomSheetRef>(null);
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
-    const { user } = useAuth();
+    const [isCheckingVerificationGate, setIsCheckingVerificationGate] = useState(false);
+    const { user, refreshUser } = useAuth();
 
     const isOrganizer = user?.is_organizer;
 
     useFocusEffect(
         useCallback(() => {
-            if (user && !isOrganizer) {
-                const timer = setTimeout(() => {
-                    verificationPromptRef.current?.open();
-                }, 150);
-                return () => clearTimeout(timer);
-            }
+            let isActive = true;
 
-            if (isOrganizer) {
-                verificationPromptRef.current?.close();
-            }
-        }, [user, isOrganizer])
+            const checkGate = async () => {
+                if (!user) return;
+
+                if (isOrganizer) {
+                    verificationPromptRef.current?.close();
+                    return;
+                }
+
+                setIsCheckingVerificationGate(true);
+                try {
+                    const verification = await getVerificationStatus();
+                    const verificationStatus = verification?.data?.verification_status;
+
+                    if (!isActive) return;
+
+                    if (verificationStatus === "verified") {
+                        await refreshUser();
+                        return;
+                    }
+
+                    verificationPromptRef.current?.open();
+                } finally {
+                    if (isActive) {
+                        setIsCheckingVerificationGate(false);
+                    }
+                }
+            };
+
+            const timer = setTimeout(() => {
+                void checkGate();
+            }, 150);
+
+            return () => {
+                isActive = false;
+                clearTimeout(timer);
+            };
+        }, [user, isOrganizer, refreshUser])
     );
 
     const formContextRef = useRef<{
         setFieldValue: (field: string, value: any) => void;
         ticketTypes: TicketTypeFormValues[];
+        eventStartDate: string;
+        eventEndDate: string;
     } | null>(null);
 
     const handleOpenModal = useCallback((index: number | null) => {
@@ -75,7 +107,7 @@ const CreateEventScreen = () => {
             <RequireAuth>
                 <Nav title="Create Event" />
 
-                <View className="flex-1 px-4 pb-6">
+                <View className="flex-1 pb-6">
                     {isOrganizer && (
                         <>
                             <View className="mb-6">
@@ -94,7 +126,7 @@ const CreateEventScreen = () => {
                         </>
                     )}
 
-                    {!isOrganizer && (
+                    {!isOrganizer && !isCheckingVerificationGate && (
                         <View className="flex-1 items-center justify-center px-4">
                             <AppText styles="text-sm text-black text-center" style={{ opacity: 0.7 }}>
                                 Identity verification is required before you can create an event.
@@ -115,6 +147,8 @@ const CreateEventScreen = () => {
                         : undefined
                 }
                 isEditing={editingIndex !== null}
+                eventStartDate={formContextRef.current?.eventStartDate}
+                eventEndDate={formContextRef.current?.eventEndDate}
             />
 
             <AppBottomSheet ref={verificationPromptRef} customSnapPoints={["55%"]}>

@@ -44,10 +44,10 @@ export const ticketTypeSchema = Yup.object().shape({
     available_from: Yup.string().nullable(),
     available_until: Yup.string()
         .nullable()
-        .test("after-available-from", "End date must be after start date", function (value) {
+        .test("after-available-from", "End date must be on or after start date", function (value) {
             const { available_from } = this.parent;
             if (!value || !available_from) return true;
-            return new Date(value) > new Date(available_from);
+            return new Date(value) >= new Date(available_from);
         }),
 });
 
