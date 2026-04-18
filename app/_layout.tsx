@@ -1,12 +1,12 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Stack, SplashScreen } from "expo-router";
+import { Stack, SplashScreen, router, usePathname } from "expo-router";
 import { NativeModules, useColorScheme } from "react-native";
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useFonts } from "expo-font";
 
 import "../global.css";
 import { TabBarProvider } from "@/context/TabBarContext";
-import { AuthProvider, CurrencyProvider } from "@/context";
+import { AuthProvider, CurrencyProvider, useAuth } from "@/context";
 import * as Sentry from '@sentry/react-native';
 import NoInternet from "@/components/ui/NoInternet";
 
@@ -29,6 +29,58 @@ Sentry.init({
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
+
+function AppNavigator({
+  hasConnectionState,
+  hasInternet,
+  isCheckingConnection,
+  handleRetryConnection,
+  colorScheme,
+}: {
+  hasConnectionState: boolean;
+  hasInternet: boolean;
+  isCheckingConnection: boolean;
+  handleRetryConnection: () => Promise<void>;
+  colorScheme: "light" | "dark" | null;
+}) {
+  const { user, isLoading } = useAuth();
+  const pathname = usePathname();
+  const didInitialProtectedRouteCheck = useRef(false);
+
+  useEffect(() => {
+    if (didInitialProtectedRouteCheck.current) return;
+    if (isLoading) return;
+
+    didInitialProtectedRouteCheck.current = true;
+
+    const isProtectedEntryRoute = pathname?.startsWith("/dashboard");
+    if (!user && isProtectedEntryRoute) {
+      router.replace({
+        pathname: "/login",
+        params: { from: pathname },
+      });
+    }
+  }, [isLoading, user, pathname]);
+
+  if (hasConnectionState && !hasInternet) {
+    return <NoInternet onRetry={handleRetryConnection} isRetrying={isCheckingConnection} />;
+  }
+
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: {
+          backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
+        },
+        animation: "slide_from_right",
+      }}
+    >
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    </Stack>
+  );
+}
 
 export default Sentry.wrap(function RootLayout() {
   const [hasInternet, setHasInternet] = useState(true);
@@ -128,22 +180,13 @@ export default Sentry.wrap(function RootLayout() {
       <AuthProvider>
         <CurrencyProvider>
           <TabBarProvider>
-            {hasConnectionState && !hasInternet ? (
-              <NoInternet onRetry={handleRetryConnection} isRetrying={isCheckingConnection} />
-            ) : (
-              <Stack
-                screenOptions={{
-                  headerShown: false,
-                  contentStyle: {
-                    backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
-                  },
-                  animation: "slide_from_right",
-                }}
-              >
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              </Stack>
-            )}
+            <AppNavigator
+              hasConnectionState={hasConnectionState}
+              hasInternet={hasInternet}
+              isCheckingConnection={isCheckingConnection}
+              handleRetryConnection={handleRetryConnection}
+              colorScheme={colorScheme}
+            />
           </TabBarProvider>
         </CurrencyProvider>
       </AuthProvider>
