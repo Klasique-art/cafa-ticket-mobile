@@ -1,7 +1,8 @@
 import { View, ActivityIndicator, RefreshControl } from "react-native";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { FlashList } from "@shopify/flash-list";
 import { Ionicons } from "@expo/vector-icons";
+import { Image as ExpoImage } from "expo-image";
 
 import {
     Screen,
@@ -14,12 +15,13 @@ import {
 } from "@/components";
 import { fetchMyTickets } from "@/lib/dashboard";
 import { getEventCategories } from "@/lib";
-import type { MyTicket } from "@/types/tickets.types";
-import type { EventCategory } from "@/types/tickets.types";
+import type { MyTicket, EventCategory } from "@/types/tickets.types";
 import colors from "@/config/colors";
 import { tickets as ticketsAnimation } from "@/assets";
+import { getFullImageUrl } from "@/utils/imageUrl";
 
 const MyTicketsScreen = () => {
+    const hasInitializedTicketsRef = useRef(false);
     const [tickets, setTickets] = useState<MyTicket[]>([]);
     const [eventCategories, setEventCategories] = useState<EventCategory[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +43,7 @@ const MyTicketsScreen = () => {
                 setIsLoading(true);
 
                 const [ticketsResponse, categoriesResponse] = await Promise.all([
-                    fetchMyTickets({ status, category, search, page: 1 }),
+                    fetchMyTickets({ status: "all", category: "", search: "", page: 1 }),
                     getEventCategories(),
                 ]);
 
@@ -56,6 +58,7 @@ const MyTicketsScreen = () => {
             } catch (error) {
                 console.error("Error fetching tickets:", error);
             } finally {
+                hasInitializedTicketsRef.current = true;
                 setIsLoading(false);
             }
         };
@@ -65,9 +68,11 @@ const MyTicketsScreen = () => {
 
     // Refetch when filters change
     useEffect(() => {
-        const refetchTickets = async () => {
-            if (isLoading) return;
+        if (!hasInitializedTicketsRef.current) {
+            return;
+        }
 
+        const refetchTickets = async () => {
             try {
                 setIsLoading(true);
 
@@ -140,6 +145,16 @@ const MyTicketsScreen = () => {
         }
     }, [status, category, search]);
 
+    useEffect(() => {
+        const imageUris = tickets
+            .map((ticket) => getFullImageUrl(ticket.event.featured_image))
+            .filter((uri): uri is string => !!uri);
+
+        if (imageUris.length > 0) {
+            ExpoImage.prefetch(imageUris, "memory-disk").catch(() => null);
+        }
+    }, [tickets]);
+
     // Handle filter changes
     const handleFilterChange = (filters: { status: string; category: string; search: string }) => {
         setStatus(filters.status);
@@ -154,6 +169,40 @@ const MyTicketsScreen = () => {
     };
 
     const hasActiveFilters = status !== "all" || !!category || !!search;
+    const keyExtractor = useCallback((item: MyTicket) => item.ticket_id, []);
+    const renderTicketItem = useCallback(({ item }: { item: MyTicket }) => <MyTicketCard ticket={item} />, []);
+    const renderSeparator = useCallback(() => <View style={{ height: 16 }} />, []);
+    const listHeader = useMemo(
+        () => (
+            <View className="p-2 gap-4">
+                {/* Header */}
+                <View className="flex-row items-center gap-3">
+                    <View
+                        className="w-12 h-12 rounded-xl items-center justify-center"
+                        style={{ backgroundColor: colors.primary200 + "80" }}
+                    >
+                        <Ionicons name="ticket-outline" size={24} color={colors.accent50} />
+                    </View>
+                    <View className="flex-1">
+                        <AppText styles="text-sm text-black" style={{ opacity: 0.7 }}>
+                            {totalCount} ticket{totalCount !== 1 ? "s" : ""} purchased
+                        </AppText>
+                    </View>
+                </View>
+
+                <MyTicketsFilters
+                    search={search}
+                    status={status}
+                    category={category}
+                    eventCategories={eventCategories}
+                    onFilterChange={handleFilterChange}
+                    onClearFilters={clearFilters}
+                    hasActiveFilters={hasActiveFilters}
+                />
+            </View>
+        ),
+        [totalCount, search, status, category, eventCategories, hasActiveFilters]
+    );
 
     return (
         <Screen>
@@ -176,40 +225,17 @@ const MyTicketsScreen = () => {
                         <View className="flex-1">
                             <FlashList
                                 data={tickets}
-                                renderItem={({ item }) => <MyTicketCard ticket={item} />}
-                                keyExtractor={(item) => item.ticket_id}
+                                renderItem={renderTicketItem}
+                                keyExtractor={keyExtractor}
                                 onEndReached={loadMore}
                                 onEndReachedThreshold={0.5}
+                                drawDistance={1600}
+                                getItemType={() => "ticket"}
+                                removeClippedSubviews={false}
+                                maintainVisibleContentPosition={{ disabled: true }}
                                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-                                ListHeaderComponent={
-                                    <View className="p-2 gap-4">
-                                        {/* Header */}
-                                        <View className="flex-row items-center gap-3">
-                                            <View
-                                                className="w-12 h-12 rounded-xl items-center justify-center"
-                                                style={{ backgroundColor: colors.primary200 + "80" }}
-                                            >
-                                                <Ionicons name="ticket-outline" size={24} color={colors.accent50} />
-                                            </View>
-                                            <View className="flex-1">
-                                                <AppText styles="text-sm text-black" style={{ opacity: 0.7 }}>
-                                                    {totalCount} ticket{totalCount !== 1 ? "s" : ""} purchased
-                                                </AppText>
-                                            </View>
-                                        </View>
-
-                                        <MyTicketsFilters
-                                            search={search}
-                                            status={status}
-                                            category={category}
-                                            eventCategories={eventCategories}
-                                            onFilterChange={handleFilterChange}
-                                            onClearFilters={clearFilters}
-                                            hasActiveFilters={hasActiveFilters}
-                                        />
-                                    </View>
-                                }
-                                ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+                                ListHeaderComponent={listHeader}
+                                ItemSeparatorComponent={renderSeparator}
                                 contentContainerStyle={{ paddingBottom: 24 }}
                                 ListEmptyComponent={
                                     <View className="items-center py-12">

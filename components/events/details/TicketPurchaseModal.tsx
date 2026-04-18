@@ -1,8 +1,10 @@
-import { View, TouchableOpacity, ActivityIndicator, Linking } from "react-native";
+import { View, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import { router } from "expo-router";
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import * as WebBrowser from "expo-web-browser";
+import * as ExpoLinking from "expo-linking";
 
 import AppText from "../../ui/AppText";
 import AppBottomSheet from "../../ui/AppBottomSheet";
@@ -12,6 +14,8 @@ import { CurrentUser } from "@/types/general.types";
 import colors from "@/config/colors";
 import { buyTicket } from "@/lib/tickets";
 import { useFormatMoney } from "@/hooks/useFormatMoney";
+import { storage } from "@/lib/storage";
+import { API_BASE_URL } from "@/config/settings";
 
 interface TicketPurchaseModalProps {
     ticket: TicketType | null;
@@ -27,6 +31,7 @@ export interface TicketPurchaseModalRef {
 
 const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseModalProps>(
     ({ ticket, quantity, event, currentUser }, ref) => {
+        const PENDING_PAYMENT_KEY = "@cafa_pending_payment";
         const bottomSheetRef = useRef<AppBottomSheetRef>(null);
         const [isProcessing, setIsProcessing] = useState(false);
         const [error, setError] = useState<string | null>(null);
@@ -53,6 +58,9 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
             setError(null);
 
             try {
+                const appRedirectUrl = "cafatickets://payment-result";
+                const backendCallbackUrl = `${API_BASE_URL}/payments/mobile-callback/`;
+
                 const response = await buyTicket({
                     event_slug: event.slug,
                     ticket_type_id: ticket.id,
@@ -60,11 +68,69 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                     buyer_name: currentUser.full_name,
                     buyer_email: currentUser.email,
                     buyer_phone: currentUser.phone_number || "",
+                    callback_url: backendCallbackUrl,
                 });
 
-                // Open Paystack payment URL
-                await Linking.openURL(response.authorization_url);
-                bottomSheetRef.current?.close();
+                await storage.setItem(
+                    PENDING_PAYMENT_KEY,
+                    JSON.stringify({
+                        payment_reference: response.payment_reference,
+                        purchase_id: response.purchase_id,
+                        expires_at: response.expires_at,
+                        effective_callback_url: response.effective_callback_url || backendCallbackUrl,
+                    })
+                );
+
+                // Open Paystack in an auth session so redirect can return to the app.
+                const authResult = await WebBrowser.openAuthSessionAsync(
+                    response.authorization_url,
+                    appRedirectUrl
+                );
+
+                if (authResult.type === "success" && authResult.url) {
+                    const parsed = ExpoLinking.parse(authResult.url);
+                    const query = (parsed.queryParams || {}) as Record<string, string | undefined>;
+                    const reference =
+                        query.reference ||
+                        query.trxref ||
+                        query.payment_reference ||
+                        query.ref;
+                    const status = query.status;
+                    const errorCode = query.error;
+
+                    if (reference) {
+                        bottomSheetRef.current?.close();
+                        const qs = new URLSearchParams({
+                            reference,
+                            ...(status ? { status } : {}),
+                            ...(errorCode ? { error: errorCode } : {}),
+                        });
+                        router.push(`/payment-result?${qs.toString()}` as any);
+                        return;
+                    }
+
+                    bottomSheetRef.current?.close();
+                    const fallbackReference = response.payment_reference;
+                    const qs = new URLSearchParams({
+                        ...(fallbackReference ? { reference: fallbackReference } : {}),
+                        ...(status ? { status } : {}),
+                        ...(errorCode ? { error: errorCode } : {}),
+                    });
+                    router.push(`/payment-result?${qs.toString()}` as any);
+                    return;
+                }
+
+                if (authResult.type === "cancel" || authResult.type === "dismiss") {
+                    bottomSheetRef.current?.close();
+                    const qs = new URLSearchParams({
+                        reference: response.payment_reference,
+                    });
+                    router.push(`/payment-result?${qs.toString()}` as any);
+                    return;
+                }
+
+                // Fallback for unknown auth-session outcomes.
+                setError("Unable to complete payment redirect. Please try again.");
             } catch (err) {
                 setError(err instanceof Error ? err.message : "Failed to process purchase");
             } finally {
@@ -193,6 +259,9 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                             className="w-10 h-10 rounded-xl items-center justify-center"
                             style={{ backgroundColor: colors.primary200 }}
                             activeOpacity={0.7}
+                            accessibilityRole="button"
+                            accessibilityLabel="Close purchase confirmation"
+                            accessibilityHint="Closes the ticket purchase modal"
                         >
                             <Ionicons name="close" size={20} color={colors.white} />
                         </TouchableOpacity>
@@ -365,6 +434,9 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                 className="flex-1 py-3 px-4 rounded-xl"
                                 style={{ backgroundColor: colors.primary200 }}
                                 activeOpacity={0.8}
+                                accessibilityRole="button"
+                                accessibilityLabel="Cancel ticket purchase"
+                                accessibilityHint="Closes this purchase confirmation without paying"
                             >
                                 <AppText styles="text-sm text-white text-center" font="font-ibold">
                                     Cancel
@@ -379,6 +451,9 @@ const TicketPurchaseModal = forwardRef<TicketPurchaseModalRef, TicketPurchaseMod
                                     opacity: isProcessing ? 0.5 : 1,
                                 }}
                                 activeOpacity={0.8}
+                                accessibilityRole="button"
+                                accessibilityLabel="Proceed to secure payment"
+                                accessibilityHint="Opens Paystack checkout and returns to app after payment"
                             >
                                 {isProcessing ? (
                                     <>

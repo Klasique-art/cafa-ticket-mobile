@@ -47,9 +47,11 @@ const EventDetailsHero = ({ event }: EventDetailsHeroProps) => {
     // Share functionality
     const handleShare = useCallback(async () => {
         try {
+            const webEventUrl = `https://cafatickets.com/events/${event.slug}`;
             await Share.share({
-                message: `Check out ${event.title}! ${event.short_description}`,
-                url: `https://cafatickets.com/events/${event.slug}`,
+                title: event.title,
+                message: `Check out ${event.title}!\n\n${webEventUrl}`,
+                url: webEventUrl,
             });
         } catch (error) {
             console.error("Share error:", error);

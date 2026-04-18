@@ -24,6 +24,7 @@ type Step = "amount" | "confirm";
 
 const MIN_PAYOUT = 30; // GHS
 const AUTH_TOKEN_KEY = "cafa_auth_token";
+const CENTS_FACTOR = 100;
 
 interface RequestPayoutModalProps {
     isOpen: boolean;
@@ -42,11 +43,18 @@ const RequestPayoutModal = ({
     onPayoutSuccess,
     availableBalance,
 }: RequestPayoutModalProps) => {
-    const { displayCurrency, getCurrencySymbol, convertFromGHS, convertToGHS, formatCurrency } = useCurrency();
+    const { displayCurrency, exchangeRates, getCurrencySymbol, convertFromGHS, formatCurrency } = useCurrency();
     const symbol = getCurrencySymbol(displayCurrency);
     const balanceGhs = parseFloat(availableBalance) || 0;
-    const balance = convertFromGHS(balanceGhs);
-    const minimumPayout = convertFromGHS(MIN_PAYOUT);
+    const toMinorUnits = (majorAmount: number): number =>
+        Math.round((majorAmount + Number.EPSILON) * CENTS_FACTOR);
+    const fromMinorUnits = (minorAmount: number): number => minorAmount / CENTS_FACTOR;
+
+    const balanceMinorGhs = toMinorUnits(balanceGhs);
+    const minimumPayoutMinorGhs = toMinorUnits(MIN_PAYOUT);
+
+    const balance = convertFromGHS(fromMinorUnits(balanceMinorGhs));
+    const minimumPayout = convertFromGHS(fromMinorUnits(minimumPayoutMinorGhs));
 
     // ---- state ----
     const [step, setStep] = useState<Step>("amount");
@@ -55,8 +63,21 @@ const RequestPayoutModal = ({
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
 
-    const parsedAmount = parseFloat(amount);
-    const parsedAmountGhs = isNaN(parsedAmount) ? 0 : convertToGHS(parsedAmount);
+    const parsedAmount = Number(amount.replace(/,/g, "").trim());
+
+    const resolveAmountMinorGhs = (value: number): number => {
+        if (!Number.isFinite(value) || value <= 0) return 0;
+        if (displayCurrency === "GHS") return toMinorUnits(value);
+
+        const rate = exchangeRates[displayCurrency];
+        if (!rate || rate <= 0) {
+            throw new Error(
+                `Unable to convert from ${displayCurrency}. Exchange rate unavailable, please try again.`
+            );
+        }
+
+        return toMinorUnits(value / rate);
+    };
 
     // ---- close / reset ----
     const handleClose = useCallback(() => {
@@ -78,11 +99,23 @@ const RequestPayoutModal = ({
             setError("Please enter a valid amount");
             return false;
         }
-        if (parsedAmount < minimumPayout) {
+        let requestedMinorGhs = 0;
+        try {
+            requestedMinorGhs = resolveAmountMinorGhs(parsedAmount);
+        } catch (conversionError) {
+            setError(
+                conversionError instanceof Error
+                    ? conversionError.message
+                    : "Unable to process this amount right now. Please try again."
+            );
+            return false;
+        }
+
+        if (requestedMinorGhs < minimumPayoutMinorGhs) {
             setError(`Minimum payout amount is ${formatCurrency(minimumPayout, displayCurrency)}`);
             return false;
         }
-        if (parsedAmount > balance) {
+        if (requestedMinorGhs > balanceMinorGhs) {
             setError(
                 `Amount cannot exceed available balance (${formatCurrency(balance, displayCurrency)})`
             );
@@ -97,7 +130,10 @@ const RequestPayoutModal = ({
     };
 
     const handleMaxAmount = () => {
-        setAmount(balance.toFixed(2));
+        const maxDisplayAmount =
+            Math.floor(convertFromGHS(fromMinorUnits(balanceMinorGhs)) * CENTS_FACTOR) /
+            CENTS_FACTOR;
+        setAmount(maxDisplayAmount.toFixed(2));
         setError(null);
     };
 
@@ -107,26 +143,51 @@ const RequestPayoutModal = ({
         setError(null);
 
         try {
+            if (!validateAmount()) {
+                setStep("amount");
+                setIsLoading(false);
+                return;
+            }
+
             const token = await SecureStore.getItemAsync(AUTH_TOKEN_KEY);
+            const endpoint = `${API_BASE_URL}/auth/withdrawal/request/`;
+            const requestedMinorGhs = resolveAmountMinorGhs(parsedAmount);
+            const amountGhs = fromMinorUnits(requestedMinorGhs);
 
             const response = await fetch(
-                `${API_BASE_URL}/auth/withdrawal/request/`,
+                endpoint,
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         ...(token ? { Authorization: `Bearer ${token}` } : {}),
                     },
-                    body: JSON.stringify({ amount: parsedAmountGhs }),
+                    body: JSON.stringify({ amount: amountGhs }),
                 }
             );
 
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(
-                    data.message || "Failed to request payout"
-                );
+                const backendMessage =
+                    data?.message ||
+                    data?.data?.error ||
+                    data?.error ||
+                    data?.detail ||
+                    "Failed to request payout";
+
+                console.log("[Payout] Request failed", {
+                    endpoint,
+                    method: "POST",
+                    status: response.status,
+                    message: backendMessage,
+                    enteredAmount: parsedAmount,
+                    enteredCurrency: displayCurrency,
+                    convertedAmountGhs: amountGhs,
+                    convertedAmountPesewas: requestedMinorGhs,
+                });
+                setError(backendMessage);
+                return;
             }
 
             setSuccess(true);
@@ -137,7 +198,13 @@ const RequestPayoutModal = ({
                 onPayoutSuccess();
             }, 2000);
         } catch (err) {
-            console.error("Payout request error:", err);
+            console.log("[Payout] Request exception", {
+                endpoint: `${API_BASE_URL}/auth/withdrawal/request/`,
+                method: "POST",
+                message: err instanceof Error ? err.message : String(err),
+                enteredAmount: parsedAmount,
+                enteredCurrency: displayCurrency,
+            });
             setError(
                 err instanceof Error
                     ? err.message

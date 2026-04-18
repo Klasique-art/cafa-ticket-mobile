@@ -1,6 +1,7 @@
-import { ScrollView, ActivityIndicator, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useState, useEffect, useRef } from "react";
+import { StatusBar } from "expo-status-bar";
 
 import {
     EventDetailsHero,
@@ -30,6 +31,7 @@ const EventDetailsScreen = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [selectedTicket, setSelectedTicket] = useState<TicketType | null>(null);
     const [quantity, setQuantity] = useState(1);
+    const [shouldOpenPurchaseModal, setShouldOpenPurchaseModal] = useState(false);
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -47,8 +49,19 @@ const EventDetailsScreen = () => {
     const handleTicketPurchase = (ticket: TicketType, qty: number) => {
         setSelectedTicket(ticket);
         setQuantity(qty);
-        modalRef.current?.open();
+        setShouldOpenPurchaseModal(true);
     };
+
+    useEffect(() => {
+        if (!shouldOpenPurchaseModal || !selectedTicket) return;
+
+        const frame = requestAnimationFrame(() => {
+            modalRef.current?.open();
+            setShouldOpenPurchaseModal(false);
+        });
+
+        return () => cancelAnimationFrame(frame);
+    }, [shouldOpenPurchaseModal, selectedTicket]);
 
     if (isLoading) {
         return (
@@ -71,6 +84,7 @@ const EventDetailsScreen = () => {
 
     return (
         <>
+            <StatusBar style="dark" backgroundColor="#ffffff" translucent={false} />
             <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
                 <EventDetailsHero event={event} />
                 <EventDescription event={event} />

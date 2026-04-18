@@ -1,5 +1,5 @@
-import { View, ScrollView, ActivityIndicator } from "react-native";
-import { useState, useEffect } from "react";
+import { View, ScrollView, RefreshControl } from "react-native";
+import { useState, useEffect, useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 import {
@@ -35,22 +35,30 @@ const getAccountAge = (days: number, display: string) => {
 const AnalyticsScreen = () => {
     const [stats, setStats] = useState<UserStats | null>(null);
     const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
     const formatMoney = useFormatMoney();
 
-    useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                const data = await getUserStats();
-                setStats(data);
-            } catch (error) {
-                console.error("Failed to fetch analytics:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchStats();
+    const fetchStats = useCallback(async (showLoader = true) => {
+        try {
+            if (showLoader) setLoading(true);
+            const data = await getUserStats();
+            setStats(data);
+        } catch (error) {
+            console.error("Failed to fetch analytics:", error);
+        } finally {
+            setLoading(false);
+            setRefreshing(false);
+        }
     }, []);
+
+    useEffect(() => {
+        fetchStats(true);
+    }, [fetchStats]);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        fetchStats(false);
+    }, [fetchStats]);
 
     // Loading state
     if (loading) {
@@ -162,7 +170,19 @@ const AnalyticsScreen = () => {
                 <Nav title="Analytics" />
 
                 <View className="flex-1" >
-                    <ScrollView className="flex-1" showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 50 }}>
+                    <ScrollView
+                        className="flex-1"
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ paddingBottom: 50 }}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                                tintColor={colors.accent}
+                                colors={[colors.accent]}
+                            />
+                        }
+                    >
                         <View className="gap-6">
                             {/* Welcome Header */}
                             <View className=" pt-2">
@@ -170,7 +190,7 @@ const AnalyticsScreen = () => {
                                     Welcome back, {stats.username}
                                 </AppText>
                                 <AppText styles="text-xs text-black mt-1" style={{ opacity: 0.6 }}>
-                                    Here's your activity summary
+                                    Here&apos;s your activity summary
                                 </AppText>
                             </View>
 

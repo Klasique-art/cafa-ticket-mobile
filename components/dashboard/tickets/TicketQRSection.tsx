@@ -22,10 +22,10 @@ const TicketQRSection = ({ ticket }: Props) => {
                     <Ionicons name="qr-code-outline" size={18} color="#c084fc" />
                 </View>
                 <View>
-                    <AppText styles="text-sm text-black font-nunbold">
+                    <AppText styles="text-sm text-white font-nunbold">
                         QR Code
                     </AppText>
-                    <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
+                    <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
                         Show this at the venue
                     </AppText>
                 </View>

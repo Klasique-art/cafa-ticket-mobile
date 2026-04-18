@@ -22,6 +22,8 @@ interface BuyTicketResponse {
     purchase_id: string;
     payment_reference: string;
     authorization_url: string;
+    effective_callback_url?: string;
+    mobile_redirect_url_template?: string;
     amount: number;
     currency: string;
     expires_at: string;

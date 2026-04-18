@@ -27,6 +27,8 @@ function captureApiError(error: unknown) {
     }
 }
 
+let hasLoggedSingleTicketWithoutFeaturedImage = false;
+
 // =====================
 // User Stats
 // =====================
@@ -200,8 +202,21 @@ export async function fetchMyTickets(params: {
         searchParams.set("page", (params.page || 1).toString());
         searchParams.set("page_size", "10");
 
-        const response = await client.get(`/tickets/my-tickets/?${searchParams}`);
-        return response.data as MyTicketsResponse;
+        const requestPath = `/tickets/my-tickets/?${searchParams.toString()}`;
+        const response = await client.get(requestPath);
+        const data = response.data as MyTicketsResponse;
+
+        if (!hasLoggedSingleTicketWithoutFeaturedImage) {
+            const ticketWithoutFeaturedImage = data.results?.find(
+                (ticket) => !ticket?.event?.featured_image
+            );
+
+            if (ticketWithoutFeaturedImage) {
+                console.log("[MyTickets] sample ticket missing featured image", ticketWithoutFeaturedImage);
+                hasLoggedSingleTicketWithoutFeaturedImage = true;
+            }
+        }
+        return data;
     } catch (error) {
         logApiError("fetchMyTickets error:", error);
         captureApiError(error);
@@ -493,5 +508,3 @@ export async function retryVerification() {
         throw error;
     }
 }
-
-

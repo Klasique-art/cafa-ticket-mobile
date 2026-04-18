@@ -54,9 +54,17 @@ const TicketCard = ({ ticket, event, currentUser, onPurchase }: TicketCardProps)
     const theme = getTicketTheme(ticket.name);
     const isSoldOut = !ticket.is_available || ticket.tickets_remaining === 0;
     const isLowStock = ticket.tickets_remaining > 0 && ticket.tickets_remaining <= 10;
+    const hasUnlimitedPerUserCap = !ticket.max_purchase || ticket.max_purchase <= 0;
+    const effectiveMaxPurchase = Math.max(
+        ticket.min_purchase,
+        Math.min(
+            hasUnlimitedPerUserCap ? ticket.tickets_remaining : ticket.max_purchase,
+            ticket.tickets_remaining
+        )
+    );
 
     const handleQuantityChange = (newQuantity: number) => {
-        if (newQuantity >= ticket.min_purchase && newQuantity <= Math.min(ticket.max_purchase, ticket.tickets_remaining)) {
+        if (newQuantity >= ticket.min_purchase && newQuantity <= effectiveMaxPurchase) {
             setQuantity(newQuantity);
         }
     };
@@ -159,6 +167,9 @@ const TicketCard = ({ ticket, event, currentUser, onPurchase }: TicketCardProps)
                                         className="w-12 h-12 rounded-xl items-center justify-center"
                                         style={{ backgroundColor: colors.primary200, borderWidth: 2, borderColor: colors.accent, opacity: quantity <= ticket.min_purchase ? 0.3 : 1 }}
                                         activeOpacity={0.7}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={`Decrease ${ticket.name} quantity`}
+                                        accessibilityHint={`Lowers ticket quantity, minimum is ${ticket.min_purchase}`}
                                     >
                                         <AppText styles="text-lg text-white font-nunbold">-</AppText>
                                     </TouchableOpacity>
@@ -169,16 +180,19 @@ const TicketCard = ({ ticket, event, currentUser, onPurchase }: TicketCardProps)
 
                                     <TouchableOpacity
                                         onPress={() => handleQuantityChange(quantity + 1)}
-                                        disabled={quantity >= Math.min(ticket.max_purchase, ticket.tickets_remaining)}
+                                        disabled={quantity >= effectiveMaxPurchase}
                                         className="w-12 h-12 rounded-xl items-center justify-center"
-                                        style={{ backgroundColor: colors.primary200, borderWidth: 2, borderColor: colors.accent, opacity: quantity >= Math.min(ticket.max_purchase, ticket.tickets_remaining) ? 0.3 : 1 }}
+                                        style={{ backgroundColor: colors.primary200, borderWidth: 2, borderColor: colors.accent, opacity: quantity >= effectiveMaxPurchase ? 0.3 : 1 }}
                                         activeOpacity={0.7}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={`Increase ${ticket.name} quantity`}
+                                        accessibilityHint={`Increases ticket quantity, maximum is ${effectiveMaxPurchase}`}
                                     >
                                         <AppText styles="text-lg text-white font-nunbold">+</AppText>
                                     </TouchableOpacity>
                                 </View>
                                 <AppText styles="text-xs text-slate-300 mt-2">
-                                    Min: {ticket.min_purchase} • Max: {Math.min(ticket.max_purchase, ticket.tickets_remaining)}
+                                    Min: {ticket.min_purchase} • Max: {effectiveMaxPurchase}
                                 </AppText>
                             </View>
 
@@ -194,6 +208,9 @@ const TicketCard = ({ ticket, event, currentUser, onPurchase }: TicketCardProps)
                                 className="w-full py-4 px-6 rounded-xl items-center"
                                 style={{ backgroundColor: theme.buttonColor }}
                                 activeOpacity={0.8}
+                                accessibilityRole="button"
+                                accessibilityLabel={`Select ${ticket.name} ticket`}
+                                accessibilityHint={`Opens purchase confirmation for ${quantity} ${ticket.name} ticket${quantity > 1 ? "s" : ""}`}
                             >
                                 <AppText styles="text-sm text-white font-nunbold">Select {ticket.name}</AppText>
                             </TouchableOpacity>
@@ -220,4 +237,5 @@ const TicketCard = ({ ticket, event, currentUser, onPurchase }: TicketCardProps)
 };
 
 export default memo(TicketCard);
+
 

@@ -23,6 +23,28 @@ const paymentMethodLabels: Record<string, string> = {
     bank_transfer: "Bank Transfer",
 };
 
+const resolvePaymentMethodLabel = (rawMethod: string) => {
+    const normalized = rawMethod.toLowerCase().replace(/[\s-]+/g, "_");
+
+    if (paymentMethodLabels[normalized]) {
+        return paymentMethodLabels[normalized];
+    }
+
+    if (normalized.includes("mobile") || normalized.includes("momo")) {
+        return "Mobile Money";
+    }
+
+    if (normalized.includes("card")) {
+        return "Credit/Debit Card";
+    }
+
+    if (normalized.includes("bank")) {
+        return "Bank Transfer";
+    }
+
+    return rawMethod;
+};
+
 const formatDateTime = (dateTime: string) =>
     new Date(dateTime).toLocaleString("en-GH", {
         weekday: "long",
@@ -46,7 +68,7 @@ const TicketPurchaseInfo = ({ purchaseInfo }: Props) => {
         {
             icon: "card-outline",
             label: "Payment Method",
-            value: paymentMethodLabels[purchaseInfo.payment_method] || purchaseInfo.payment_method,
+            value: resolvePaymentMethodLabel(purchaseInfo.payment_method),
         },
         {
             icon: "receipt-outline",
@@ -67,10 +89,10 @@ const TicketPurchaseInfo = ({ purchaseInfo }: Props) => {
                     <Ionicons name="receipt-outline" size={18} color="#34d399" />
                 </View>
                 <View>
-                    <AppText styles="text-sm text-black font-nunbold">
+                    <AppText styles="text-sm text-white font-nunbold">
                         Purchase Information
                     </AppText>
-                    <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
+                    <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
                         Payment and transaction details
                     </AppText>
                 </View>
@@ -88,11 +110,11 @@ const TicketPurchaseInfo = ({ purchaseInfo }: Props) => {
                     >
                         <Ionicons name={row.icon as any} size={18} color={colors.accent50} />
                         <View className="flex-1">
-                            <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
+                            <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
                                 {row.label}
                             </AppText>
                             <AppText
-                                styles="text-xs text-black"
+                                styles="text-xs text-white"
                                 style={row.mono ? { opacity: 0.8, fontFamily: "monospace" } : undefined}
                                 numberOfLines={1}
                             >
@@ -111,7 +133,7 @@ const TicketPurchaseInfo = ({ purchaseInfo }: Props) => {
                 >
                     <Ionicons name={status.icon as any} size={18} color={status.color} />
                     <View className="flex-1">
-                        <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
+                        <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
                             Payment Status
                         </AppText>
                         <View
@@ -134,10 +156,10 @@ const TicketPurchaseInfo = ({ purchaseInfo }: Props) => {
                     style={{ backgroundColor: colors.primary200 }}
                     accessibilityLabel={`Amount Paid: ${formatMoney(purchaseInfo.amount_paid)}`}
                 >
-                    <AppText styles="text-xs text-black" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-white" style={{ opacity: 0.6 }}>
                         Amount Paid
                     </AppText>
-                    <AppText styles="text-sm text-black font-nunbold">
+                    <AppText styles="text-sm text-white font-nunbold">
                         {formatMoney(purchaseInfo.amount_paid)}
                     </AppText>
                 </View>

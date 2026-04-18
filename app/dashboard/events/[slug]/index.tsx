@@ -11,7 +11,6 @@ import {
     MyEventTicketTypes,
     MyEventAnalyticsOverview,
     MyEventSalesByTicketType,
-    MyEventTrafficStats,
     MyEventRecentSales,
     MyEventImageGallery,
     Nav,
@@ -253,12 +252,6 @@ const MyEventDetailsScreen = () => {
                 {/* Sales by Ticket Type */}
                 <MyEventSalesByTicketType
                     salesByTicketType={eventAnalytics.sales_by_ticket_type}
-                />
-
-                {/* Traffic Stats */}
-                <MyEventTrafficStats
-                    traffic={eventAnalytics.traffic}
-                    ticketsSold={eventAnalytics.overview.tickets_sold}
                 />
 
                 {/* Recent Sales */}

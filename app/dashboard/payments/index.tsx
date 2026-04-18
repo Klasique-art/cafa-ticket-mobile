@@ -14,7 +14,7 @@ import {
     FaceVerificationModal,
     RequestPayoutModal
 } from "@/components";
-import { getMyRevenueSummary, getMyPaymentProfiles, getUserStats } from "@/lib/dashboard";
+import { getMyRevenueSummary, getMyPaymentProfiles } from "@/lib/dashboard";
 import type { RevenueSummary } from "@/types/payments.types";
 import colors from "@/config/colors";
 import { useFormatMoney } from "@/hooks/useFormatMoney";
@@ -35,37 +35,26 @@ const PaymentsScreen = () => {
     // ---- fetch ----
     const fetchData = useCallback(async (showLoader = true) => {
         try {
-            console.log("🔄 FETCHING FINANCIAL DATA...");
             if (showLoader) setIsLoading(true);
             setError(null);
 
-            const [revenueData, profilesData, userStats] = await Promise.all([
+            const [revenueData, profilesData] = await Promise.all([
                 getMyRevenueSummary(),
                 getMyPaymentProfiles(),
-                getUserStats(),
             ]);
 
-            console.log("🔍 RAW API RESPONSE /organizers/revenue/:", JSON.stringify(revenueData, null, 2));
-            console.log("🔍 RAW API RESPONSE /auth/payment-profile/:", JSON.stringify(profilesData, null, 2));
-            console.log("🔍 RAW API RESPONSE /auth/stats/:", JSON.stringify(userStats, null, 2));
 
             if (!revenueData) {
-                console.error("❌ REVENUE DATA IS NULL");
                 setError("Unable to load revenue data");
                 return;
             }
 
-            // Summary Logs
-            console.log(`📊 REVENUE SUMMARY - gross: ${revenueData.summary.gross_revenue}, net: ${revenueData.summary.net_revenue}, fee: ${revenueData.summary.platform_fees}`);
-            console.log(`📊 PAYOUT STATUS - available: ${revenueData.payout_status.available_balance}`);
-            
             setRevenueSummary(revenueData);
 
             const hasVerified =
                 profilesData?.results?.some((profile) => profile.is_verified) ?? false;
             setHasVerifiedProfile(hasVerified);
             
-            console.log(`✅ DATA LOAD COMPLETE. Profile Verified: ${hasVerified}`);
         } catch (err: any) {
             console.error("Error fetching revenue data:", err);
             setError(err.message || "Failed to load revenue data");

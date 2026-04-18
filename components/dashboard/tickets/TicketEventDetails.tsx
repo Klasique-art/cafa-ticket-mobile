@@ -56,7 +56,7 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                             className="self-start px-3 py-1 rounded-lg border"
                             style={{ backgroundColor: "rgba(0,0,0,0.4)", borderColor: "rgba(255,255,255,0.2)" }}
                         >
-                            <AppText styles="text-xs text-black">
+                            <AppText styles="text-xs text-white">
                                 {event.category.name}
                             </AppText>
                         </View>
@@ -73,13 +73,13 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                         accessibilityLabel={`View event: ${event.title}`}
                     >
                         <View className="flex-row items-center gap-1">
-                            <AppText styles="text-base text-black font-nunbold">
+                            <AppText styles="text-base text-white font-nunbold">
                                 {event.title}
                             </AppText>
                             <Ionicons name="arrow-forward-outline" size={14} color={colors.accent50} />
                         </View>
                     </TouchableOpacity>
-                    <AppText styles="text-xs text-black" style={{ opacity: 0.6 }}>
+                    <AppText styles="text-xs text-white" style={{ opacity: 0.6 }}>
                         {event.description}
                     </AppText>
 
@@ -93,10 +93,10 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                                 <Ionicons name="pricetag-outline" size={18} color="#c084fc" />
                             </View>
                             <View>
-                                <AppText styles="text-xs text-black font-nunbold">
+                                <AppText styles="text-xs text-white font-nunbold">
                                     {ticketType.name}
                                 </AppText>
-                                <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
+                                <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
                                     {ticketType.description}
                                 </AppText>
                             </View>
@@ -116,16 +116,16 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                         >
                             <View className="flex-row items-center gap-1.5 mb-2">
                                 <Ionicons name="calendar-outline" size={14} color={colors.accent50} />
-                                <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
+                                <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
                                     Start
                                 </AppText>
                             </View>
-                            <AppText styles="text-xs text-black">
+                            <AppText styles="text-xs text-white">
                                 {formatDate(event.start_date)}
                             </AppText>
                             <View className="flex-row items-center gap-1 mt-1">
                                 <Ionicons name="time-outline" size={12} color={colors.accent50} />
-                                <AppText styles="text-xs text-black" style={{ opacity: 0.6 }}>
+                                <AppText styles="text-xs text-white" style={{ opacity: 0.6 }}>
                                     {formatTime(event.start_time)}
                                 </AppText>
                             </View>
@@ -139,16 +139,16 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                         >
                             <View className="flex-row items-center gap-1.5 mb-2">
                                 <Ionicons name="calendar-outline" size={14} color={colors.accent50} />
-                                <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
+                                <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
                                     End
                                 </AppText>
                             </View>
-                            <AppText styles="text-xs text-black">
+                            <AppText styles="text-xs text-white">
                                 {formatDate(event.end_date)}
                             </AppText>
                             <View className="flex-row items-center gap-1 mt-1">
                                 <Ionicons name="time-outline" size={12} color={colors.accent50} />
-                                <AppText styles="text-xs text-black" style={{ opacity: 0.6 }}>
+                                <AppText styles="text-xs text-white" style={{ opacity: 0.6 }}>
                                     {formatTime(event.end_time)}
                                 </AppText>
                             </View>
@@ -164,13 +164,13 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                     >
                         <Ionicons name="location-outline" size={18} color={colors.accent50} style={{ marginTop: 2 }} />
                         <View className="flex-1">
-                            <AppText styles="text-xs text-black font-nunbold">
+                            <AppText styles="text-xs text-white font-nunbold">
                                 {event.venue_name}
                             </AppText>
-                            <AppText styles="text-xs text-black mt-0.5" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-white mt-0.5" style={{ opacity: 0.6 }}>
                                 {event.venue_address}
                             </AppText>
-                            <AppText styles="text-xs text-black" style={{ opacity: 0.6 }}>
+                            <AppText styles="text-xs text-white" style={{ opacity: 0.6 }}>
                                 {event.venue_city}, {event.venue_country}
                             </AppText>
                         </View>
@@ -195,13 +195,13 @@ const TicketEventDetails = ({ event, ticketType }: Props) => {
                             )}
                         </View>
                         <View>
-                            <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
+                            <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
                                 Organized by
                             </AppText>
-                            <AppText styles="text-xs text-black font-nunbold">
+                            <AppText styles="text-xs text-white font-nunbold">
                                 {event.organizer.full_name}
                             </AppText>
-                            <AppText styles="text-xs text-black" style={{ opacity: 0.5 }}>
+                            <AppText styles="text-xs text-white" style={{ opacity: 0.5 }}>
                                 @{event.organizer.username}
                             </AppText>
                         </View>

@@ -36,9 +36,9 @@ const PayoutStatusCard = ({ payoutStatus, summary, revenueByMonth }: Props) => {
 
     const currentBalance = parseFloat(payoutStatus.available_balance || "0");
     const onHoldBalance = parseFloat(payoutStatus.on_hold_balance || "0");
-    const totalWithdrawn = parseFloat(
-        payoutStatus.total_withdrawn ?? payoutStatus.total_paid_out ?? "0"
-    );
+    // Only use explicit withdrawn value.
+    // `total_paid_out` can represent a different backend metric and can misreport withdrawals.
+    const totalWithdrawn = parseFloat(payoutStatus.total_withdrawn ?? "0");
     const totalRevenue = summary ? parseFloat(summary.gross_revenue) : 0;
     const averageTicketPrice = summary ? parseFloat(summary.average_ticket_price) : 0;
     const totalEvents = summary?.total_events || 0;

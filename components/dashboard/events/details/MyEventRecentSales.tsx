@@ -11,6 +11,20 @@ interface MyEventRecentSalesProps {
 
 const MyEventRecentSales = ({ recentSales }: MyEventRecentSalesProps) => {
     const formatMoney = useFormatMoney();
+    const nowMs = Date.now();
+    const recentSalesLast24Hours = recentSales
+        .filter((sale) => {
+            const saleMs = new Date(sale.purchase_date).getTime();
+            if (Number.isNaN(saleMs)) return false;
+            const diffMs = nowMs - saleMs;
+            return diffMs >= 0 && diffMs <= 24 * 60 * 60 * 1000;
+        })
+        .sort(
+            (a, b) =>
+                new Date(b.purchase_date).getTime() -
+                new Date(a.purchase_date).getTime()
+        );
+
     const formatDateTime = (dateString: string) => {
         const date = new Date(dateString);
         const now = new Date();
@@ -31,7 +45,7 @@ const MyEventRecentSales = ({ recentSales }: MyEventRecentSalesProps) => {
         });
     };
 
-    if (recentSales.length === 0) {
+    if (recentSalesLast24Hours.length === 0) {
         return (
             <View className="p-4 bg-primary rounded-xl border border-accent">
                 {/* Header */}
@@ -52,9 +66,9 @@ const MyEventRecentSales = ({ recentSales }: MyEventRecentSalesProps) => {
                     <AppText
                         styles="text-sm text-slate-400 text-center"
                         font="font-iregular"
-                        accessibilityLabel="No recent sales for this event"
+                        accessibilityLabel="No sales within the last 24 hours"
                     >
-                        No sales yet for this event
+                        No sales within the last 24 hours
                     </AppText>
                 </View>
             </View>
@@ -78,7 +92,7 @@ const MyEventRecentSales = ({ recentSales }: MyEventRecentSalesProps) => {
 
             {/* Sales List */}
             <View className="gap-3">
-                {recentSales.map((sale, index) => (
+                {recentSalesLast24Hours.map((sale, index) => (
                     <View
                         key={index}
                         className="p-3 bg-primary-200 rounded-xl border border-accent/20"
