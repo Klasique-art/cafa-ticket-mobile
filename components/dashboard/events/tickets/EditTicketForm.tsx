@@ -11,6 +11,7 @@ import FormLoader from "../../../form/FormLoader";
 import { ticketTypeSchema, type TicketTypeFormValues } from "@/data/eventCreationSchema";
 import type { EventTicketType } from "@/types/dash-events.types";
 import colors from "@/config/colors";
+import { API_BASE_URL } from "@/config/settings";
 import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface EditTicketFormProps {
@@ -51,7 +52,7 @@ const EditTicketForm = ({ ticket, eventSlug }: EditTicketFormProps) => {
             };
 
             const response = await fetch(
-                `${process.env.EXPO_PUBLIC_API_BASE_URL}/events/${eventSlug}/tickets/${ticket.id}/edit/`,
+                `${API_BASE_URL}/events/${eventSlug}/tickets/${ticket.id}/edit/`,
                 {
                     method: "PATCH",
                     headers: {

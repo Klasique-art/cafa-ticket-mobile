@@ -6,6 +6,7 @@ import { API_BASE_URL } from "@/config/settings";
 
 export const AUTH_TOKEN_KEY = "cafa_auth_token";
 export const REFRESH_TOKEN_KEY = "cafa_refresh_token";
+const API_TIMEOUT_MS = 15000;
 
 function logAxiosNetworkDiagnostics(error: any) {
     if (error?.response) return;
@@ -63,9 +64,11 @@ async function getRefreshedAccessToken(): Promise<string> {
             if (!refreshToken) throw new Error("no refresh token stored");
 
             // Web version uses /auth/jwt/refresh/
-            const res = await axios.post(`${API_BASE_URL}/auth/jwt/refresh/`, {
-                refresh: refreshToken,
-            });
+            const res = await axios.post(
+                `${API_BASE_URL}/auth/jwt/refresh/`,
+                { refresh: refreshToken },
+                { timeout: API_TIMEOUT_MS }
+            );
 
             // Handle nested or root-level token extraction
             const access = res.data.tokens?.access || res.data.access;
@@ -98,7 +101,7 @@ async function getRefreshedAccessToken(): Promise<string> {
 const client = axios.create({
     baseURL: API_BASE_URL,
     headers: { "Content-Type": "application/json" },
-    timeout: 15000,
+    timeout: API_TIMEOUT_MS,
 });
 
 // ── Request interceptor ─────────────────────────────────────────────────────

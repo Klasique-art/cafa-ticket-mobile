@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useFormikContext } from "formik";
+import { isAxiosError } from "axios";
 
 import { Screen, AppText, Nav, AppForm, AppFormField, SubmitButton, FormLoader } from "@/components";
 import { bankTransferValidation } from "@/data/validationSchema";
@@ -22,32 +23,42 @@ type FormFieldsProps = {
 const extractPaymentProfileErrorMessage = (err: any): string => {
   if (err?.response?.data) {
     const data = err.response.data;
+    const details = data.details;
+
+    const pickFirstErrorMessage = (value: any): string | null => {
+      if (!value) return null;
+      if (typeof value === "string" && value.trim()) return value;
+      if (Array.isArray(value) && value.length > 0) {
+        const first = value[0];
+        if (typeof first === "string" && first.trim()) return first;
+        if (first && typeof first === "object") {
+          return pickFirstErrorMessage(Object.values(first)[0]);
+        }
+      }
+      if (typeof value === "object") {
+        const firstValue = Object.values(value)[0];
+        return pickFirstErrorMessage(firstValue);
+      }
+      return null;
+    };
+
+    // Common backend validation shape: { details: { account_details: { ... } } }
+    const detailsMessage = pickFirstErrorMessage(details);
+    if (detailsMessage) return detailsMessage;
+
+    // Fallback legacy shape support
+    const accountDetails = data.account_details;
+    const accountMessage = pickFirstErrorMessage(accountDetails);
+    if (accountMessage) return accountMessage;
+
+    const topLevelMessage = pickFirstErrorMessage(data);
+    if (topLevelMessage && topLevelMessage !== "The data provided is invalid") {
+      return topLevelMessage;
+    }
 
     if (typeof data.message === "string" && data.message.trim()) return data.message;
     if (typeof data.error === "string" && data.error.trim()) return data.error;
     if (typeof data.detail === "string" && data.detail.trim()) return data.detail;
-
-    const accountDetails = data.account_details;
-    if (accountDetails && typeof accountDetails === "object") {
-      if (accountDetails.account_number) {
-        const msg = Array.isArray(accountDetails.account_number)
-          ? accountDetails.account_number[0]
-          : accountDetails.account_number;
-        if (msg) return String(msg);
-      }
-      if (accountDetails.bank_name) {
-        const msg = Array.isArray(accountDetails.bank_name)
-          ? accountDetails.bank_name[0]
-          : accountDetails.bank_name;
-        if (msg) return String(msg);
-      }
-      if (accountDetails.bank_code) {
-        const msg = Array.isArray(accountDetails.bank_code)
-          ? accountDetails.bank_code[0]
-          : accountDetails.bank_code;
-        if (msg) return String(msg);
-      }
-    }
   }
 
   if (err?.message === "Network Error") {
@@ -55,6 +66,24 @@ const extractPaymentProfileErrorMessage = (err: any): string => {
   }
 
   return err instanceof Error ? err.message : "Failed to create payment profile";
+};
+
+const logPaymentProfileCreateError = (err: unknown) => {
+  if (!isAxiosError(err)) {
+    console.error("[CreatePaymentProfile] Non-axios error:", err);
+    return;
+  }
+
+  const method = err.config?.method?.toUpperCase() || "POST";
+  const url = err.config?.url || "/auth/payment-profile/";
+  const status = err.response?.status ?? "NO_STATUS";
+  const responseData = err.response?.data ?? null;
+
+  console.error(`[CreatePaymentProfile] ${status} ${method} ${url}`, {
+    code: err.code ?? null,
+    message: err.message,
+    responseData,
+  });
 };
 
 // Inner component that has access to Formik context
@@ -198,7 +227,7 @@ const CreatePaymentProfileScreen = () => {
       // Navigate back to payment profiles list
       router.back();
     } catch (err) {
-      console.error("Failed to create payment profile:", err);
+      logPaymentProfileCreateError(err);
       setError(extractPaymentProfileErrorMessage(err));
     } finally {
       setIsSubmitting(false);

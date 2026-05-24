@@ -10,6 +10,7 @@ import SubmitButton from "../../../form/SubmitButton";
 import FormLoader from "../../../form/FormLoader";
 import { ticketTypeSchema, type TicketTypeFormValues } from "@/data/eventCreationSchema";
 import colors from "@/config/colors";
+import { API_BASE_URL } from "@/config/settings";
 import { useFormatMoney } from "@/hooks/useFormatMoney";
 
 interface CreateTicketFormProps {
@@ -49,7 +50,7 @@ const CreateTicketForm = ({ eventSlug }: CreateTicketFormProps) => {
             };
 
             const response = await fetch(
-                `${process.env.EXPO_PUBLIC_API_BASE_URL}/events/${eventSlug}/tickets/create/`,
+                `${API_BASE_URL}/events/${eventSlug}/tickets/create/`,
                 {
                     method: "POST",
                     headers: {
