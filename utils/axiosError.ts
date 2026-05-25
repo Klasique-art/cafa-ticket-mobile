@@ -32,7 +32,12 @@ export function formatAxiosError(error: unknown): string {
   }
 
   const method = error.config?.method?.toUpperCase() || "GET";
-  const url = error.config?.url || "(unknown url)";
+  const requestUrl = error.config?.url || "(unknown url)";
+  const baseURL = error.config?.baseURL || "";
+  const url =
+    requestUrl.startsWith("http://") || requestUrl.startsWith("https://")
+      ? requestUrl
+      : `${baseURL}${requestUrl}`;
   const status = error.response?.status || "NO_STATUS";
   const backendMessage = readBackendMessage(error.response?.data);
 
@@ -57,7 +62,7 @@ export function isAxiosAuthError(error: unknown): boolean {
 
 export function logAxiosError(label: string, error: unknown): void {
   if (isAxiosAuthError(error)) return;
-  console.error(`${label}:`, formatAxiosError(error));
+  console.log(`${label}:`, formatAxiosError(error));
 }
 
 export function captureAxiosContext(error: unknown): Record<string, unknown> {

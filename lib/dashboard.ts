@@ -1,4 +1,5 @@
 import client from "./client";
+import { isAxiosError } from "axios";
 import * as Sentry from '@sentry/react-native';
 import { captureAxiosContext, isAxios4xx, isAxiosAuthError, logAxiosError } from "@/utils/axiosError";
 import type {
@@ -396,6 +397,27 @@ export async function createPaymentProfile(data: {
         return response.data;
     } catch (error) {
         logApiError("createPaymentProfile error:", error);
+        if (isAxiosError(error)) {
+            const method = error.config?.method?.toUpperCase() || "POST";
+            const requestUrl = error.config?.url || "/auth/payment-profile/";
+            const baseURL = error.config?.baseURL || "";
+            const fullUrl =
+                requestUrl.startsWith("http://") || requestUrl.startsWith("https://")
+                    ? requestUrl
+                    : `${baseURL}${requestUrl}`;
+
+            console.log("[createPaymentProfile] request payload", {
+                endpoint: fullUrl,
+                method,
+                payload: data,
+            });
+        } else {
+            console.log("[createPaymentProfile] request payload", {
+                endpoint: "/auth/payment-profile/",
+                method: "POST",
+                payload: data,
+            });
+        }
         captureApiError(error);
         if (isAxiosAuthError(error)) {
             throw new Error("Authentication required");

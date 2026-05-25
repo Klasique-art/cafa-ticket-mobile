@@ -70,18 +70,25 @@ const extractPaymentProfileErrorMessage = (err: any): string => {
 
 const logPaymentProfileCreateError = (err: unknown) => {
   if (!isAxiosError(err)) {
-    console.error("[CreatePaymentProfile] Non-axios error:", err);
+    console.log("[CreatePaymentProfile] Non-axios error:", err);
     return;
   }
 
   const method = err.config?.method?.toUpperCase() || "POST";
-  const url = err.config?.url || "/auth/payment-profile/";
+  const requestUrl = err.config?.url || "/auth/payment-profile/";
+  const baseURL = err.config?.baseURL || "";
+  const url =
+    requestUrl.startsWith("http://") || requestUrl.startsWith("https://")
+      ? requestUrl
+      : `${baseURL}${requestUrl}`;
   const status = err.response?.status ?? "NO_STATUS";
   const responseData = err.response?.data ?? null;
+  const requestPayload = err.config?.data ?? null;
 
-  console.error(`[CreatePaymentProfile] ${status} ${method} ${url}`, {
+  console.log(`[CreatePaymentProfile] ${status} ${method} ${url}`, {
     code: err.code ?? null,
     message: err.message,
+    requestPayload,
     responseData,
   });
 };
