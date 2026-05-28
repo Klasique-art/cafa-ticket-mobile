@@ -175,17 +175,17 @@ const PaymentsScreen = () => {
                                                 <Ionicons name="cash-outline" size={24} color={colors.accent50} />
                                             </View>
                                             <View className="flex-1">
-                                                <AppText styles="text-base text-black mb-1 font-nunbold">
+                                                <AppText styles="text-base text-white mb-1 font-nunbold">
                                                     Request Payout
                                                 </AppText>
                                                 <AppText
-                                                    styles="text-xs text-black"
+                                                    styles="text-xs text-white"
                                                     style={{ opacity: 0.7 }}
                                                 >
                                                     Available: {formatMoney(revenueSummary.payout_status.available_balance)}
                                                 </AppText>
                                             </View>
-                                            <Ionicons name="chevron-forward" size={20} color={colors.black} />
+                                            <Ionicons name="chevron-forward" size={20} color={colors.white} />
                                         </View>
                                     </TouchableOpacity>
 

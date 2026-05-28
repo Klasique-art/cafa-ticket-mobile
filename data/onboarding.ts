@@ -8,58 +8,58 @@ export interface OnboardingSlide {
 export const onboardingSlides: OnboardingSlide[] = [
   {
     id: 1,
-    title: "Local Events, One Place",
+    title: "Local Events, One App",
     description:
-      "Cafa Tickets brings local events into one app so you can stop hunting across social posts, flyers, and scattered links.",
+      "Discover nearby events without jumping between social posts, flyers, and random links.",
     icon: "compass",
   },
   {
     id: 2,
-    title: "Find What Matches Your Mood",
+    title: "Search What You Want",
     description:
-      "Use search to quickly discover what is happening around you, whether you want music, sports, comedy, or community events.",
+      "Use search to quickly find music, sports, comedy, and community events near you.",
     icon: "search",
   },
   {
     id: 3,
     title: "Browse By Category",
     description:
-      "Jump into categories like music, sports, and arts and culture to discover events by interest instead of endless scrolling.",
+      "Explore categories like music, sports, and arts to find events by interest faster.",
     icon: "grid",
   },
   {
     id: 4,
-    title: "Simple Ticket Buying",
+    title: "Easy Ticket Checkout",
     description:
-      "Go from interested to confirmed in a few taps with clear event details and in-app ticket checkout.",
+      "Go from interested to confirmed in a few taps with clear details and in-app payment.",
     icon: "ticket",
   },
   {
     id: 5,
-    title: "Track Your Payments",
+    title: "Payment History",
     description:
-      "Review completed and pending payments, transaction history, and your event spending in one organized place.",
+      "Track completed and pending payments, plus your event transactions, in one place.",
     icon: "wallet",
   },
   {
     id: 6,
-    title: "Your Profile, Your Account",
+    title: "Manage Your Profile",
     description:
-      "Manage account details, contact info, and settings so your tickets, payments, and event activity stay connected.",
+      "Keep your account details and settings updated so tickets and payments stay organized.",
     icon: "person-circle",
   },
   {
     id: 7,
     title: "Tools For Organizers",
     description:
-      "Create events, monitor ticket sales, view recent activity, and track performance with built-in organizer insights.",
+      "Create events, monitor sales, and review performance with simple organizer analytics.",
     icon: "analytics",
   },
   {
     id: 8,
-    title: "Show Up And Connect",
+    title: "Join Your Community",
     description:
-      "Cafa Tickets helps attendees and organizers meet, support local scenes, and build stronger communities through events.",
+      "Attend local events, support organizers, and connect with people around you.",
     icon: "people",
   },
 ];
