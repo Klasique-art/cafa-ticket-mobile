@@ -31,7 +31,7 @@
     "production": {
       "autoIncrement": true,
       "env": {
-        "EXPO_PUBLIC_ENABLE_POSTHOG": "false"
+        "EXPO_PUBLIC_ENABLE_POSTHOG": "true"
       },
       "channel": "production"
     }

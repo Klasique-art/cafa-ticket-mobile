@@ -139,7 +139,7 @@ export default Sentry.wrap(function RootLayout() {
   const posthogApiKey = process.env.EXPO_PUBLIC_POSTHOG_KEY || process.env.EXPO_PUBLIC_POSTHOG_API_KEY;
   const posthogHost = process.env.EXPO_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
   const posthogEnabledFlag = process.env.EXPO_PUBLIC_ENABLE_POSTHOG;
-  const shouldEnablePostHog = posthogEnabledFlag === "true";
+  const shouldEnablePostHog = !!posthogApiKey && posthogEnabledFlag !== "false";
   const loadNetInfo = useCallback(async () => {
     try {
       // Prevent runtime crash when native module is not bundled in the current app binary.
