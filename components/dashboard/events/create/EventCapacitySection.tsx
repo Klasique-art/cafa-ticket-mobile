@@ -52,7 +52,12 @@ const EventCapacitySection = () => {
     return (
         <View className="gap-4">
             {/* Section Header */}
-            <View className="flex-row items-center gap-3">
+            <View
+                className="flex-row items-center gap-3"
+                accessible
+                accessibilityRole="header"
+                accessibilityLabel="Event Capacity section"
+            >
                 <View
                     className="w-10 h-10 rounded-lg items-center justify-center"
                     style={{ backgroundColor: colors.accent + "33" }}
@@ -87,6 +92,9 @@ const EventCapacitySection = () => {
                         backgroundColor: isCapacityValid ? colors.success + "1A" : colors.accent + "33",
                         borderColor: isCapacityValid ? colors.success : colors.accent,
                     }}
+                    accessible
+                    accessibilityRole="alert"
+                    accessibilityLabel={`Capacity status ${isCapacityValid ? "valid" : "invalid"}. Total tickets ${totalTickets}. Maximum attendees ${maxAttendeesValue || 0}.`}
                 >
                     <View className="flex-row items-start gap-3 mb-4">
                         <Ionicons
@@ -152,10 +160,13 @@ const EventCapacitySection = () => {
             )}
 
             {/* Info Note */}
-            <View
-                className="p-3 rounded-lg border flex-row items-start gap-2"
-                style={{ backgroundColor: colors.primary200 + "80", borderColor: colors.accent + "4D" }}
-            >
+                <View
+                    className="p-3 rounded-lg border flex-row items-start gap-2"
+                    style={{ backgroundColor: colors.primary200 + "80", borderColor: colors.accent + "4D" }}
+                    accessible
+                    accessibilityRole="text"
+                    accessibilityLabel="About capacity. Must cover all ticket quantities, can exceed tickets for future additions, and helps with venue planning."
+                >
                 <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                 <View className="flex-1">
                     <AppText styles="text-xs text-black mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>

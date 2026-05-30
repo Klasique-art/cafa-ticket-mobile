@@ -15,7 +15,12 @@ const EventPublishSection = () => {
     return (
         <View className="gap-4">
             {/* Section Header */}
-            <View className="flex-row items-center gap-3">
+            <View
+                className="flex-row items-center gap-3"
+                accessible
+                accessibilityRole="header"
+                accessibilityLabel="Publishing Settings section"
+            >
                 <View
                     className="w-10 h-10 rounded-lg items-center justify-center"
                     style={{ backgroundColor: values.is_published ? colors.success + "33" : colors.primary200 + "80" }}
@@ -43,6 +48,9 @@ const EventPublishSection = () => {
                     backgroundColor: isPublished ? colors.success + "1A" : colors.primary100,
                     borderColor: isPublished ? colors.success : colors.accent + "4D",
                 }}
+                accessible
+                accessibilityRole="text"
+                accessibilityLabel={`Publish state. Event is currently ${isPublished ? "published and public" : "unpublished and private"}.`}
             >
                 <View className="flex-row items-start gap-3">
                     <AppSwitch
@@ -122,7 +130,7 @@ const EventPublishSection = () => {
             </View>
 
             {/* Feature Comparison Cards */}
-            <View className="flex-row gap-3">
+            <View className="flex-row gap-3" accessible accessibilityRole="text" accessibilityLabel="Publishing comparison for published and unpublished states">
                 {/* Published Benefits */}
                 <View
                     className="flex-1 p-3 rounded-lg border"
@@ -200,4 +208,3 @@ const EventPublishSection = () => {
 };
 
 export default EventPublishSection;
-

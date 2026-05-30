@@ -1,7 +1,8 @@
-import { View } from "react-native";
+import { ActivityIndicator, Alert, Pressable, View } from "react-native";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useFormikContext } from "formik";
+import * as Location from "expo-location";
 
 import AppText from "../../../ui/AppText";
 import LocationSelector from "../../../ui/LocationSelector";
@@ -12,6 +13,7 @@ import colors from "@/config/colors";
 const EventVenueSection = () => {
     const { values, setFieldValue, errors, touched } = useFormikContext<EventFormValues>();
     const [locationSelected, setLocationSelected] = useState(false);
+    const [isDetectingLocation, setIsDetectingLocation] = useState(false);
 
     // Handle location selection from Google Maps
     const handleLocationSelect = (location: LocationData) => {
@@ -43,10 +45,60 @@ const EventVenueSection = () => {
         return undefined;
     };
 
+    const buildStreetAddress = (address: Location.LocationGeocodedAddress) => {
+        const number = address.streetNumber || "";
+        const street = address.street || "";
+        const combined = `${number} ${street}`.trim();
+        return combined || address.name || "";
+    };
+
+    const handleUseCurrentLocation = async () => {
+        try {
+            setIsDetectingLocation(true);
+
+            const { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== "granted") {
+                Alert.alert("Location Permission Needed", "Please allow location access to use your current venue.");
+                return;
+            }
+
+            const position = await Location.getCurrentPositionAsync({
+                accuracy: Location.Accuracy.Balanced,
+            });
+
+            const [address] = await Location.reverseGeocodeAsync({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            });
+
+            const latitude = position.coords.latitude.toFixed(6);
+            const longitude = position.coords.longitude.toFixed(6);
+
+            setFieldValue("venue_name", address?.name || "Current Location");
+            setFieldValue("venue_address", address ? buildStreetAddress(address) : `${latitude}, ${longitude}`);
+            setFieldValue("venue_city", address?.city || address?.subregion || "");
+            setFieldValue("venue_country", address?.country || values.venue_country || "");
+            setFieldValue("venue_latitude", latitude);
+            setFieldValue("venue_longitude", longitude);
+
+            setLocationSelected(true);
+            setTimeout(() => setLocationSelected(false), 3000);
+        } catch {
+            Alert.alert("Location Error", "We could not detect your current location. Please try again.");
+        } finally {
+            setIsDetectingLocation(false);
+        }
+    };
+
     return (
         <View className="gap-4">
             {/* Section Header */}
-            <View className="flex-row items-center gap-3">
+            <View
+                className="flex-row items-center gap-3"
+                accessible
+                accessibilityRole="header"
+                accessibilityLabel="Venue Information section"
+            >
                 <View
                     className="w-10 h-10 rounded-lg items-center justify-center"
                     style={{ backgroundColor: colors.primary200 + "80" }}
@@ -72,11 +124,38 @@ const EventVenueSection = () => {
                 error={getLocationError()}
             />
 
+            <Pressable
+                onPress={handleUseCurrentLocation}
+                disabled={isDetectingLocation}
+                className="rounded-xl px-4 py-3 border-2 flex-row items-center justify-center gap-2"
+                style={{
+                    backgroundColor: isDetectingLocation ? colors.primary100 : colors.primary200 + "80",
+                    borderColor: colors.accent + "80",
+                    opacity: isDetectingLocation ? 0.8 : 1,
+                }}
+                accessibilityRole="button"
+                accessibilityState={{ disabled: isDetectingLocation }}
+                accessibilityLabel="Use current location"
+                accessibilityHint="Detects your current position and auto-fills venue details"
+            >
+                {isDetectingLocation ? (
+                    <ActivityIndicator size="small" color={colors.accent50} />
+                ) : (
+                    <Ionicons name="locate-outline" size={18} color={colors.accent50} />
+                )}
+                <AppText styles="text-sm text-black" font="font-isemibold" style={{ opacity: 0.95 }}>
+                    {isDetectingLocation ? "Detecting location..." : "Use Current Location"}
+                </AppText>
+            </Pressable>
+
             {/* Location Selected Success Message */}
             {locationSelected && (
                 <View
                     className="p-4 rounded-xl border-2"
                     style={{ backgroundColor: colors.success + "33", borderColor: colors.success }}
+                    accessible
+                    accessibilityRole="status"
+                    accessibilityLabel="Location selected. Venue details filled automatically."
                 >
                     <View className="flex-row items-start gap-3">
                         <Ionicons name="checkmark-circle" size={20} color={colors.accent50} />
@@ -209,10 +288,13 @@ const EventVenueSection = () => {
             )}
 
             {/* Info Note */}
-            <View
-                className="p-3 rounded-lg border flex-row items-start gap-2"
-                style={{ backgroundColor: colors.primary200 + "80", borderColor: colors.accent + "4D" }}
-            >
+                <View
+                    className="p-3 rounded-lg border flex-row items-start gap-2"
+                    style={{ backgroundColor: colors.primary200 + "80", borderColor: colors.accent + "4D" }}
+                    accessible
+                    accessibilityRole="text"
+                    accessibilityLabel="How it works. Start typing the venue name or address, select from suggestions, details and GPS coordinates fill automatically, and attendees will see location on a map."
+                >
                 <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                 <View className="flex-1">
                     <AppText styles="text-xs text-black mb-1" font="font-isemibold" style={{ opacity: 0.9 }}>

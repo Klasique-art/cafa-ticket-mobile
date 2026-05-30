@@ -81,7 +81,12 @@ const EventTypeSection = () => {
     return (
         <View className="gap-4">
             {/* Section Header */}
-            <View className="flex-row items-center gap-3">
+            <View
+                className="flex-row items-center gap-3"
+                accessible
+                accessibilityRole="header"
+                accessibilityLabel="Event Type and Policies section"
+            >
                 <View
                     className="w-10 h-10 rounded-lg items-center justify-center"
                     style={{ backgroundColor: colors.primary200 + "80" }}
@@ -99,7 +104,13 @@ const EventTypeSection = () => {
             </View>
 
             {/* Is Recurring Toggle */}
-            <View className="p-4 rounded-xl border-2" style={{ backgroundColor: colors.primary100, borderColor: colors.accent }}>
+            <View
+                className="p-4 rounded-xl border-2"
+                style={{ backgroundColor: colors.primary100, borderColor: colors.accent }}
+                accessible
+                accessibilityRole="text"
+                accessibilityLabel={`Recurring event setting. Currently ${values.is_recurring ? "enabled" : "disabled"}.`}
+            >
                 <View className="flex-row items-start gap-3">
                     <AppSwitch
                         value={values.is_recurring || false}
@@ -167,7 +178,12 @@ const EventTypeSection = () => {
                                 <AppText styles="text-sm text-black mb-3" font="font-imedium">
                                     Which days of the week? *
                                 </AppText>
-                                <View className="flex-row flex-wrap gap-2">
+                                <View
+                                    className="flex-row flex-wrap gap-2"
+                                    accessible
+                                    accessibilityRole="radiogroup"
+                                    accessibilityLabel="Days of week selection"
+                                >
                                     {daysOfWeekOptions.map((day) => {
                                         const isSelected = values.recurrence_pattern?.days_of_week?.includes(day.value);
                                         return (
@@ -181,6 +197,10 @@ const EventTypeSection = () => {
                                                     borderColor: isSelected ? colors.accent : colors.accent + "4D",
                                                 }}
                                                 activeOpacity={0.7}
+                                                accessibilityRole="checkbox"
+                                                accessibilityState={{ checked: !!isSelected }}
+                                                accessibilityLabel={`${day.label} day`}
+                                                accessibilityHint="Double tap to toggle this day"
                                             >
                                                 <AppText styles="text-xs text-black" font="font-isemibold">
                                                     {day.label}
@@ -237,7 +257,12 @@ const EventTypeSection = () => {
                         <AppText styles="text-sm text-black mb-3" font="font-ibold">
                             Check-in Policy
                         </AppText>
-                        <View className="gap-2">
+                        <View
+                            className="gap-2"
+                            accessible
+                            accessibilityRole="radiogroup"
+                            accessibilityLabel="Check-in policy options"
+                        >
                             {checkInPolicyOptions.map((option) => (
                                 <TouchableOpacity
                                     key={option.value}
@@ -248,6 +273,10 @@ const EventTypeSection = () => {
                                         borderColor: values.check_in_policy === option.value ? colors.accent : colors.accent + "4D",
                                     }}
                                     activeOpacity={0.7}
+                                    accessibilityRole="radio"
+                                    accessibilityState={{ selected: values.check_in_policy === option.value }}
+                                    accessibilityLabel={`${option.label}. ${option.description}`}
+                                    accessibilityHint="Double tap to select this check-in policy"
                                 >
                                     <View className="flex-row items-start gap-3">
                                         <View
@@ -280,7 +309,12 @@ const EventTypeSection = () => {
                     <AppText styles="text-sm text-black mb-3" font="font-ibold">
                         Check-in Policy
                     </AppText>
-                    <View className="gap-2">
+                    <View
+                        className="gap-2"
+                        accessible
+                        accessibilityRole="radiogroup"
+                        accessibilityLabel="Check-in policy options"
+                    >
                         {checkInPolicyOptions.map((option) => (
                             <TouchableOpacity
                                 key={option.value}
@@ -291,6 +325,10 @@ const EventTypeSection = () => {
                                     borderColor: values.check_in_policy === option.value ? colors.primary : colors.accent,
                                 }}
                                 activeOpacity={0.7}
+                                accessibilityRole="radio"
+                                accessibilityState={{ selected: values.check_in_policy === option.value }}
+                                accessibilityLabel={`${option.label}. ${option.description}`}
+                                accessibilityHint="Double tap to select this check-in policy"
                             >
                                 <View className="flex-row items-start gap-3">
                                     <View

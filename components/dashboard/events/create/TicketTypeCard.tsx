@@ -31,6 +31,9 @@ const TicketTypeCard = ({ ticket, index, onEdit, onDelete }: TicketTypeCardProps
         <View
             className="p-4 rounded-xl border-2"
             style={{ backgroundColor: colors.primary100, borderColor: colors.accent + "4D" }}
+            accessible
+            accessibilityRole="text"
+            accessibilityLabel={`Ticket type ${ticket.name}. Price ${formatMoney(ticket.price)}. Quantity ${parseInt(ticket.quantity).toLocaleString()}.`}
         >
             {/* Header */}
             <View className="flex-row items-start justify-between mb-3">
@@ -114,7 +117,7 @@ const TicketTypeCard = ({ ticket, index, onEdit, onDelete }: TicketTypeCardProps
             <View className="flex-row items-center gap-2 mb-3">
                 <Ionicons name="people-outline" size={14} color={colors.white} style={{ opacity: 0.6 }} />
                 <AppText styles="text-xs text-slate-300" font="font-iregular" style={{ opacity: 0.7 }}>
-                    Purchase limits: {ticket.min_purchase} - {ticket.max_purchase || "âˆž"} per transaction
+                    Purchase limits: {ticket.min_purchase} - {ticket.max_purchase || "∞"} per transaction
                 </AppText>
             </View>
 

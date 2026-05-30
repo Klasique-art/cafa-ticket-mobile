@@ -16,7 +16,12 @@ const EventDateTimeSection = () => {
     return (
         <View className="gap-4">
             {/* Section Header */}
-            <View className="flex-row items-center gap-3">
+            <View
+                className="flex-row items-center gap-3"
+                accessible
+                accessibilityRole="header"
+                accessibilityLabel="Date and Time section"
+            >
                 <View
                     className="w-10 h-10 rounded-lg items-center justify-center"
                     style={{ backgroundColor: colors.accent + "33" }}
@@ -34,7 +39,7 @@ const EventDateTimeSection = () => {
             </View>
 
             {/* Event Start */}
-            <View>
+            <View accessible accessibilityRole="text" accessibilityLabel="Event start date and time inputs">
                 <AppText styles="text-sm text-black mb-3" font="font-isemibold">
                     Event Start
                 </AppText>
@@ -58,7 +63,7 @@ const EventDateTimeSection = () => {
             </View>
 
             {/* Event End */}
-            <View>
+            <View accessible accessibilityRole="text" accessibilityLabel="Event end date and time inputs">
                 <AppText styles="text-sm text-black mb-3" font="font-isemibold">
                     Event End
                 </AppText>

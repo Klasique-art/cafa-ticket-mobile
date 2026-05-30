@@ -70,7 +70,12 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                 <View className="flex-1 px-4">
 
                     {/* ── Header — pinned, never scrolls ── */}
-                    <View className="flex-row items-center justify-between py-4">
+                    <View
+                        className="flex-row items-center justify-between py-4"
+                        accessible
+                        accessibilityRole="header"
+                        accessibilityLabel={isEditing ? "Edit Ticket Type" : "Add Ticket Type"}
+                    >
                         <View className="flex-row items-center gap-3">
                             <View
                                 className="w-10 h-10 rounded-lg items-center justify-center"
@@ -137,6 +142,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                 <BottomSheetScrollView
                                     className="flex-1"
                                     showsVerticalScrollIndicator={false}
+                                    accessibilityLabel="Ticket type form fields"
                                 >
                                     <View className="gap-4 pb-4">
                                         {/* Basic Info */}
@@ -282,6 +288,7 @@ const AddTicketTypeModal = forwardRef<AddTicketTypeModalRef, AddTicketTypeModalP
                                         }}
                                         activeOpacity={0.8}
                                         accessibilityRole="button"
+                                        accessibilityState={{ disabled: isSubmitting }}
                                         accessibilityLabel={isEditing ? "Update ticket type" : "Add ticket type"}
                                         accessibilityHint={isEditing ? "Saves updates to this ticket type" : "Saves this new ticket type"}
                                     >

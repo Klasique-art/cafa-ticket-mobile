@@ -64,7 +64,12 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
     return (
         <View className="gap-4">
             {/* Section Header */}
-            <View className="flex-row items-center gap-3">
+            <View
+                className="flex-row items-center gap-3"
+                accessible
+                accessibilityRole="header"
+                accessibilityLabel="Ticket Types section"
+            >
                 <View
                     className="w-10 h-10 rounded-lg items-center justify-center"
                     style={{ backgroundColor: colors.primary200 + "80" }}
@@ -86,6 +91,9 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                 <View
                     className="p-4 rounded-xl border-2"
                     style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent + "4D" }}
+                    accessible
+                    accessibilityRole="text"
+                    accessibilityLabel={`Ticket summary. ${totalTypes} types, ${totalTickets} tickets, and potential revenue ${formatMoney(totalRevenue)}.`}
                 >
                     <View className="flex-row gap-3">
                         <View
@@ -140,6 +148,7 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                     }}
                     activeOpacity={0.8}
                     accessibilityRole="button"
+                    accessibilityState={{ disabled: !canAddMore }}
                     accessibilityLabel={`Add ticket type. ${ticketTypes.length} of 10 used`}
                     accessibilityHint="Opens ticket type form"
                 >
@@ -152,7 +161,13 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
 
             {/* Tickets List or Empty State */}
             {!hasTickets ? (
-                <View className="p-12 border-2 border-dashed rounded-xl" style={{ borderColor: colors.accent }}>
+                <View
+                    className="p-12 border-2 border-dashed rounded-xl"
+                    style={{ borderColor: colors.accent }}
+                    accessible
+                    accessibilityRole="text"
+                    accessibilityLabel="No ticket types yet. Create your first ticket type to start selling."
+                >
                     <View className="items-center gap-4">
                         <View
                             className="w-20 h-20 rounded-2xl items-center justify-center"
@@ -207,6 +222,9 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                 <View
                     className="p-3 rounded-lg border flex-row items-start gap-2"
                     style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
+                    accessible
+                    accessibilityRole="alert"
+                    accessibilityLabel="Maximum 10 ticket types reached. Edit or remove existing tickets to add new ones."
                 >
                     <Ionicons name="alert-circle" size={16} color={colors.accent} style={{ marginTop: 2 }} />
                     <AppText styles="text-xs text-slate-300" font="font-iregular" style={{ opacity: 0.8 }}>
@@ -227,13 +245,13 @@ const EventTicketTypesSection = ({ onOpenModal, ticketTypes, setFieldValue }: Ev
                     </AppText>
                     <View className="gap-1">
                         <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
-                            â€¢ Create different types (Early Bird, VIP, etc.)
+                            • Create different types (Early Bird, VIP, etc.)
                         </AppText>
                         <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
                             • Min price: {formatMoney(10)}, Max quantity: 1M
                         </AppText>
                         <AppText styles="text-xs text-white" font="font-iregular" style={{ opacity: 0.7 }}>
-                            â€¢ Use availability windows for time-limited offers
+                            • Use availability windows for time-limited offers
                         </AppText>
                     </View>
                 </View>

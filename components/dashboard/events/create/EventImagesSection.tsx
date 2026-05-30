@@ -41,7 +41,12 @@ const EventImagesSection = () => {
     return (
         <View className="gap-4">
             {/* Section Header */}
-            <View className="flex-row items-center gap-3">
+            <View
+                className="flex-row items-center gap-3"
+                accessible
+                accessibilityRole="header"
+                accessibilityLabel="Event Images section"
+            >
                 <View
                     className="w-10 h-10 rounded-lg items-center justify-center"
                     style={{ backgroundColor: colors.accent + "33" }}
@@ -97,7 +102,13 @@ const EventImagesSection = () => {
                 ) : (
                     <View className="gap-4">
                         {/* Images Grid - Show current images */}
-                        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="gap-3">
+                        <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            className="gap-3"
+                            accessible
+                            accessibilityLabel={`Additional images list. ${additionalImages.length} selected.`}
+                        >
                             {additionalImages.map((image, index) => (
                                 <View key={`${image}-${index}`} className="relative mr-3">
                                     <Image
@@ -105,6 +116,7 @@ const EventImagesSection = () => {
                                         style={{ width: 120, height: 120 }}
                                         className="rounded-xl"
                                         contentFit="cover"
+                                        accessibilityLabel={`Additional event image ${index + 1}`}
                                     />
 
                                     {/* Remove Button */}
@@ -164,6 +176,9 @@ const EventImagesSection = () => {
             <View
                 className="p-3 rounded-lg border flex-row items-start gap-2"
                 style={{ backgroundColor: colors.primary200, borderColor: colors.accent }}
+                accessible
+                accessibilityRole="text"
+                accessibilityLabel="Image guidelines. Featured image is one image for event cards. Additional images up to five for gallery. Recommended size 1920 by 1080 or higher. Formats JPG, PNG, or WEBP."
             >
                 <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />
                 <View className="flex-1">

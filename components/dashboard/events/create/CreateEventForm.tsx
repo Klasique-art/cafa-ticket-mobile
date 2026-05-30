@@ -453,8 +453,8 @@ const CreateEventForm = ({ onOpenModal, formContextRef }: CreateEventFormProps) 
                                     style={{ backgroundColor: colors.primary, borderColor: colors.accent }}
                                     onPress={(event) => event.stopPropagation()}
                                     accessible
-                                    accessibilityRole="alert"
-                                    accessibilityLabel="Event created successfully. Your event is now live and ready for attendees."
+                                    accessibilityRole="dialog"
+                                    accessibilityLabel="Event created successfully dialog. Your event is now live and ready for attendees."
                                 >
                                     <View className="items-center gap-3">
                                         <View

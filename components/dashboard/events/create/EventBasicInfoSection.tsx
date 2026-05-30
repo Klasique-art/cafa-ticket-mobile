@@ -14,7 +14,12 @@ const EventBasicInfoSection = () => {
     return (
         <View className="gap-4">
             {/* Section Header */}
-            <View className="flex-row items-center gap-3">
+            <View
+                className="flex-row items-center gap-3"
+                accessible
+                accessibilityRole="header"
+                accessibilityLabel="Basic Information section"
+            >
                 <View
                     className="w-10 h-10 rounded-lg items-center justify-center"
                     style={{ backgroundColor: colors.primary200 + "80" }}
@@ -78,6 +83,9 @@ const EventBasicInfoSection = () => {
                 <View
                     className="mt-2 p-3 rounded-lg border"
                     style={{ backgroundColor: colors.primary200 + "80", borderColor: colors.accent + "4D" }}
+                    accessible
+                    accessibilityRole="text"
+                    accessibilityLabel="Markdown formatting supported. Use hash for headers, double asterisks for bold, single asterisks for italic, and dash for lists."
                 >
                     <View className="flex-row items-start gap-2">
                         <Ionicons name="information-circle-outline" size={16} color={colors.accent50} style={{ marginTop: 2 }} />

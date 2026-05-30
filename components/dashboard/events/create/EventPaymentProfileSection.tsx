@@ -61,7 +61,12 @@ const EventPaymentProfileSection = () => {
         return (
             <View className="gap-4">
                 {/* Section Header */}
-                <View className="flex-row items-center gap-3">
+                <View
+                    className="flex-row items-center gap-3"
+                    accessible
+                    accessibilityRole="header"
+                    accessibilityLabel="Payment Profile section"
+                >
                     <View
                         className="w-10 h-10 rounded-lg items-center justify-center"
                         style={{ backgroundColor: colors.accent + "33" }}
@@ -96,7 +101,12 @@ const EventPaymentProfileSection = () => {
     return (
         <View className="gap-4">
             {/* Section Header */}
-            <View className="flex-row items-center gap-3">
+            <View
+                className="flex-row items-center gap-3"
+                accessible
+                accessibilityRole="header"
+                accessibilityLabel="Payment Profile section"
+            >
                 <View
                     className="w-10 h-10 rounded-lg items-center justify-center"
                     style={{ backgroundColor: colors.accent + "33" }}
@@ -118,6 +128,9 @@ const EventPaymentProfileSection = () => {
                 <View
                     className="p-4 rounded-xl border-2"
                     style={{ backgroundColor: colors.accent + "1A", borderColor: colors.accent }}
+                    accessible
+                    accessibilityRole="alert"
+                    accessibilityLabel="No verified payment profile. You need at least one verified payment profile to receive ticket revenue."
                 >
                     <View className="flex-row items-start gap-3 mb-4">
                         <Ionicons name="alert-circle" size={20} color={colors.accent} />
@@ -167,7 +180,12 @@ const EventPaymentProfileSection = () => {
                         </TouchableOpacity>
                     </View>
 
-                    <View className="gap-3">
+                    <View
+                        className="gap-3"
+                        accessible
+                        accessibilityRole="radiogroup"
+                        accessibilityLabel="Select payment profile"
+                    >
                         {profiles.map((profile) => {
                             const accountDetails = profile.account_details as any;
                             const isSelected = values.payment_profile_id === profile.id;
